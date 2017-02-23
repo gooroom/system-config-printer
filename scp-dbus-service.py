@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## system-config-printer
 
@@ -34,6 +34,7 @@ import cups
 import cupshelpers
 import dnssdresolve
 import jobviewer
+import killtimer
 import newprinter
 import PhysicalDevice
 import ppdcache
@@ -50,42 +51,6 @@ CONFIG_JOBVIEWER_IFACE=CONFIG_IFACE + ".JobViewer"
 
 g_ppds = None
 g_killtimer = None
-
-class KillTimer:
-    def __init__ (self, timeout=30, killfunc=None):
-        self._timeout = timeout
-        self._killfunc = killfunc
-        self._holds = 0
-        self._add_timeout ()
-
-    def _add_timeout (self):
-        self._timer = GLib.timeout_add_seconds (self._timeout, self._kill)
-
-    def _kill (self):
-        debugprint ("Timeout (%ds), exiting" % self._timeout)
-        if self._killfunc:
-            self._killfunc ()
-        else:
-            sys.exit (0)
-
-    def add_hold (self):
-        if self._holds == 0:
-            debugprint ("Kill timer stopped")
-            GLib.source_remove (self._timer)
-
-        self._holds += 1
-
-    def remove_hold (self):
-        if self._holds > 0:
-            self._holds -= 1
-            if self._holds == 0:
-                debugprint ("Kill timer started")
-                self._add_timeout ()
-
-    def alive (self):
-        if self._holds == 0:
-            GLib.source_remove (self._timer)
-            self._add_timeout ()
 
 class FetchedPPDs(GObject.GObject):
     __gsignals__ = {
@@ -228,7 +193,7 @@ class GetBestDriversRequest:
                 pass
 
             g_killtimer.remove_hold ()
-            self.reply_handler (map (lambda x: (x, fit[x]), ppdnamelist))
+            self.reply_handler ([(x, fit[x]) for x in ppdnamelist])
         except Exception as e:
             try:
                 g_killtimer.remove_hold ()
@@ -272,7 +237,7 @@ class GroupPhysicalDevicesRequest:
             g_killtimer.add_hold ()
             need_resolving = {}
             self.deviceobjs = {}
-            for device_uri, device_dict in self.devices.iteritems ():
+            for device_uri, device_dict in self.devices.items ():
                 deviceobj = cupshelpers.Device (device_uri, **device_dict)
                 self.deviceobjs[device_uri] = deviceobj
                 if device_uri.startswith ("dnssd://"):
@@ -295,7 +260,7 @@ class GroupPhysicalDevicesRequest:
         # (in self.devices) have been modified.
         try:
             self.physdevs = []
-            for device_uri, deviceobj in self.deviceobjs.iteritems ():
+            for device_uri, deviceobj in self.deviceobjs.items ():
                 newphysicaldevice = PhysicalDevice.PhysicalDevice (deviceobj)
                 matched = False
                 try:
@@ -306,8 +271,7 @@ class GroupPhysicalDevicesRequest:
 
             uris_by_phys = []
             for physdev in self.physdevs:
-                uris_by_phys.append (map (lambda x: x.uri,
-                                          physdev.get_devices ()))
+                uris_by_phys.append ([x.uri for x in physdev.get_devices ()])
 
             g_killtimer.remove_hold ()
             self.reply_handler (uris_by_phys)
@@ -565,7 +529,7 @@ def _client_demo ():
             sys.argv[3] == '--devid'):
             device_id = sys.argv[4]
     else:
-        print "Device URI required"
+        print ("Device URI required")
         return
 
     from gi.repository import Gtk
@@ -579,11 +543,11 @@ def _client_demo ():
     iface = dbus.Interface (obj, CONFIG_NEWPRINTERDIALOG_IFACE)
     loop = GObject.MainLoop ()
     def on_canceled(path=None):
-        print "%s: Dialog canceled" % path
+        print ("%s: Dialog canceled" % path)
         loop.quit ()
 
     def on_added(name, path=None):
-        print "%s: Printer '%s' added" % (path, name)
+        print ("%s: Printer '%s' added" % (path, name))
         loop.quit ()
 
     iface.connect_to_signal ("DialogCanceled", on_canceled,
@@ -598,7 +562,7 @@ if __name__ == '__main__':
     import ppdippstr
     import config
     import gettext
-    gettext.install(domain=config.PACKAGE, localedir=config.localedir, unicode=True)
+    gettext.install(domain=config.PACKAGE, localedir=config.localedir)
 
     import locale
     try:
@@ -625,7 +589,7 @@ if __name__ == '__main__':
         sys.exit (0)
 
     debugprint ("Service running...")
-    g_killtimer = KillTimer (killfunc=Gtk.main_quit)
+    g_killtimer = killtimer.KillTimer (killfunc=Gtk.main_quit)
     cp = ConfigPrinting ()
     Gdk.threads_enter ()
     Gtk.main ()

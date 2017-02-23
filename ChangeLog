@@ -1,4 +1,514 @@
+2015-04-29  Tim Waugh  <twaugh@redhat.com>
+
+	Bumped version for 1.5.7 release.
+
+	make pull-translations && make update-po
+
+2015-04-23  Tim Waugh  <twaugh@redhat.com>
+
+	Test device ordering.
+	hp beats dnssd and usb.
+
+	Fixes for appdata file.
+
+	Re-bootstrap.
+
+	Fixes for appdata file.
+
+2015-04-21  Tim Waugh  <twaugh@redhat.com>
+
+	Fixed traceback (bug #1213136).
+
+2015-04-13  Tim Waugh  <twaugh@redhat.com>
+
+	Set use_underline=True for previously-stock buttons (bug #1210859).
+
+2015-04-01  Tim Waugh  <twaugh@redhat.com>
+
+	Increase bus settle time for usb_modeswitch devices (bug #1206808).
+
+2015-03-17  Tim Waugh  <twaugh@redhat.com>
+
+	Bumped version for release.
+
+	make pull-translations && make update-po
+
+	Removed po/missing.
+
+	Bumped version for release.
+
+	make update-po
+
+2015-03-17  Mario Sanchez Prada  <mario@endlessm.com>
+
+	Pass the path when creating a cups.PPD object out of a temporary file
+	We were passing the BufferedRandom object stored in tmpf.file instead of
+	the string containing the path, resulting in the following failure wen
+	creating the cups.PPD object: 'TypeError: unicode or bytes object required'
+
+	https://fedorahosted.org/system-config-printer/ticket/243
+
+2015-03-17  Tim Waugh  <twaugh@redhat.com>
+
+	PPDs test fix for HP LaserJet 6MP.
+
+2015-03-17  Mario Sanchez Prada  <mario@endlessm.com>
+
+	Don't install an OpenPrinting driver if License is not accepted
+	https://fedorahosted.org/system-config-printer/ticket/240
+
+	Don't call nextNPTab() with step > 0 for "download_driver" mode
+	Doing otherwise would cause an "index out of range" error when
+	calculating the next page in nextNPTab(), since there's only one
+	possible stage in the order for the "download_driver" mode.
+
+	https://fedorahosted.org/system-config-printer/ticket/239
+
+	newprinter.py: extract part of installdriverpackage to a separate function
+	Splitting the part that performs the actual installation out to a
+	separate function will make it easier to read as well as integrate other
+	methods, if needed, to install a driver package in the system.
+
+	https://fedorahosted.org/system-config-printer/ticket/241
+
+2015-03-17  Tim Waugh  <twaugh@redhat.com>
+
+	Updated aclocal.m4.
+
+2015-03-17  Jiri Popelka  <jpopelka@redhat.com>
+
+	Improve some Gtk+ 3 stuff.
+	https://wiki.gnome.org/PyGObject/InitializerDeprecations
+	(cherry picked from commit 9ad9f557d0f8dddecacd4fc6b5ce6876f8855977)
+
+2015-03-17  Mario Sanchez Prada  <mario@endlessm.com>
+
+	Consider inexistent 'functionality' field in returned data for driver
+	In a similar fashion to what is done with the field 'supportcontacts',
+	we need to check whether 'functionality' exists in the returned data for
+	the requested data, before actually accessing it.
+
+	https://fedorahosted.org/system-config-printer/ticket/242
+
+2015-03-16  Tim Waugh  <twaugh@redhat.com>
+
+	Removed deprecated GtkButton:xalign properties.
+
+2015-03-13  Tim Waugh  <twaugh@redhat.com>
+
+	Fixed gdk_pixbuf_composite() parameters (bug #1200375).
+
+2015-03-13  Jiri Popelka  <jpopelka@redhat.com>
+
+	GObject.SIGNAL_RUN_LAST (deprecated) -> GObject.SignalFlags.RUN_LAST
+
+	Update generated configuration files with autoreconf -fi.
+
+	Updated aclocal.m4.
+
+2015-03-12  Mario Sanchez Prada  <mario@endlessm.com>
+
+	Update sensitiveness of the Apply button in 'download_driver' mode
+	At the moment, the Forward button shown in the 'download drivers' page
+	is properly updating its sensitiveness depending on whether the license
+	has been explicitly accepted or not. However, the Apply button shown
+	when running the NewPrinterGUI dialog in 'download_driver' mode is
+	always sensitive, regardless of the license being accepted.
+
+	This patch fixes this issue by sharing the code that checks the
+	acceptance of the license between the two use cases.
+
+	https://fedorahosted.org/system-config-printer/ticket/238
+
+2015-03-10  Tim Waugh  <twaugh@redhat.com>
+
+	Use BILINEAR, not NEAREST, when using composite() (bug #1200375).
+
+2015-03-02  Tim Waugh  <twaugh@redhat.com>
+
+	Don't remove CMD-mismatched drivers if only left with generic ones (bug #1171874).
+
+2015-02-27  Tim Waugh  <twaugh@redhat.com>
+
+	Don't try decoding already-decoded Unicode (bug #1195974).
+
+	Don't try writing bytecache when running udev-add-printer (bug #1196183).
+
+2015-02-26  Tim Waugh  <twaugh@redhat.com>
+
+	Fixed class add/remove member button icons.
+
+2015-02-26  Mario Sanchez Prada  <mario@endlessm.com>
+
+	Fix wrong usage of non existent variable: pkgname -> pkg
+	This was a problem only in the RPM installation code path.
+
+	(cherry picked from commit 64f7cc85eb46b2a95f40facc68607be3a1aa119b)
+
+2015-02-19  Tim Waugh  <twaugh@redhat.com>
+
+	Don't show traceback messages for missing probe helpers (bug #1194101).
+
+2015-02-18  Till Kamppeter  <till.kamppeter@gmail.com>
+
+	Allow driver package installation also when repository list refresh errors
+	Let the install-printerdriver helper script ignore errors of the cache
+	refreshing step. In most cases the newly added repository gets loaded
+	but the error is caused by another repository.
+
+2015-02-13  Mario Sanchez Prada  <mario@endlessm.com>
+
+	Make KillTimer thread-safe by protecting the public API with locks
+	https://fedorahosted.org/system-config-printer/ticket/237
+
+	Extract KillTimer to a separate file and import it from scp-dbus-service
+	https://fedorahosted.org/system-config-printer/ticket/237
+
+2015-02-06  Tim Waugh  <twaugh@redhat.com>
+
+	Updated translations.
+
+	Bumped version for release.
+
+	Appdata fixes.
+
+	When setting default printer, handle auth cancellation more gracefully.
+	The auth is only for when cupspk says 'Not Found' and we try to
+	fall back to IPP auth.
+
+	Minimal unit test for PhysicalDevice.
+
+	Fixed callback race (bug #1176443).
+
+	Fixed some icon issues.
+
+2015-02-02  Tim Waugh  <twaugh@redhat.com>
+
+	Check firewall if Network is expanded before network devices list fetched.
+
+2015-01-29  Tim Waugh  <twaugh@redhat.com>
+
+	Parse 'serial:/dev/ttyUSB0' correctly (bug #1186475).
+
+2015-01-28  Tim Waugh  <twaugh@redhat.com>
+
+	Fixed 'make test-xmldriverprefs'.
+
+2015-01-28  Mario Sanchez Prada  <mario@endlessm.com>
+
+	Don't add 'licensetext' to driver's python dictionary when not available
+	Doing otherwise will cause trouble later on in newprinter.py, when
+	reading the value of 'licensetext' providing a fallback text, in case
+	it's not available, using driver.get('licensetext', _("Not specified.")).
+
+2015-01-28  Till Kamppeter  <till.kamppeter@gmail.com>
+
+	Support license text of driver on separate, downloadable URL
+	The OpenPrinting web server does not only allow the driver's license
+	texts being embedded in the Foomatic driver XML file but also having
+	the text on a separate URL and link to it in the driver XML file. This
+	makes it easier especially for printer manufacturers to maintain their
+	often long license texts and also translations for them.
+
+	system-config-printer supported only directly embedded license texts
+	and as Epson switched to separately downloadable ones, their drivers
+	could not get downloaded any more.
+
+	This patch adds support for the separate texts.
+
+	Make inter-process communication with install-printerdriver script more reliable
+	For adding package repositories and installing printer driver packages
+	out of them the install-printerdriver script is used. It provided data
+	to the caller from both stderr and stdout. As the data could come out
+	in an unexpected order a buffer could run full (especially with the
+	openprinting-gutenprint package which has a very long file list) and
+	block system-config-printer or make it crash (broken pipe).
+
+	Now all relevant data (progress and file list) is provided via stdout
+	and only stdout is read. This way the install-printerdriver script
+	works reliably.
+
+2015-01-19  Tim Waugh  <twaugh@redhat.com>
+
+	Fixed typo preventing retrieve/reprint from working.
+
+2015-01-15  Tim Waugh  <twaugh@redhat.com>
+
+	Updated aclocal.
+
+	Fixed typo in exception handler (part of bug #1181043).
+
+2015-01-07  Tim Waugh  <twaugh@redhat.com>
+
+	SystemConfigFirewall: Deal with callers not providing an error handler (bug #1179590).
+
+2014-12-18  Tim Waugh  <twaugh@redhat.com>
+
+	update-po
+
+	Generate Zanata locales list from ALL_LINGUAS.
+
+2014-12-17  Tim Waugh  <twaugh@redhat.com>
+
+	Enable translations with Zanata.
+
+2014-12-12  Tim Waugh  <twaugh@redhat.com>
+
+	Use 'with' when dealing with temporary files.
+	Some instances not touched as they are more complicated.
+
+	Fixed typo.
+
+	ppdcache: Cleaned up using 'with'.
+
+	Handle non-UTF8 PPD files (Launchpad #1400232).
+
+2014-12-12  Till Kamppeter  <till.kamppeter@gmail.com>
+
+	Define packagesystem variable in config.py
+	The packagesystem variable is accessed from both newprinter.py and
+	OpenPrintingRequest.py, which both import config.py.
+
+	NewPrinterGUI class: Pre-define recommended_model_selected attribute
+	This attribute is needed by the fillDriverList() method.
+
+	Create filelist of freshly installed driver packages in UTF-8
+	When installing a printer driver package, the helper script
+	install-printerdriver returns a list of the freshly installed files to
+	make it easier to assign a PPD of this package on the following
+	creation of a print queue. When we read it, we create the file list
+	array directly as UTF-8 strings for easier usage later on.
+
+2014-12-12  Tim Waugh  <twaugh@redhat.com>
+
+	troubleshoot: get logs from cups.service, not just cupsd
+
+2014-12-10  Tim Waugh  <twaugh@redhat.com>
+
+	Avoid traceback (bug #1171469).
+
+	Fixed 'Search' button icon.
+
+2014-12-10  Till Kamppeter  <till.kamppeter@gmail.com>
+
+	Do not del() items from an array while looping through it
+	Python 3 does not allow removing items from an array when one is looping
+	through this array.
+
+	In addition, keep the driver when it contains PPDs or packages (if
+	DOWNLOADABLE_ONLYPPD is not set). Installability of the packages
+	is now checked later in newprinter.py.
+
+	Removed download configuration setting definitions from newprinter.py
+	These settings are now defined in config.py.
+
+	Refresh list of available drivers after installing a driver package
+	Make sure that the list of available drivers in the GUI gets refreshed
+	after a new driver got downloaded and installed (call fillDriverList()).
+
+	Let fillDownloadableDrivers() method check whether package is installable
+	We check whether a downloadable package initially reported by OpenPrinting
+	qualifies for being installed checking whether things like signature,
+	architecture, package type, ... are correct.
+
+	This test was formerly in the code for querying OpenPrinting for drivers,
+	but as this code has moved from newprinter.py to OpenPrintingRequest.py
+	this check has now moved to the fillDownloadableDrivers() method.
+
+	Let fillDownloadableDrivers() method tell the caller whether there are actually drivers to choose from
+	This way we avoid that we have an empty list if all drivers reported by
+	OpenPrinting disqualify on installability check.
+
+	Make fillDownloadableDrivers() method also correctly work if printer is determined automatically and not only via manual search facility.
+
+	install-printerdriver: Workaround for bug in aptdaemon
+	Added a workaround for a bug in aptdaemon interpreting PackageKit's
+	package IDs wrongly when installing a package (Ubuntu bug #1397750).
+
+	install-printerdriver: Improved check for need of adding driver's Debian repo
+
+	Use pyrequests instead of pycurl for secure (verified certificate) downloads
+	pycurl stopped working after the OpenPrinting web server has moved
+	from Ubuntu 10.04 to 12.04.
+
+2014-12-01  Tim Waugh  <twaugh@redhat.com>
+
+	Debug output showing DBus exception message.
+
+2014-11-26  Tim Waugh  <twaugh@redhat.com>
+
+	Fixed display of downloadable drivers (bug #1167978).
+
+	Don't remove all non-matchin gCMD-specified PPDs if there would be none left (bug #1167978).
+
+	Prevent backtrace (bug #1167978).
+
+2014-11-24  Andre Heinecke  <aheinecke@intevation.de>
+
+	Refresh job-printer-uri in update_job
+	    The job-printer-uri might differ from the job-printer-uri
+	    cups recturns when it is requested from the job attributes.
+	    This happens for example if the jop-printer-uri is taken
+	    from a notification event in monitor.py.
+
+	    Different job-printer-uris break the URI based Auth info
+	    lookup in gnome keyring.
+
+2014-11-11  Mario Sanchez Prada  <mario@mariospr.org>
+
+	Consider version suffixes in Nickname for PPDs from Canon drivers
+	Expand the regular expression _RE_version_numbers in cupshelpers/ppds.py
+	so it matches the NickName in PPD files from Canon drivers as well, in a
+	similar fashion to what it already does for some HP printers.
+
+	https://fedorahosted.org/system-config-printer/ticket/235
+
+2014-11-10  Tim Waugh  <twaugh@redhat.com>
+
+	Bumped version for release: 1.4.7.
+
+	update-po
+
+	Updated.
+
+2014-11-04  Tim Waugh  <twaugh@redhat.com>
+
+	Bumped version for release.
+
+	tx pull && make update-po
+
+	Fixed alignment of left/right arrows when choosing class members.
+
+2014-11-03  Tim Waugh  <twaugh@redhat.com>
+
+	jobviewer: tell monitor which printers to watch.
+
+	monitor: job-removed when moved out of watched set of printers.
+
+	jobviewer: React to button-press-event for Move To submenu (Launchpad #1388601).
+
+	Catch IPPError when writing server settings (bug #1159584).
+
+2014-11-02  Tim Waugh  <twaugh@redhat.com>
+
+	Set orientation of some internal GtkBox widgets.
+
+	Changed GtkHBox widgets to GtkBox.
+
+	Changed GtkVBox widgets to GtkBox.
+
+	Removed GtkAlignment widgets.
+
+	Refer to button label by id, not parentage.
+
+2014-10-31  Tim Waugh  <twaugh@redhat.com>
+
+	Moved appdata file back to top level.
+	Can't seem to get 'make distcheck' to succeed when it's in a
+	sub-directory.
+
+	ui/PrintersWindow.ui: Fixed indentation.
+
+	Fixed Error Policy label content.
+
+	Changed GtkAlignment xalign/yalign properties to halign/valign on child.
+
+	Dropped xscale/yscale properties.
+
+	Dropped GtkViewport resize_mode property.
+
+	Converted GtkAlignment *_padding properties to GtkWidget margin_* equivalents.
+
+	Don't set old align properties on GtkImage/GtkCheckButton widgets.
+
+	Don't set old pad/align GtkLabel properties.
+
+	Don't set stock or use_stock properties in the GtkBuilder files.
+
+	Don't use deprecated gtk_*_new_from_stock() functions.
+
+2014-10-30  Tim Waugh  <twaugh@redhat.com>
+
+	Show New Printer dialog immediately for printer_with_uri mode.
+	Found while investigating bug #1158743.
+
+	monitor: another update timer handling issue.
+
+	Cancel deferred timer on quit (possible fix for bug #1145388).
+
+2014-10-29  Tim Waugh  <twaugh@redhat.com>
+
+	jobviewer: always fetch auth-info-required attribute (LP #1380514).
+
+	Don't try installing smb backend a second time.
+	This happens when performing an OpenPrinting ID-based search.
+
+2014-10-28  Tim Waugh  <twaugh@redhat.com>
+
+	Don't treat CUPS IPP conformance failure state reasons as errors.
+
+	Codec fix for AuthDialog.get_auth_info (bug #1060453).
+
+	Fix path for screenshots.
+
+	AppData screenshots.
+
+	Fixed physical device identification.
+	The MFG and MDL names were being compared too strictly.
+
+	The cupshelpers.ppds.normalize() function is used first now.
+
+2014-10-28  Till Kamppeter  <till.kamppeter@gmail.com>
+
+	Fixed parsing of HPLIP fax type, as implicit conversion from string to int does not work any more (Ubuntu bug #1369789).
+
+2014-10-28  Tim Waugh  <twaugh@redhat.com>
+
+	timedops: Don't try to remove sources that are already removed.
+
+	Tell user how to retrieve journal entries as root (bug #1157253).
+
+2014-10-23  Tim Waugh  <twaugh@redhat.com>
+
+	Removed empty translations.
+
+	tx pull, tx push, update-po
+
+	update-po
+
+	Transifex resource is 1-5-x for master branch.
+
+	Transifex resource is 1-4-x for 1.4.x branch.
+
+2014-10-22  Tim Waugh  <twaugh@redhat.com>
+
+	ppdcache: return exception rather than looping.
+
+2014-10-22  Till Kamppeter  <till.kamppeter@gmail.com>
+
+	newprinter.py: If additional utilities are needed, do not try to install them twice.
+
+	Make recognition of HP MFPs with scan functionality actually work, instead of considering everything as HP scanner.
+
+	To determine whether libsane-hpaio still needs to get installed check for both /etc/sane.d/dll.d/hpaio and /etc/sane.d/dll.d/hplip so that it works with both Red Hat and Ubuntu.
+
+	newprinter.py: Import installpackage so that PackageKit-based package installation actually works
+
+	installpackage.py: Use D-Bus directly to communicate with PackageKit
+
+2014-10-20  Tim Waugh  <twaugh@redhat.com>
+
+	Never set SMB Verify button sensitive without checking pysmb is available.
+
+	newprinter: fixed lock handling when OpenPrintingRequest is cancelled.
+
+	newprinter: Don't make installpackage errors completely silent.
+
+	PhysicalDevice: extract hostname from hp:/net/...?hostname= URIs (bug #1154686).
+
 2014-10-17  Tim Waugh  <twaugh@redhat.com>
+
+	Bumped version for release.
 
 	Bumped version for release.
 
@@ -33,7 +543,17 @@
 	Memory leak fixes in udev-configure-printer.
 	Found with static analysis.
 
+2014-10-10  Marek Kasik  <mkasik@redhat.com>
+
+	Use items() instead of iteritems() with Python 3 dicts
+	Use items() instead of iteritems() in GroupPhysicalDevicesRequest's
+	_group().
+
 2014-10-10  Tim Waugh  <twaugh@redhat.com>
+
+	Bumped version for release.
+
+	Don't ask PackageKit to look for drivers for empty device IDs.
 
 	monitor: only run one timer at a a time.
 	Avoids 'Source ID ... was not found' warnings.
@@ -58,11 +578,53 @@
 
 	Don't try nested classes, as CUPS forbids it (bug #1140627).
 
+2014-09-22  Jiri Popelka  <jpopelka@redhat.com>
+
+	Fix LPD/LPR Probe (Ubuntu #1372213)
+	Python 3:
+	socket's send() takes bytes
+	     and recv() returns bytes.
+
+2014-09-15  Jiri Popelka  <jpopelka@redhat.com>
+
+	Improve some Gtk+ 3 stuff.
+	https://wiki.gnome.org/PyGObject/InitializerDeprecations
+
+	amend previous commit
+
+2014-09-14  Jiri Popelka  <jpopelka@redhat.com>
+
+	Python 3 has removed message attribute from built-in exceptions.
+
+2014-09-11  Tim Waugh  <twaugh@redhat.com>
+
+	Definitive postscriptdriver.prov is in pycups.
+
+	More use of subprocess.DEVNULL.
+
+	More Python3 fixes.
+
 2014-09-05  Tim Waugh  <twaugh@redhat.com>
+
+	Use GLib.idle_add, not GObject.idle_add.
 
 	Take the gdk lock before entering gtk_main() (bug #1052203 comment 24).
 
+2014-09-02  Tim Waugh  <twaugh@redhat.com>
+
+	Bumped version for release.
+
+	tx pull && make update-po
+
+	Re-bootstrap with newer build tools.
+
+2014-09-02  Jiri Popelka  <jpopelka@redhat.com>
+
+	StateReason: Fixed __cmp__ conversion to rich comparisons (Ubuntu #1364196)
+
 2014-08-22  Tim Waugh  <twaugh@redhat.com>
+
+	Python3: use subprocess.DEVNULL instead of std...=file(/dev/null,...).
 
 	Don't set subprocess's stdout to non-writable fd.
 
@@ -71,6 +633,17 @@
 	Use Gtk main loop in D-Bus service (bug #1116756).
 
 	Fixed typo causing bluetooth queues not to be removed.
+
+2014-08-18  Tim Waugh  <twaugh@redhat.com>
+
+	More robust argument handling in udev-configure-printer.
+
+	Python3 fixes for udev-add-printer, from 2to3.
+
+2014-08-03  Tim Waugh  <twaugh@redhat.com>
+
+	Explicitly use /usr/bin/python3 in udev-add-printer (bug #1126149).
+	Missed from earlier commit 2ee4079800b3a95b45b1372eaba806ccd2e5303e.
 
 2014-08-01  Tim Waugh  <twaugh@redhat.com>
 
@@ -93,6 +666,12 @@
 	GUI: chain up to parent constructor.
 
 	Prevent printer-action menu items being incorrectly sensitive (bug #1124284).
+
+2014-07-17  Tim Waugh  <twaugh@redhat.com>
+
+	make update-po
+
+	applet: more Python3 syntax fixes.
 
 2014-07-16  Tim Waugh  <twaugh@redhat.com>
 
@@ -118,9 +697,18 @@
 
 2014-07-15  Tim Waugh  <twaugh@redhat.com>
 
+	Makefile fixes for Python3.
+
 	Consistent use of PYTHON env var in Makefile.
 
+	Python3 changes for pickle handling.
+
 2014-07-15  Jiri Popelka  <jpopelka@redhat.com>
+
+	Bumped version for release.
+
+	Explicitly use /usr/bin/python3
+	https://lists.fedoraproject.org/pipermail/devel/2013-July/186164.html
 
 	Remove debug print
 
@@ -168,6 +756,10 @@
 
 	Don't call monitor.refresh until the password callback has been set.
 
+	PhysicalDevice: removed unnecessary UTF-8 conversions
+
+	PhysicalDevice: Fixed __cmp__ conversion to rich comparisons.
+
 2014-06-23  Tim Waugh  <twaugh@redhat.com>
 
 	Don't download OpenPrinting drivers in D-Bus service (bug #1052203).
@@ -179,14 +771,28 @@
 
 	check-device-ids.py: don't require root password
 
+2014-06-20  Tim Waugh  <twaugh@redhat.com>
+
+	troubleshoot: convert map to list for display.
+
+	Fixed syntax for python3 exception handling in last merge.
+
 2014-06-06  Tim Waugh  <twaugh@redhat.com>
 
 	troubleshoot: read debugging from systemd journal.
 
 2014-05-13  Jiri Popelka  <jpopelka@redhat.com>
 
+	More Python3 changes.
+
 	Fix TypeError: unorderable types: str() >= int()
 	was recently added with adc03c8
+
+	Revert "Fix one UnicodeDecodeError (bug #1094037)."
+	This reverts commit 6077dc26e97abf0b56ebc5a113e1ddfda2749226.
+
+	Revert "jobviewer: fix one string conversion issue (bug #1069881)."
+	This reverts commit c25d97c537a6fb99abfebfb1cb79c80d6479c1fe.
 
 2014-05-06  Andre Heinecke  <aheinecke@intevation.de>
 
@@ -277,23 +883,91 @@
 
 	Don't override CFLAGS in Makefile.am.
 
+2014-02-26  Jiri Popelka  <jpopelka@redhat.com>
+
+	Don't rely on implicit close during gc, use with statement.
+	amends 1e39deab40e7f4
+
+2014-02-26  Jaromír Končický  <jkoncick@redhat.com>
+
+	port to python3
+
 2014-02-25  Dmitry Shachnev  <mitya57@gmail.com>
 
 	Switch installpackage.py to modern GI API.
+
+2014-02-20  Jaromír Končický  <jkoncick@redhat.com>
+
+	port to python3
 
 2014-02-18  Tim Waugh  <twaugh@redhat.com>
 
 	The udev script should use python's -s parameter (bug #1066101).
 
+2014-02-14  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	fix variable name typo
+
+	port to python3
+	fix several bugs regarding printer properties menu:
+	 * port xmldriverprefs
+	 * fix list and models comparison in ppds.py
+	 * fix printerproperties problem
+
 2014-02-04  Tim Waugh  <twaugh@redhat.com>
 
 	Catch exceptions when lock held to make sure to release it.
+
+2014-02-04  Jiri Popelka  <jpopelka@redhat.com>
+
+	Update *.ui files
+	by opening and saving them in glade-3.16.1
+
+	encode on output
+
+	urllib.request.urlopen(url).read() returns bytes
+	Therefore when writing the data we need to open output
+	file in binary mode.
+
+2014-02-03  Jiri Popelka  <jpopelka@redhat.com>
+
+	open temp file in text mode
+	ppd.writeFd() writes into it in text mode
+
+	tempfile.mkstemp () opens file by default in binary mode
+
+	use tempfile.NamedTemporaryFile()
+	File will be destroyed as soon as it is closed
+	(including an implicit close when the object is garbage collected).
+
+	decode on input & encode on output
+	cupsGetFd() & cupsPutFd() operate on files in binary mode.
+
+	use lambda
+
+2014-02-03  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port to python3
+	    - string.maketrans is not supported
+	    - use bytes to convert string variables
+	    - use decode
+	    - cmp function is restricted
 
 2014-01-28  Tim Waugh  <twaugh@redhat.com>
 
 	Sort model names by normalized name (bug #1058437).
 
 	check-device-ids.py: handle auth cancellation better.
+
+2014-01-17  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port to python3
+	None is not comparable with string in python3
+
+2014-01-16  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port to python3
+	fix string.maketrans which is not supported in python3
 
 2014-01-06  Tim Waugh  <twaugh@redhat.com>
 
@@ -314,9 +988,22 @@
 
 	This change solves both problems.
 
+2013-12-18  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	fix some python3 problems find during testing
+	cupshelpers.py, PhysicalDevice.py, statereason.py use lt instead of cmp
+	asyncipp.py - use queue instead of Queue (and rename queue internal variable)
+	probe_printer.py, ... - use open instead of file
+	system-config-printer.py - use _thread stuff instead of thread one
+	__init__.py - fix import command
+
 2013-12-16  Jiri Popelka  <jpopelka@redhat.com>
 
 	Avoid crash when cursor isn't currently set (bug #1043116).
+
+2013-12-12  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port source to python3
 
 2013-12-06  Tim Waugh  <twaugh@redhat.com>
 
@@ -329,6 +1016,40 @@
 	Actually create the .stamp file (fix for last commit).
 
 	Fixed man pages make rule to work with make -j.
+
+2013-12-05  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port ./cupspk.py to python3 - incorporate 2to3 output
+
+	port ./ppdsloader.py to python3 - incorporate 2to3 output
+
+	port /jobviewer.py to python3 - incorporate 2to3 output
+
+	port ./ToolbarSearchEntry.py and optionwidgets.py to python3 - incorporate 2to3 output
+
+	port ./smburi.py to python3 - incorporate 2to3 output
+
+	port ./userdefault.py to python3 - incorporate 2to3 output
+
+2013-12-02  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port ./asyncipp.py to python3 - incorporate 2to3 output
+
+	port ./install-printerdriver.py to python3 - incorporate 2to3 output
+
+	port ./options.py to python3 - incorporate 2to3 output
+
+	port ./newprinter.py to python3 - incorporate 2to3 output
+
+	port ./check-device-ids.py to python3 - incorporate 2to3 output
+
+	port ./dnssdresolve.py to python3 - incorporate 2to3 output
+
+	port ./installpackage.py and PhysicalDevice.py to python3 - incorporate 2to3 output
+
+	port ./serversettings.py to python3 - incorporate 2to3 output
+
+	port ./firewallsettings.py to python3 - incorporate 2to3 output
 
 2013-11-29  Andre Heinecke  <aheinecke@intevation.de>
 
@@ -349,11 +1070,78 @@
 	    the keyring integration and takes care of presenting the
 	    authentication dialog to the user if necessary.
 
+2013-11-27  Jiri Popelka  <jpopelka@redhat.com>
+
+	Remove the encode()/decode() sanity magic.
+	We should not need it anymore as every string should be unicode now.
+
+	Make various improvements/fixes
+	that came into my mind when walking through Ivana's commits:
+
+	- don't make a list from view/iterator when we don't need it
+	- gettext.install doesn't have any unicode or str parameter
+	- we don't need to do the encode()/decode() sanity magic anymore
+	- GLib.idle_add() can take several addition parameters - we
+	  don't need to pass it one tuple
+
+2013-11-27  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port ./troubleshoot to python3 - incorporate 2to3 output
+
+	port ./ppdcache.py to python3 - incorporate 2to3 output
+
+	port ./printerproperties.py to python3 - incorporate 2to3 output
+
+	port ./probe_printer.py to python3 - incorporate 2to3 output
+
+	port ./asyncpk1.py to python3 - incorporate 2to3 output
+
+	port ./authconn.py to python3 - incorporate 2to3 output
+
+	port ./applet.py to python3 - incorporate 2to3 output
+
+	port monitor.py to python3 - incorporate 2to3 output
+
+	port asyncconn.py to python3 - incorporate 2to3 output
+
+	port ppdippstr.py - incorporate 2to3 output to python3 - incorporate 2to3 output
+
+	port ./gui.py to python3 - incorporate 2to3 output
+
+	port xml/validate.py to python3 - incorporate 2to3 output
+
+	port ./system-config-printer.py to python3 - incorporate 2to3 output
+
+	port cupshelpers.py to python3 - incorporate 2to3 output
+
+	port ppds.py to python3 - incorporate 2to3 output
+
+	port installdriver.py to python3 - incorporate 2to3 output
+
+	port openprinting.py to python3
+	incorporate 2to3 output
+
+2013-11-18  Ivana Hutarova Varekova  <varekova@redhat.com>
+
+	port cupshelpers/openprinting.py to python3
+
+	port cpuhelpers/xmldriverprefs to python3
+
+	port cupshelpers/ppds.py to python3
+
+	port cupshelpers/cupshelpers.py to python3
+
+	port cupshelpers/__init__.py to python3
+
+	port system-config-printer.py to python3
+
 2013-11-12  Jiri Popelka  <jpopelka@redhat.com>
 
 	Fix wrong gettext usage (bug #1029379).
 
 2013-11-05  Jiri Popelka  <jpopelka@redhat.com>
+
+	configure.in: AM_PATH_PYTHON -> AM_PATH_PYTHON([3])
 
 	rename configure.in -> configure.ac
 

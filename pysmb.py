@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## system-config-printer
 ## CUPS backend
@@ -24,7 +24,7 @@
 import errno
 import config
 import gettext
-gettext.install(domain=config.PACKAGE, localedir=config.localedir, unicode=True)
+gettext.install(domain=config.PACKAGE, localedir=config.localedir)
 from gi.repository import Gtk
 import os
 import pwd
@@ -84,8 +84,7 @@ class AuthContext:
 
         if self.dialog_shown:
             d = Gtk.MessageDialog (parent=self.parent,
-                                   flags=Gtk.DialogFlags.MODAL |
-                                         Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   modal=True, destroy_with_parent=True,
                                    message_type=Gtk.MessageType.ERROR,
                                    buttons=Gtk.ButtonsType.CLOSE)
             d.set_title (_("Not authorized"))

@@ -1,6 +1,6 @@
 ## system-config-printer
 
-## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013 Red Hat, Inc.
+## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015 Red Hat, Inc.
 ## Authors:
 ##  Florian Festi <ffesti@redhat.com>
 ##  Tim Waugh <twaugh@redhat.com>
@@ -23,6 +23,7 @@ import cups, pprint, os, tempfile, re, string
 import locale
 from . import _debugprint
 from . import config
+from functools import reduce
 
 class Printer:
     _flags_blacklist = ["options", "local"]
@@ -63,8 +64,7 @@ class Printer:
     def _expand_flags(self):
 
         def _ascii_lower(str):
-            return str.translate(string.maketrans(string.ascii_uppercase,
-                                                  string.ascii_lowercase));
+            return str.lower();
 
         prefix = "CUPS_PRINTER_"
         prefix_length = len(prefix)
@@ -124,7 +124,7 @@ class Printer:
                                      'double', 'double-thick']),
             }
 
-        for key, value in attrs.iteritems():
+        for key, value in attrs.items():
             if key.endswith("-default"):
                 name = key[:-len("-default")]
                 if name in ["job-sheets", "printer-error-policy",
@@ -146,7 +146,7 @@ class Printer:
 
                 self.attributes[name] = value
                     
-                if attrs.has_key(name+"-supported"):
+                if name+"-supported" in attrs:
                     supported = attrs[name+"-supported"]
                     self.possible_attributes[name] = (value, supported)
             elif (not key.endswith ("-supported") and
@@ -168,10 +168,10 @@ class Printer:
 
         self.default_allow = True
         self.except_users = []
-        if attrs.has_key('requesting-user-name-allowed'):
+        if 'requesting-user-name-allowed' in attrs:
             self.except_users = attrs['requesting-user-name-allowed']
             self.default_allow = False
-        elif attrs.has_key('requesting-user-name-denied'):
+        elif 'requesting-user-name-denied' in attrs:
             self.except_users = attrs['requesting-user-name-denied']
         self.except_users_string = ', '.join(self.except_users)
         self.update (**attrs)
@@ -203,7 +203,8 @@ class Printer:
             try:
                 self._ppd = self.connection.getPPD(self.name)
                 result = cups.PPD (self._ppd)
-            except cups.IPPError, (e, m):
+            except cups.IPPError as emargs:
+                (e, m) = emargs.args
                 if e == cups.IPP_NOT_FOUND:
                     result = False
                 else:
@@ -327,7 +328,7 @@ class Printer:
             for u in users:
                 except_users.extend(u)
             except_users = [u.strip() for u in except_users]
-            except_users = filter(None, except_users)
+            except_users = [_f for _f in except_users if _f]
             
         if allow:
             self.connection.setPrinterUsersDenied(self.name, except_users)
@@ -353,7 +354,7 @@ class Printer:
         except cups.IPPError:
             return ret
 
-        for id, attrs in jobs.iteritems():
+        for id, attrs in jobs.items():
             try:
                 uri = attrs['job-printer-uri']
                 uri = uri[uri.rindex ('/') + 1:]
@@ -363,7 +364,7 @@ class Printer:
                 continue
 
             if (not only_tests or
-                (attrs.has_key ('job-name') and
+                ('job-name' in attrs and
                  attrs['job-name'] == 'Test Page')):
                 ret.append (id)
 
@@ -389,7 +390,7 @@ class Printer:
         except cups.IPPError:
             return ret
 
-        for id, attrs in jobs.iteritems():
+        for id, attrs in jobs.items():
             try:
                 uri = attrs['job-printer-uri']
                 uri = uri[uri.rindex ('/') + 1:]
@@ -422,44 +423,43 @@ class Printer:
 
         # Also need to check system-wide lpoptions because that's how
         # previous Fedora versions set the default (bug #217395).
-        (tmpfd, tmpfname) = tempfile.mkstemp ()
-        os.remove (tmpfname)
-        try:
-            resource = "/admin/conf/lpoptions"
-            self.connection.getFile(resource, fd=tmpfd)
-        except cups.HTTPError as e:
-            (s,) = e.args
-            if s == cups.HTTP_NOT_FOUND:
-                return False
-
-            raise cups.HTTPError (s)
-
-        f = os.fdopen (tmpfd, 'r+')
-        f.seek (0)
-        lines = f.readlines ()
-        changed = False
-        i = 0
-        for line in lines:
-            if line.startswith ("Default "):
-                # This is the system-wide default.
-                name = line.split (' ')[1]
-                if name != self.name:
-                    # Stop it from over-riding the server default.
-                    lines[i] = "Dest " + line[8:]
-                    changed = True
-                i += 1
-
-        if changed:
-            f.seek (0)
-            f.writelines (lines)
-            f.truncate ()
-            os.lseek (tmpfd, 0, os.SEEK_SET)
+        with tempfile.TemporaryFile () as f:
             try:
-                self.connection.putFile (resource, fd=tmpfd)
-            except cups.HTTPError:
-                return False
+                resource = "/admin/conf/lpoptions"
+                self.connection.getFile(resource, fd=f.fileno ())
+            except cups.HTTPError as e:
+                (s,) = e.args
+                if s in [cups.HTTP_NOT_FOUND, cups.HTTP_AUTHORIZATION_CANCELED]:
+                    return False
 
-        return changed
+                raise cups.HTTPError (s)
+
+            f.seek (0)
+            lines = [ line.decode('UTF-8') for line in f.readlines () ]
+            changed = False
+            i = 0
+            for line in lines:
+                if line.startswith ("Default "):
+                    # This is the system-wide default.
+                    name = line.split (' ')[1]
+                    if name != self.name:
+                        # Stop it from over-riding the server default.
+                        lines[i] = "Dest " + line[8:]
+                        changed = True
+                    i += 1
+
+            if changed:
+                f.seek (0)
+                f.writelines ([ line.encode('UTF-8') for line in lines ])
+                f.truncate ()
+                f.flush ()
+                f.seek (0)
+                try:
+                    self.connection.putFile (resource, fd=f.fileno ())
+                except cups.HTTPError:
+                    return False
+
+            return changed
 
 def getPrinters(connection):
     """
@@ -471,10 +471,10 @@ def getPrinters(connection):
     """
     printers = connection.getPrinters()
     classes = connection.getClasses()
-    for name, printer in printers.iteritems():
+    for name, printer in printers.items():
         printer = Printer(name, connection, **printer)
         printers[name] = printer
-        if classes.has_key(name):
+        if name in classes:
             printer.class_members = classes[name]
             printer.class_members.sort()
     return printers
@@ -494,11 +494,11 @@ def parseDeviceID (id):
             continue
         name, value = piece.split(":",1)
         id_dict[name.strip ()] = value.strip()
-    if id_dict.has_key ("MANUFACTURER"):
+    if "MANUFACTURER" in id_dict:
         id_dict.setdefault("MFG", id_dict["MANUFACTURER"])
-    if id_dict.has_key ("MODEL"):
+    if "MODEL" in id_dict:
         id_dict.setdefault("MDL", id_dict["MODEL"])
-    if id_dict.has_key ("COMMAND SET"):
+    if "COMMAND SET" in id_dict:
         id_dict.setdefault("CMD", id_dict["COMMAND SET"])
     for name in ["MFG", "MDL", "CMD", "CLS", "DES", "SN", "S", "P", "J"]:
         id_dict.setdefault(name, "")
@@ -527,11 +527,6 @@ class Device:
         self.id = kw.get('device-id', '')
         self.location = kw.get('device-location', '')
 
-        if type (self.info) == unicode:
-            # Convert unicode objects to UTF-8 encoding so they can be
-            # compared with other UTF-8 encoded strings (bug #957444).
-            self.info = self.info.encode ('utf-8')
-
         uri_pieces = uri.split(":")
         self.type =  uri_pieces[0]
         self.is_class = len(uri_pieces)==1
@@ -547,82 +542,82 @@ class Device:
     def __repr__ (self):
         return "<cupshelpers.Device \"%s\">" % self.uri
 
-    def __cmp__(self, other):
+    def __lt__(self, other):
         """
         Compare devices by order of preference.
         """
         if other == None:
-            return -1
+            return 1
 
         if self.is_class != other.is_class:
             if other.is_class:
-                return -1
-            return 1
+                return 1
+            return -1
         if not self.is_class and (self.type != other.type):
             # "hp"/"hpfax" before "usb" before * before "parallel" before
             # "serial"
             if other.type == "serial":
-                return -1
+                return 1
             if self.type == "serial":
-                return 1
+                return -1
             if other.type == "parallel":
-                return -1
+                return 1
             if self.type == "parallel":
-                return 1
+                return -1
             if other.type == "hp":
-                return 1
+                return -1
             if self.type == "hp":
-                return -1
+                return 1
             if other.type == "hpfax":
-                return 1
+                return -1
             if self.type == "hpfax":
-                return -1
+                return 1
             if other.type == "dnssd":
-                return 1
+                return -1
             if self.type == "dnssd":
-                return -1
+                return 1
             if other.type == "socket":
-                return 1
+                return -1
             if self.type == "socket":
-                return -1
+                return 1
             if other.type == "lpd":
-                return 1
+                return -1
             if self.type == "lpd":
-                return -1
+                return 1
             if other.type == "ipps":
-                return 1
+                return -1
             if self.type == "ipps":
-                return -1
+                return 1
             if other.type == "ipp":
-                return 1
+                return -1
             if self.type == "ipp":
-                return -1
-            if other.type == "usb":
                 return 1
-            if self.type == "usb":
+            if other.type == "usb":
                 return -1
+            if self.type == "usb":
+                return 1
         if self.type == "dnssd" and other.type == "dnssd":
             if other.uri.find("._pdl-datastream") != -1: # Socket
-                return 1
+                return -1
             if self.uri.find("._pdl-datastream") != -1:
-                return -1
+                return 1
             if other.uri.find("._printer") != -1: # LPD
-                return 1
+                return -1
             if self.uri.find("._printer") != -1:
-                return -1
-            if other.uri.find("._ipp") != -1: # IPP
                 return 1
-            if self.uri.find("._ipp") != -1:
+            if other.uri.find("._ipp") != -1: # IPP
                 return -1
-        result = cmp(bool(self.id), bool(other.id))
+            if self.uri.find("._ipp") != -1:
+                return 1
+        result = bool(self.id) < bool(other.id)
         if not result:
-            result = cmp(self.info, other.info)
+            result = self.info < other.info
         
         return result
 
 class _GetDevicesCall(object):
     def call (self, connection, kwds):
-        if kwds.has_key ("reply_handler"):
+        if "reply_handler" in kwds:
             self._client_reply_handler = kwds.get ("reply_handler")
             kwds["reply_handler"] = self._reply_handler
             return connection.getDevices (**kwds)
@@ -632,7 +627,7 @@ class _GetDevicesCall(object):
         return self._reply_handler (connection, result)
 
     def _reply_handler (self, connection, devices):
-        for uri, data in devices.iteritems():
+        for uri, data in devices.items():
             device = Device(uri, **data)
             devices[uri] = device
             if device.info != '' and device.make_and_model == '':
@@ -683,7 +678,7 @@ def copyPPDOptions(ppd1, ppd2):
     @type ppd2: cups.PPD object
     """
     def getPPDGroupOptions(group):
-    	options = group.options[:]
+        options = group.options[:]
         for g in group.subgroups:
             options.extend(getPPDGroupOptions(g))
         return options
@@ -837,13 +832,13 @@ def missingExecutables(ppd):
     if exepath or not exe:
         # Look for '*cupsFilter' lines in the PPD and check that
         # the filters are installed.
-        (tmpfd, tmpfname) = tempfile.mkstemp ()
+        (tmpfd, tmpfname) = tempfile.mkstemp (text=True)
         os.unlink (tmpfname)
         ppd.writeFd (tmpfd)
         os.lseek (tmpfd, 0, os.SEEK_SET)
-        f = os.fdopen (tmpfd, "r")
+        f = os.fdopen (tmpfd, "rt")
         search = "*cupsFilter:"
-        for line in f.readlines ():
+        for line in f:
             if line.startswith (search):
                 line = line[len (search):].strip ().strip ('"')
                 try:
@@ -874,8 +869,8 @@ def missingPackagesAndExecutables(ppd):
 def _main():
     c = cups.Connection()
     #printers = getPrinters(c)
-    for device in getDevices(c).itervalues():
-        print device.uri, device.id_dict
+    for device in getDevices(c).values():
+        print (device.uri, device.id_dict)
 
 if __name__=="__main__":
     _main()

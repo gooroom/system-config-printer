@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## system-config-printer
 
@@ -19,7 +19,7 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-import pycurl, urllib, platform, threading, tempfile, traceback
+import requests, urllib.request, urllib.parse, urllib.error, platform, threading, tempfile, traceback
 import os, sys
 from xml.etree.ElementTree import XML
 from . import Device
@@ -43,7 +43,7 @@ class _QueryThread (threading.Thread):
         self.parameters = parameters
         self.callback = callback
         self.user_data = user_data
-        self.result = ""
+        self.result = b''
 
         self.setDaemon (True)
         _debugprint ("+%s" % self)
@@ -53,36 +53,24 @@ class _QueryThread (threading.Thread):
 
     def run (self):
 
-        # Callback function for pycURL collecting the data coming from
-        # the web server
-        def collect_data(result):
-            self.result += result;
-            return len(result)
-
         # CGI script to be executed
         query_command = "/query.cgi"
         # Headers for the post request
         headers = {"Content-type": "application/x-www-form-urlencoded",
                    "Accept": "text/plain"}
         params = ("%s&uilanguage=%s&locale=%s" %
-                  (urllib.urlencode (self.parameters),
+                  (urllib.parse.urlencode (self.parameters),
                    self.parent.language[0],
                    self.parent.language[0]))
         self.url = "https://%s%s?%s" % (self.parent.base_url, query_command, params)
         # Send request
         result = None
-        self.result = ""
+        self.result = b''
         status = 1
         try:
-            curl = pycurl.Curl()
-            curl.setopt(pycurl.SSL_VERIFYPEER, 1)
-            curl.setopt(pycurl.SSL_VERIFYHOST, 2)
-            curl.setopt(pycurl.WRITEFUNCTION, collect_data)
-            curl.setopt(pycurl.URL, self.url)
-            status = curl.perform()
-            if status == None: status = 0
-            if (status != 0):
-                self.result = sys.exc_info ()
+            req = requests.get(self.url, verify=True)
+            self.result = req.content
+            status = 0
         except:
             self.result = sys.exc_info ()
             if status == None: status = 0
@@ -289,8 +277,20 @@ class OpenPrinting:
                             dict[attribute] = _normalize_space (element.text)
 
                     element = driver.find ('licensetext')
-                    if element != None:
+                    if element != None and element.text != None:
                         dict['licensetext'] = element.text
+                    if not 'licensetext' in dict or \
+                       dict['licensetext'] == None:
+                        element = driver.find ('licenselink')
+                        if element != None:
+                            license_url = element.text
+                            if license_url != None:
+                                try:
+                                    req = requests.get(license_url, verify=True)
+                                    dict['licensetext'] = \
+                                        req.content.decode("utf-8")
+                                except:
+                                    _debugprint('Cannot retrieve %s' % url)
 
                     for boolean in ['nonfreesoftware', 'recommended',
                                     'patents', 'thirdpartysupplied',
@@ -319,7 +319,7 @@ class OpenPrinting:
                     if supportcontacts:
                         dict['supportcontacts'] = supportcontacts
 
-                    if not dict.has_key ('name') or not dict.has_key ('url'):
+                    if 'name' not in dict or 'url' not in dict:
                         continue
 
                     container = driver.find ('functionality')
@@ -455,7 +455,7 @@ def _simple_gui ():
         def query_callback (self, status, user_data, result):
             Gdk.threads_enter ()
             self.tv.get_buffer ().set_text (str (result))
-            file ("result.xml", "w").write (str (result))
+            open ("result.xml", "w").write (str (result))
             Gdk.threads_leave ()
 
     q = QueryApp()

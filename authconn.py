@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## Copyright (C) 2007, 2008, 2009, 2010, 2011, 2013, 2014 Red Hat, Inc.
 ## Author: Tim Waugh <twaugh@redhat.com>
@@ -28,7 +28,7 @@ import os
 from errordialogs import *
 from debug import *
 import gettext
-gettext.install(domain=config.PACKAGE, localedir=config.localedir, unicode=True)
+gettext.install(domain=config.PACKAGE, localedir=config.localedir)
 N_ = lambda x: x
 
 cups.require("1.9.60")
@@ -102,7 +102,7 @@ class AuthDialog(Gtk.Dialog):
             self.field_entry[i].set_text (auth_info[i])
 
     def get_auth_info (self):
-        return map (lambda x: x.get_text (), self.field_entry)
+        return [x.get_text () for x in self.field_entry]
 
     def get_remember_password (self):
         try:
@@ -250,8 +250,6 @@ class Connection:
                 break
             except cups.IPPError as e:
                 (e, m) = e.args
-                if isinstance(m, bytes):
-                    m = m.decode('utf-8', 'replace')
                 if self._use_pk and m == 'pkcancel':
                     raise cups.IPPError (0, _("Operation canceled"))
 
@@ -302,11 +300,10 @@ class Connection:
             msg = _("CUPS server error")
 
         d = Gtk.MessageDialog (parent=self._parent,
-                               flags=Gtk.DialogFlags.MODAL |
-                                     Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               modal=True, destroy_with_parent=True,
                                message_type=Gtk.MessageType.ERROR,
                                buttons=Gtk.ButtonsType.NONE,
-                               message_format=msg)
+                               text=msg)
 
         d.format_secondary_text (_("There was an error during the "
                                    "CUPS operation: '%s'.") % message)
@@ -444,8 +441,7 @@ class Connection:
         if self._lock:
             Gdk.threads_enter ()
         d = Gtk.MessageDialog (parent=self._parent,
-                               flags=Gtk.DialogFlags.MODAL |
-                                     Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               modal=True, destroy_with_parent=True,
                                message_type=Gtk.MessageType.ERROR,
                                buttons=Gtk.ButtonsType.CLOSE)
         d.set_title (_("Not authorized"))
@@ -520,6 +516,6 @@ if __name__ == '__main__':
     c = TimedOperation (Connection, args=(None,)).run ()
     debugprint ("Connected")
     c._set_lock (True)
-    print TimedOperation (c.getFile,
+    print(TimedOperation (c.getFile,
                           args=('/admin/conf/cupsd.conf',
-                                '/dev/stdout')).run ()
+                                '/dev/stdout')).run ())

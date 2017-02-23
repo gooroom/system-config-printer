@@ -1,6 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-## Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013 Red Hat, Inc.
+## Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2015 Red Hat, Inc.
 ## Copyright (C) 2008 Novell, Inc.
 ## Author: Tim Waugh <twaugh@redhat.com>
 
@@ -25,7 +25,7 @@ from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import Gtk
-import Queue
+import queue
 
 cups.require ("1.9.60")
 
@@ -33,7 +33,7 @@ import authconn
 from debug import *
 import debug
 import gettext
-gettext.install(domain=config.PACKAGE, localedir=config.localedir, unicode=True)
+gettext.install(domain=config.PACKAGE, localedir=config.localedir)
 
 
 ######
@@ -45,13 +45,13 @@ gettext.install(domain=config.PACKAGE, localedir=config.localedir, unicode=True)
 ### This is the worker thread.
 ###
 class _IPPConnectionThread(threading.Thread):
-    def __init__ (self, queue, conn, reply_handler=None, error_handler=None,
+    def __init__ (self, myqueue, conn, reply_handler=None, error_handler=None,
                   auth_handler=None, user=None, host=None, port=None,
                   encryption=None):
                   
         threading.Thread.__init__ (self)
         self.setDaemon (True)
-        self._queue = queue
+        self._queue = myqueue
         self._conn = conn
         self.host = host
         self.port = port
@@ -59,7 +59,7 @@ class _IPPConnectionThread(threading.Thread):
         self._reply_handler = reply_handler
         self._error_handler = error_handler
         self._auth_handler = auth_handler
-        self._auth_queue = Queue.Queue (1)
+        self._auth_queue = queue.Queue(1)
         self.user = user
         self._destroyed = False
         debugprint ("+%s" % self)
@@ -104,6 +104,10 @@ class _IPPConnectionThread(threading.Thread):
                 # Our signal to quit.
                 self._queue.task_done ()
                 break
+            elif self._destroyed:
+                # Just mark all tasks done
+                self._queue.task_done ()
+                continue
 
             self.idle = False
             (fn, args, kwds, rh, eh, ah) = item
@@ -155,7 +159,6 @@ class _IPPConnectionThread(threading.Thread):
             self._queue.task_done ()
 
         debugprint ("Thread exiting")
-        self._destroyed = True
         del self._conn # already destroyed
         del self._reply_handler
         del self._error_handler
@@ -165,6 +168,10 @@ class _IPPConnectionThread(threading.Thread):
         del conn
 
         cups.setPasswordCB2 (None)
+
+    def stop (self):
+        self._destroyed = True
+        self._queue.put (None)
 
     def _auth (self, prompt, conn=None, method=None, resource=None):
         def prompt_auth (prompt):
@@ -231,7 +238,7 @@ class IPPConnection:
                   encryption=None, parent=None):
         debugprint ("New IPPConnection")
         self._parent = parent
-        self.queue = Queue.Queue ()
+        self.queue = queue.Queue ()
         self.thread = _IPPConnectionThread (self.queue, self,
                                             reply_handler=reply_handler,
                                             error_handler=error_handler,
@@ -263,12 +270,12 @@ class IPPConnection:
             delattr (self, binding)
 
         if self.thread.isAlive ():
+            debugprint ("Stopping worker thread")
+            self.thread.stop ()
             GLib.timeout_add_seconds (1, self._reap_thread)
 
     def _reap_thread (self):
         if self.thread.idle:
-            debugprint ("Putting None on the task queue")
-            self.queue.put (None)
             self.queue.join ()
             return False
 
@@ -289,13 +296,13 @@ class IPPConnection:
 
     def _call_function (self, fn, *args, **kwds):
         reply_handler = error_handler = auth_handler = False
-        if kwds.has_key ("reply_handler"):
+        if "reply_handler" in kwds:
             reply_handler = kwds["reply_handler"]
             del kwds["reply_handler"]
-        if kwds.has_key ("error_handler"):
+        if "error_handler" in kwds:
             error_handler = kwds["error_handler"]
             del kwds["error_handler"]
-        if kwds.has_key ("auth_handler"):
+        if "auth_handler" in kwds:
             auth_handler = kwds["auth_handler"]
             del kwds["auth_handler"]
 
@@ -460,11 +467,10 @@ class _IPPAuthOperation:
         # If we've previously prompted, explain why we're prompting again.
         if self._dialog_shown:
             d = Gtk.MessageDialog (parent=self._conn.parent,
-                                   flags=Gtk.DialogFlags.MODAL |
-                                         Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   modal=True, destroy_with_parent=True,
                                    message_type=Gtk.MessageType.ERROR,
                                    buttons=Gtk.ButtonsType.CLOSE,
-                                   message_format=_("Not authorized"))
+                                   text=_("Not authorized"))
             d.format_secondary_text (_("The password may be incorrect."))
             d.run ()
             d.destroy ()
@@ -556,11 +562,10 @@ class _IPPAuthOperation:
             msg = _("CUPS server error (%s)") % op
 
         d = Gtk.MessageDialog (parent=self._conn.parent,
-                               flags=Gtk.DialogFlags.MODAL |
-                                     Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               modal=True, destroy_with_parent=True,
                                message_type=Gtk.MessageType.ERROR,
                                buttons=Gtk.ButtonsType.NONE,
-                               message_format=msg)
+                               text=msg)
 
         if self._client_fn == None and type (exc) == RuntimeError:
             # This was a connection failure.
@@ -636,13 +641,13 @@ class IPPAuthConnection(IPPConnection):
 
     def _call_function (self, fn, *args, **kwds):
         reply_handler = error_handler = auth_handler = False
-        if kwds.has_key ("reply_handler"):
+        if "reply_handler" in kwds:
             reply_handler = kwds["reply_handler"]
             del kwds["reply_handler"]
-        if kwds.has_key ("error_handler"):
+        if "error_handler" in kwds:
             error_handler = kwds["error_handler"]
             del kwds["error_handler"]
-        if kwds.has_key ("auth_handler"):
+        if "auth_handler" in kwds:
             auth_handler = kwds["auth_handler"]
             del kwds["auth_handler"]
 

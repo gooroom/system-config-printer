@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## Copyright (C) 2007, 2008, 2009, 2010, 2012, 2013 Red Hat, Inc.
 ## Copyright (C) 2008 Novell, Inc.
@@ -256,11 +256,11 @@ if __name__ == "__main__":
                                    error_handler=self.getDevices_error)
 
         def getDevices_reply (self, conn, result):
-            print conn, result
+            print (conn, result)
             self.destroy ()
 
         def getDevices_error (self, conn, exc):
-            print repr (exc)
+            print (repr (exc))
             self.destroy ()
 
     t = Test (False)

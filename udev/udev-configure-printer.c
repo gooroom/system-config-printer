@@ -1016,8 +1016,8 @@ find_matching_device_uris (struct device_id *id,
   uris->n_uris = uris_noserial.n_uris = all_uris.n_uris = 0;
   uris->uri = uris_noserial.uri = all_uris.uri = NULL;
 
-  /* Leave the bus to settle. */
-  sleep (1);
+  /* Leave the bus to settle (see e.g. bug #1206808). */
+  sleep (5);
 
   cups = httpConnectEncrypt (cupsServer (), ippPort(), cupsEncryption ());
   if (cups == NULL)
@@ -1685,12 +1685,14 @@ do_add (const char *cmd, const char *devaddr)
       argv[i + 2] = NULL;
 
       syslog (LOG_DEBUG, "About to add queue for %s", argv[2]);
-      strcpy (argv0, cmd);
+      strncpy (argv0, cmd, sizeof (argv0));
+      argv0[sizeof (argv0) - 1] = '\0';
       p = strrchr (argv0, '/');
       if (p++ == NULL)
 	p = argv0;
 
-      strcpy (p, "udev-add-printer");
+      strncpy (p, "udev-add-printer", sizeof (argv0) - (p - argv0));
+      argv0[sizeof (argv0) - 1] = '\0';
 
       execv (argv0, argv);
       syslog (LOG_ERR, "Failed to execute %s", argv0);

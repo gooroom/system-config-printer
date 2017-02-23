@@ -31,7 +31,7 @@ from gi.repository import GObject
 
 class OpenPrintingRequest(GObject.GObject):
     __gsignals__ = {
-        'finished':     (GObject.SIGNAL_RUN_LAST, None,
+        'finished':     (GObject.SignalFlags.RUN_LAST, None,
                          (
                              # list of (printerid,name) tuples
                              GObject.TYPE_PYOBJECT,
@@ -41,7 +41,7 @@ class OpenPrintingRequest(GObject.GObject):
                              GObject.TYPE_PYOBJECT,
                          )),
 
-        'error':        (GObject.SIGNAL_RUN_LAST, None,
+        'error':        (GObject.SignalFlags.RUN_LAST, None,
                          (
                              # HTTP status
                              int,
@@ -116,7 +116,7 @@ class OpenPrintingRequest(GObject.GObject):
             options['onlyppdfiles'] = '1'
         else:
             options['onlydownload'] = '1'
-            options['packagesystem'] = self.packagesystem
+            options['packagesystem'] = config.packagesystem
 
         debugprint ("%s: Querying drivers for %s" % (self, printer_id))
         self._handle = self.openprinting.listDrivers (printer_id,
@@ -135,22 +135,26 @@ class OpenPrintingRequest(GObject.GObject):
 
         if drivers:
             debugprint ("%s: - drivers found" % self)
+            drivers_installable = { }
             for driverkey in drivers.keys ():
                 driver = drivers[driverkey]
-                if ((not 'ppds' in driver or
-                     len(driver['ppds']) == 0)):
-                    ### TODO: check installable
-                    # Driver entry without installable resources (Package or
-                    # PPD), remove it
-                    del drivers[driverkey]
-                    debugprint ("Removed invalid driver entry %s" %
+                if (('ppds' in driver and
+                     len(driver['ppds']) > 0) or
+                    (not config.DOWNLOADABLE_ONLYPPD and
+                     'packages' in driver and
+                     len(driver['packages']) > 0)):
+                    # Driver entry with installable resources (Package or
+                    # PPD), overtake it
+                    drivers_installable[driverkey] = drivers[driverkey]
+                else:
+                    debugprint ("Not using invalid driver entry %s" %
                                 driverkey)
 
-            if len(drivers) > 0:
+            if len(drivers_installable) > 0:
                 debugprint ("%s: - drivers with installable resources found" %
                             self)
                 (printer_id, printer_name) = user_data
-                self.downloadable_drivers[printer_id] = drivers
+                self.downloadable_drivers[printer_id] = drivers_installable
                 self.downloadable_printers.append (user_data)
 
         if not self._query_next_printer ():

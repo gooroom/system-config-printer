@@ -1,8 +1,8 @@
 # vim: set ts=4 sw=4 et: coding=UTF-8
 #
 # Copyright (C) 2008, 2013 Novell, Inc.
-# Copyright (C) 2008, 2009, 2010, 2012 Red Hat, Inc.
-# Copyright (C) 2008, 2009, 2010, 2012 Tim Waugh <twaugh@redhat.com>
+# Copyright (C) 2008, 2009, 2010, 2012, 2014 Red Hat, Inc.
+# Copyright (C) 2008, 2009, 2010, 2012, 2014 Tim Waugh <twaugh@redhat.com>
 #
 # Authors: Vincent Untz
 #
@@ -36,6 +36,7 @@ import dbus
 from debug import debugprint
 
 from dbus.mainloop.glib import DBusGMainLoop
+from functools import reduce
 DBusGMainLoop(set_as_default=True)
 
 CUPS_PK_NAME  = 'org.opensuse.CupsPkHelper.Mechanism'
@@ -133,6 +134,7 @@ class Connection:
                 break
             except dbus.exceptions.DBusException as e:
                 if e.get_dbus_name() == CUPS_PK_NEED_AUTH:
+                    debugprint ("DBus exception: %s" % e.get_dbus_message ())
                     raise cups.IPPError(cups.IPP_NOT_AUTHORIZED, 'pkcancel')
 
                 break
@@ -158,10 +160,7 @@ class Connection:
 
         for i in range(len(types)):
             if type(args[i]) != types[i]:
-                if types[i] == str and type(args[i]) == unicode:
-                    # we accept a mix between unicode and str
-                    pass
-                elif types[i] == str and type(args[i]) == int:
+                if types[i] == str and type(args[i]) == int:
                     # we accept a mix between int and str
                     retval.append(str(args[i]))
                     continue
@@ -198,7 +197,7 @@ class Connection:
         ret = []
 
         for name in names:
-            if kwds.has_key(name):
+            if name in kwds:
                 ret.append(kwds[name])
             else:
                 ret.append('')
@@ -225,16 +224,16 @@ class Connection:
         if len(args) == 4:
             (use_pycups, limit, include_schemes, exclude_schemes, timeout) = self._args_to_tuple([int, str, str, int], *args)
         else:
-            if kwds.has_key('timeout'):
+            if 'timeout' in kwds:
                 timeout = kwds['timeout']
 
-            if kwds.has_key('limit'):
+            if 'limit' in kwds:
                 limit = kwds['limit']
 
-            if kwds.has_key('include_schemes'):
+            if 'include_schemes' in kwds:
                 include_schemes = kwds['include_schemes']
 
-            if kwds.has_key('exclude_schemes'):
+            if 'exclude_schemes' in kwds:
                 exclude_schemes = kwds['exclude_schemes']
 
         pk_args = (timeout, limit, include_schemes, exclude_schemes)
@@ -246,7 +245,7 @@ class Connection:
                                                      *args, **kwds)
         except TypeError:
             debugprint ("DevicesGet API exception; using old signature")
-            if kwds.has_key ('timeout'):
+            if 'timeout' in kwds:
                 use_pycups = True
 
             # Convert from list to string
@@ -269,7 +268,7 @@ class Connection:
                                                      *args, **kwds)
 
         # return 'result' if fallback was called
-        if len (result.keys()) > 0 and type (result[result.keys()[0]]) == dict:
+        if len (result.keys()) > 0 and type (result[list(result.keys())[0]]) == dict:
              return result
 
         result_str = {}
@@ -371,11 +370,11 @@ class Connection:
             (use_pycups, resource, filename) = self._args_to_tuple([str, str], *args)
         else:
             (use_pycups, resource) = self._args_to_tuple([str], *args)
-            if kwds.has_key('filename'):
+            if 'filename' in kwds:
                 filename = kwds['filename']
-            elif kwds.has_key('fd'):
+            elif 'fd' in kwds:
                 fd = kwds['fd']
-            elif kwds.has_key('file'):
+            elif 'file' in kwds:
                 file_object = kwds['file']
             else:
                 if not use_pycups:
@@ -396,20 +395,20 @@ class Connection:
                                             *args, **kwds)
 
             tmpfd = os.open (tmpfname, os.O_RDONLY)
-            tmpfile = os.fdopen (tmpfd, 'r')
+            tmpfile = os.fdopen (tmpfd, 'rt')
             tmpfile.seek (0)
 
             if fd != None:
                 os.lseek (fd, 0, os.SEEK_SET)
                 line = tmpfile.readline()
                 while line != '':
-                    os.write (fd, line)
+                    os.write (fd, line.encode('UTF-8'))
                     line = tmpfile.readline()
             else:
                 file_object.seek (0)
                 line = tmpfile.readline()
                 while line != '':
-                    file_object.write (line)
+                    file_object.write (line.encode('UTF-8'))
                     line = tmpfile.readline()
 
             tmpfile.close ()
@@ -428,11 +427,11 @@ class Connection:
             (use_pycups, resource, filename) = self._args_to_tuple([str, str], *args)
         else:
             (use_pycups, resource) = self._args_to_tuple([str], *args)
-            if kwds.has_key('filename'):
+            if 'filename' in kwds:
                 filename = kwds['filename']
-            elif kwds.has_key('fd'):
+            elif 'fd' in kwds:
                 fd = kwds['fd']
-            elif kwds.has_key('file'):
+            elif 'file' in kwds:
                 file_object = kwds['file']
             else:
                 if not use_pycups:
@@ -483,7 +482,7 @@ class Connection:
 
         need_unlink = False
         if not ppdname and not filename and ppd:
-            (fd, filename) = tempfile.mkstemp ()
+            (fd, filename) = tempfile.mkstemp (text=True)
             ppd.writeFd(fd)
             os.close(fd)
             need_unlink = True

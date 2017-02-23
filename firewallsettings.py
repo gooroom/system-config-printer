@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## system-config-printer
 
-## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Red Hat, Inc.
+## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2015 Red Hat, Inc.
 ## Authors:
 ##  Tim Waugh <twaugh@redhat.com>
 
@@ -62,7 +62,7 @@ class FirewallD:
             self.running = False
 
     def _get_active_zone (self):
-        zones = self._fw.getActiveZones().keys()
+        zones = list(self._fw.getActiveZones().keys())
         if not zones:
             debugprint ("FirewallD: no changeable zone")
             return None
@@ -183,7 +183,7 @@ class SystemConfigFirewall:
                     return
 
                 p = self._fw.read ()
-                self._fw_data = json.loads (p.encode ('utf-8'))
+                self._fw_data = json.loads (p)
             except (dbus.exceptions.DBusException, AttributeError, ValueError) as e:
                 self._fw_data = (None, None)
                 if error_handler:
@@ -203,7 +203,7 @@ class SystemConfigFirewall:
 
     def reply_handler (self, result):
         try:
-            self._fw_data = json.loads (result.encode ('utf-8'))
+            self._fw_data = json.loads (result)
         except ValueError as e:
             self.error_handler (e)
             return
@@ -213,7 +213,10 @@ class SystemConfigFirewall:
 
     def error_handler (self, exc):
         debugprint ("Exception fetching firewall data")
-        self._client_error_handler (exc)
+        if self._client_error_handler:
+            self._client_error_handler (exc)
+        else:
+            debugprint ("Exception: %r" % exc)
 
     def write (self):
         try:

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from gi.repository import GLib, PackageKitGlib
 import sys
@@ -9,8 +9,11 @@ from debug import *
 def progress(progress, type, user_data):
     if (type.value_name == "PK_PROGRESS_TYPE_PERCENTAGE" and
         progress.props.package != None):
-        sys.stderr.write ("%d\n" % progress.props.percentage)
-        sys.stderr.flush ()
+        sys.stdout.write ("P%d\n" % progress.props.percentage)
+        sys.stdout.flush ()
+    else:
+        sys.stdout.write ("P%d\n" % -10)
+        sys.stdout.flush ()
 
 set_debugging (True)
 
@@ -46,11 +49,19 @@ if repo_gpg_id:
 debugprint("pk.resolve")
 try:
     res = pk.resolve(PackageKitGlib.FilterEnum.NONE, [package],
-                     None, lambda p, t, d: True, None)
+                     None, progress, None)
+    repo_enable_needed = False
     debugprint("pk.resolve succeeded")
 except GLib.GError:
+    repo_enable_needed = True
     debugprint("pk.resolve failed")
-    # cannot resolve, so we need to install the repo
+package_ids = res.get_package_array()
+if len(package_ids) <= 0:
+    debugprint("res.get_package_array() failed")
+    repo_enable_needed = True
+
+if repo_enable_needed:
+    # Cannot resolve, so we need to install the repo
     # add repository; see
     # http://www.packagekit.org/gtk-doc/PackageKit-pk-client-sync.html#pk-client-repo-enable
     debugprint("pk.repo_enable")
@@ -73,16 +84,14 @@ if refresh_cache_needed:
         debugprint("pk.refresh_cache succeeded")
     except GLib.GError:
         debugprint("pk.refresh_cache failed")
-        sys.exit(1)
     if res.get_exit_code() != PackageKitGlib.ExitEnum.SUCCESS:
         debugprint("pk.refresh_cache errored")
-        sys.exit(1)
 
 # map package name to PackageKit ID; do not print progress here, it's fast
 debugprint("pk.resolve")
 try:
     res = pk.resolve(PackageKitGlib.FilterEnum.NONE, [package],
-                     None, lambda p, t, d: True, None)
+                     None, progress, None)
     debugprint("pk.resolve succeeded")
 except GLib.GError:
     debugprint("pk.resolve failed")
@@ -102,22 +111,33 @@ if package_ids[0].get_info() & PackageKitGlib.InfoEnum.INSTALLED == 0:
     debugprint("package not installed")
     debugprint("pk.install_packages")
     # install package
+    if repo_gpg_id:
+        debugprint("Signature key supplied")
+        repo_gpg_id_supplied = True
+    else:
+        debugprint("Signature key not supplied")
+        repo_gpg_id_supplied = False
     try:
-        if repo_gpg_id:
-            debugprint("Signature key supplied")
-            res = pk.install_packages(True, [package_id], None, progress, None)
-        else:
-            debugprint("Signature key not supplied")
-            res = pk.install_packages(False, [package_id], None, progress, None)
+        res = pk.install_packages(repo_gpg_id_supplied, [package_id], None,
+                                  progress, None)
         debugprint("pk.install_packages succeeded")
     except GLib.GError:
-        debugprint("pk.install_packages failed")
-        sys.exit(1)
+        debugprint("pk.install_packages failed, retrying with modified package ID")
+        # See aptdaemon Ubuntu bug #1397750.
+        try:
+            # Remove last element of the package ID, after the last ";"
+            package_id_mod = package_id[:package_id.rfind(";")+1]
+            res = pk.install_packages(repo_gpg_id_supplied, [package_id_mod],
+                                      None, progress, None)
+            debugprint("pk.install_packages succeeded")
+        except GLib.GError:
+            debugprint("pk.install_packages failed")
+            sys.exit(1)
     if res.get_exit_code() != PackageKitGlib.ExitEnum.SUCCESS:
         debugprint("pk.install_packages errored")
         sys.exit(1)
 
-debugprint("done")
+debugprint("Package successfully installed")
 # If we reach this point, the requested package is on the system, either
 # because we have installed it now or because it was already there
 
@@ -130,4 +150,7 @@ except GLib.GError:
 files = res.get_files_array()
 if files:
     for f in files[0].get_property('files'):
-        print f
+        print(f)
+
+# Tell the caller that we are done
+print("done")

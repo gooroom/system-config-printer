@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## Printing troubleshooter
 
@@ -21,7 +21,7 @@
 
 from gi.repository import Gtk
 
-from base import *
+from .base import *
 class Shrug(Question):
     def __init__ (self, troubleshooter):
         Question.__init__ (self, troubleshooter, "Shrug")
@@ -81,17 +81,16 @@ class Shrug(Question):
                 return
 
             try:
-                f = file (dialog.get_filename (), "w")
+                f = open (dialog.get_filename (), "w")
                 f.write (self.buffer.get_text (start=self.buffer.get_start_iter (),
                                                end=self.buffer.get_end_iter (),
                                                include_hidden_chars=False))
             except IOError as e:
                 err = Gtk.MessageDialog (parent=parent,
-                                         flags=Gtk.DialogFlags.MODAL |
-                                               Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                         modal=True, destroy_with_parent=True,
                                          message_type=Gtk.MessageType.ERROR,
                                          buttons=Gtk.ButtonsType.CLOSE,
-                                         message_format=_("Error saving file"))
+                                         text=_("Error saving file"))
                 err.format_secondary_text (_("There was an error saving "
                                              "the file:") + "\n" +
                                            e.strerror)

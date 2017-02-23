@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## system-config-printer
 
-## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2014 Red Hat, Inc.
+## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2014, 2015 Red Hat, Inc.
 ## Copyright (C) 2006 Florian Festi <ffesti@redhat.com>
 ## Copyright (C) 2006, 2007, 2008, 2009 Tim Waugh <twaugh@redhat.com>
 
@@ -22,14 +22,16 @@
 
 import cups
 from .cupshelpers import parseDeviceID
-import xmldriverprefs
+from . import xmldriverprefs
 import itertools
 import string
 import time
 import locale
 import os.path
+import functools
 import re
 from . import _debugprint, set_debugprint_fn
+from functools import reduce
 
 __all__ = ['ppdMakeModelSplit',
            'PPDs']
@@ -92,7 +94,7 @@ _HP_MODEL_BY_NAME = {
 }
 
 _RE_turboprint = re.compile ("turboprint")
-_RE_version_numbers = re.compile (" v\d(?:\d*\.\d+)?(?: |$)")
+_RE_version_numbers = re.compile (" v(?:er\.)?\d(?:\d*\.\d+)?(?: |$)")
 _RE_ignore_suffix = re.compile (","
                                 "| hpijs"
                                 "| foomatic/"
@@ -201,8 +203,9 @@ def ppdMakeModelSplit (ppd_make_and_model):
             if mfr:
                 make = mfr
 
-    # HP PostScript PPDs give NickNames like:
+    # HP and Canon PostScript PPDs give NickNames like:
     # *NickName: "HP LaserJet 4 Plus v2013.111 Postscript (recommended)"
+    # *NickName: "Canon MG4100 series Ver.3.90"
     # Find the version number and truncate at that point.  But beware,
     # other model names can legitimately look like version numbers,
     # e.g. Epson PX V500.
@@ -211,9 +214,9 @@ def ppdMakeModelSplit (ppd_make_and_model):
     modell = model.lower ()
     v = modell.find (" v")
     if v != -1:
-        # Look for " v" followed by a digit, optionally followed by more
-        # digits, a dot, and more digits; and terminated by a space of the
-        # end of the line.
+        # Look for " v" or " ver." followed by a digit, optionally
+        # followed by more digits, a dot, and more digits; and
+        # terminated by a space of the end of the line.
         vmatch = _RE_version_numbers.search (modell)
         if vmatch:
             # Found it -- truncate at that point.
@@ -236,7 +239,7 @@ def ppdMakeModelSplit (ppd_make_and_model):
         modell = model.lower ()
 
     if makel == "hp":
-        for (name, fullname) in _HP_MODEL_BY_NAME.iteritems ():
+        for name, fullname in _HP_MODEL_BY_NAME.items ():
             if modell.startswith (name):
                 model = fullname + model[len (name):]
                 modell = model.lower ()
@@ -344,7 +347,7 @@ class PPDs:
         if xml_dir == None:
             xml_dir = os.environ.get ("CUPSHELPERS_XMLDIR")
             if xml_dir == None:
-                import config
+                from . import config
                 xml_dir = os.path.join (config.sysconfdir, "cupshelpers")
 
         try:
@@ -354,7 +357,7 @@ class PPDs:
             self.drivertypes.load (drivertypes)
             self.preforder.load (preferenceorder)
         except Exception as e:
-            print "Error loading %s: %s" % (xmlfile, e)
+            print("Error loading %s: %s" % (xmlfile, e))
             self.drivertypes = None
             self.preforder = None
 
@@ -370,7 +373,7 @@ class PPDs:
             short_language = language
 
         to_remove = []
-        for ppdname, ppddict in self.ppds.iteritems ():
+        for ppdname, ppddict in self.ppds.items ():
             try:
                 natural_language = _singleton (ppddict['ppd-natural-language'])
             except KeyError:
@@ -395,7 +398,7 @@ class PPDs:
         # CUPS sets the 'raw' model's ppd-make-and-model to 'Raw Queue'
         # which unfortunately then appears as manufacturer Raw and
         # model Queue.  Use 'Generic' for this model.
-        if self.ppds.has_key ('raw'):
+        if 'raw' in self.ppds:
             makemodel = _singleton (self.ppds['raw']['ppd-make-and-model'])
             if not makemodel.startswith ("Generic "):
                 self.ppds['raw']['ppd-make-and-model'] = "Generic " + makemodel
@@ -406,8 +409,8 @@ class PPDs:
         to the current locale
 	"""
         self._init_makes ()
-        makes_list = self.makes.keys ()
-        makes_list.sort (locale.strcoll)
+        makes_list = list(self.makes.keys ())
+        makes_list.sort (key=locale.strxfrm)
         try:
             # "Generic" should be listed first.
             makes_list.remove ("Generic")
@@ -423,10 +426,15 @@ class PPDs:
 	"""
         self._init_makes ()
         try:
-            models_list = self.makes[make].keys ()
+            models_list = list(self.makes[make].keys ())
         except KeyError:
             return []
-        models_list.sort (key=lambda x: normalize (x), cmp=cups.modelSort)
+
+        def compare_models (a,b):
+            first = normalize (a)
+            second = normalize (b)
+            return cups.modelSort(first, second)
+        models_list.sort(key=functools.cmp_to_key(compare_models))
         return models_list
 
     def getInfoFromModel (self, make, model):
@@ -489,7 +497,7 @@ class PPDs:
             orderedppds = self.drivertypes.get_ordered_ppdnames (orderedtypes,
                                                                  ppds, fit)
             _debugprint("PPDs with assigned driver types in priority order: %s" % repr(orderedppds))
-            ppdnamelist = map (lambda (typ, name): name, orderedppds)
+            ppdnamelist = [typ_name[1] for typ_name in orderedppds]
             _debugprint("Resulting PPD list in priority order: %s" % repr(ppdnamelist))
 
         # Special handling for files we've downloaded.  First collect
@@ -567,8 +575,8 @@ class PPDs:
                     fit[each] = self.FIT_EXACT
                 print ("**** Incorrect IEEE 1284 Device ID: %s" %
                        self.ids["hp"][mdll])
-                print "**** Actual ID is MFG:%s;MDL:%s;" % (mfg, mdl)
-                print "**** Please report a bug against the HPLIP component"
+                print ("**** Actual ID is MFG:%s;MDL:%s;" % (mfg, mdl))
+                print ("**** Please report a bug against the HPLIP component")
                 id_matched = True
             except KeyError:
                 pass
@@ -588,12 +596,12 @@ class PPDs:
         mfgrepl = {"hewlett-packard": "hp",
                    "lexmark international": "lexmark",
                    "kyocera": "kyocera mita"}
-        if self.lmakes.has_key (mfgl):
+        if mfgl in self.lmakes:
             # Found manufacturer.
             make = self.lmakes[mfgl]
-        elif mfgrepl.has_key (mfgl):
+        elif mfgl in mfgrepl:
             rmfg = mfgrepl[mfgl]
-            if self.lmakes.has_key (rmfg):
+            if rmfg in self.lmakes:
                 mfg = rmfg
                 mfgl = mfg
                 # Found manufacturer (after mapping to canonical name)
@@ -612,7 +620,7 @@ class PPDs:
                     mdll = normalize (mdl)
                     _debugprint ("unprefixed mdll: %s" % mdll)
 
-            if self.lmodels[mfgl].has_key (mdll):
+            if mdll in self.lmodels[mfgl]:
                 model = mdlsl[mdll]
                 for each in mdls[model].keys ():
                     fit[each] = self.FIT_EXACT
@@ -623,9 +631,9 @@ class PPDs:
                 (mfg2, mdl2) = ppdMakeModelSplit (mfg + " " + mdl)
                 mdl2l = normalize (mdl2)
                 _debugprint ("re-split mdll: %s" % mdl2l)
-                if self.lmodels[mfgl].has_key (mdl2l):
+                if mdl2l in self.lmodels[mfgl]:
                     model = mdlsl[mdl2l]
-                    for each in mdls[model].keys ():
+                    for each in list(mdls[model].keys ()):
                         fit[each] = self.FIT_EXACT
                         _debugprint ("%s: %s" % (fit[each], each))
       
@@ -715,9 +723,15 @@ class PPDs:
                     fit[each] = self.FIT_EXACT_CMD
                     _debugprint (self.FIT_EXACT_CMD + ": %s" % each)
 
-            _debugprint ("Removed %s due to CMD mis-match" % failed)
-            for each in failed:
-                del fit[each]
+            if len (failed) < len ([d for (d, m) in fit.items ()
+                                    if m != 'generic']):
+                _debugprint ("Removed %s due to CMD mis-match" % failed)
+                for each in failed:
+                    del fit[each]
+            else:
+                _debugprint ("Not removing %s " % failed +
+                             "due to CMD mis-match as it would "
+                             "leave nothing good")
 
         if not fit:
             fallbacks = ["textonly.ppd", "postscript.ppd"]
@@ -739,7 +753,7 @@ class PPDs:
 
             if not found:
                 _debugprint ("No fallback available; choosing any")
-                fit[self.ppds.keys ()[0]] = self.FIT_NONE
+                fit[list(self.ppds.keys ())[0]] = self.FIT_NONE
 
         if not id_matched:
             sanitised_uri = re.sub (pattern="//[^@]*@/?", repl="//",
@@ -754,8 +768,8 @@ class PPDs:
             if description:
                 id += "DES:%s;" % description
 
-            print "No ID match for device %s:" % sanitised_uri
-            print id
+            print ("No ID match for device %s:" % sanitised_uri)
+            print (id)
 
         return fit
 
@@ -808,14 +822,14 @@ class PPDs:
         devid = { "MFG": mfg, "MDL": mdl,
                   "DES": description,
                   "CMD": commandsets }
-        ppdnamelist = self.orderPPDNamesByPreference (fit.keys (),
+        ppdnamelist = self.orderPPDNamesByPreference (list(fit.keys ()),
                                                       downloadedfiles,
                                                       make_and_model,
                                                       devid, fit)
         _debugprint ("Found PPDs: %s" % str (ppdnamelist))
 
         status = self.getStatusFromFit (fit[ppdnamelist[0]])
-        print "Using %s (status: %d)" % (ppdnamelist[0], status)
+        print ("Using %s (status: %d)" % (ppdnamelist[0], status))
         return (status, ppdnamelist[0])
 
     def _findBestMatchPPDs (self, mdls, mdl):
@@ -832,12 +846,12 @@ class PPDs:
             mdl = mdl[:-7]
         best_mdl = None
         best_matchlen = 0
-        mdlnames = mdls.keys ()
+        mdlnames = list(mdls.keys ())
 
         # Perform a case-insensitive model sort on the names.
-        mdlnamesl = map (lambda x: (x, x.lower()), mdlnames)
+        mdlnamesl = [(x, x.lower()) for x in mdlnames]
         mdlnamesl.append ((mdl, mdll))
-        mdlnamesl.sort (lambda x, y: cups.modelSort(x[1], y[1]))
+        mdlnamesl.sort (key=functools.cmp_to_key(lambda x, y: cups.modelSort(x[1], y[1])))
         i = mdlnamesl.index ((mdl, mdll))
         candidates = [mdlnamesl[i - 1]]
         if i + 1 < len (mdlnamesl):
@@ -852,7 +866,7 @@ class PPDs:
         for (candidate, candidatel) in candidates:
             prefix = os.path.commonprefix ([candidatel, mdll])
             if len (prefix) > best_matchlen:
-                best_mdl = mdls[candidate].keys ()
+                best_mdl = list(mdls[candidate].keys ())
                 best_matchlen = len (prefix)
                 _debugprint ("%s: match length %d" % (candidate, best_matchlen))
 
@@ -871,8 +885,8 @@ class PPDs:
             # field and look for a match based solely on that.  If
             # there are digits, try lowering the number of
             # significant figures.
-            mdlnames.sort (cups.modelSort)
-            mdlitems = map (lambda x: (x.lower (), mdls[x]), mdlnames)
+            mdlnames.sort (key=functools.cmp_to_key(cups.modelSort))
+            mdlitems = [(x.lower (), mdls[x]) for x in mdlnames]
             modelid = None
             for word in mdll.split (' '):
                 if modelid == None:
@@ -923,7 +937,7 @@ class PPDs:
                                 break
 
                         if found:
-                            best_mdl = ppds.keys ()
+                            best_mdl = list(ppds.keys ())
                             break
 
                     if found:
@@ -955,7 +969,7 @@ class PPDs:
                     return ppds
             return None
 
-        cmdsets = map (lambda x: x.lower (), commandsets)
+        cmdsets = [x.lower () for x in commandsets]
         if (("postscript" in cmdsets) or ("postscript2" in cmdsets) or
             ("postscript level 2 emulation" in cmdsets)):
             return get ("PostScript")
@@ -984,7 +998,7 @@ class PPDs:
         lmakes = {}
         lmodels = {}
         aliases = {} # Generic model name: set(specific model names)
-        for ppdname, ppddict in self.ppds.iteritems ():
+        for ppdname, ppddict in self.ppds.items ():
             # One entry for ppd-make-and-model
             ppd_make_and_model = _singleton (ppddict['ppd-make-and-model'])
             ppd_mm_split = ppdMakeModelSplit (ppd_make_and_model)
@@ -1001,8 +1015,7 @@ class PPDs:
             ppd_products = ppddict.get ('ppd-product', [])
             if not isinstance (ppd_products, list):
                 ppd_products = [ppd_products]
-            ppd_products = set (filter (lambda x: x.startswith ("("),
-                                        ppd_products))
+            ppd_products = set ([x for x in ppd_products if x.startswith ("(")])
             if ppd_products:
                 # If there is only one ppd-product value it is
                 # unlikely to be useful.
@@ -1033,14 +1046,14 @@ class PPDs:
             for make, model in ppd_makes_and_models:
                 lmake = normalize (make)
                 lmodel = normalize (model)
-                if not lmakes.has_key (lmake):
+                if lmake not in lmakes:
                     lmakes[lmake] = make
                     lmodels[lmake] = {}
                     makes[make] = {}
                 else:
                     make = lmakes[lmake]
 
-                if not lmodels[lmake].has_key (lmodel):
+                if lmodel not in lmodels[lmake]:
                     lmodels[lmake][lmodel] = model
                     makes[make][model] = {}
                 else:
@@ -1054,22 +1067,21 @@ class PPDs:
 
             if ppd_makes_and_models:
                 (make, model) = ppd_mm_split
-                if aliases.has_key (make):
+                if make in aliases:
                     models = aliases[make].get (model, set())
                 else:
                     aliases[make] = {}
                     models = set()
 
-                models = models.union (map (lambda x: x[1],
-                                            ppd_makes_and_models))
+                models = models.union ([x[1] for x in ppd_makes_and_models])
                 aliases[make][model] = models
 
         # Now, for each set of model aliases, add all drivers from the
         # "main" (generic) model name to each of the specific models.
-        for make, models in aliases.iteritems ():
+        for make, models in aliases.items ():
             lmake = normalize (make)
             main_make = lmakes[lmake]
-            for model, modelnames in models.iteritems ():
+            for model, modelnames in models.items ():
                 main_model = lmodels[lmake].get (normalize (model))
                 if not main_model:
                     continue
@@ -1091,7 +1103,7 @@ class PPDs:
             return
 
         ids = {}
-        for ppdname, ppddict in self.ppds.iteritems ():
+        for ppdname, ppddict in self.ppds.items ():
             id = _singleton (ppddict.get ('ppd-device-id'))
             if not id:
                 continue
@@ -1108,10 +1120,10 @@ class PPDs:
             if bad:
                 continue
 
-            if not ids.has_key (lmfg):
+            if lmfg not in ids:
                 ids[lmfg] = {}
 
-            if not ids[lmfg].has_key (lmdl):
+            if lmdl not in ids[lmfg]:
                 ids[lmfg][lmdl] = []
 
             ids[lmfg][lmdl].append (ppdname)
@@ -1119,7 +1131,7 @@ class PPDs:
         self.ids = ids
 
 def _show_help():
-    print "usage: ppds.py [--deviceid] [--list-models] [--list-ids] [--debug]"
+    print ("usage: ppds.py [--deviceid] [--list-models] [--list-ids] [--debug]")
 
 def _self_test(argv):
     import sys, getopt
@@ -1151,7 +1163,7 @@ def _self_test(argv):
         elif opt == "--debug":
             def _dprint(x):
                 try:
-                    print x
+                    print (x)
                 except:
                     pass
 
@@ -1160,20 +1172,20 @@ def _self_test(argv):
     picklefile="pickled-ppds"
     import pickle
     try:
-        f = open (picklefile, "r")
-        cupsppds = pickle.load (f)
+        with open (picklefile, "rb") as f:
+            cupsppds = pickle.load (f)
     except IOError:
-        f = open (picklefile, "w")
-        c = cups.Connection ()
-        try:
-            cupsppds = c.getPPDs2 ()
-            print "Using getPPDs2()"
-        except AttributeError:
-            # Need pycups >= 1.9.52 for getPPDs2
-            cupsppds = c.getPPDs ()
-            print "Using getPPDs()"
+        with open (picklefile, "wb") as f:
+            c = cups.Connection ()
+            try:
+                cupsppds = c.getPPDs2 ()
+                print ("Using getPPDs2()")
+            except AttributeError:
+                # Need pycups >= 1.9.52 for getPPDs2
+                cupsppds = c.getPPDs ()
+                print ("Using getPPDs()")
 
-        pickle.dump (cupsppds, f)
+            pickle.dump (cupsppds, f)
 
     xml_dir = os.environ.get ("top_srcdir")
     if xml_dir:
@@ -1186,25 +1198,25 @@ def _self_test(argv):
         models = ppds.getModels (make)
         models_count += len (models)
         if list_models:
-            print make
+            print (make)
             for model in models:
-                print "  " + model
-    print "%d makes, %d models" % (len (makes), models_count)
+                print ("  " + model)
+    print ("%d makes, %d models" % (len (makes), models_count))
     ppds.getPPDNameFromDeviceID ("HP", "PSC 2200 Series")
-    makes = ppds.ids.keys ()
+    makes = list(ppds.ids.keys ())
     models_count = 0
     for make in makes:
         models = ppds.ids[make]
         models_count += len (models)
         if list_ids:
-            print make
+            print (make)
             for model in models:
-                print "  %s (%d)" % (model, len (ppds.ids[make][model]))
+                print ("  %s (%d)" % (model, len (ppds.ids[make][model])))
                 for driver in ppds.ids[make][model]:
-                    print "    " + driver
-    print "%d ID makes, %d ID models" % (len (makes), models_count)
+                    print ("    " + driver)
+    print ("%d ID makes, %d ID models" % (len (makes), models_count))
 
-    print "\nID matching tests\n"
+    print ("\nID matching tests\n")
 
     MASK_STATUS = (1 << 2) - 1
     FLAG_INVERT = (1 << 2)
@@ -1227,7 +1239,7 @@ def _self_test(argv):
          "DES:Hewlett-Packard DeskJet 990C;", 0, "HP DeskJet 990C"),
         ("CLASS:PRINTER;MODEL:HP LaserJet 6MP;MANUFACTURER:Hewlett-Packard;"
          "DESCRIPTION:Hewlett-Packard LaserJet 6MP Printer;"
-         "COMMAND SET:PJL,MLC,PCLXL,PCL,POSTSCRIPT;", 0, "HP LaserJet 6MP"),
+         "COMMAND SET:PJL,MLC,PCLXL,PCL,POSTSCRIPT;", 0, "HP LaserJet (6P/)?6MP"),
         # Canon PIXMA iP3000 (from gutenprint)
         ("MFG:Canon;CMD:BJL,BJRaster3,BSCCe;SOJ:TXT01;MDL:iP3000;CLS:PRINTER;"
          "DES:Canon iP3000;VER:1.09;STA:10;FSI:03;", 1, "Canon PIXMA iP3000"),
@@ -1266,7 +1278,7 @@ def _self_test(argv):
         ]
 
     if stdin_deviceid:
-        idlist = [(raw_input ('Device ID: '), 2, '')]
+        idlist = [(input ('Device ID: '), 2, '')]
 
     all_passed = True
     for id, max_status_code, modelre in idlist:
@@ -1301,8 +1313,8 @@ def _self_test(argv):
         else:
             result = "*** FAIL ***"
 
-        print "%s: %s %s (%s)" % (result, id_dict["MFG"], id_dict["MDL"],
-                                  _singleton (ppddict['ppd-make-and-model']))
+        print ("%s: %s %s (%s)" % (result, id_dict["MFG"], id_dict["MDL"],
+                                  _singleton (ppddict['ppd-make-and-model'])))
         all_passed = all_passed and success
 
     if not all_passed:

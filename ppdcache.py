@@ -1,6 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-## Copyright (C) 2010, 2011, 2012, 2013 Red Hat, Inc.
+## Copyright (C) 2010, 2011, 2012, 2013, 2014 Red Hat, Inc.
 ## Authors:
 ##  Tim Waugh <twaugh@redhat.com>
 
@@ -24,7 +24,8 @@ from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import Gtk
 import os
-import tempfile
+from shutil import copyfileobj
+from tempfile import NamedTemporaryFile
 from debug import *
 
 cups.require ("1.9.50")
@@ -48,7 +49,7 @@ class PPDCache:
             self._cups.destroy ()
 
     def fetch_ppd (self, name, callback, check_uptodate=True):
-        if check_uptodate and self._modtimes.has_key (name):
+        if check_uptodate and name in self._modtimes:
             # We have getPPD3 so we can check whether the PPD is up to
             # date.
             debugprint ("%s: check if %s is up to date" % (self, name))
@@ -85,18 +86,14 @@ class PPDCache:
         # PPD object from it, then remove the file.  This way we don't
         # leave temporary files around even though we are caching...
         f.seek (0)
-        (tmpfd, tmpfname) = tempfile.mkstemp ()
-        tmpf = file (tmpfname, "w")
-        tmpf.writelines (f.readlines ())
-        del tmpf
-        os.close (tmpfd)
-        try:
-            ppd = cups.PPD (tmpfname)
-            os.unlink (tmpfname)
-            self._schedule_callback (callback, name, ppd, None)
-        except Exception as e:
-            os.unlink (tmpfname)
-            self._schedule_callback (callback, name, None, e)
+        with NamedTemporaryFile () as tmpf:
+            copyfileobj (f, tmpf)
+
+            try:
+                ppd = cups.PPD (tmpf.file)
+                self._schedule_callback (callback, name, ppd, None)
+            except Exception as e:
+                self._schedule_callback (callback, name, None, e)
 
     def _connect (self, callback=None):
         self._connecting = True
@@ -107,14 +104,20 @@ class PPDCache:
 
     def _got_ppd (self, connection, name, result, callback):
         if isinstance (result, Exception):
-            self._schedule_callback (callback, name, result, None)
+            self._schedule_callback (callback, name, none, result)
         else:
             # Store an open file object, then remove the actual file.
             # This way we don't leave temporary files around.
-            self._cache[name] = file (result)
-            debugprint ("%s: caching %s (fd %d)" % (self, result,
-                                                    self._cache[name].fileno()))
-            os.unlink (result)
+            try:
+                self._cache[name] = open (result, "rb")
+                debugprint ("%s: caching %s (fd %d)" %
+                            (self, result,
+                             self._cache[name].fileno()))
+                os.unlink (result)
+            except IOError as exc:
+                self._schedule_callback (callback, name, None, exc)
+                return
+
             self.fetch_ppd (name, callback)
 
     def _got_ppd3 (self, connection, name, result, callback):
@@ -137,17 +140,19 @@ class PPDCache:
                 # file.  This way we don't leave temporary files
                 # around.
                 try:
-                    self._cache[name] = file (filename)
+                    self._cache[name] = open (filename, "rb")
                     debugprint ("%s: caching %s (fd %d) "
                                 "(%s) - %s" % (self, filename,
                                                self._cache[name].fileno (),
                                                modtime, status))
                     os.unlink (filename)
                     self._modtimes[name] = modtime
-                except IOError:
+                except IOError as exc:
                     # File disappeared?
                     debugprint ("%s: file %s disappeared? Unable to cache it"
                                 % (self, filename))
+                    self._schedule_callback (callback, name, None, exc)
+                    return
 
             # Now fetch it from our own cache.
             self.fetch_ppd (name, callback, check_uptodate=False)
