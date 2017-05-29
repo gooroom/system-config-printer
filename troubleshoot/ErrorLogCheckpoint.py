@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## Printing troubleshooter
 
@@ -23,10 +23,11 @@ from gi.repository import Gtk
 
 import cups
 import os
-import tempfile
+from tempfile import NamedTemporaryFile
+import datetime
 import time
 from timedops import TimedOperation, OperationCanceled
-from base import *
+from .base import *
 
 try:
     from systemd import journal
@@ -64,7 +65,7 @@ class ErrorLogCheckpoint(Question):
         c = f.get_connection ()
         c._set_lock (False)
         settings = c.adminGetServerSettings ()
-        if len (settings.keys ()) == 0:
+        if len (list(settings.keys ())) == 0:
             return
 
         settings[cups.CUPS_SERVER_DEBUG_LOGGING] = '0'
@@ -99,7 +100,7 @@ class ErrorLogCheckpoint(Question):
 
         self.forward_allowed = False
         self.label.set_text ('')
-        if len (settings.keys ()) == 0:
+        if len (list(settings.keys ())) == 0:
             # Requires root
             return True
         else:
@@ -130,40 +131,31 @@ class ErrorLogCheckpoint(Question):
 
         parent = self.troubleshooter.get_window ()
         self.answers.update (self.persistent_answers)
-        if self.answers.has_key ('error_log_checkpoint'):
+        if 'error_log_checkpoint' in self.answers:
             return self.answers
 
-        (tmpfd, tmpfname) = tempfile.mkstemp ()
-        os.close (tmpfd)
-        try:
-            self.op = TimedOperation (self.authconn.getFile,
-                                      args=('/admin/log/error_log', tmpfname),
-                                      parent=parent)
-            self.op.run ()
-        except (RuntimeError, cups.IPPError), e:
-            self.answers['error_log_checkpoint_exc'] = e
+        with NamedTemporaryFile () as tmpf:
             try:
-                os.remove (tmpfname)
-            except OSError:
-                pass
-        except cups.HTTPError, e:
-            self.answers['error_log_checkpoint_exc'] = e
+                self.op = TimedOperation (self.authconn.getFile,
+                                          args=('/admin/log/error_log',
+                                                tmpf.file),
+                                          parent=parent)
+                self.op.run ()
+            except (RuntimeError, cups.IPPError) as e:
+                self.answers['error_log_checkpoint_exc'] = e
+            except cups.HTTPError as e:
+                self.answers['error_log_checkpoint_exc'] = e
+
+                # Abandon the CUPS connection and make another.
+                answers = self.troubleshooter.answers
+                factory = answers['_authenticated_connection_factory']
+                self.authconn = factory.get_connection ()
+                self.answers['_authenticated_connection'] = self.authconn
+
             try:
-                os.remove (tmpfname)
+                statbuf = os.stat (tmpf.file)
             except OSError:
-                pass
-
-            # Abandon the CUPS connection and make another.
-            answers = self.troubleshooter.answers
-            factory = answers['_authenticated_connection_factory']
-            self.authconn = factory.get_connection ()
-            self.answers['_authenticated_connection'] = self.authconn
-
-        try:
-            statbuf = os.stat (tmpfname)
-            os.remove (tmpfname)
-        except OSError:
-            statbuf = [0, 0, 0, 0, 0, 0, 0]
+                statbuf = [0, 0, 0, 0, 0, 0, 0]
 
         self.answers['error_log_checkpoint'] = statbuf[6]
         self.persistent_answers['error_log_checkpoint'] = statbuf[6]
@@ -174,6 +166,10 @@ class ErrorLogCheckpoint(Question):
             cursor = j.get_previous ()['__CURSOR']
             self.answers['error_log_cursor'] = cursor
             self.persistent_answers['error_log_cursor'] = cursor
+            now = datetime.datetime.fromtimestamp (time.time ())
+            timestamp = now.strftime ("%F %T")
+            self.answers['error_log_timestamp'] = timestamp
+            self.persistent_answers['error_log_timestamp'] = timestamp
 
         return self.answers
 

@@ -5,20 +5,19 @@
 # Translators:
 # Bart Couvreur <couf@fedoraproject.org>, 2007
 # Dimitris Glezos <glezos@indifex.com>, 2011
-# Geert Warrink <geert.warrink@onsnet.nu>, 2009,2011-2013
 # Peter van Egdom <p.van.egdom@gmail.com>, 2003
-# Pjotr <pjotrvertaalt@gmail.com>, 2014
 # Reinout van Schouwen <reinouts@gnome.org>, 2008
 # Richard E. van der Luit <nippur@fedoraproject.org>, 2012
 # Stijn Bibaer <stijn.bibaer@pandora.be>, 2006
 # Tino Meinen <a.t.meinen@chello.nl>, 2003
+# Geert Warrink <geert.warrink@onsnet.nu>, 2014. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: system-config-printer\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/bugzilla\n"
-"POT-Creation-Date: 2014-10-17 16:30+0100\n"
-"PO-Revision-Date: 2014-03-29 20:50+0000\n"
-"Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
+"POT-Creation-Date: 2015-03-17 15:19+0000\n"
+"PO-Revision-Date: 2014-12-24 10:49-0500\n"
+"Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/system-config-"
 "printer/language/nl/)\n"
 "Language: nl\n"
@@ -26,59 +25,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 3.6.2\n"
 
-#: ../asyncipp.py:467 ../authconn.py:451 ../authconn.py:453
-#: ../errordialogs.py:67 ../pysmb.py:91 ../pysmb.py:93
+#: ../asyncipp.py:473 ../authconn.py:447 ../authconn.py:449
+#: ../errordialogs.py:63 ../pysmb.py:90 ../pysmb.py:92
 msgid "Not authorized"
 msgstr "Niet gemachtigd"
 
-#: ../asyncipp.py:468 ../authconn.py:454 ../pysmb.py:94
+#: ../asyncipp.py:474 ../authconn.py:450 ../pysmb.py:93
 msgid "The password may be incorrect."
 msgstr "Het wachtwoord kan onjuist zijn."
 
-#: ../asyncipp.py:479 ../authconn.py:475
+#: ../asyncipp.py:485 ../authconn.py:471
 #, python-format
 msgid "Authentication (%s)"
 msgstr "Authenticatie (%s)"
 
-#: ../asyncipp.py:554 ../authconn.py:302 ../errordialogs.py:58
-#: ../errordialogs.py:72
+#: ../asyncipp.py:560 ../authconn.py:300 ../errordialogs.py:54
+#: ../errordialogs.py:68
 msgid "CUPS server error"
-msgstr "CUPS-serverfout"
+msgstr "CUPS-server fout"
 
-#: ../asyncipp.py:556 ../authconn.py:300
+#: ../asyncipp.py:562 ../authconn.py:298
 #, python-format
 msgid "CUPS server error (%s)"
-msgstr "CUPS-serverfout (%s)"
+msgstr "CUPS-server fout (%s)"
 
-#: ../asyncipp.py:573 ../authconn.py:311 ../errordialogs.py:59
-#: ../troubleshoot/PrintTestPage.py:434
+#: ../asyncipp.py:578 ../authconn.py:308 ../errordialogs.py:55
+#: ../troubleshoot/PrintTestPage.py:431
 #, python-format
 msgid "There was an error during the CUPS operation: '%s'."
 msgstr "Er was een fout tijdens de CUPS-bewerking: '%s'."
 
-#: ../asyncipp.py:576 ../authconn.py:314
+#: ../asyncipp.py:581 ../authconn.py:311
 msgid "Retry"
 msgstr "Opnieuw proberen"
 
-#: ../asyncipp.py:593 ../authconn.py:256 ../authconn.py:282
+#: ../asyncipp.py:598 ../authconn.py:254 ../authconn.py:280
 msgid "Operation canceled"
-msgstr "Bewerking geannuleerd"
+msgstr "Operatie gecancelled"
 
-#: ../authconn.py:36 ../pysmb.py:126 ../ui/NewPrinterWindow.ui.h:40
+#: ../authconn.py:36 ../pysmb.py:125 ../ui/NewPrinterWindow.ui.h:40
 msgid "Username:"
 msgstr "Gebruikersnaam:"
 
-#: ../authconn.py:37 ../pysmb.py:132 ../ui/NewPrinterWindow.ui.h:39
+#: ../authconn.py:37 ../pysmb.py:131 ../ui/NewPrinterWindow.ui.h:39
 msgid "Password:"
 msgstr "Wachtwoord:"
 
-#: ../authconn.py:38 ../pysmb.py:129
+#: ../authconn.py:38 ../pysmb.py:128
 msgid "Domain:"
 msgstr "Domein:"
 
 #. After that, prompt
-#: ../authconn.py:47 ../authconn.py:477 ../pysmb.py:99
+#: ../authconn.py:47 ../authconn.py:473 ../pysmb.py:98
 msgid "Authentication"
 msgstr "Authenticatie"
 
@@ -86,44 +86,44 @@ msgstr "Authenticatie"
 msgid "Remember password"
 msgstr "Onthoud wachtwoord"
 
-#: ../errordialogs.py:68
+#: ../errordialogs.py:64
 msgid ""
 "The password may be incorrect, or the server may be configured to deny "
 "remote administration."
 msgstr ""
-"Het wachtwoord kan onjuist zijn, of de server kan zo ingesteld zijn dat "
+"Het wachtwoord kan onjuist zijn, of de server kan zo geconfigureerd zijn dat "
 "beheer op afstand niet wordt toegestaan."
 
-#: ../errordialogs.py:74
+#: ../errordialogs.py:70
 msgid "Bad request"
 msgstr "Onjuiste aanvraag"
 
-#: ../errordialogs.py:76
+#: ../errordialogs.py:72
 msgid "Not found"
 msgstr "Niet gevonden"
 
-#: ../errordialogs.py:78
+#: ../errordialogs.py:74
 msgid "Request timeout"
 msgstr "Aanvraag verlopen"
 
-#: ../errordialogs.py:80
+#: ../errordialogs.py:76
 msgid "Upgrade required"
 msgstr "Opwaardering vereist"
 
-#: ../errordialogs.py:82
+#: ../errordialogs.py:78
 msgid "Server error"
-msgstr "Serverfout"
+msgstr "Server-fout"
 
-#: ../errordialogs.py:84 ../system-config-printer.py:712
+#: ../errordialogs.py:80 ../system-config-printer.py:716
 msgid "Not connected"
 msgstr "Niet verbonden"
 
-#: ../errordialogs.py:86
+#: ../errordialogs.py:82
 #, python-format
 msgid "status %s"
 msgstr "status %s"
 
-#: ../errordialogs.py:88
+#: ../errordialogs.py:84
 #, python-format
 msgid "There was an HTTP error: %s."
 msgstr "Er is een HTTP-fout opgetreden: %s."
@@ -134,7 +134,7 @@ msgstr "Verwijder afdruktaken"
 
 #: ../jobviewer.py:187
 msgid "Do you really want to delete these jobs?"
-msgstr "Wilt u deze afdruktaken echt verwijderen?"
+msgstr "Wil je deze afdruktaken echt verwijderen?"
 
 #: ../jobviewer.py:189
 msgid "Delete Job"
@@ -142,7 +142,7 @@ msgstr "Verwijder afdruktaak"
 
 #: ../jobviewer.py:190
 msgid "Do you really want to delete this job?"
-msgstr "Wilt u deze afdruktaak echt verwijderen?"
+msgstr "Wil je deze afdruktaak echt annuleren?"
 
 #: ../jobviewer.py:193
 msgid "Cancel Jobs"
@@ -150,15 +150,15 @@ msgstr "Afdruktaken annuleren"
 
 #: ../jobviewer.py:194
 msgid "Do you really want to cancel these jobs?"
-msgstr "Wilt u deze afdruktaken echt annuleren?"
+msgstr "Wil je deze afdruktaken echt annuleren?"
 
 #: ../jobviewer.py:196
 msgid "Cancel Job"
-msgstr "Afdruktaak annuleren"
+msgstr "Opdracht annuleren"
 
 #: ../jobviewer.py:197
 msgid "Do you really want to cancel this job?"
-msgstr "Wilt u deze afdruktaak echt annuleren?"
+msgstr "Wil je deze afdruktaak echt annuleren?"
 
 #: ../jobviewer.py:201
 msgid "Keep Printing"
@@ -172,125 +172,125 @@ msgstr "afdruktaak verwijderen"
 msgid "canceling job"
 msgstr "afdruktaak annuleren"
 
-#: ../jobviewer.py:367
+#: ../jobviewer.py:368 ../system-config-printer.py:1654
 msgid "_Cancel"
-msgstr "_Annuleren"
-
-#: ../jobviewer.py:368
-msgid "Cancel selected jobs"
-msgstr "Geselecteerde afdruktaken annuleren"
+msgstr "_Geannuleerd"
 
 #: ../jobviewer.py:369
+msgid "Cancel selected jobs"
+msgstr "Geselecteerde opdrachten annuleren"
+
+#: ../jobviewer.py:370 ../system-config-printer.py:1655
 msgid "_Delete"
 msgstr "Verwij_deren"
 
-#: ../jobviewer.py:370
-msgid "Delete selected jobs"
-msgstr "Verwijder geselecteerde afdruktaken"
-
 #: ../jobviewer.py:371
+msgid "Delete selected jobs"
+msgstr "Verwijder geselecteerde opdrachten"
+
+#: ../jobviewer.py:372
 msgid "_Hold"
 msgstr "Vast_houden"
 
-#: ../jobviewer.py:372
+#: ../jobviewer.py:373
 msgid "Hold selected jobs"
 msgstr "Geselecteerde opdrachten vasthouden"
 
-#: ../jobviewer.py:373
+#: ../jobviewer.py:374
 msgid "_Release"
 msgstr "_Vrijgeven"
 
-#: ../jobviewer.py:374
-msgid "Release selected jobs"
-msgstr "Geselecteerde afdruktaken vrijgeven"
-
 #: ../jobviewer.py:375
+msgid "Release selected jobs"
+msgstr "Geselecteerde opdrachten vrijgeven"
+
+#: ../jobviewer.py:376
 msgid "Re_print"
 msgstr "O_pnieuw afdrukken"
 
-#: ../jobviewer.py:376
-msgid "Reprint selected jobs"
-msgstr "Geselecteerde afdruktaken opnieuw afdrukken"
-
 #: ../jobviewer.py:377
+msgid "Reprint selected jobs"
+msgstr "Geselecteerde opdrachten opnieuw afdrukken"
+
+#: ../jobviewer.py:378
 msgid "Re_trieve"
 msgstr "_Terughalen"
 
-#: ../jobviewer.py:378
-msgid "Retrieve selected jobs"
-msgstr "Geselecteerde afdruktaken terughalen"
-
 #: ../jobviewer.py:379
+msgid "Retrieve selected jobs"
+msgstr "Geselecteerde opdrachten terughalen"
+
+#: ../jobviewer.py:380
 msgid "_Move To"
 msgstr "Verplaats _naar"
 
-#: ../jobviewer.py:380
+#: ../jobviewer.py:381
 msgid "_Authenticate"
-msgstr "_Authenticeren"
+msgstr "_Authenticatie"
 
-#: ../jobviewer.py:382
+#: ../jobviewer.py:383
 msgid "_View Attributes"
 msgstr "_Bekijk attributen"
 
-#: ../jobviewer.py:385 ../jobviewer.py:594
+#: ../jobviewer.py:386 ../jobviewer.py:596
 msgid "Close this window"
 msgstr "Sluit dit venster"
 
-#: ../jobviewer.py:448 ../troubleshoot/PrintTestPage.py:84
+#: ../jobviewer.py:449 ../troubleshoot/PrintTestPage.py:84
 msgid "Job"
-msgstr "Afdruktaak"
+msgstr "Opdracht"
 
-#: ../jobviewer.py:449
+#: ../jobviewer.py:450
 msgid "User"
 msgstr "Gebruiker"
 
-#: ../jobviewer.py:450 ../troubleshoot/PrintTestPage.py:88
+#: ../jobviewer.py:451 ../troubleshoot/PrintTestPage.py:88
 msgid "Document"
 msgstr "Document"
 
-#: ../jobviewer.py:451 ../system-config-printer.py:894
+#: ../jobviewer.py:452 ../system-config-printer.py:896
 #: ../troubleshoot/PrintTestPage.py:86
 msgid "Printer"
 msgstr "Printer"
 
-#: ../jobviewer.py:452
+#: ../jobviewer.py:453
 msgid "Size"
 msgstr "Grootte"
 
-#: ../jobviewer.py:468
+#: ../jobviewer.py:469
 msgid "Time submitted"
 msgstr "Tijd ingediend"
 
-#: ../jobviewer.py:472 ../troubleshoot/PrintTestPage.py:89
+#: ../jobviewer.py:473 ../troubleshoot/PrintTestPage.py:89
 msgid "Status"
 msgstr "Status"
 
-#: ../jobviewer.py:502
+#: ../jobviewer.py:503
 #, python-format
 msgid "my jobs on %s"
 msgstr "mijn afdruktaken op %s"
 
-#: ../jobviewer.py:504
+#: ../jobviewer.py:505
 msgid "my jobs"
 msgstr "mijn afdruktaken"
 
-#: ../jobviewer.py:509
+#: ../jobviewer.py:510
 msgid "all jobs"
 msgstr "alle afdruktaken"
 
-#: ../jobviewer.py:510
+#: ../jobviewer.py:511
 #, python-format
 msgid "Document Print Status (%s)"
 msgstr "Document-afdrukstatus (%s)"
 
-#: ../jobviewer.py:584
+#: ../jobviewer.py:586
 msgid "Job attributes"
-msgstr "Attributen van afdruktaak"
+msgstr "Taak attributen"
 
-#: ../jobviewer.py:719 ../jobviewer.py:1064 ../jobviewer.py:1836
-#: ../jobviewer.py:1866 ../jobviewer.py:2259 ../jobviewer.py:2268
-#: ../jobviewer.py:2290 ../jobviewer.py:2374 ../printerproperties.py:1657
-#: ../ui/NewPrinterWindow.ui.h:93 ../troubleshoot/ChooseNetworkPrinter.py:102
+#: ../jobviewer.py:721 ../jobviewer.py:1073 ../jobviewer.py:1855
+#: ../jobviewer.py:1885 ../jobviewer.py:2278 ../jobviewer.py:2287
+#: ../jobviewer.py:2309 ../jobviewer.py:2393 ../printerproperties.py:1648
+#: ../ui/NewPrinterWindow.ui.h:94 ../troubleshoot/ChooseNetworkPrinter.py:102
 #: ../troubleshoot/ChooseNetworkPrinter.py:103
 #: ../troubleshoot/ChooseNetworkPrinter.py:106
 #: ../troubleshoot/ChooseNetworkPrinter.py:107
@@ -300,114 +300,114 @@ msgstr "Attributen van afdruktaak"
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: ../jobviewer.py:725
+#: ../jobviewer.py:727
 msgid "a minute ago"
 msgstr "een minuut geleden"
 
-#: ../jobviewer.py:728
+#: ../jobviewer.py:730
 #, python-format
 msgid "%d minutes ago"
 msgstr "%d minuten geleden"
 
-#: ../jobviewer.py:732
-msgid "an hour ago"
-msgstr "een uur geleden"
-
 #: ../jobviewer.py:734
+msgid "an hour ago"
+msgstr "1 uur geleden"
+
+#: ../jobviewer.py:736
 #, python-format
 msgid "%d hours ago"
 msgstr "%d uren geleden"
 
-#: ../jobviewer.py:738
+#: ../jobviewer.py:740
 msgid "yesterday"
 msgstr "gisteren"
 
-#: ../jobviewer.py:740
+#: ../jobviewer.py:742
 #, python-format
 msgid "%d days ago"
 msgstr "%d dagen geleden"
 
-#: ../jobviewer.py:744
+#: ../jobviewer.py:746
 msgid "last week"
 msgstr "vorige week"
 
-#: ../jobviewer.py:746
+#: ../jobviewer.py:748
 #, python-format
 msgid "%d weeks ago"
 msgstr "%d weken geleden"
 
-#: ../jobviewer.py:1012 ../jobviewer.py:1096
+#: ../jobviewer.py:1021 ../jobviewer.py:1105
 msgid "authenticating job"
 msgstr "Authenticeren afdruktaak"
 
-#: ../jobviewer.py:1062
+#: ../jobviewer.py:1071
 #, python-format
 msgid "Authentication required for printing document `%s' (job %d)"
 msgstr ""
 "Authenticatie vereist voor het afdrukken van document ‘%s’ (afdruktaak %d)"
 
-#: ../jobviewer.py:1360
+#: ../jobviewer.py:1371
 msgid "holding job"
 msgstr "afdruktaak vasthouden"
 
-#: ../jobviewer.py:1386
+#: ../jobviewer.py:1397
 msgid "releasing job"
 msgstr "afdruktaak vrijgeven"
 
 #. give the default filename some meaningful name
-#: ../jobviewer.py:1448
+#: ../jobviewer.py:1459
 msgid "retrieved"
 msgstr "teruggehaald"
 
-#: ../jobviewer.py:1458
+#: ../jobviewer.py:1469
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: ../jobviewer.py:1563 ../system-config-printer.py:268
+#: ../jobviewer.py:1584 ../system-config-printer.py:268
 #: ../ui/NewPrinterWindow.ui.h:9 ../troubleshoot/ChooseNetworkPrinter.py:37
 #: ../troubleshoot/ChoosePrinter.py:43 ../troubleshoot/DeviceListed.py:43
 msgid "Name"
 msgstr "Naam"
 
-#: ../jobviewer.py:1566
+#: ../jobviewer.py:1587
 msgid "Value"
 msgstr "Waarde"
 
-#: ../jobviewer.py:1692
+#: ../jobviewer.py:1711
 msgid "No documents queued"
 msgstr "Geen documenten in de wachtrij"
 
-#: ../jobviewer.py:1694
+#: ../jobviewer.py:1713
 msgid "1 document queued"
 msgstr "1 document in de wachtrij"
 
-#: ../jobviewer.py:1696
+#: ../jobviewer.py:1715
 #, python-format
 msgid "%d documents queued"
 msgstr "%d documenten in de wachtrij"
 
-#: ../jobviewer.py:1752
+#: ../jobviewer.py:1771
 #, python-format
 msgid "processing / pending:   %d / %d"
 msgstr "verwerken / in wachtrij:   %d/%d"
 
-#: ../jobviewer.py:1867
+#: ../jobviewer.py:1886
 msgid "Document printed"
 msgstr "Document afgedrukt"
 
-#: ../jobviewer.py:1868
+#: ../jobviewer.py:1887
 #, python-format
 msgid "Document `%s' has been sent to `%s' for printing."
-msgstr "Document `%s' is naar `%s' verzonden om afgedrukt te worden."
+msgstr "Document `%s' is naar `%s'.verzonden om afgedrukt te worden."
 
-#: ../jobviewer.py:2030
+#: ../jobviewer.py:2049
 #, python-format
 msgid "There was a problem sending document `%s' (job %d) to the printer."
 msgstr ""
 "Er is een probleem opgetreden bij het verzenden van document "
 "‘%s’ (afdruktaak %d) naar de printer."
 
-#: ../jobviewer.py:2034
+#: ../jobviewer.py:2053
 #, python-format
 msgid "There was a problem processing document `%s' (job %d)."
 msgstr ""
@@ -415,454 +415,454 @@ msgstr ""
 "‘%s’ (afdruktaak %d)"
 
 #. Give up and use the provided message untranslated.
-#: ../jobviewer.py:2041
+#: ../jobviewer.py:2060
 #, python-format
 msgid "There was a problem printing document `%s' (job %d): `%s'."
 msgstr ""
 "Er is een probleem opgetreden bij het afdrukken van document "
 "‘%s’ (afdruktaak %d): ‘%s’."
 
-#: ../jobviewer.py:2048 ../jobviewer.py:2065
+#: ../jobviewer.py:2067 ../jobviewer.py:2084
 msgid "Print Error"
 msgstr "Afdrukfout"
 
-#: ../jobviewer.py:2050
+#: ../jobviewer.py:2069
 msgid "_Diagnose"
 msgstr "_Diagnose stellen"
 
-#: ../jobviewer.py:2071
+#: ../jobviewer.py:2090
 #, python-format
 msgid "The printer called `%s' has been disabled."
 msgstr "De printer met de naam ‘%s’ is uitgeschakeld."
 
-#: ../jobviewer.py:2278
+#: ../jobviewer.py:2297
 msgid "disabled"
 msgstr "uitgezet"
 
-#: ../jobviewer.py:2308
+#: ../jobviewer.py:2327
 msgid "Held for authentication"
 msgstr "Vastgehouden ter authenticatie"
 
-#: ../jobviewer.py:2310 ../troubleshoot/PrintTestPage.py:44
+#: ../jobviewer.py:2329 ../troubleshoot/PrintTestPage.py:44
 msgid "Held"
 msgstr "Vastgehouden"
 
-#: ../jobviewer.py:2346
+#: ../jobviewer.py:2365
 #, python-format
 msgid "Held until %s"
 msgstr "Vastgehouden tot %s"
 
-#: ../jobviewer.py:2351
+#: ../jobviewer.py:2370
 msgid "Held until day-time"
 msgstr "Vastgehouden tot overdag"
 
-#: ../jobviewer.py:2353
+#: ../jobviewer.py:2372
 msgid "Held until evening"
 msgstr "Vasthouden tot 's avonds"
 
-#: ../jobviewer.py:2355
+#: ../jobviewer.py:2374
 msgid "Held until night-time"
 msgstr "Vastgehouden tot 's nachts"
 
-#: ../jobviewer.py:2357
+#: ../jobviewer.py:2376
 msgid "Held until second shift"
 msgstr "Vastgehouden tot tweede periode"
 
-#: ../jobviewer.py:2359
+#: ../jobviewer.py:2378
 msgid "Held until third shift"
 msgstr "Vastgehouden tot derde periode"
 
-#: ../jobviewer.py:2361
+#: ../jobviewer.py:2380
 msgid "Held until weekend"
-msgstr "Vastgehouden tot het weekeinde"
+msgstr "Vastgehouden tot het weekend"
 
-#: ../jobviewer.py:2364 ../troubleshoot/PrintTestPage.py:43
+#: ../jobviewer.py:2383 ../troubleshoot/PrintTestPage.py:43
 msgid "Pending"
 msgstr "Wachtend"
 
-#: ../jobviewer.py:2365 ../printerproperties.py:72
+#: ../jobviewer.py:2384 ../printerproperties.py:72
 #: ../system-config-printer.py:131 ../troubleshoot/PrintTestPage.py:45
 msgid "Processing"
 msgstr "Verwerken"
 
-#: ../jobviewer.py:2366 ../printerproperties.py:76
+#: ../jobviewer.py:2385 ../printerproperties.py:76
 #: ../system-config-printer.py:133 ../troubleshoot/PrintTestPage.py:46
 msgid "Stopped"
 msgstr "Gestopt"
 
-#: ../jobviewer.py:2367 ../troubleshoot/PrintTestPage.py:47
+#: ../jobviewer.py:2386 ../troubleshoot/PrintTestPage.py:47
 msgid "Canceled"
 msgstr "Geannuleerd"
 
-#: ../jobviewer.py:2368 ../troubleshoot/PrintTestPage.py:48
+#: ../jobviewer.py:2387 ../troubleshoot/PrintTestPage.py:48
 msgid "Aborted"
 msgstr "Afgebroken"
 
-#: ../jobviewer.py:2369 ../troubleshoot/PrintTestPage.py:49
+#: ../jobviewer.py:2388 ../troubleshoot/PrintTestPage.py:49
 msgid "Completed"
 msgstr "Voltooid"
 
-#: ../newprinter.py:75
+#: ../newprinter.py:72
 msgid ""
 "The firewall may need adjusting in order to detect network printers.  Adjust "
 "the firewall now?"
 msgstr ""
-"De firewall moet misschien aangepast worden om netwerkprinters te "
+"De firewall moet misschien aangepast worden om netwerk printers te "
 "ontdekken.  De firewall nu aanpassen?"
 
-#: ../newprinter.py:351 ../newprinter.py:362 ../newprinter.py:368
-#: ../newprinter.py:373
+#: ../newprinter.py:337 ../newprinter.py:348 ../newprinter.py:354
+#: ../newprinter.py:359
 msgid "Default"
 msgstr "Standaard"
 
 #. See section 4.2.6 of this document for explanation of finishing types:
 #. ftp://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf
-#: ../newprinter.py:363 ../newprinter.py:374 ../newprinter.py:3687
-#: ../ppdippstr.py:65 ../printerproperties.py:281
+#: ../newprinter.py:349 ../newprinter.py:360 ../newprinter.py:3773
+#: ../ppdippstr.py:65 ../printerproperties.py:280
 msgid "None"
 msgstr "Geen"
 
-#: ../newprinter.py:364
+#: ../newprinter.py:350
 msgid "Odd"
 msgstr "Oneven"
 
-#: ../newprinter.py:365
+#: ../newprinter.py:351
 msgid "Even"
 msgstr "Even"
 
-#: ../newprinter.py:375
+#: ../newprinter.py:361
 msgid "XON/XOFF (Software)"
-msgstr "XON/XOFF (programmatuur)"
+msgstr "XON/XOFF (Software)"
 
-#: ../newprinter.py:376
+#: ../newprinter.py:362
 msgid "RTS/CTS (Hardware)"
-msgstr "RTS/CTS (apparatuur)"
+msgstr "RTS/CTS (Hardware)"
 
-#: ../newprinter.py:377
+#: ../newprinter.py:363
 msgid "DTR/DSR (Hardware)"
-msgstr "DTR/DSR (apparatuur)"
+msgstr "DTR/DSR (Hardware)"
 
-#: ../newprinter.py:395 ../printerproperties.py:235
+#: ../newprinter.py:381 ../printerproperties.py:234
 msgid "Members of this class"
 msgstr "Leden van deze klasse"
 
-#: ../newprinter.py:397 ../printerproperties.py:236
+#: ../newprinter.py:383 ../printerproperties.py:235
 msgid "Others"
 msgstr "Anderen"
 
-#: ../newprinter.py:398
+#: ../newprinter.py:384
 msgid "Devices"
 msgstr "Apparaten"
 
-#: ../newprinter.py:399
+#: ../newprinter.py:385
 msgid "Connections"
 msgstr "Verbindingen"
 
-#: ../newprinter.py:400
+#: ../newprinter.py:386
 msgid "Makes"
 msgstr "Merken"
 
-#: ../newprinter.py:401
+#: ../newprinter.py:387
 msgid "Models"
 msgstr "Modellen"
 
-#: ../newprinter.py:402
+#: ../newprinter.py:388
 msgid "Drivers"
 msgstr "Stuurprogramma's"
 
-#: ../newprinter.py:403 ../ui/NewPrinterWindow.ui.h:101
+#: ../newprinter.py:389 ../ui/NewPrinterWindow.ui.h:102
 msgid "Downloadable Drivers"
 msgstr "Downloadbare stuurprogramma's"
 
-#: ../newprinter.py:482
+#: ../newprinter.py:468
 msgid "Browsing not available (pysmbc not installed)"
 msgstr "Bladeren niet mogelijk (pysmbc niet geïnstalleerd)"
 
 #. SMB list columns
-#: ../newprinter.py:488
+#: ../newprinter.py:474
 msgid "Share"
 msgstr "Delen"
 
-#: ../newprinter.py:494
+#: ../newprinter.py:480
 msgid "Comment"
 msgstr "Opmerking"
 
-#: ../newprinter.py:509
+#: ../newprinter.py:495
 msgid ""
 "PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
 "PPD.GZ)"
 msgstr ""
-"PostScript Printer Description-bestanden (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
+"PostScript Printer Description bestanden (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
 "*.PPD.GZ)"
 
-#: ../newprinter.py:518
+#: ../newprinter.py:504
 msgid "All files (*)"
 msgstr "Alle bestanden (*)"
 
-#: ../newprinter.py:669 ../newprinter.py:1512 ../newprinter.py:3237
-#: ../newprinter.py:3296 ../newprinter.py:3348 ../applet.py:127
+#: ../newprinter.py:653 ../newprinter.py:1505 ../newprinter.py:3300
+#: ../newprinter.py:3360 ../newprinter.py:3412 ../applet.py:128
 msgid "Search"
 msgstr "Zoeken"
 
-#: ../newprinter.py:696 ../newprinter.py:718 ../ui/NewPrinterWindow.ui.h:1
+#: ../newprinter.py:680 ../newprinter.py:702 ../ui/NewPrinterWindow.ui.h:1
 msgid "New Printer"
 msgstr "Nieuwe printer"
 
-#: ../newprinter.py:704
+#: ../newprinter.py:688
 msgid "New Class"
 msgstr "Nieuwe klasse"
 
-#: ../newprinter.py:709
+#: ../newprinter.py:693
 msgid "Change Device URI"
-msgstr "Apparaat-URI veranderen"
+msgstr "Apparaat URI veranderen"
 
-#: ../newprinter.py:716
+#: ../newprinter.py:700
 msgid "Change Driver"
 msgstr "Stuurprogramma veranderen"
 
-#: ../newprinter.py:720
+#: ../newprinter.py:704
 msgid "Download Printer Driver"
 msgstr "Download printerstuurprogramma"
 
-#: ../newprinter.py:729 ../newprinter.py:2036 ../newprinter.py:2041
+#: ../newprinter.py:713 ../newprinter.py:2081 ../newprinter.py:2086
 msgid "fetching device list"
-msgstr "apparatenlijst ophalen"
+msgstr "Devicelijst ophalen"
 
-#: ../newprinter.py:969
+#: ../newprinter.py:949
 #, python-format
 msgid "Installing driver %s"
-msgstr "Stuurprogramma %s wordt geinstalleerd"
+msgstr "Stuurprogramma %s installeren"
 
-#: ../newprinter.py:977
+#: ../newprinter.py:956
 msgid "Installing ..."
 msgstr "Bezig met installeren ..."
 
-#: ../newprinter.py:1325 ../newprinter.py:3039 ../newprinter.py:3267
+#: ../newprinter.py:1318 ../newprinter.py:3102 ../newprinter.py:3330
 #: ../ppdsloader.py:86
 msgid "Searching"
 msgstr "Bezig met zoeken"
 
-#: ../newprinter.py:1335 ../ppdsloader.py:94
+#: ../newprinter.py:1328 ../ppdsloader.py:93
 msgid "Searching for drivers"
 msgstr "Zoeken naar stuurprogramma's"
 
 #. device-info
 #. PhysicalDevice obj
 #. Separator?
-#: ../newprinter.py:1959
+#: ../newprinter.py:2005
 msgid "Enter URI"
 msgstr "Vul URI in"
 
-#: ../newprinter.py:1964
+#: ../newprinter.py:2010
 msgid "Network Printer"
 msgstr "Netwerkprinter"
 
-#: ../newprinter.py:1968
+#: ../newprinter.py:2014
 msgid "Find Network Printer"
-msgstr "Netwerkprinter zoeken"
+msgstr "Vind Netwerkprinter"
 
-#: ../newprinter.py:2000
+#: ../newprinter.py:2046
 msgid "Allow all incoming IPP Browse packets"
 msgstr "Sta alle binnenkomende IPP browse pakketten toe"
 
-#: ../newprinter.py:2005
+#: ../newprinter.py:2051
 msgid "Allow all incoming mDNS traffic"
-msgstr "Sta al het binnenkomende mDNS-verkeer toe"
+msgstr "Sta al het binnenkomend mDNS verkeer toe"
 
-#: ../newprinter.py:2016 ../newprinter.py:2019 ../newprinter.py:2447
-#: ../newprinter.py:2453 ../serversettings.py:559 ../serversettings.py:564
+#: ../newprinter.py:2061 ../newprinter.py:2064 ../newprinter.py:2492
+#: ../newprinter.py:2498 ../serversettings.py:563 ../serversettings.py:568
 msgid "Adjust Firewall"
 msgstr "Firewall aanpassen"
 
-#: ../newprinter.py:2018 ../newprinter.py:2452
+#: ../newprinter.py:2063 ../newprinter.py:2497
 msgid "Do It Later"
 msgstr "Doe dit later"
 
-#: ../newprinter.py:2128 ../newprinter.py:3580
+#: ../newprinter.py:2172 ../newprinter.py:3666
 msgid " (Current)"
 msgstr " (Huidige)"
 
-#: ../newprinter.py:2198
+#: ../newprinter.py:2242
 msgid "Scanning..."
 msgstr "Bezig met scannen..."
 
-#: ../newprinter.py:2254
+#: ../newprinter.py:2298
 msgid "No Print Shares"
 msgstr "Geen gedeelde printers"
 
-#: ../newprinter.py:2255
+#: ../newprinter.py:2299
 msgid ""
 "There were no print shares found.  Please check that the Samba service is "
 "marked as trusted in your firewall configuration."
 msgstr ""
 "Er zijn geen gedeelde printers gevonden. Controleer of de Samba-dienst is "
-"gemarkeerd als vertrouwd in uw firewall-configuratie."
+"gemarkeerd als vertrouwd in jouw firewall-configuratie."
 
-#: ../newprinter.py:2411
+#: ../newprinter.py:2440
 #, python-format
 msgid "Verification requires the %s module"
-msgstr "Verificatie vereist de module %s"
+msgstr "Verificatie vereist de %s module"
 
-#: ../newprinter.py:2449
+#: ../newprinter.py:2494
 msgid "Allow all incoming SMB/CIFS browse packets"
-msgstr "Sta alle inkomende SMB /CIFS-bladerpakketten toe"
+msgstr "Sta alle inkomende SMB /CIFS blader pakketten toe"
 
-#: ../newprinter.py:2565
+#: ../newprinter.py:2610
 msgid "Print Share Verified"
 msgstr "Gedeelde printer geverifieerd."
 
-#: ../newprinter.py:2566
+#: ../newprinter.py:2611
 msgid "This print share is accessible."
 msgstr "Deze gedeelde printer is toegankelijk."
 
-#: ../newprinter.py:2571
+#: ../newprinter.py:2616
 msgid "This print share is not accessible."
 msgstr "Deze gedeelde printer is niet toegankelijk."
 
-#: ../newprinter.py:2574
+#: ../newprinter.py:2619
 msgid "Print Share Inaccessible"
 msgstr "Gedeelde printer is ontoegankelijk"
 
-#: ../newprinter.py:2700
+#: ../newprinter.py:2758
 msgid "Parallel Port"
-msgstr "Parallelle poort"
+msgstr "Parallelle Poort"
 
-#: ../newprinter.py:2702
+#: ../newprinter.py:2760
 msgid "Serial Port"
-msgstr "Seriële poort"
+msgstr "Serieële Poort"
 
-#: ../newprinter.py:2704
+#: ../newprinter.py:2762
 msgid "USB"
 msgstr "USB"
 
-#: ../newprinter.py:2706
+#: ../newprinter.py:2764
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: ../newprinter.py:2708 ../newprinter.py:2711
+#: ../newprinter.py:2766 ../newprinter.py:2769
 msgid "HP Linux Imaging and Printing (HPLIP)"
 msgstr "HP Linux Imaging and Printing (HPLIP)"
 
-#: ../newprinter.py:2710 ../newprinter.py:2850 ../newprinter.py:2852
-#: ../system-config-printer.py:897
+#: ../newprinter.py:2768 ../newprinter.py:2907 ../newprinter.py:2909
+#: ../system-config-printer.py:899
 msgid "Fax"
 msgstr "Fax"
 
-#: ../newprinter.py:2713
+#: ../newprinter.py:2771
 msgid "Hardware Abstraction Layer (HAL)"
 msgstr "Hardware Abstraction Layer (HAL)"
 
-#: ../newprinter.py:2715 ../ppdippstr.py:178
+#: ../newprinter.py:2773 ../ppdippstr.py:178
 msgid "AppSocket/HP JetDirect"
 msgstr "AppSocket/HP JetDirect"
 
-#: ../newprinter.py:2724
+#: ../newprinter.py:2782
 #, python-format
 msgid "LPD/LPR queue '%s'"
-msgstr "LPD/LPR-wachtrij '%s'"
+msgstr "LPD/LPR wachtrij '%s'"
 
-#: ../newprinter.py:2727
+#: ../newprinter.py:2785
 msgid "LPD/LPR queue"
-msgstr "LPD/LPR-wachtrij"
+msgstr "LPD/LPR wachtrij"
 
-#: ../newprinter.py:2730 ../ppdippstr.py:184
+#: ../newprinter.py:2788 ../ppdippstr.py:184
 msgid "Windows Printer via SAMBA"
-msgstr "Windowsprinter via SAMBA"
+msgstr "Windows Printer via SAMBA"
 
-#: ../newprinter.py:2741 ../newprinter.py:2743
+#: ../newprinter.py:2799 ../newprinter.py:2801
 msgid "IPP"
 msgstr "IPP"
 
-#: ../newprinter.py:2745
+#: ../newprinter.py:2803
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../newprinter.py:2753 ../newprinter.py:2914
+#: ../newprinter.py:2811 ../newprinter.py:2972
 msgid "Remote CUPS printer via DNS-SD"
-msgstr "CUPS-printer op afstand via DNS-SD"
+msgstr "CUPS printer op afstand via DNS-SD"
 
-#: ../newprinter.py:2770 ../newprinter.py:2924
+#: ../newprinter.py:2823 ../newprinter.py:2982
 #, python-format
 msgid "%s network printer via DNS-SD"
-msgstr "%s netwerkprinter via DNS-SD"
+msgstr "%s netwerk printer via DNS-SD"
 
-#: ../newprinter.py:2774 ../newprinter.py:2926
+#: ../newprinter.py:2827 ../newprinter.py:2984
 msgid "Network printer via DNS-SD"
-msgstr "Netwerkprinter via DNS-SD"
+msgstr "Netwerk printer via DNS-SD"
 
-#: ../newprinter.py:2893
+#: ../newprinter.py:2951
 msgid "A printer connected to the parallel port."
 msgstr "Een printer verbonden met de parallelle poort."
 
-#: ../newprinter.py:2895
+#: ../newprinter.py:2953
 msgid "A printer connected to a USB port."
 msgstr "Een printer verbonden met een USB-poort."
 
-#: ../newprinter.py:2897
+#: ../newprinter.py:2955
 msgid "A printer connected via Bluetooth."
 msgstr "Een printer verbonden via Bluetooth."
 
-#: ../newprinter.py:2899
+#: ../newprinter.py:2957
 msgid ""
 "HPLIP software driving a printer, or the printer function of a multi-"
 "function device."
 msgstr ""
-"HPLIP-programmatuur die een printer aanstuurt, of de printerfunctie van een "
+"HPLIP-software die een printer aanstuurt, of de printerfunctie van een "
 "multifunctioneel apparaat."
 
-#: ../newprinter.py:2902
+#: ../newprinter.py:2960
 msgid ""
 "HPLIP software driving a fax machine, or the fax function of a multi-"
 "function device."
 msgstr ""
-"HPLIP-programmatuur die een fax aanstuurt, of de faxfunctie van een "
+"HPLIP-software die een fax aanstuurt, of de faxfunctie van een "
 "multifunctioneel apparaat."
 
-#: ../newprinter.py:2905
+#: ../newprinter.py:2963
 msgid "Local printer detected by the Hardware Abstraction Layer (HAL)."
 msgstr "Lokale printer gedetecteerd door de Hardware Abstraction Layer (HAL)."
 
-#: ../newprinter.py:3040
+#: ../newprinter.py:3103
 msgid "Searching for printers"
 msgstr "Zoeken naar printers"
 
-#: ../newprinter.py:3146 ../ui/NewPrinterWindow.ui.h:45
+#: ../newprinter.py:3209 ../ui/NewPrinterWindow.ui.h:46
 msgid "No printer was found at that address."
 msgstr "Op dat adres werd geen printer aangetroffen."
 
-#: ../newprinter.py:3301
+#: ../newprinter.py:3365
 msgid "-- Select from search results --"
 msgstr "-- Selecteer uit de zoekresultaten --"
 
-#: ../newprinter.py:3303
+#: ../newprinter.py:3367
 msgid "-- No matches found --"
 msgstr "-- Geen overeenkomsten gevonden --"
 
-#: ../newprinter.py:3396 ../ui/NewPrinterWindow.ui.h:79
+#: ../newprinter.py:3481 ../ui/NewPrinterWindow.ui.h:80
 msgid "Local Driver"
 msgstr "Lokaal stuurprogramma"
 
-#: ../newprinter.py:3428 ../newprinter.py:3491 ../newprinter.py:3589
+#: ../newprinter.py:3514 ../newprinter.py:3577 ../newprinter.py:3675
 msgid " (recommended)"
 msgstr " (aanbevolen)"
 
-#: ../newprinter.py:3621
+#: ../newprinter.py:3707
 msgid "This PPD is generated by foomatic."
 msgstr "Deze PPD is gegenereerd door foomatic."
 
-#: ../newprinter.py:3669
+#: ../newprinter.py:3755
 msgid "OpenPrinting"
 msgstr "OpenPrinting"
 
-#: ../newprinter.py:3680
+#: ../newprinter.py:3766
 msgid "Distributable"
 msgstr "Distribueerbaar"
 
-#: ../newprinter.py:3722
+#: ../newprinter.py:3810
 msgid ", "
 msgstr ", "
 
-#: ../newprinter.py:3727
+#: ../newprinter.py:3815
 #, python-format
 msgid ""
 "\n"
@@ -871,20 +871,20 @@ msgstr ""
 "\n"
 "(%s)"
 
-#: ../newprinter.py:3732
+#: ../newprinter.py:3820
 msgid "No support contacts known"
-msgstr "Geen ondersteuningscontacten bekend"
+msgstr "Geen supportcontacten bekend"
 
-#: ../newprinter.py:3736 ../newprinter.py:3749
+#: ../newprinter.py:3824 ../newprinter.py:3837
 msgid "Not specified."
 msgstr "Niet gespecificeerd."
 
 #. Foomatic database problem of some sort.
-#: ../newprinter.py:3797
+#: ../newprinter.py:3882
 msgid "Database error"
-msgstr "Gegevensbankfout"
+msgstr "Database-fout"
 
-#: ../newprinter.py:3798
+#: ../newprinter.py:3883
 #, python-format
 msgid "The '%s' driver cannot be used with printer '%s %s'."
 msgstr "Het stuurprogramma ‘%s’ kan niet worden gebruikt met printer ‘%s %s’."
@@ -892,45 +892,46 @@ msgstr "Het stuurprogramma ‘%s’ kan niet worden gebruikt met printer ‘%s %
 #. This printer references some XML that is not
 #. installed by default.  Point the user at the
 #. package they need to install.
-#: ../newprinter.py:3808
+#: ../newprinter.py:3893
 #, python-format
 msgid "You will need to install the '%s' package in order to use this driver."
 msgstr ""
-"U moet het pakket ‘%s’ installeren om dit stuurprogramma te kunnen gebruiken."
+"Je moett het pakket ‘%s’ te installeren om dit stuurprogramma te kunnen "
+"gebruiken."
 
 #. This error came from trying to open the PPD file.
-#: ../newprinter.py:3815
+#: ../newprinter.py:3900
 msgid "PPD error"
 msgstr "PPD-fout"
 
-#: ../newprinter.py:3817
+#: ../newprinter.py:3902
 msgid "Failed to read PPD file.  Possible reason follows:"
-msgstr "Niet geslaagd om het PPD-bestand te lezen. Volgende reden mogelijk:"
+msgstr "Niet geslaagd om het PPD-bestand te lezen. Volgende redenen mogelijk:"
 
 #. Failed to get PPD downloaded from OpenPrinting XXX
-#: ../newprinter.py:3836
+#: ../newprinter.py:3920
 msgid "Downloadable drivers"
 msgstr "Downloadbare stuurprogramma's"
 
-#: ../newprinter.py:3837
+#: ../newprinter.py:3921
 msgid "Failed to download PPD."
 msgstr "Downloaden van PPD is mislukt."
 
-#: ../newprinter.py:3845
+#: ../newprinter.py:3929
 msgid "fetching PPD"
 msgstr "PPD ophalen"
 
-#: ../newprinter.py:3874 ../newprinter.py:3911
+#: ../newprinter.py:3958 ../newprinter.py:3995
 msgid "No Installable Options"
 msgstr "Geen installeerbare opties"
 
-#: ../newprinter.py:3975
+#: ../newprinter.py:4059
 #, python-format
 msgid "adding printer %s"
 msgstr "bezig met toevoegen van printer %s"
 
-#: ../newprinter.py:4004 ../newprinter.py:4016 ../newprinter.py:4034
-#: ../printerproperties.py:1008 ../system-config-printer.py:1687
+#: ../newprinter.py:4088 ../newprinter.py:4100 ../newprinter.py:4118
+#: ../printerproperties.py:1002 ../system-config-printer.py:1690
 #: ../system-config-printer.py:1720
 #, python-format
 msgid "modifying printer %s"
@@ -954,7 +955,7 @@ msgstr "Afdruktaak opnieuw proberen"
 
 #: ../ppdippstr.py:52
 msgid "Stop printer"
-msgstr "Stop printer"
+msgstr "Stop Printer"
 
 #: ../ppdippstr.py:58
 msgid "Default behavior"
@@ -990,7 +991,7 @@ msgstr "Ongeclassificeerd"
 
 #: ../ppdippstr.py:77
 msgid "No hold"
-msgstr "Niet vastgehouden"
+msgstr "Niet vast gehouden"
 
 #: ../ppdippstr.py:78
 msgid "Indefinite"
@@ -1018,7 +1019,7 @@ msgstr "Derde periode"
 
 #: ../ppdippstr.py:84
 msgid "Weekend"
-msgstr "Weekeinde"
+msgstr "Week-einde"
 
 #: ../ppdippstr.py:94
 msgid "General"
@@ -1031,27 +1032,27 @@ msgstr "Afdrukmodus"
 
 #: ../ppdippstr.py:99
 msgid "Draft (auto-detect-paper type)"
-msgstr "Klad (type auto-detectie-papier)"
+msgstr "Klad (auto-detectie-papier type)"
 
 #: ../ppdippstr.py:101
 msgid "Draft grayscale (auto-detect-paper type)"
-msgstr "Klad grijstinten (type auto-detectie-papier)"
+msgstr "Klad grijstinten (auto-detectie-papier type)"
 
 #: ../ppdippstr.py:103
 msgid "Normal (auto-detect-paper type)"
-msgstr "Normaal (type auto-detectie-papier)"
+msgstr "Normaal (auto-detectie-papier type)"
 
 #: ../ppdippstr.py:105
 msgid "Normal grayscale (auto-detect-paper type)"
-msgstr "Normaal grijstinten (type auto-detectie-papier)"
+msgstr "Normaal grijstinten (auto-detectie-papier type)"
 
 #: ../ppdippstr.py:107
 msgid "High quality (auto-detect-paper type)"
-msgstr "Hoge kwaliteit (type auto-detectie-papier)"
+msgstr "Hoge Kwaliteit (auto-detectie-papier type)"
 
 #: ../ppdippstr.py:109
 msgid "High quality grayscale (auto-detect-paper type)"
-msgstr "Hoge kwaliteit grijstinten (type auto-detectie-papier)"
+msgstr "Hoge Kwaliteit grijstinten (auto-detectie-papier type)"
 
 #: ../ppdippstr.py:110
 msgid "Photo (on photo paper)"
@@ -1059,7 +1060,7 @@ msgstr "Foto (op fotopapier)"
 
 #: ../ppdippstr.py:112
 msgid "Best quality (color on photo paper)"
-msgstr "Beste kwaliteit (kleur op fotopapier)"
+msgstr "Beste Kwaliteit (kleur op fotopapier)"
 
 #: ../ppdippstr.py:114
 msgid "Normal quality (color on photo paper)"
@@ -1067,15 +1068,15 @@ msgstr "Normale kwaliteit (kleur op fotopapier)"
 
 #: ../ppdippstr.py:116
 msgid "Media source"
-msgstr "Mediabron"
+msgstr "Media bron"
 
 #: ../ppdippstr.py:117
 msgid "Printer default"
-msgstr "Standaard van printer"
+msgstr "Printer default"
 
 #: ../ppdippstr.py:118
 msgid "Photo tray"
-msgstr "Fotolade"
+msgstr "Foto lade"
 
 #: ../ppdippstr.py:119
 msgid "Upper tray"
@@ -1087,15 +1088,15 @@ msgstr "Onderlade"
 
 #: ../ppdippstr.py:121
 msgid "CD or DVD tray"
-msgstr "CD- of DVD-lade"
+msgstr "CD of DVD lade"
 
 #: ../ppdippstr.py:122
 msgid "Envelope feeder"
-msgstr "Envelop-invoer"
+msgstr "Envelop invoer"
 
 #: ../ppdippstr.py:123
 msgid "Large capacity tray"
-msgstr "Hoge-capaciteitlade"
+msgstr "Hoge capaciteit lade"
 
 #: ../ppdippstr.py:124
 msgid "Manual feeder"
@@ -1103,7 +1104,7 @@ msgstr "Handmatige invoer"
 
 #: ../ppdippstr.py:125
 msgid "Multi-purpose tray"
-msgstr "Multi-inzetbare lade"
+msgstr "Multi-purpose lade"
 
 #: ../ppdippstr.py:127
 msgid "Page size"
@@ -1115,11 +1116,11 @@ msgstr "Aangepast"
 
 #: ../ppdippstr.py:129
 msgid "Photo or 4x6 inch index card"
-msgstr "Foto of 4x6 inch indexkaart"
+msgstr "Foto of 4x6 inch index kaart"
 
 #: ../ppdippstr.py:130
 msgid "Photo or 5x7 inch index card"
-msgstr "Foto of 5x7 inch indexkaart"
+msgstr "Foto of 5x7 inch index kaart"
 
 #: ../ppdippstr.py:131
 msgid "Photo with tear-off tab"
@@ -1127,11 +1128,11 @@ msgstr "Foto met afscheurtab"
 
 #: ../ppdippstr.py:132
 msgid "3x5 inch index card"
-msgstr "3x5 inch indexkaart"
+msgstr "3x5 inch index kaart"
 
 #: ../ppdippstr.py:133
 msgid "5x8 inch index card"
-msgstr "5x8 inch indexkaart"
+msgstr "5x8 inch index kaart"
 
 #: ../ppdippstr.py:134
 msgid "A6 with tear-off tab"
@@ -1167,43 +1168,43 @@ msgstr "Resolutie, kwaliteit, inkttype, mediatype"
 
 #: ../ppdippstr.py:145
 msgid "Controlled by 'Printout mode'"
-msgstr "Beheerst door 'Afdrukmodus'"
+msgstr "Beheerst door 'Printout mode'"
 
 #: ../ppdippstr.py:147
 msgid "300 dpi, color, black + color cartridge"
-msgstr "300 dpi, kleur, zwart + kleurenpatroon"
+msgstr "300 dpi, kleur, zwart + kleurencartridge"
 
 #: ../ppdippstr.py:149
 msgid "300 dpi, draft, color, black + color cartridge"
-msgstr "300 dpi, klad, kleur, zwart + kleurenpatroon"
+msgstr "300 dpi, klad, kleur, zwart + kleurencartridge"
 
 #: ../ppdippstr.py:151
 msgid "300 dpi, draft, grayscale, black + color cartridge"
-msgstr "300 dpi, klad, grijstinten, zwart + kleurenpatroon"
+msgstr "300 dpi, klad, grijstinten, zwart + kleurencartridge"
 
 #: ../ppdippstr.py:153
 msgid "300 dpi, grayscale, black + color cartridge"
-msgstr "300 dpi, grijstinten, zwart + kleurenpatroon"
+msgstr "300 dpi, grijstinten, zwart + kleurencartridge"
 
 #: ../ppdippstr.py:155
 msgid "600 dpi, color, black + color cartridge"
-msgstr "600 dpi, kleur, zwart + kleurenpatroon"
+msgstr "600 dpi, kleur, zwart + kleurencartridge"
 
 #: ../ppdippstr.py:157
 msgid "600 dpi, grayscale, black + color cartridge"
-msgstr "600 dpi, grijstinten, zwart + kleurenpatroon"
+msgstr "600 dpi, grijstinten, zwart + kleurencartridge"
 
 #: ../ppdippstr.py:159
 msgid "600 dpi, photo, black + color cartridge, photo paper"
-msgstr "600 dpi, foto, zwart + kleurenpatroon, fotopapier"
+msgstr "600 dpi, foto, zwart + kleurencartridge, fotopapier"
 
 #: ../ppdippstr.py:161
 msgid "600 dpi, color, black + color cartridge, photo paper, normal"
-msgstr "600 dpi, kleur, zwart + kleurenpatroon, fotopapier, normaal"
+msgstr "600 dpi, kleur, zwart + kleurencartridge, fotopapier, normaal"
 
 #: ../ppdippstr.py:163
 msgid "1200 dpi, photo, black + color cartridge, photo paper"
-msgstr "1200 dpi, foto, zwart + kleurenpatroon, fotopapier"
+msgstr "1200 dpi, foto, zwart + kleurencartridge, fotopapier"
 
 #: ../ppdippstr.py:170
 msgid "Internet Printing Protocol (ipp)"
@@ -1223,13 +1224,13 @@ msgstr "LPD/LRP host of printer"
 
 #: ../ppdippstr.py:180
 msgid "Serial Port #1"
-msgstr "Seriële poort #1"
+msgstr "Serieële poort #1"
 
 #: ../ppdippstr.py:182
 msgid "LPT #1"
 msgstr "LPT#1"
 
-#: ../ppdsloader.py:156
+#: ../ppdsloader.py:159
 msgid "fetching PPDs"
 msgstr "PPD's ophalen"
 
@@ -1242,221 +1243,221 @@ msgid "Busy"
 msgstr "Bezig"
 
 #. Printer state reasons list
-#: ../printerproperties.py:215
+#: ../printerproperties.py:214
 msgid "Message"
 msgstr "Bericht"
 
-#: ../printerproperties.py:237
+#: ../printerproperties.py:236
 msgid "Users"
 msgstr "Gebruikers"
 
-#: ../printerproperties.py:260
+#: ../printerproperties.py:259
 msgid "Portrait (no rotation)"
 msgstr "Portret (geen draaiing)"
 
-#: ../printerproperties.py:261
+#: ../printerproperties.py:260
 msgid "Landscape (90 degrees)"
 msgstr "Landschap (90 graden)"
 
-#: ../printerproperties.py:262
+#: ../printerproperties.py:261
 msgid "Reverse landscape (270 degrees)"
 msgstr "Gedraaid landschap (270 graden)"
 
-#: ../printerproperties.py:263
+#: ../printerproperties.py:262
 msgid "Reverse portrait (180 degrees)"
 msgstr "Gedraaid portret (180 graden)"
 
-#: ../printerproperties.py:269
+#: ../printerproperties.py:268
 msgid "Left to right, top to bottom"
 msgstr "Links naar rechts, boven naar onder"
 
-#: ../printerproperties.py:270
+#: ../printerproperties.py:269
 msgid "Left to right, bottom to top"
 msgstr "Links naar rechts, onder naar boven"
 
-#: ../printerproperties.py:271
+#: ../printerproperties.py:270
 msgid "Right to left, top to bottom"
 msgstr "Rechts naar links, boven naar onder"
 
-#: ../printerproperties.py:272
+#: ../printerproperties.py:271
 msgid "Right to left, bottom to top"
 msgstr "Rechts naar links, onder naar boven"
 
-#: ../printerproperties.py:273
+#: ../printerproperties.py:272
 msgid "Top to bottom, left to right"
 msgstr "Boven naar onder, links naar rechts"
 
-#: ../printerproperties.py:274
+#: ../printerproperties.py:273
 msgid "Top to bottom, right to left"
 msgstr "Boven naar onder, rechts naar links"
 
-#: ../printerproperties.py:275
+#: ../printerproperties.py:274
 msgid "Bottom to top, left to right"
 msgstr "Onder naar boven, links naar rechts"
 
-#: ../printerproperties.py:276
+#: ../printerproperties.py:275
 msgid "Bottom to top, right to left"
 msgstr "Onder naar boven, rechts naar links"
 
-#: ../printerproperties.py:282
+#: ../printerproperties.py:281
 msgid "Staple"
 msgstr "Vastnieten"
 
-#: ../printerproperties.py:283
+#: ../printerproperties.py:282
 msgid "Punch"
 msgstr "Perforeren"
 
-#: ../printerproperties.py:284
+#: ../printerproperties.py:283
 msgid "Cover"
 msgstr "Voorblad"
 
-#: ../printerproperties.py:285
+#: ../printerproperties.py:284
 msgid "Bind"
 msgstr "Binden"
 
-#: ../printerproperties.py:286
+#: ../printerproperties.py:285
 msgid "Saddle stitch"
 msgstr "Zadelsteek"
 
-#: ../printerproperties.py:287
+#: ../printerproperties.py:286
 msgid "Edge stitch"
 msgstr "Kantsteek"
 
-#: ../printerproperties.py:288
+#: ../printerproperties.py:287
 msgid "Fold"
 msgstr "Vouwen"
 
-#: ../printerproperties.py:289
+#: ../printerproperties.py:288
 msgid "Trim"
 msgstr "Bijknippen"
 
-#: ../printerproperties.py:290
+#: ../printerproperties.py:289
 msgid "Bale"
 msgstr "Baal"
 
-#: ../printerproperties.py:291
+#: ../printerproperties.py:290
 msgid "Booklet maker"
 msgstr "Boekje maken"
 
-#: ../printerproperties.py:292
+#: ../printerproperties.py:291
 msgid "Job offset"
-msgstr "Afdruktaak offset"
+msgstr "Opdracht offset"
 
-#: ../printerproperties.py:293
+#: ../printerproperties.py:292
 msgid "Staple (top left)"
 msgstr "Nieten (linksboven)"
 
-#: ../printerproperties.py:294
+#: ../printerproperties.py:293
 msgid "Staple (bottom left)"
 msgstr "Nieten (linksonder)"
 
-#: ../printerproperties.py:295
+#: ../printerproperties.py:294
 msgid "Staple (top right)"
 msgstr "Nieten (rechtsboven)"
 
-#: ../printerproperties.py:296
+#: ../printerproperties.py:295
 msgid "Staple (bottom right)"
-msgstr "Nieten (rechtsonder)"
+msgstr "Nieten (techtsonder)"
 
-#: ../printerproperties.py:297
+#: ../printerproperties.py:296
 msgid "Edge stitch (left)"
 msgstr "Kantsteek (links)"
 
-#: ../printerproperties.py:298
+#: ../printerproperties.py:297
 msgid "Edge stitch (top)"
 msgstr "Kantsteek (boven)"
 
-#: ../printerproperties.py:299
+#: ../printerproperties.py:298
 msgid "Edge stitch (right)"
 msgstr "Kantsteek (rechts)"
 
-#: ../printerproperties.py:300
+#: ../printerproperties.py:299
 msgid "Edge stitch (bottom)"
 msgstr "Kantsteek (onder)"
 
-#: ../printerproperties.py:301
+#: ../printerproperties.py:300
 msgid "Staple dual (left)"
 msgstr "Dubbel nieten (links)"
 
-#: ../printerproperties.py:302
+#: ../printerproperties.py:301
 msgid "Staple dual (top)"
 msgstr "Dubbel nieten (boven)"
 
-#: ../printerproperties.py:303
+#: ../printerproperties.py:302
 msgid "Staple dual (right)"
 msgstr "Dubbel nieten (rechts)"
 
-#: ../printerproperties.py:304
+#: ../printerproperties.py:303
 msgid "Staple dual (bottom)"
 msgstr "Dubbel nieten (onder)"
 
-#: ../printerproperties.py:305
+#: ../printerproperties.py:304
 msgid "Bind (left)"
 msgstr "Binden (links)"
 
-#: ../printerproperties.py:306
+#: ../printerproperties.py:305
 msgid "Bind (top)"
 msgstr "Binden (boven)"
 
-#: ../printerproperties.py:307
+#: ../printerproperties.py:306
 msgid "Bind (right)"
 msgstr "Binden (rechts)"
 
-#: ../printerproperties.py:308
+#: ../printerproperties.py:307
 msgid "Bind (bottom)"
 msgstr "Binden (onder)"
 
-#: ../printerproperties.py:313
+#: ../printerproperties.py:312
 msgid "One-sided"
 msgstr "Enkelzijdig"
 
-#: ../printerproperties.py:314
+#: ../printerproperties.py:313
 msgid "Two-sided (long edge)"
 msgstr "Dubbelzijdig (lange kant)"
 
-#: ../printerproperties.py:315
+#: ../printerproperties.py:314
 msgid "Two-sided (short edge)"
 msgstr "Dubbelzijdig (korte kant)"
 
-#: ../printerproperties.py:320 ../printerproperties.py:325
+#: ../printerproperties.py:319 ../printerproperties.py:324
 msgid "Normal"
 msgstr "Normaal"
 
-#: ../printerproperties.py:321
+#: ../printerproperties.py:320
 msgid "Reverse"
 msgstr "Omgekeerd"
 
-#: ../printerproperties.py:324
+#: ../printerproperties.py:323
 msgid "Draft"
-msgstr "Klad"
+msgstr "Ontwerp"
 
-#: ../printerproperties.py:326
+#: ../printerproperties.py:325
 msgid "High"
 msgstr "Hoog"
 
-#: ../printerproperties.py:348
+#: ../printerproperties.py:347
 msgid "Automatic rotation"
 msgstr "Automatische draaiing"
 
-#: ../printerproperties.py:595
+#: ../printerproperties.py:594
 msgid "CUPS test page"
 msgstr "CUPS testpagina"
 
-#: ../printerproperties.py:596
+#: ../printerproperties.py:595
 msgid ""
 "Typically shows whether all jets on a print head are functioning and that "
 "the print feed mechanisms are working properly."
 msgstr ""
-"Laat gewoonlijk zien of alle spuitmondjes op een printkop werken en dat de "
-"afdruktoevoermechanismen juist werken."
+"Laat gewoonlijk zien of alle jets op een printkop werken en dat het print "
+"toevoer mechanisme juist werkt."
 
-#: ../printerproperties.py:603
+#: ../printerproperties.py:602
 #, python-format
 msgid "Printer Properties - '%s' on %s"
 msgstr "Printereigenschappen – ‘%s’ op ‘%s’"
 
 #. The Conflict button was pressed.
-#: ../printerproperties.py:613
+#: ../printerproperties.py:612
 msgid ""
 "There are conflicting options.\n"
 "Changes can only be applied after\n"
@@ -1466,24 +1467,24 @@ msgstr ""
 "Veranderingen kunnen alleen worden toegepast\n"
 "nadat deze conflicten zijn opgelost."
 
-#: ../printerproperties.py:967
+#: ../printerproperties.py:963
 msgid "Installable Options"
 msgstr "Installeerbare opties"
 
-#: ../printerproperties.py:968 ../ui/PrinterPropertiesDialog.ui.h:41
+#: ../printerproperties.py:964 ../ui/PrinterPropertiesDialog.ui.h:48
 msgid "Printer Options"
 msgstr "Printeropties"
 
-#: ../printerproperties.py:1006
+#: ../printerproperties.py:1000
 #, python-format
 msgid "modifying class %s"
 msgstr "aanpassen klasse %s"
 
-#: ../printerproperties.py:1024
+#: ../printerproperties.py:1018
 msgid "This will delete this class!"
 msgstr "Dit zal deze klasse verwijderen!"
 
-#: ../printerproperties.py:1025
+#: ../printerproperties.py:1019
 msgid "Proceed anyway?"
 msgstr "Toch doorgaan?"
 
@@ -1491,96 +1492,96 @@ msgstr "Toch doorgaan?"
 #. but we have never fetched the server settings to see whether
 #. the server is publishing shared printers.  Fetch the settings
 #. now so that we can update the "not published" label if necessary.
-#: ../printerproperties.py:1118 ../serversettings.py:199
+#: ../printerproperties.py:1112 ../serversettings.py:200
 msgid "fetching server settings"
 msgstr "serverinstellingen ophalen"
 
-#: ../printerproperties.py:1201
+#: ../printerproperties.py:1195
 msgid "printing test page"
 msgstr "bezig met afdrukken testpagina"
 
-#: ../printerproperties.py:1215 ../printerproperties.py:1256
+#: ../printerproperties.py:1209 ../printerproperties.py:1249
 msgid "Not possible"
 msgstr "Niet mogelijk"
 
-#: ../printerproperties.py:1216 ../printerproperties.py:1257
+#: ../printerproperties.py:1210 ../printerproperties.py:1250
 msgid ""
 "The remote server did not accept the print job, most likely because the "
 "printer is not shared."
 msgstr ""
-"De server-op-afstand heeft de afdrukopdracht niet geaccepteerd, "
-"waarschijnlijk omdat de printer niet gedeeld is."
+"De andere server heeft de printopdracht niet geaccepteerd, waarschijnlijk "
+"omdat de printer niet gedeeld is."
 
-#: ../printerproperties.py:1228 ../printerproperties.py:1248
+#: ../printerproperties.py:1222 ../printerproperties.py:1241
 msgid "Submitted"
 msgstr "Ingediend"
 
-#: ../printerproperties.py:1229
+#: ../printerproperties.py:1223
 #, python-format
 msgid "Test page submitted as job %d"
 msgstr "Testpagina ingediend als opdracht %d"
 
-#: ../printerproperties.py:1241
+#: ../printerproperties.py:1234
 msgid "sending maintenance command"
 msgstr "bezig met versturen onderhoudsopdracht"
 
-#: ../printerproperties.py:1249
+#: ../printerproperties.py:1242
 #, python-format
 msgid "Maintenance command submitted as job %d"
 msgstr "Onderhoudsopdracht ingediend als afdruktaak %d"
 
-#: ../printerproperties.py:1333
-#, fuzzy
+#: ../printerproperties.py:1323
 msgid "Raw Queue"
-msgstr "Wachtrij:"
+msgstr "Raw wachtrij"
 
-#: ../printerproperties.py:1334
+#: ../printerproperties.py:1324
 msgid "Unable to get queue details. Treating queue as raw."
-msgstr ""
+msgstr "Kan geen wachtrijdetails krijgen. Behandel de wachtrij als raw. "
 
-#: ../printerproperties.py:1346 ../printerproperties.py:1351
-#: ../printerproperties.py:1448
+#: ../printerproperties.py:1336 ../printerproperties.py:1341
+#: ../printerproperties.py:1438
 msgid "Error"
 msgstr "Fout"
 
-#: ../printerproperties.py:1347
+#: ../printerproperties.py:1337
 msgid "The PPD file for this queue is damaged."
-msgstr "Het PPD-bestand voor deze wachtrij is beschadigd."
+msgstr "Het PPD bestand voor deze wachtrij is beschadigd."
 
-#: ../printerproperties.py:1352
+#: ../printerproperties.py:1342
 msgid "There was a problem connecting to the CUPS server."
 msgstr "Er was een probleem bij het verbinden met de CUPS-server."
 
-#: ../printerproperties.py:1449
+#: ../printerproperties.py:1439
 #, python-format
 msgid "Option '%s' has value '%s' and cannot be edited."
 msgstr "Optie ‘%s’ heeft waarde ‘%s’ en kan niet bewerkt worden."
 
-#: ../printerproperties.py:1566
+#: ../printerproperties.py:1557
 msgid "Marker levels are not reported for this printer."
-msgstr "Markeerniveaus worden niet gemeld bij deze printer."
+msgstr "Markeerniveau wordt niet gemeld bij deze printer"
 
-#: ../pysmb.py:115
+#: ../pysmb.py:114
 #, python-format
 msgid "You must log in to access %s."
-msgstr "U moet u aanmelden om toegang te krijgen tot %s."
+msgstr "Je moet inloggen om toegang te krijgen tot %s."
 
 #: ../serversettings.py:93
 msgid "Problems?"
 msgstr "Problemen?"
 
-#: ../serversettings.py:272
+#: ../serversettings.py:273
 msgid "Enter hostname"
-msgstr "Vul hostnaam in"
+msgstr "Vul host naam in"
 
-#: ../serversettings.py:519
+#: ../serversettings.py:524
 msgid "modifying server settings"
 msgstr "bezig met aanpassen serverinstellingen"
 
-#: ../serversettings.py:560
+#: ../serversettings.py:564
 msgid "Adjust the firewall now to allow all incoming IPP connections?"
 msgstr ""
-"De firewall nu aanpassen om alle binnenkomende IPP-verbindingen toe te staan?"
+"De firewall nu aanpassen om alleen binnenkomende IPP verbindingen toe te "
+"staan?"
 
 #: ../system-config-printer.py:233
 msgid "_Connect..."
@@ -1647,128 +1648,137 @@ msgstr "Locatie"
 msgid "Manufacturer / Model"
 msgstr "Fabrikant / model"
 
-#: ../system-config-printer.py:345
+#: ../system-config-printer.py:318 ../ui/PrinterPropertiesDialog.ui.h:41
+#: ../ui/PrintersWindow.ui.h:10 ../ui/ServerSettingsDialog.ui.h:15
+msgid "Add"
+msgstr "Toevoegen"
+
+#: ../system-config-printer.py:335 ../ui/PrinterPropertiesDialog.ui.h:88
+#: ../ui/SMBBrowseDialog.ui.h:2
+msgid "Refresh"
+msgstr "Vernieuwen"
+
+#: ../system-config-printer.py:349
 msgid "_New"
 msgstr "_Nieuw"
 
-#: ../system-config-printer.py:707
+#: ../system-config-printer.py:711
 #, python-format
 msgid "Print Settings - %s"
 msgstr "Afdrukinstellingen - %s"
 
-#: ../system-config-printer.py:710
+#: ../system-config-printer.py:714
 #, python-format
 msgid "Connected to %s"
 msgstr "Verbonden met %s"
 
-#: ../system-config-printer.py:797
+#: ../system-config-printer.py:801
 msgid "obtaining queue details"
 msgstr "bezig met ophalen wachtrijdetails"
 
-#: ../system-config-printer.py:888
+#: ../system-config-printer.py:890
 msgid "Network printer (discovered)"
 msgstr "Netwerkprinter (gevonden)"
 
-#: ../system-config-printer.py:891
+#: ../system-config-printer.py:893
 msgid "Network class (discovered)"
 msgstr "Netwerkklasse (gevonden)"
 
-#: ../system-config-printer.py:900
+#: ../system-config-printer.py:902
 msgid "Class"
 msgstr "Klasse"
 
-#: ../system-config-printer.py:903 ../system-config-printer.py:909
+#: ../system-config-printer.py:905 ../system-config-printer.py:911
 #: ../troubleshoot/LocalOrRemote.py:30
 msgid "Network printer"
 msgstr "Netwerkprinter"
 
-#: ../system-config-printer.py:906
+#: ../system-config-printer.py:908
 msgid "Network print share"
 msgstr "Gedeelde netwerkprinter"
 
-#: ../system-config-printer.py:1060
+#: ../system-config-printer.py:1064
 msgid "Service framework not available"
 msgstr "Service framework niet beschikbaar"
 
-#: ../system-config-printer.py:1062
+#: ../system-config-printer.py:1066
 msgid "Cannot start service on remote server"
-msgstr "Kan dienst voor server op afstand niet starten"
+msgstr "Kan service op server op afstand niet starten"
 
-#: ../system-config-printer.py:1110 ../ui/ConnectingDialog.ui.h:4
+#: ../system-config-printer.py:1114 ../ui/ConnectingDialog.ui.h:5
 #, no-c-format, python-format
 msgid "<i>Opening connection to %s</i>"
 msgstr "<i>Verbinding met %s openen</i>"
 
-#: ../system-config-printer.py:1273
+#: ../system-config-printer.py:1277
 msgid "Set Default Printer"
 msgstr "Standaardprinter instellen"
 
-#: ../system-config-printer.py:1275
+#: ../system-config-printer.py:1279
 msgid "Do you want to set this as the system-wide default printer?"
-msgstr "Wilt u deze als de systeembrede standaardprinter instellen?"
+msgstr "Wil je deze als de systeembrede standaardprinter instellen?"
 
-#: ../system-config-printer.py:1277
+#: ../system-config-printer.py:1281
 msgid "Set as the _system-wide default printer"
 msgstr "Instellen als de systeembrede standaardprinter"
 
-#: ../system-config-printer.py:1279
+#: ../system-config-printer.py:1283
 msgid "_Clear my personal default setting"
 msgstr "Mijn persoonlijke standaardinstelling _wissen"
 
-#: ../system-config-printer.py:1280
+#: ../system-config-printer.py:1284
 msgid "Set as my _personal default printer"
 msgstr "Als mijn persoonlijke standaardprinter instellen"
 
-#: ../system-config-printer.py:1285
+#: ../system-config-printer.py:1289
 msgid "setting default printer"
 msgstr "standaardprinter instellen"
 
-#: ../system-config-printer.py:1334
+#: ../system-config-printer.py:1342
 msgid "Cannot Rename"
 msgstr "Kan niet hernoemen"
 
-#: ../system-config-printer.py:1335
+#: ../system-config-printer.py:1343
 msgid "There are queued jobs."
 msgstr "Er staan afdruktaken in de wachtrij."
 
-#: ../system-config-printer.py:1353
+#: ../system-config-printer.py:1360
 msgid "Renaming will lose history"
-msgstr "Hernoemen zal de geschiedenis verloren laten gaan"
+msgstr "Herbenoemen zal de geschiedenis verloren laten gaan"
 
-#: ../system-config-printer.py:1355
+#: ../system-config-printer.py:1362
 msgid "Completed jobs will no longer be available for re-printing."
 msgstr ""
-"Voltooide afdruktaken zullen niet meer beschikbaar zijn voor opnieuw "
-"afdrukken."
+"Afgehandelde opdrachten zijn niet meer beschikbaar voor opnieuw afdrukken"
 
-#: ../system-config-printer.py:1468
+#: ../system-config-printer.py:1475
 msgid "renaming printer"
 msgstr "bezig met hernoemen van printer"
 
-#: ../system-config-printer.py:1631
+#: ../system-config-printer.py:1638
 #, python-format
 msgid "Really delete class '%s'?"
 msgstr "Klasse ‘%s’ echt verwijderen?"
 
-#: ../system-config-printer.py:1633
+#: ../system-config-printer.py:1640
 #, python-format
 msgid "Really delete printer '%s'?"
 msgstr "Printer ‘%s’ echt verwijderen?"
 
-#: ../system-config-printer.py:1637
+#: ../system-config-printer.py:1644
 msgid "Really delete selected destinations?"
 msgstr "De geselecteerde bestemmingen echt verwijderen?"
 
-#: ../system-config-printer.py:1659
+#: ../system-config-printer.py:1665
 #, python-format
 msgid "deleting printer %s"
 msgstr "bezig met verwijderen van printer %s"
 
-#: ../system-config-printer.py:1763
+#: ../system-config-printer.py:1756
 msgid "Publish Shared Printers"
 msgstr "Gedeelde printers publiceren"
 
-#: ../system-config-printer.py:1764
+#: ../system-config-printer.py:1757
 msgid ""
 "Shared printers are not available to other people unless the 'Publish shared "
 "printers' option is enabled in the server settings."
@@ -1776,32 +1786,32 @@ msgstr ""
 "Gedeelde printers zijn niet beschikbaar voor andere mensen tenzij de optie "
 "‘Gedeelde printers publiceren’ is ingeschakeld in de serverinstellingen."
 
-#: ../system-config-printer.py:1979
+#: ../system-config-printer.py:1975
 msgid "Would you like to print a test page?"
 msgstr "Wilt u een testpagina afdrukken?"
 
 #. Not more than 25 characters
-#: ../system-config-printer.py:1981 ../ui/PrinterPropertiesDialog.ui.h:12
+#: ../system-config-printer.py:1977 ../ui/PrinterPropertiesDialog.ui.h:17
 #: ../troubleshoot/PrintTestPage.py:74
 msgid "Print Test Page"
 msgstr "Testpagina afdrukken"
 
-#: ../system-config-printer.py:2073
+#: ../system-config-printer.py:2069
 msgid "Install driver"
 msgstr "Stuurprogramma installeren"
 
-#: ../system-config-printer.py:2074 ../troubleshoot/CheckPPDSanity.py:135
+#: ../system-config-printer.py:2070 ../troubleshoot/CheckPPDSanity.py:136
 #, python-format
 msgid "Printer '%s' requires the %s package but it is not currently installed."
 msgstr ""
 "Printer ‘%s’ vereist het pakket %s, maar dit pakket is momenteel niet "
 "geïnstalleerd."
 
-#: ../system-config-printer.py:2089
+#: ../system-config-printer.py:2085
 msgid "Missing driver"
 msgstr "Stuurprogramma ontbreekt"
 
-#: ../system-config-printer.py:2090
+#: ../system-config-printer.py:2086
 #, python-format
 msgid ""
 "Printer '%s' requires the '%s' program but it is not currently installed.  "
@@ -1813,7 +1823,7 @@ msgstr ""
 
 #: ../ui/AboutDialog.ui.h:1
 msgid "Copyright © 2006-2012 Red Hat, Inc."
-msgstr "Auteursrecht © 2006-2012 Red Hat, Inc."
+msgstr "Copyright © 2006-2012 Red Hat, Inc."
 
 #: ../ui/AboutDialog.ui.h:2
 msgid "A CUPS configuration tool."
@@ -1835,20 +1845,20 @@ msgid ""
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA."
 msgstr ""
-"Dit programma is vrije programmatuur; u kunt het opnieuw distribueren en/of "
+"Dit programma is vrije software; je kunt het opnieuw distribueren en/of "
 "veranderen volgens de regels van de GNU General Public License zoals "
 "gepubliceerd door de Free Software Foundation; volgens versie 2 van de "
-"License, of (naar uw keuze) elke andere latere versie.\n"
+"License, of (naar jouw keuze) elke andere latere versie.\n"
 "\n"
-"Dit programma wordt gedistribueerd in de verwachting dat het nuttig zal "
+"Dit programma wordt gedistribueerd met de verachting dat het nuttig zal "
 "zijn, maar ZONDER ENIGE GARANTIE; zonder zelfs de impliciete garantie van "
 "VERKOOPBAARHEID of GESCHIKTHEID VOOR SPECIALE DOELEINDEN.  Zie de GNU "
 "General Public License voor meer details.\n"
 "\n"
-"U zou een exemplaar van de GNU General Public License tezamen met dit "
-"programma ontvangen moeten hebben; als dat niet het geval is, kunt u contact "
-"opnemen met de Free Software Foundation, Inc., 51 Franklin Street, Fifth "
-"Floor, Boston, MA  02110-1301, USA."
+"Je moet een kopie van de GNU General Public License tezamen met dit "
+"programma ontvangen hebben; als dat niet het geval is, neem je contact op "
+"met de Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, "
+"Boston, MA  02110-1301, USA."
 
 #. TRANSLATORS: Replace this string with your names, one name per line.  Thank you very much for your effort on translating system-config-printer and all our other tools!
 #: ../ui/AboutDialog.ui.h:9
@@ -1859,18 +1869,28 @@ msgstr ""
 "Stijn Bibaer <stijn.bibaer@pandora.be>\n"
 "Bart Couvreur <couf@fedoraproject.org>\n"
 "Reinout van Schouwen <reinouts@gnome.org>\n"
-"Geert Warrink <geert.warrink@onsnet.nu>\n"
-"Pjotr <pjotrvertaalt@gmail.com>"
+"Geert Warrink <geert.warrink@onsnet.nu>"
 
 #: ../ui/ConnectDialog.ui.h:1
 msgid "Connect to CUPS server"
 msgstr "Verbinden met CUPS-server"
 
-#: ../ui/ConnectDialog.ui.h:2
+#: ../ui/ConnectDialog.ui.h:2 ../ui/ConnectingDialog.ui.h:2
+#: ../ui/NewPrinterName.ui.h:2 ../ui/NewPrinterWindow.ui.h:104
+#: ../ui/PrinterPropertiesDialog.ui.h:4 ../ui/ServerSettingsDialog.ui.h:2
+#: ../ui/SMBBrowseDialog.ui.h:3
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: ../ui/ConnectDialog.ui.h:3 ../ui/PrintersWindow.ui.h:13
+msgid "Connect"
+msgstr "Verbinden"
+
+#: ../ui/ConnectDialog.ui.h:4
 msgid "Require _encryption"
 msgstr "Versleu_teling eisen"
 
-#: ../ui/ConnectDialog.ui.h:3
+#: ../ui/ConnectDialog.ui.h:5
 msgid "CUPS _server:"
 msgstr "CUPS-_server:"
 
@@ -1878,17 +1898,21 @@ msgstr "CUPS-_server:"
 msgid "Connecting to CUPS server"
 msgstr "Verbinden met CUPS-server"
 
-#: ../ui/ConnectingDialog.ui.h:2
+#: ../ui/ConnectingDialog.ui.h:3
 msgid "<span weight=\"bold\" size=\"larger\">Connecting to CUPS server</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Verbinden met CUPS-server</span>"
 
-#: ../ui/InstallDialog.ui.h:1
+#: ../ui/InstallDialog.ui.h:1 ../ui/PrinterPropertiesDialog.ui.h:6
+msgid "Close"
+msgstr "Sluiten"
+
+#: ../ui/InstallDialog.ui.h:2
 msgid "_Install"
 msgstr "I_nstalleren"
 
 #: ../ui/JobsWindow.ui.h:1
 msgid "Refresh job list"
-msgstr "Ververs afdruktakenlijst"
+msgstr "Ververs opdrachten lijst"
 
 #: ../ui/JobsWindow.ui.h:2
 msgid "_Refresh"
@@ -1896,17 +1920,22 @@ msgstr "_Vernieuwen"
 
 #: ../ui/JobsWindow.ui.h:3
 msgid "Show completed jobs"
-msgstr "Voltooide afdruktaken tonen"
+msgstr "Voltooide opdrachten tonen"
 
 #: ../ui/JobsWindow.ui.h:4
 msgid "Show _completed jobs"
-msgstr "V_oltooide afdruktaken tonen"
+msgstr "V_oltooide opdrachten tonen"
 
 #: ../ui/NewPrinterName.ui.h:1
 msgid "Duplicate Printer"
 msgstr "Printer dupliceren"
 
-#: ../ui/NewPrinterName.ui.h:2
+#: ../ui/NewPrinterName.ui.h:3 ../ui/PrinterPropertiesDialog.ui.h:5
+#: ../ui/ServerSettingsDialog.ui.h:3 ../ui/SMBBrowseDialog.ui.h:4
+msgid "OK"
+msgstr "OK"
+
+#: ../ui/NewPrinterName.ui.h:4
 msgid "New name for the printer"
 msgstr "Nieuwe naam voor de printer"
 
@@ -2022,7 +2051,7 @@ msgstr "Data bits"
 
 #: ../ui/NewPrinterWindow.ui.h:31
 msgid "Flow Control"
-msgstr "Beheer van werkstroom"
+msgstr "Flow control"
 
 #: ../ui/NewPrinterWindow.ui.h:32
 msgid "<b>Settings of the serial port</b>"
@@ -2065,42 +2094,46 @@ msgid "SMB"
 msgstr "SMB"
 
 #: ../ui/NewPrinterWindow.ui.h:44
+msgid "Find"
+msgstr "Zoek"
+
+#: ../ui/NewPrinterWindow.ui.h:45
 msgid "Searching..."
 msgstr "Bezig met zoeken...."
 
-#: ../ui/NewPrinterWindow.ui.h:46
+#: ../ui/NewPrinterWindow.ui.h:47
 msgid "<b>Network Printer</b>"
 msgstr "<b>Netwerkprinter</b>"
 
-#: ../ui/NewPrinterWindow.ui.h:47
+#: ../ui/NewPrinterWindow.ui.h:48
 msgid "Network"
 msgstr "Netwerk"
 
-#: ../ui/NewPrinterWindow.ui.h:48
+#: ../ui/NewPrinterWindow.ui.h:49
 msgid "Connection"
 msgstr "Verbinding"
 
-#: ../ui/NewPrinterWindow.ui.h:49
+#: ../ui/NewPrinterWindow.ui.h:50
 msgid "Device"
 msgstr "Apparaat"
 
-#: ../ui/NewPrinterWindow.ui.h:50
+#: ../ui/NewPrinterWindow.ui.h:51
 msgid "<span weight=\"bold\" size=\"larger\">Choose Driver</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Stuurprogramma kiezen</span>"
 
-#: ../ui/NewPrinterWindow.ui.h:51
-msgid "Select printer from database"
-msgstr "Selecteer een printer uit de gegevensbank"
-
 #: ../ui/NewPrinterWindow.ui.h:52
+msgid "Select printer from database"
+msgstr "Selecteer een printer uit de database"
+
+#: ../ui/NewPrinterWindow.ui.h:53
 msgid "Provide PPD file"
 msgstr "PPD-bestand opgeven"
 
-#: ../ui/NewPrinterWindow.ui.h:53
+#: ../ui/NewPrinterWindow.ui.h:54
 msgid "Search for a printer driver to download"
 msgstr "Zoeken naar een downloadbaar printerstuurprogramma"
 
-#: ../ui/NewPrinterWindow.ui.h:54
+#: ../ui/NewPrinterWindow.ui.h:55
 msgid ""
 "The foomatic printer database contains various manufacturer provided "
 "PostScript Printer Description (PPD) files and also can generate PPD files "
@@ -2108,68 +2141,67 @@ msgid ""
 "provided PPD files provide better access to the specific features of the "
 "printer."
 msgstr ""
-"De foomatic printergegevensbank bevat diverse door de fabrikant geleverde "
+"De foomatic printer database bevat diverse door de fabrikant geleverde "
 "PostScript Printer Description (PPD)-bestanden en kan ook PPD-bestanden "
 "genereren voor een groot aantal (niet-PostScript) printers. Echter, meestal "
 "bieden de door de fabrikant geleverde PPD-bestanden betere toegang tot de "
 "specifieke functies van de printer."
 
-#: ../ui/NewPrinterWindow.ui.h:55
+#: ../ui/NewPrinterWindow.ui.h:56
 msgid ""
 "PostScript Printer Description (PPD) files can often be found on the driver "
 "disk that comes with the printer. For PostScript printers they are often "
 "part of the Windows<sup>®</sup> driver."
 msgstr ""
-"PostScript Printer Description (PPD)-bestanden kunnen vaak worden gevonden "
+"PostScript Printer Description (PPD) bestanden kunnen vaak worden gevonden "
 "op de schijf met stuurprogramma's die bij de printer meegeleverd wordt. Voor "
-"PostScript-printers zijn zij vaak onderdeel van het Windows<sup>®</sup>-"
-"stuurprogramma."
-
-#: ../ui/NewPrinterWindow.ui.h:56
-msgid "Make and model:"
-msgstr "Merk en model:"
+"PostScript printers zijn zij vaak onderdeel van de Windows"
 
 #: ../ui/NewPrinterWindow.ui.h:57
+msgid "Make and model:"
+msgstr "Fabrikant en model:"
+
+#: ../ui/NewPrinterWindow.ui.h:58
 msgid "_Search"
 msgstr "_Zoeken"
 
-#: ../ui/NewPrinterWindow.ui.h:58
+#: ../ui/NewPrinterWindow.ui.h:59
 msgid "Printer model:"
 msgstr "Printermodel:"
 
-#: ../ui/NewPrinterWindow.ui.h:59
+#: ../ui/NewPrinterWindow.ui.h:60
 msgid "Comments..."
 msgstr "Opmerkingen..."
 
-#: ../ui/NewPrinterWindow.ui.h:60
+#: ../ui/NewPrinterWindow.ui.h:61
 msgid "<span weight=\"bold\" size=\"larger\">Choose Class Members</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Klasse-leden uitkiezen</span>"
 
-#: ../ui/NewPrinterWindow.ui.h:61 ../ui/PrinterPropertiesDialog.ui.h:37
+#: ../ui/NewPrinterWindow.ui.h:62 ../ui/PrinterPropertiesDialog.ui.h:44
 msgid "move left"
 msgstr "schuif links"
 
-#: ../ui/NewPrinterWindow.ui.h:62 ../ui/PrinterPropertiesDialog.ui.h:38
+#: ../ui/NewPrinterWindow.ui.h:63 ../ui/PrinterPropertiesDialog.ui.h:45
 msgid "move right"
 msgstr "schuif rechts"
 
-#: ../ui/NewPrinterWindow.ui.h:63
-msgid "Class Members"
-msgstr "Klasseleden"
-
 #: ../ui/NewPrinterWindow.ui.h:64
+msgid "Class Members"
+msgstr "Klasse leden"
+
+#: ../ui/NewPrinterWindow.ui.h:65
 msgid "<span weight=\"bold\" size=\"larger\">Existing Settings</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Bestaande instellingen</span>"
 
-#: ../ui/NewPrinterWindow.ui.h:65
+#: ../ui/NewPrinterWindow.ui.h:66
 msgid "Try to transfer the current settings"
 msgstr "Probeer de huidige instellingen over te brengen"
 
-#: ../ui/NewPrinterWindow.ui.h:66
-msgid "Use the new PPD (Postscript Printer Description) as is."
-msgstr "Gebruik de nieuwe PPD (Postscript Printer Description) zoals die is."
-
 #: ../ui/NewPrinterWindow.ui.h:67
+msgid "Use the new PPD (Postscript Printer Description) as is."
+msgstr "Gebruik de nieuwe PPD (Postscript Printer Description) zoals het is."
+
+#: ../ui/NewPrinterWindow.ui.h:68
 msgid ""
 "This way all current option settings will be lost. The default settings of "
 "the new PPD will be used. "
@@ -2177,11 +2209,11 @@ msgstr ""
 "Op deze manier zullen alle huidige ingestelde opties verloren gaan. De "
 "standaardinstellingen van de nieuwe PPD zullen worden gebruikt. "
 
-#: ../ui/NewPrinterWindow.ui.h:68
-msgid "Try to copy the option settings over from the old PPD. "
-msgstr "Probeer de optie-instellingen over te kopiëren van de oude PPD. "
-
 #: ../ui/NewPrinterWindow.ui.h:69
+msgid "Try to copy the option settings over from the old PPD. "
+msgstr "Probeer de ingestelde opties over te kopieren vanaf de oude PPD. "
+
+#: ../ui/NewPrinterWindow.ui.h:70
 msgid ""
 "This is done by assuming that options with the same name do have the same "
 "meaning. Settings of options that are not present in the new PPD will be "
@@ -2190,17 +2222,18 @@ msgstr ""
 "Dit is gedaan door ervan uit te gaan dat opties met dezelfde naam ook "
 "dezelfde betekenis hebben. Instellingen van opties die niet aanwezig zijn in "
 "het nieuwe PPD-bestand zullen verloren gaan en opties die alleen aanwezig "
-"zijn in het nieuwe PPD-bestand zullen worden ingesteld op de standaardwaarde."
+"zijn in het nieuwe PPD-bestand zullen worden ingesteld naar de "
+"standaardwaarde."
 
-#: ../ui/NewPrinterWindow.ui.h:70
+#: ../ui/NewPrinterWindow.ui.h:71
 msgid "Change PPD"
 msgstr "Verander PPD"
 
-#: ../ui/NewPrinterWindow.ui.h:71
+#: ../ui/NewPrinterWindow.ui.h:72
 msgid "<span weight=\"bold\" size=\"larger\">Installable Options</span>"
 msgstr "<span weight=\"bold\" size=\"larger\">Installeerbare opties</span>"
 
-#: ../ui/NewPrinterWindow.ui.h:72
+#: ../ui/NewPrinterWindow.ui.h:73
 msgid ""
 "This driver supports additional hardware that may be installed in the "
 "printer."
@@ -2208,17 +2241,18 @@ msgstr ""
 "Dit stuurprogramma ondersteunt extra apparatuur die in de printer "
 "geïnstalleerd kan zijn."
 
-#: ../ui/NewPrinterWindow.ui.h:73 ../ui/PrinterPropertiesDialog.ui.h:40
+#: ../ui/NewPrinterWindow.ui.h:74 ../ui/PrinterPropertiesDialog.ui.h:47
 msgid "Installed Options"
 msgstr "Geïnstalleerde opties"
 
-#: ../ui/NewPrinterWindow.ui.h:74
+#: ../ui/NewPrinterWindow.ui.h:75
 msgid ""
 "For the printer you have selected there are drivers available for download."
 msgstr ""
-"Er zijn stuurprogramma's op te halen voor de printer die u hebt geselecteerd."
+"Er zijn stuurprogramma's te downloaden voor de printer die je hebt "
+"geselecteerd."
 
-#: ../ui/NewPrinterWindow.ui.h:75
+#: ../ui/NewPrinterWindow.ui.h:76
 msgid ""
 "These drivers do not come from your operating system supplier and will not "
 "be covered by their commercial support.  See the support and license terms "
@@ -2229,169 +2263,185 @@ msgstr ""
 "ondersteuning. Zie de ondersteunings- en licentievoorwaarden van de "
 "stuurprogrammaleverancier."
 
-#: ../ui/NewPrinterWindow.ui.h:76
+#: ../ui/NewPrinterWindow.ui.h:77
 msgid "<b>Note</b>"
 msgstr "<b>Opmerking</b>"
 
-#: ../ui/NewPrinterWindow.ui.h:77
+#: ../ui/NewPrinterWindow.ui.h:78
 msgid "<b>Select Driver</b>"
 msgstr "<b>Stuurprogramma selecteren</b>"
 
-#: ../ui/NewPrinterWindow.ui.h:78
+#: ../ui/NewPrinterWindow.ui.h:79
 msgid ""
 "With this choice no driver download will be performed. In the next steps a "
 "locally installed driver will be selected."
 msgstr ""
-"Met deze keuze zal er geen stuurprogramma worden opgehaald. In de volgende "
-"stappen zal er een lokaal geïnstalleerd stuurprogramma worden geselecteerd."
+"Met deze keuze zal er geen stuurpogramma worden gedownload. In de volgende "
+"stappen zal een lokaal geïnstalleerd stuurprogramma worden geselecteerd."
 
-#: ../ui/NewPrinterWindow.ui.h:80 ../ui/PrinterPropertiesDialog.ui.h:2
+#: ../ui/NewPrinterWindow.ui.h:81 ../ui/PrinterPropertiesDialog.ui.h:7
 msgid "Description:"
 msgstr "Omschrijving:"
 
-#: ../ui/NewPrinterWindow.ui.h:81
+#: ../ui/NewPrinterWindow.ui.h:82
 msgid "License:"
 msgstr "Licentie:"
 
-#: ../ui/NewPrinterWindow.ui.h:82
+#: ../ui/NewPrinterWindow.ui.h:83
 msgid "Supplier:"
 msgstr "Leverancier:"
 
-#: ../ui/NewPrinterWindow.ui.h:83
+#: ../ui/NewPrinterWindow.ui.h:84
 msgid "license"
 msgstr "licentie"
 
-#: ../ui/NewPrinterWindow.ui.h:84
+#: ../ui/NewPrinterWindow.ui.h:85
 msgid "short description"
 msgstr "korte omschrijving"
 
-#: ../ui/NewPrinterWindow.ui.h:85
+#: ../ui/NewPrinterWindow.ui.h:86
 msgid "Manufacturer"
 msgstr "Fabrikant"
 
-#: ../ui/NewPrinterWindow.ui.h:86
+#: ../ui/NewPrinterWindow.ui.h:87
 msgid "supplier"
 msgstr "leverancier"
 
-#: ../ui/NewPrinterWindow.ui.h:87
-msgid "Free software"
-msgstr "Vrije programmatuur"
-
 #: ../ui/NewPrinterWindow.ui.h:88
+msgid "Free software"
+msgstr "Free software"
+
+#: ../ui/NewPrinterWindow.ui.h:89
 msgid "Patented algorithms"
 msgstr "Gepatenteerde algorithmen"
 
-#: ../ui/NewPrinterWindow.ui.h:89
+#: ../ui/NewPrinterWindow.ui.h:90
 msgid "Support:"
 msgstr "Ondersteuning:"
 
-#: ../ui/NewPrinterWindow.ui.h:90
-msgid "support contacts"
-msgstr "contactpersonen voor ondersteuning"
-
 #: ../ui/NewPrinterWindow.ui.h:91
+msgid "support contacts"
+msgstr "ondersteuning contact"
+
+#: ../ui/NewPrinterWindow.ui.h:92
 msgid "Text:"
 msgstr "Tekst:"
 
-#: ../ui/NewPrinterWindow.ui.h:92
+#: ../ui/NewPrinterWindow.ui.h:93
 msgid "Line art:"
 msgstr "Line art:"
 
-#: ../ui/NewPrinterWindow.ui.h:94
+#: ../ui/NewPrinterWindow.ui.h:95
 msgid "Photo:"
 msgstr "Foto:"
 
-#: ../ui/NewPrinterWindow.ui.h:95
+#: ../ui/NewPrinterWindow.ui.h:96
 msgid "Graphics:"
 msgstr "Afbeeldingen:"
 
-#: ../ui/NewPrinterWindow.ui.h:96
+#: ../ui/NewPrinterWindow.ui.h:97
 msgid "<b>Output Quality</b>"
 msgstr "<b>Afdrukkwaliteit</b>"
 
-#: ../ui/NewPrinterWindow.ui.h:97
-msgid "Yes, I accept this license"
-msgstr "Ja, ik accepteer deze licentie"
-
 #: ../ui/NewPrinterWindow.ui.h:98
+msgid "Yes, I accept this license"
+msgstr "Ja, ik accepteer deze licentieovereenkomst"
+
+#: ../ui/NewPrinterWindow.ui.h:99
 msgid "No, I do not accept this license"
 msgstr "Nee, ik accepteer deze licentie niet"
 
-#: ../ui/NewPrinterWindow.ui.h:99
+#: ../ui/NewPrinterWindow.ui.h:100
 msgid "<b>License Terms</b>"
 msgstr "<b>Licentievoorwaarden</b>"
 
-#: ../ui/NewPrinterWindow.ui.h:100
+#: ../ui/NewPrinterWindow.ui.h:101
 msgid "Driver details"
 msgstr "Stuurprogrammadetails"
+
+#: ../ui/NewPrinterWindow.ui.h:103
+msgid "Back"
+msgstr "Terug"
+
+#: ../ui/NewPrinterWindow.ui.h:105 ../ui/PrinterPropertiesDialog.ui.h:3
+msgid "Apply"
+msgstr "Toepassen"
+
+#: ../ui/NewPrinterWindow.ui.h:106
+msgid "Forward"
+msgstr "Verder"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:1
 msgid "Printer Properties"
 msgstr "Printereigenschappen"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:3
+#: ../ui/PrinterPropertiesDialog.ui.h:2
+msgid "Co_nflicts"
+msgstr "Co_nflicteert"
+
+#: ../ui/PrinterPropertiesDialog.ui.h:8
 msgid "Location:"
 msgstr "Locatie:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:4
+#: ../ui/PrinterPropertiesDialog.ui.h:9
 msgid "Device URI:"
-msgstr "Apparaat-URI:"
+msgstr "Apparaat URI:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:5
+#: ../ui/PrinterPropertiesDialog.ui.h:10
 msgid "Printer State:"
 msgstr "Printerstatus:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:6
+#: ../ui/PrinterPropertiesDialog.ui.h:11
 msgid "Change..."
 msgstr "Veranderen..."
 
-#: ../ui/PrinterPropertiesDialog.ui.h:7
+#: ../ui/PrinterPropertiesDialog.ui.h:12
 msgid "Make and Model:"
 msgstr "Merk en model:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:8
+#: ../ui/PrinterPropertiesDialog.ui.h:13
 msgid "printer state"
-msgstr "printerstatus"
+msgstr "printer toestand "
 
-#: ../ui/PrinterPropertiesDialog.ui.h:9
+#: ../ui/PrinterPropertiesDialog.ui.h:14
 msgid "make and model"
 msgstr "merk en model"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:10
+#: ../ui/PrinterPropertiesDialog.ui.h:15
 msgid "<b>Settings</b>"
 msgstr "<b>Instellingen</b>"
 
 #. Not more than 25 characters
-#: ../ui/PrinterPropertiesDialog.ui.h:14
+#: ../ui/PrinterPropertiesDialog.ui.h:19
 msgid "Print Self-Test Page"
 msgstr "Testpagina afdrukken"
 
 #. Not more than 25 characters
-#: ../ui/PrinterPropertiesDialog.ui.h:16
+#: ../ui/PrinterPropertiesDialog.ui.h:21
 msgid "Clean Print Heads"
 msgstr "Printkoppen schoonmaken"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:17
+#: ../ui/PrinterPropertiesDialog.ui.h:22
 msgid "<b>Tests and Maintenance</b>"
 msgstr "<b>Testen en onderhoud</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:18
+#: ../ui/PrinterPropertiesDialog.ui.h:23
 msgid "Settings"
 msgstr "Instellingen"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:19
+#: ../ui/PrinterPropertiesDialog.ui.h:24
 msgid "Enabled"
 msgstr "Aangezet"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:20
+#: ../ui/PrinterPropertiesDialog.ui.h:25
 msgid "Accepting jobs"
-msgstr "Accepteert afdruktaken"
+msgstr "Accepteert taken"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:21
+#: ../ui/PrinterPropertiesDialog.ui.h:26
 msgid "Shared"
 msgstr "Gedeeld"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:22
+#: ../ui/PrinterPropertiesDialog.ui.h:27
 msgid ""
 "<i>Not published\n"
 "See server settings</i>"
@@ -2399,249 +2449,245 @@ msgstr ""
 "<i>Niet gepubliceerd\n"
 "Zie server-instellingen</i>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:24
+#: ../ui/PrinterPropertiesDialog.ui.h:29
 msgid "<b>State</b>"
 msgstr "<b>Status</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:25
-msgid "Error Policy: \t"
-msgstr "Foutenbeleid: \t"
+#: ../ui/PrinterPropertiesDialog.ui.h:30
+msgid "Error Policy:"
+msgstr "Foutenbeleid:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:26
+#: ../ui/PrinterPropertiesDialog.ui.h:31
 msgid "Operation Policy:"
 msgstr "Operationeel beleid:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:27
+#: ../ui/PrinterPropertiesDialog.ui.h:32
 msgid "<b>Policies</b>"
-msgstr "<b>Beleidsregels</b>"
+msgstr "<b>Beleid</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:28
+#: ../ui/PrinterPropertiesDialog.ui.h:33
 msgid "Starting Banner:"
-msgstr "Beginbanier:"
+msgstr "Begin-banner:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:29
+#: ../ui/PrinterPropertiesDialog.ui.h:34
 msgid "Ending Banner:"
-msgstr "Einde-banier:"
+msgstr "Einde-banner:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:30
+#: ../ui/PrinterPropertiesDialog.ui.h:35
 msgid "<b>Banner</b>"
 msgstr "<b>Banner</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:31
+#: ../ui/PrinterPropertiesDialog.ui.h:36
 msgid "Policies"
-msgstr "Beleidsregels"
+msgstr "Policies"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:32
+#: ../ui/PrinterPropertiesDialog.ui.h:37
 msgid "Allow printing for everyone except these users:"
 msgstr "Afdrukken voor iedereen toestaan, behalve voor deze gebruikers:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:33
+#: ../ui/PrinterPropertiesDialog.ui.h:38
 msgid "Deny printing for everyone except these users:"
-msgstr "Afdrukken aan niemand toestaan, behalve aan deze gebruikers:"
+msgstr "Afdrukken voor iedereen ontzeggen, behalve voor deze gebruikers:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:34
+#: ../ui/PrinterPropertiesDialog.ui.h:39
 msgid "user"
 msgstr "gebruiker"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:35
+#: ../ui/PrinterPropertiesDialog.ui.h:40
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: ../ui/PrinterPropertiesDialog.ui.h:42
 msgid "Access Control"
 msgstr "Toegangscontrole"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:36
+#: ../ui/PrinterPropertiesDialog.ui.h:43
 msgid "Add or Remove Members"
 msgstr "Leden toevoegen of verwijderen"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:39
+#: ../ui/PrinterPropertiesDialog.ui.h:46
 msgid "Members"
 msgstr "Leden"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:42
+#: ../ui/PrinterPropertiesDialog.ui.h:49
 msgid ""
 "Specify the default job options for this printer.  Jobs arriving at this "
 "print server will have these options added if they are not already set by "
 "the application."
 msgstr ""
-"Specificeer de standaardopties voor afdruktaken voor deze printer. "
-"Afdruktaken die arriveren op deze printserver zullen deze opties toegevoegd "
-"krijgen wanneer die niet door de toepassing zelf zijn ingesteld."
+"Specificeer de standaard opdrachtopties voor deze printer. Opdrachten die "
+"arriveren op deze printserver zullen deze opties toegevoegd krijgen als ze "
+"al niet door de applicatie zelf zijn ingesteld."
 
-#: ../ui/PrinterPropertiesDialog.ui.h:43
+#: ../ui/PrinterPropertiesDialog.ui.h:50
 msgid "Copies:"
 msgstr "Exemplaren:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:44
+#: ../ui/PrinterPropertiesDialog.ui.h:51
 msgid "Orientation:"
 msgstr "Oriëntatie:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:45
+#: ../ui/PrinterPropertiesDialog.ui.h:52
 msgid "Pages per side:"
 msgstr "Pagina's per kant:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:46
+#: ../ui/PrinterPropertiesDialog.ui.h:53
 msgid "Scale to fit"
 msgstr "Schalen tot het past"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:47
+#: ../ui/PrinterPropertiesDialog.ui.h:54
 msgid "Pages per side layout:"
-msgstr "Vormgeving pagina's per kant:"
+msgstr "Layout pagina's per kant:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:48
+#: ../ui/PrinterPropertiesDialog.ui.h:55
 msgid "Brightness:"
 msgstr "Helderheid:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:49
+#: ../ui/PrinterPropertiesDialog.ui.h:56
 msgid "Reset"
 msgstr "Herinitialiseren"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:50
+#: ../ui/PrinterPropertiesDialog.ui.h:57
 msgid "Finishings:"
 msgstr "Nabewerking:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:51
+#: ../ui/PrinterPropertiesDialog.ui.h:58
 msgid "Job priority:"
-msgstr "Afdruktaakprioriteit:"
+msgstr "Opdrachtprioriteit:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:52
+#: ../ui/PrinterPropertiesDialog.ui.h:59
 msgid "Media:"
 msgstr "Media:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:53
+#: ../ui/PrinterPropertiesDialog.ui.h:60
 msgid "Sides:"
 msgstr "Aantal zijden:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:54
+#: ../ui/PrinterPropertiesDialog.ui.h:61
 msgid "Hold until:"
 msgstr "Vasthouden tot:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:55
+#: ../ui/PrinterPropertiesDialog.ui.h:62
 msgid "Output order:"
-msgstr "Uitvoervolgorde:"
+msgstr "Ouput volgorde:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:56
+#: ../ui/PrinterPropertiesDialog.ui.h:63
 msgid "Print quality:"
 msgstr "Afdrukkwaliteit:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:57
+#: ../ui/PrinterPropertiesDialog.ui.h:64
 msgid "Printer resolution:"
-msgstr "Printerresolutie:"
+msgstr "Printer resolutie:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:58
+#: ../ui/PrinterPropertiesDialog.ui.h:65
 msgid "Output bin:"
 msgstr "Uitvoerbak:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:59
+#: ../ui/PrinterPropertiesDialog.ui.h:66
 msgid "More"
 msgstr "Meer"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:60
+#: ../ui/PrinterPropertiesDialog.ui.h:67
 msgid "<b>Common Options</b>"
 msgstr "<b>Algemene opties</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:61
+#: ../ui/PrinterPropertiesDialog.ui.h:68
 msgid "Scaling:"
 msgstr "Schalen:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:62
+#: ../ui/PrinterPropertiesDialog.ui.h:69
 msgid "Mirror"
 msgstr "Spiegel"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:63
+#: ../ui/PrinterPropertiesDialog.ui.h:70
 msgid "Saturation:"
 msgstr "Verzadiging:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:64
+#: ../ui/PrinterPropertiesDialog.ui.h:71
 msgid "Hue adjustment:"
 msgstr "Tintaanpassing:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:65
+#: ../ui/PrinterPropertiesDialog.ui.h:72
 msgid "Gamma:"
 msgstr "Gamma:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:66
+#: ../ui/PrinterPropertiesDialog.ui.h:73
 msgid "<b>Image Options</b>"
 msgstr "<b>Afbeeldingsopties</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:67
+#: ../ui/PrinterPropertiesDialog.ui.h:74
 msgid "Characters per inch:"
 msgstr "Tekens per inch:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:68
+#: ../ui/PrinterPropertiesDialog.ui.h:75
 msgid "Lines per inch:"
 msgstr "Regels per inch:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:69
+#: ../ui/PrinterPropertiesDialog.ui.h:76
 msgid "points"
 msgstr "punten"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:70
-msgid " "
-msgstr " "
-
-#: ../ui/PrinterPropertiesDialog.ui.h:71
+#: ../ui/PrinterPropertiesDialog.ui.h:77
 msgid "Left margin:"
 msgstr "Linkermarge:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:72
+#: ../ui/PrinterPropertiesDialog.ui.h:78
 msgid "Right margin:"
 msgstr "Rechtermarge:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:73
+#: ../ui/PrinterPropertiesDialog.ui.h:79
 msgid "Pretty print"
 msgstr "Mooi afdrukken"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:74
+#: ../ui/PrinterPropertiesDialog.ui.h:80
 msgid "Word wrap"
 msgstr "Regels afbreken"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:75
+#: ../ui/PrinterPropertiesDialog.ui.h:81
 msgid "Columns:"
 msgstr "Kolommen:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:76
+#: ../ui/PrinterPropertiesDialog.ui.h:82
 msgid "Top margin:"
 msgstr "Bovenmarge:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:77
+#: ../ui/PrinterPropertiesDialog.ui.h:83
 msgid "Bottom margin:"
 msgstr "Ondermarge:"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:78
+#: ../ui/PrinterPropertiesDialog.ui.h:84
 msgid "<b>Text Options</b>"
 msgstr "<b>Tekstopties</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:79
+#: ../ui/PrinterPropertiesDialog.ui.h:85
 msgid "To add a new option, enter its name in the box below and click to add."
 msgstr ""
-"Om een nieuwe optie toe te voegen, voert u de naam in het vak hieronder in "
-"en klikt u om toe te voegen."
+"Om een nieuwe optie toe te voegen, voer de naam in het vak hieronder in en "
+"klik om toe te voegen."
 
-#: ../ui/PrinterPropertiesDialog.ui.h:80
+#: ../ui/PrinterPropertiesDialog.ui.h:86
 msgid "<b>Other Options (Advanced)</b>"
 msgstr "<b>Andere opties (geavanceerd)</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:81
+#: ../ui/PrinterPropertiesDialog.ui.h:87
 msgid "Job Options"
-msgstr "Afdruktaak-opties"
+msgstr "Opdrachtopties"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:82
+#: ../ui/PrinterPropertiesDialog.ui.h:89
 msgid "<b>Ink/Toner Levels</b>"
-msgstr "<b>Inkt-/Tonerniveaus</b>"
+msgstr "<b>Ink/Toner Niveau</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:83
+#: ../ui/PrinterPropertiesDialog.ui.h:90
 msgid "There are no status messages for this printer."
-msgstr "Er zijn geen statusberichten voor deze printer."
+msgstr "Er zijn geen statusberichten die bij deze wachtrij horen."
 
-#: ../ui/PrinterPropertiesDialog.ui.h:84
+#: ../ui/PrinterPropertiesDialog.ui.h:91
 msgid "<b>Status Messages</b>"
-msgstr "<b>Statusberichten</b>"
+msgstr "<b>Status Berichten</b>"
 
-#: ../ui/PrinterPropertiesDialog.ui.h:85
+#: ../ui/PrinterPropertiesDialog.ui.h:92
 msgid "Ink/Toner Levels"
-msgstr "Inkt-/Tonerniveaus"
-
-#: ../ui/PrinterPropertiesDialog.ui.h:86
-msgid "Co_nflicts"
-msgstr "Co_nflicteert"
+msgstr "Ink/Toner Niveau"
 
 #: ../ui/PrintersWindow.ui.h:1
 msgid "System-Config-Printer"
@@ -2668,84 +2714,92 @@ msgid "_Troubleshoot"
 msgstr "_Fout zoeken"
 
 #: ../ui/PrintersWindow.ui.h:8
-msgid "There are no printers configured yet."
-msgstr "Er zijn nog geen printers ingesteld."
+msgid "About"
+msgstr "Over"
 
 #: ../ui/PrintersWindow.ui.h:9
+msgid "There are no printers configured yet."
+msgstr "Er zijn nog geen printers geconfigureerd."
+
+#: ../ui/PrintersWindow.ui.h:11
 msgid ""
 "Printing service not available.  Start the service on this computer or "
 "connect to another server."
 msgstr ""
-"Afdrukdienst niet beschikbaar. Start de dienst op deze computer of verbind "
-"met een andere server."
+"Afdrukken service niet beschikbaar. Start de service op deze computer of "
+"verbindt met een andere server."
 
-#: ../ui/PrintersWindow.ui.h:10
+#: ../ui/PrintersWindow.ui.h:12
 msgid "Start Service"
-msgstr "Start dienst"
+msgstr "Start service"
 
 #: ../ui/ServerSettingsDialog.ui.h:1
 msgid "Server Settings"
-msgstr "Server-instellingen"
+msgstr "Server instellingen"
 
-#: ../ui/ServerSettingsDialog.ui.h:2
+#: ../ui/ServerSettingsDialog.ui.h:4
 msgid "_Show printers shared by other systems"
 msgstr "Door andere sys_temen gedeelde printers tonen"
 
-#: ../ui/ServerSettingsDialog.ui.h:3
+#: ../ui/ServerSettingsDialog.ui.h:5
 msgid "_Publish shared printers connected to this system"
 msgstr "Gedeelde _printers verbonden met dit systeem publiceren"
 
-#: ../ui/ServerSettingsDialog.ui.h:4
+#: ../ui/ServerSettingsDialog.ui.h:6
 msgid "Allow printing from the _Internet"
-msgstr "Afdrukken vanaf het inter_net toestaan"
+msgstr "Afdrukken vanaf het Inter_net toestaan"
 
-#: ../ui/ServerSettingsDialog.ui.h:5
+#: ../ui/ServerSettingsDialog.ui.h:7
 msgid "Allow _remote administration"
 msgstr "_Beheer op afstand toestaan"
 
-#: ../ui/ServerSettingsDialog.ui.h:6
+#: ../ui/ServerSettingsDialog.ui.h:8
 msgid "Allow _users to cancel any job (not just their own)"
 msgstr ""
-"_Gebruikers toestaan om elke opdracht te annuleren (niet alleen die van hen "
-"zelf)"
-
-#: ../ui/ServerSettingsDialog.ui.h:7
-msgid "Save _debugging information for troubleshooting"
-msgstr "_Foutopsporingsinformatie opslaan om problemen op te lossen"
-
-#: ../ui/ServerSettingsDialog.ui.h:8
-msgid "Do not preserve job history"
-msgstr "Afdruktaakgeschiedenis niet bijhouden"
+"_Gebruikers toestaan om elke opdracht te annuleren (niet alleen die van "
+"hunzelf)"
 
 #: ../ui/ServerSettingsDialog.ui.h:9
-msgid "Preserve job history but not files"
-msgstr "Afdruktaakgeschiedenis bijhouden maar niet de bestanden"
+msgid "Save _debugging information for troubleshooting"
+msgstr "_Debug-informatie opslaan om problemen op te lossen"
 
 #: ../ui/ServerSettingsDialog.ui.h:10
-msgid "Preserve job files (allow reprinting)"
-msgstr "Afdruktaakbestanden bewaren (maakt opnieuw afdrukken mogelijk)"
+msgid "Do not preserve job history"
+msgstr "Taakgeschiedenis niet bijhouden"
 
 #: ../ui/ServerSettingsDialog.ui.h:11
-msgid "<b>Job history</b>"
-msgstr "<b>Afdruktaakgeschiedenis</b>"
+msgid "Preserve job history but not files"
+msgstr "Taakgeschiedenis bijhouden maar niet de bestanden"
 
 #: ../ui/ServerSettingsDialog.ui.h:12
+msgid "Preserve job files (allow reprinting)"
+msgstr "Taakbestanden bewaren (maakt opnieuw afdrukken mogelijk)"
+
+#: ../ui/ServerSettingsDialog.ui.h:13
+msgid "<b>Job history</b>"
+msgstr "<b>Taakgeschiedenis</b>"
+
+#: ../ui/ServerSettingsDialog.ui.h:14
 msgid ""
 "Usually print servers broadcast their queues. Specify print servers below to "
 "periodically ask for queues instead."
 msgstr ""
 "Afdrukservers maken gewoonlijk hun wachtrijen bekend. Geef hieronder "
-"afdrukservers op waaraan periodiek naar hun wachtrijen wordt gevraagd."
+"afdrukservers op waaraan periodiek naar hun wachtrijen wordt geïnformeerd."
 
-#: ../ui/ServerSettingsDialog.ui.h:13
+#: ../ui/ServerSettingsDialog.ui.h:16
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: ../ui/ServerSettingsDialog.ui.h:17
 msgid "<b>Browse servers</b>"
 msgstr "<b>Servers doorbladeren</b>"
 
-#: ../ui/ServerSettingsDialog.ui.h:14
+#: ../ui/ServerSettingsDialog.ui.h:18
 msgid "Advanced Server Settings"
 msgstr "Geavanceerde serverinstellingen"
 
-#: ../ui/ServerSettingsDialog.ui.h:15
+#: ../ui/ServerSettingsDialog.ui.h:19
 msgid "<b>Basic Server Settings</b>"
 msgstr "<b>Standaard server-instellingen</b>"
 
@@ -2761,9 +2815,13 @@ msgstr "_Verbergen"
 msgid "_Configure Printers"
 msgstr "_Configureer printers"
 
+#: ../ui/statusicon_popupmenu.ui.h:3
+msgid "Quit"
+msgstr "Verlaten"
+
 #: ../ui/WaitWindow.ui.h:1
 msgid "Please Wait"
-msgstr "Even geduld a.u.b."
+msgstr "Even geduld"
 
 #: ../system-config-printer.desktop.in.h:1
 msgid "Print Settings"
@@ -2771,136 +2829,136 @@ msgstr "Afdrukinstellingen"
 
 #: ../system-config-printer.desktop.in.h:2
 msgid "Configure printers"
-msgstr "Printers instellen"
+msgstr "Printers configureren"
 
-#: ../statereason.py:96
+#: ../statereason.py:109
 msgid "Toner low"
 msgstr "Toner is bijna op"
 
-#: ../statereason.py:97
+#: ../statereason.py:110
 #, python-format
 msgid "Printer '%s' is low on toner."
 msgstr "Printer ‘%s’ heeft bijna geen toner meer."
 
-#: ../statereason.py:98
+#: ../statereason.py:111
 msgid "Toner empty"
 msgstr "Toner is op"
 
-#: ../statereason.py:99
+#: ../statereason.py:112
 #, python-format
 msgid "Printer '%s' has no toner left."
 msgstr "Printer ‘%s’ heeft geen toner meer."
 
-#: ../statereason.py:100
+#: ../statereason.py:113
 msgid "Cover open"
 msgstr "Kap staat open"
 
-#: ../statereason.py:101
+#: ../statereason.py:114
 #, python-format
 msgid "The cover is open on printer '%s'."
 msgstr "De kap van printer ‘%s’ staat open."
 
-#: ../statereason.py:102
+#: ../statereason.py:115
 msgid "Door open"
 msgstr "Deur staat open"
 
-#: ../statereason.py:103
+#: ../statereason.py:116
 #, python-format
 msgid "The door is open on printer '%s'."
 msgstr "De deur van printer ‘%s’ staat open."
 
-#: ../statereason.py:104
+#: ../statereason.py:117
 msgid "Paper low"
 msgstr "Papier is bijna op"
 
-#: ../statereason.py:105
+#: ../statereason.py:118
 #, python-format
 msgid "Printer '%s' is low on paper."
 msgstr "Printer ‘%s’ heeft bijna geen papier meer."
 
-#: ../statereason.py:106
+#: ../statereason.py:119
 msgid "Out of paper"
 msgstr "Papier is op"
 
-#: ../statereason.py:107
+#: ../statereason.py:120
 #, python-format
 msgid "Printer '%s' is out of paper."
 msgstr "Printer ‘%s’ heeft geen papier meer."
 
-#: ../statereason.py:108
+#: ../statereason.py:121
 msgid "Ink low"
 msgstr "Inkt is bijna op"
 
-#: ../statereason.py:109
+#: ../statereason.py:122
 #, python-format
 msgid "Printer '%s' is low on ink."
 msgstr "Printer ‘%s’ heeft bijna geen inkt meer."
 
-#: ../statereason.py:110
+#: ../statereason.py:123
 msgid "Ink empty"
 msgstr "Inkt is op"
 
-#: ../statereason.py:111
+#: ../statereason.py:124
 #, python-format
 msgid "Printer '%s' has no ink left."
 msgstr "Printer ‘%s’ heeft geen inkt meer."
 
-#: ../statereason.py:112
+#: ../statereason.py:125
 msgid "Printer off-line"
-msgstr "Printer is niet meer verbonden"
+msgstr "Printer offline"
 
-#: ../statereason.py:113
+#: ../statereason.py:126
 #, python-format
 msgid "Printer '%s' is currently off-line."
-msgstr "Printer ‘%s’ is momenteel niet verbonden."
+msgstr "Printer ‘%s’ is momenteel off-line."
 
-#: ../statereason.py:114
+#: ../statereason.py:127
 msgid "Not connected?"
 msgstr "Niet verbonden?"
 
-#: ../statereason.py:115
+#: ../statereason.py:128
 #, python-format
 msgid "Printer '%s' may not be connected."
 msgstr "Printer ‘%s’ is mogelijk niet verbonden."
 
-#: ../statereason.py:116 ../statereason.py:136
+#: ../statereason.py:129 ../statereason.py:149
 msgid "Printer error"
 msgstr "Printerfout"
 
-#: ../statereason.py:117
+#: ../statereason.py:130
 #, python-format
 msgid "There is a problem on printer '%s'."
 msgstr "Er is een probleem met printer ‘%s’."
 
-#: ../statereason.py:119
+#: ../statereason.py:132
 msgid "Printer configuration error"
-msgstr "Printerinstellingsfout"
+msgstr "Printerconfiguratie fout"
 
-#: ../statereason.py:120
+#: ../statereason.py:133
 #, python-format
 msgid "There is a missing print filter for printer '%s'."
-msgstr "Er is een ontbrekend afdrukfilter voor printer ‘%s’."
+msgstr "Er is een ontbrekend afdruk filter voor printer ‘%s’."
 
-#: ../statereason.py:132
+#: ../statereason.py:145
 msgid "Printer report"
 msgstr "Printerrapport"
 
-#: ../statereason.py:134
+#: ../statereason.py:147
 msgid "Printer warning"
 msgstr "Printerwaarschuwing"
 
-#: ../statereason.py:153
+#: ../statereason.py:166
 #, python-format
 msgid "Printer '%s': '%s'."
 msgstr "Printer ‘%s’: ‘%s’."
 
-#: ../timedops.py:115 ../timedops.py:195
+#: ../timedops.py:115 ../timedops.py:194
 msgid "Please wait"
 msgstr "Even geduld a.u.b."
 
-#: ../timedops.py:121 ../timedops.py:202
+#: ../timedops.py:121 ../timedops.py:201
 msgid "Gathering information"
-msgstr "Informatie verzamelen"
+msgstr "Informatie verzamelen..."
 
 #: ../ToolbarSearchEntry.py:73
 msgid "_Filter:"
@@ -2915,12 +2973,12 @@ msgid ""
 "To start this tool, select System->Administration->Print Settings from the "
 "main menu."
 msgstr ""
-"Om dit programma te starten, selecteert u Systeem->Beheer->Afdrukken in het "
+"Om dit programma te starten, selecteer je Systeem->Beheer->Afdrukken in het "
 "hoofdmenu."
 
 #: ../troubleshoot/CheckLocalServerPublishing.py:28
 msgid "Server Not Exporting Printers"
-msgstr "Server exporteert geen printers"
+msgstr "De server exporteert geen printers"
 
 #: ../troubleshoot/CheckLocalServerPublishing.py:29
 msgid ""
@@ -2936,17 +2994,17 @@ msgid ""
 "server settings using the printing administration tool."
 msgstr ""
 "Schakel de optie ‘Gepubliceerde, aan dit systeem verbonden printers delen’ "
-"in, in de serverinstellingen, met behulp van het afdrukbeheerprogramma."
+"onder de serverinstellingen met behulp van het afdrukbeheer programma in."
 
-#: ../troubleshoot/CheckPPDSanity.py:47 ../applet.py:179
+#: ../troubleshoot/CheckPPDSanity.py:48 ../applet.py:180
 msgid "Install"
 msgstr "Installeren"
 
-#: ../troubleshoot/CheckPPDSanity.py:99
+#: ../troubleshoot/CheckPPDSanity.py:100
 msgid "Invalid PPD File"
 msgstr "Ongeldig PPD-bestand"
 
-#: ../troubleshoot/CheckPPDSanity.py:110
+#: ../troubleshoot/CheckPPDSanity.py:111
 #, python-format
 msgid ""
 "The PPD file for printer '%s' does not conform to the specification.  "
@@ -2956,21 +3014,21 @@ msgstr ""
 "Mogelijke reden volgt:"
 
 #. Perhaps cupstestppd is not in the path.
-#: ../troubleshoot/CheckPPDSanity.py:116
+#: ../troubleshoot/CheckPPDSanity.py:117
 #, python-format
 msgid "There is a problem with the PPD file for printer '%s'."
 msgstr "Er is een probleem met het PPD-bestand voor printer ‘%s’."
 
-#: ../troubleshoot/CheckPPDSanity.py:126
+#: ../troubleshoot/CheckPPDSanity.py:127
 msgid "Missing Printer Driver"
 msgstr "Printerstuurprogramma ontbreekt"
 
-#: ../troubleshoot/CheckPPDSanity.py:140
+#: ../troubleshoot/CheckPPDSanity.py:141
 #, python-format
 msgid ""
 "Printer '%s' requires the '%s' program but it is not currently installed."
 msgstr ""
-"Printer ‘%s’ vereist het programma ‘%s’, maar dit is momenteel niet "
+"Printer ‘%s’ vereist het pakket ‘%s’, maar dit pakket is momenteel niet "
 "geïnstalleerd."
 
 #: ../troubleshoot/ChooseNetworkPrinter.py:31
@@ -2982,8 +3040,8 @@ msgid ""
 "Please select the network printer you are trying to use from the list below. "
 "If it does not appear in the list, select 'Not listed'."
 msgstr ""
-"Selecteer a.u.b. de netwerkprinter die u wilt gebruiken in de onderstaande "
-"lijst. Als hij er niet in voorkomt, selecteer dan ‘Niet in de lijst’."
+"Selecteer de netwerkprinter die je wilt gebruiken uit de onderstaande lijst. "
+"Als hij er niet in voorkomt, selecteer dan ‘Niet getoond’."
 
 #: ../troubleshoot/ChooseNetworkPrinter.py:41
 #: ../troubleshoot/ChoosePrinter.py:47 ../troubleshoot/DeviceListed.py:45
@@ -2993,7 +3051,7 @@ msgstr "Informatie"
 #: ../troubleshoot/ChooseNetworkPrinter.py:75
 #: ../troubleshoot/ChoosePrinter.py:71 ../troubleshoot/DeviceListed.py:77
 msgid "Not listed"
-msgstr "Niet in de lijst"
+msgstr "Niet getoond"
 
 #: ../troubleshoot/ChoosePrinter.py:37
 msgid "Choose Printer"
@@ -3004,8 +3062,8 @@ msgid ""
 "Please select the printer you are trying to use from the list below. If it "
 "does not appear in the list, select 'Not listed'."
 msgstr ""
-"Selecteer a.u.b. de printer die u wilt gebruiken in de onderstaande lijst. "
-"Als hij er niet in voorkomt, selecteer dan ‘Niet in de lijst’."
+"Selecteer de printer die je wilt gebruiken uit de onderstaande lijst. Als "
+"hij er niet in voorkomt, selecteer dan ‘Niet getoond’."
 
 #: ../troubleshoot/DeviceListed.py:37
 msgid "Choose Device"
@@ -3016,54 +3074,67 @@ msgid ""
 "Please select the device you want to use from the list below. If it does not "
 "appear in the list, select 'Not listed'."
 msgstr ""
-"Selecteer a.u.b. het apparaat dat u wilt gebruiken in de onderstaande lijst. "
-"Als het er niet in voorkomt, selecteer dan ‘Niet in de lijst’."
-
-#: ../troubleshoot/ErrorLogCheckpoint.py:39
-msgid "Debugging"
-msgstr "Foutopsporing"
+"Selecteer het apparaat dat je wilt gebruiken uit de onderstaande lijst. Als "
+"het er niet in voorkomt, selecteer dan ‘Niet getoond’."
 
 #: ../troubleshoot/ErrorLogCheckpoint.py:40
+msgid "Debugging"
+msgstr "Debuggen"
+
+#: ../troubleshoot/ErrorLogCheckpoint.py:41
 msgid ""
 "This step will enable debugging output from the CUPS scheduler.  This may "
 "cause the scheduler to restart.  Click the button below to enable debugging."
 msgstr ""
-"Deze stap zal foutopsporings-uitvoer van de CUPS-scheduler inschakelen.  Dit "
-"kan ervoor zorgen dat de scheduler herstart.  Klik op de knop hieronder om "
-"foutopsporing in te schakelen."
+"Deze stap zal debug-uitvoer van de CUPS-scheduler in schakelen.  Dit kan "
+"ervoor zorgen dat de scheduler herstart.  Klik op de knop hieronder om "
+"debuggen in te schakelen."
 
-#: ../troubleshoot/ErrorLogCheckpoint.py:44
+#: ../troubleshoot/ErrorLogCheckpoint.py:45
 msgid "Enable Debugging"
-msgstr "Foutopsporing inschakelen"
+msgstr "Debuggen inschakelen"
 
-#: ../troubleshoot/ErrorLogCheckpoint.py:240
+#: ../troubleshoot/ErrorLogCheckpoint.py:236
 msgid "Debug logging enabled."
-msgstr "Foutopsporings-informatie bijhouden in logboek ingeschakeld."
+msgstr "Loggen van debug-informatie ingeschakeld"
 
-#: ../troubleshoot/ErrorLogCheckpoint.py:242
+#: ../troubleshoot/ErrorLogCheckpoint.py:238
 msgid "Debug logging was already enabled."
-msgstr "Foutopsporings-informatie bijhouden in logboek is reeds ingeschakeld."
+msgstr "Loggen van debug-informatie is reeds ingeschakeld"
 
-#: ../troubleshoot/ErrorLogParse.py:31
-msgid "Error log messages"
-msgstr "Berichten in foutmeldingenlogboek"
+#: ../troubleshoot/ErrorLogFetch.py:41
+msgid "Retrieve Journal Entries"
+msgstr "Haal journaalingangen op"
+
+#: ../troubleshoot/ErrorLogFetch.py:42
+msgid ""
+"No system journal entries were found. This may be because you are not an "
+"administrator. To fetch journal entries please run this command:"
+msgstr ""
+"Er werden geen journaalingangen gevonden. Dit kan zijn omdat je geen "
+"beheerder bent. Om journaalingangen op te halen moet je dit commando "
+"uitvoeren:"
 
 #: ../troubleshoot/ErrorLogParse.py:32
+msgid "Error log messages"
+msgstr "Foutmeldingen in log"
+
+#: ../troubleshoot/ErrorLogParse.py:33
 msgid "There are messages in the error log."
-msgstr "Er zijn berichten in het foutmeldingenlogboek."
+msgstr "Er zijn berichten in het errorlog."
 
 #: ../troubleshoot/Locale.py:31
 msgid "Incorrect Page Size"
-msgstr "Onjuist papierformaat"
+msgstr "Onjuist Papierformaat"
 
 #: ../troubleshoot/Locale.py:32
 msgid ""
 "The page size for the print job was not the printer's default page size.  If "
 "this is not intentional it may cause alignment problems."
 msgstr ""
-"Het papierformaat voor de afdruktaak was niet het standaardpapierformaat van "
-"de printer.  Indien dit niet opzettelijk is gedaan, kan dit uitlijnproblemen "
-"veroorzaken."
+"Het papierformaat voor de afdruktaak was niet het printer standaard "
+"papierformaat.  Indien dit niet opzettelijk is gedaan, kan dit "
+"uitlijnproblemen veroorzaken."
 
 #: ../troubleshoot/Locale.py:44
 msgid "Print job page size:"
@@ -3094,24 +3165,24 @@ msgstr "Wachtrij niet gedeeld"
 msgid "The CUPS printer on the server is not shared."
 msgstr "De CUPS-printer op de server is niet gedeeld."
 
-#: ../troubleshoot/PrinterStateReasons.py:33
+#: ../troubleshoot/PrinterStateReasons.py:34
 msgid "Status Messages"
 msgstr "Statusberichten"
 
-#: ../troubleshoot/PrinterStateReasons.py:34
+#: ../troubleshoot/PrinterStateReasons.py:35
 msgid "There are status messages associated with this queue."
 msgstr "Er zijn statusberichten die bij deze wachtrij horen."
 
-#: ../troubleshoot/PrinterStateReasons.py:64
+#: ../troubleshoot/PrinterStateReasons.py:65
 #, python-format
 msgid "The printer's state message is: '%s'."
 msgstr "Het statusbericht van de printer is: ‘%s’."
 
-#: ../troubleshoot/PrinterStateReasons.py:89
+#: ../troubleshoot/PrinterStateReasons.py:90
 msgid "Errors are listed below:"
 msgstr "Foutmeldingen staan hieronder:"
 
-#: ../troubleshoot/PrinterStateReasons.py:94
+#: ../troubleshoot/PrinterStateReasons.py:95
 msgid "Warnings are listed below:"
 msgstr "Waarschuwingen staan hieronder:"
 
@@ -3124,13 +3195,13 @@ msgid ""
 "Now print a test page.  If you are having problems printing a specific "
 "document, print that document now and mark the print job below."
 msgstr ""
-"Druk nu een testpagina af. Als u problemen ondervindt bij het afdrukken van "
+"Druk nu een testpagina af. Als je problemen ondervindt bij het afdrukken van "
 "een specifiek document, druk dat document dan nu af en markeer de afdruktaak "
 "hieronder."
 
 #: ../troubleshoot/PrintTestPage.py:77
 msgid "Cancel All Jobs"
-msgstr "Alle afdruktaken annuleren"
+msgstr "Alle opdrachten annuleren"
 
 #: ../troubleshoot/PrintTestPage.py:83
 msgid "Test"
@@ -3138,7 +3209,7 @@ msgstr "Test"
 
 #: ../troubleshoot/PrintTestPage.py:113
 msgid "Did the marked print jobs print correctly?"
-msgstr "Zijn de gemarkeerde afdruktaken correct afgedrukt?"
+msgstr "Zijn de gemarkeerde printtaken correct afgedrukt?"
 
 #: ../troubleshoot/PrintTestPage.py:120
 msgid "Yes"
@@ -3153,9 +3224,9 @@ msgstr "Nee"
 msgid "Remember to load paper of type '%s' into the printer first."
 msgstr "Denk er aan eerst papier van het type '%s' in de printer te doen."
 
-#: ../troubleshoot/PrintTestPage.py:433
+#: ../troubleshoot/PrintTestPage.py:430
 msgid "Error submitting test page"
-msgstr "Er is een fout opgetreden bij het indienen van de testpagina"
+msgstr "Er is een fout opgetreden bij het opsturen van de testpagina"
 
 #: ../troubleshoot/QueueNotEnabled.py:58
 #: ../troubleshoot/QueueRejectingJobs.py:68
@@ -3182,8 +3253,8 @@ msgid ""
 "To enable it, select the 'Enabled' checkbox in the 'Policies' tab for the "
 "printer in the printer administration tool."
 msgstr ""
-"Om hem in te schakelen, selecteert u het ‘Ingeschakeld’-aankruisvakje in het "
-"printerbeheerprogramma onder het tabblad ‘Beleid’ voor deze printer."
+"Om hem in te schakelen, selecteer je het ‘Ingeschakeld’-aankruisvakje in het "
+"printerbeheer programma onder het tabblad ‘Beleid’ voor deze printer."
 
 #: ../troubleshoot/QueueRejectingJobs.py:33
 msgid "Queue Rejecting Jobs"
@@ -3199,9 +3270,9 @@ msgid ""
 "To make the queue accept jobs, select the 'Accepting Jobs' checkbox in the "
 "'Policies' tab for the printer in the printer administration tool."
 msgstr ""
-"Om de wachtrij afdruktaken te laten accepteren, selecteert u het "
+"Om de wachtrij afdruktaken te laten accepteren, selecteer je het "
 "aankruisvakje ‘Accepteert taken’ in het tabblad ‘Beleid’ voor de printer in "
-"het printerbeheerprogramma."
+"het printerbeheer programma."
 
 #: ../troubleshoot/RemoteAddress.py:28
 msgid "Remote Address"
@@ -3233,9 +3304,8 @@ msgid ""
 "choose System->Administration->Services from the main menu and look for the "
 "'cups' service."
 msgstr ""
-"De CUPS-printerspooler lijkt niet actief te zijn. Om dit te corrigeren, "
-"kiest u Systeem->Beheer->Diensten in het hoofdmenu en start u de dienst "
-"‘cups’."
+"De CUPS-printerspooler lijkt niet actief te zijn. Om dit te corrigeren, kies "
+"je Systeem->Beheer->Diensten uit het hoofdmenu en start je de dienst ‘cups’."
 
 #: ../troubleshoot/ServerFirewalled.py:28
 msgid "Check Server Firewall"
@@ -3264,19 +3334,19 @@ msgid ""
 "collected together with other useful information.  If you would like to "
 "report a bug, please include this information."
 msgstr ""
-"Er is geen voor de hand liggende oplossing voor dit probleem.  Uw antwoorden "
-"zijn verzameld tezamen met andere nuttige informatie. Als u een fout wil "
-"rapporteren, voeg dan a.u.b. deze informatie toe."
+"Er is geen voor de hand liggende oplossing voor dit probleem.  Jouw "
+"antwoorden zijn verzameld tezamen met andere nuttige informatie.  Als je een "
+"bug wilt rapporteren, voeg dan deze informatie toe."
 
 #: ../troubleshoot/Shrug.py:36
 msgid "Diagnostic Output (Advanced)"
-msgstr "Diagnostische uitvoer (geavanceerd)"
+msgstr "Diagnose-uitvoer (gevorderd)"
 
-#: ../troubleshoot/Shrug.py:94
+#: ../troubleshoot/Shrug.py:93
 msgid "Error saving file"
 msgstr "Fout bij opslaan van bestand"
 
-#: ../troubleshoot/Shrug.py:95
+#: ../troubleshoot/Shrug.py:94
 msgid "There was an error saving the file:"
 msgstr "Er trad een fout op bij het opslaan van het bestand:"
 
@@ -3289,69 +3359,69 @@ msgid ""
 "The next few screens will contain some questions about your problem with "
 "printing. Based on your answers a solution may be suggested."
 msgstr ""
-"De volgende schermen zullen een aantal vragen bevatten over uw "
-"afdrukprobleem. Op basis van uw antwoorden zal misschien een oplossing "
+"De volgende schermen zullen een aantal vragen bevatten over jouw "
+"afdrukprobleem. Op basis van jouw antwoorden zal misschien een oplossing "
 "gesuggereerd worden."
 
 #: ../troubleshoot/Welcome.py:51
 msgid "Click 'Forward' to begin."
 msgstr "Klik op ‘Verder’ om te beginnen."
 
-#: ../applet.py:83
-msgid "Configuring new printer"
-msgstr "Nieuwe printer instellen"
-
 #: ../applet.py:84
+msgid "Configuring new printer"
+msgstr "Nieuwe printer configureren"
+
+#: ../applet.py:85
 msgid "Please wait..."
-msgstr "Even geduld a.u.b..."
+msgstr "Even geduld aub..."
 
 #. name is a URI, no queue was generated, because no suitable
 #. driver was found
-#: ../applet.py:113 ../applet.py:166
+#: ../applet.py:114 ../applet.py:167
 msgid "Missing printer driver"
 msgstr "Printerstuurprogramma ontbreekt"
 
-#: ../applet.py:120
+#: ../applet.py:121
 #, python-format
 msgid "No printer driver for %s."
 msgstr "Printerstuurprogramma voor %s ontbreekt."
 
-#: ../applet.py:122
+#: ../applet.py:123
 msgid "No driver for this printer."
 msgstr "Geen stuurprogramma voor deze printer."
 
-#: ../applet.py:164
+#: ../applet.py:165
 msgid "Printer added"
 msgstr "Printer toegevoegd"
 
-#: ../applet.py:170
+#: ../applet.py:171
 msgid "Install printer driver"
 msgstr "Printerstuurprogramma installeren"
 
-#: ../applet.py:171
+#: ../applet.py:172
 #, python-format
 msgid "`%s' requires driver installation: %s."
 msgstr "‘%s’ vereist installatie van stuurprogramma: %s"
 
-#: ../applet.py:195
+#: ../applet.py:196
 #, python-format
 msgid "`%s' is ready for printing."
 msgstr "‘%s’ is klaar om afgedrukt te worden."
 
-#: ../applet.py:199 ../applet.py:211
+#: ../applet.py:200 ../applet.py:212
 msgid "Print test page"
 msgstr "Testpagina afdrukken"
 
-#: ../applet.py:202
+#: ../applet.py:203
 msgid "Configure"
-msgstr "Instellen"
+msgstr "Configureren"
 
-#: ../applet.py:206
+#: ../applet.py:207
 #, python-format
 msgid "`%s' has been added, using the `%s' driver."
 msgstr "‘%s’ is toegevoegd, en maakt gebruik van het stuurprogramma ‘%s’."
 
-#: ../applet.py:214
+#: ../applet.py:215
 msgid "Find driver"
 msgstr "Stuurprogramma zoeken"
 
@@ -3361,16 +3431,22 @@ msgstr "Printwachtrij-applet"
 
 #: ../print-applet.desktop.in.h:2
 msgid "System tray icon for managing print jobs"
-msgstr "Systeemvakpictogram voor het beheren van afdrukopdrachten"
+msgstr "Systeemvak icoon voor het beheren van printopdrachten"
 
 #: ../system-config-printer.appdata.xml.in.h:1
 msgid ""
 "With system-config-printer you can add, edit and delete printer queues. It "
 "allows you to choose the connection method and the printer driver."
 msgstr ""
+"Met system-config-printer kun je wachtrijen toevoegen, bewerken en "
+"verwijderen. Het staat je toe om de verbindingsmethode en het "
+"printerstuurprogramma te kiezen."
 
 #: ../system-config-printer.appdata.xml.in.h:2
 msgid ""
 "For each queue, you can adjust the default page size and other driver "
 "options, as well as seeing ink/toner levels and status messages."
 msgstr ""
+"Voor elke wachtrij kun je de standaard paginagrootte en andere "
+"stuurprogrammaopties aanpassen, naast het bekijken van inkt/toner niveaus en "
+"statusboodschappen."

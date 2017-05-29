@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## system-config-printer
 
-## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Red Hat, Inc.
+## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015 Red Hat, Inc.
 ## Authors:
 ##  Tim Waugh <twaugh@redhat.com>
 ##  Florian Festi <ffesti@redhat.com>
@@ -25,7 +25,7 @@
 import config
 
 import sys, os, time, re
-import thread
+import _thread
 import dbus
 try:
     from gi.repository import Polkit
@@ -38,8 +38,8 @@ try:
     from gi.repository import Gtk
     Gtk.init (sys.argv)
 except RuntimeError as e:
-    print "system-config-printer:", e
-    print "This is a graphical application and requires DISPLAY to be set."
+    print ("system-config-printer:", e)
+    print ("This is a graphical application and requires DISPLAY to be set.")
     sys.exit (1)
 
 def show_help():
@@ -65,14 +65,14 @@ except locale.Error:
     os.environ['LC_ALL'] = 'C'
     locale.setlocale (locale.LC_ALL, "")
 import gettext
-gettext.install(domain=config.PACKAGE, localedir=config.localedir, unicode=True)
+gettext.install(domain=config.PACKAGE, localedir=config.localedir)
 
 import cupshelpers
 from gi.repository import GObject
 from gi.repository import GLib
 from gui import GtkGUI
 from debug import *
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import troubleshoot
 import installpackage
 import jobviewer
@@ -313,8 +313,10 @@ class GUI(GtkGUI):
         self.PrintersWindow.add_accel_group (self.ui_manager.get_accel_group ())
 
         # Toolbar
-        # Glade-2 doesn't have support for MenuToolButton, so we do that here.
-        self.btnNew = Gtk.MenuToolButton.new_from_stock(Gtk.STOCK_ADD)
+        # Glade-3 doesn't have support for MenuToolButton, so we do that here.
+        self.btnNew = Gtk.MenuToolButton ()
+        self.btnNew.set_label (_("Add"))
+        self.btnNew.set_icon_name ("list-add")
         self.btnNew.set_is_important (True)
         newmenu = Gtk.Menu ()
         action = self.ui_manager.get_action ("/new-printer")
@@ -329,7 +331,9 @@ class GUI(GtkGUI):
         self.btnNew.connect ('clicked', self.on_new_printer_activate)
         self.toolbar.add (self.btnNew)
         self.toolbar.add (Gtk.SeparatorToolItem ())
-        self.refreshbutton = Gtk.ToolButton.new_from_stock(Gtk.STOCK_REFRESH)
+        self.refreshbutton = Gtk.ToolButton ()
+        self.refreshbutton.set_label (_("Refresh"))
+        self.refreshbutton.set_icon_name ("view-refresh")
         self.refreshbutton.connect ('clicked', self.on_btnRefresh_clicked)
         self.toolbar.add (self.refreshbutton)
         self.toolbar.show_all ()
@@ -491,7 +495,7 @@ class GUI(GtkGUI):
         model = self.dests_iconview.get_model ()
         iter = model.get_iter_first ()
         while iter != None:
-            name = model.get_value (iter, 2).decode ('utf-8')
+            name = model.get_value (iter, 2)
             if name == queue:
                 path = model.get_path (iter)
                 self.dests_iconview.scroll_to_path (path, True, 0.5, 0.5)
@@ -530,7 +534,7 @@ class GUI(GtkGUI):
     def dests_iconview_item_activated (self, iconview, path):
         model = iconview.get_model ()
         iter = model.get_iter (path)
-        name = model.get_value (iter, 2).decode ('utf-8')
+        name = model.get_value (iter, 2)
         object = model.get_value (iter, 0)
 
         self.desensitise_main_window_widgets ()
@@ -579,7 +583,7 @@ class GUI(GtkGUI):
         for path in paths:
             iter = model.get_iter (path)
             object = model.get_value (iter, 0)
-            name = model.get_value (iter, 2).decode ('utf-8')
+            name = model.get_value (iter, 2)
             if object.discovered:
                 any_discovered = True
             if object.enabled:
@@ -632,7 +636,7 @@ class GUI(GtkGUI):
 
     def dests_iconview_popup_menu (self, iconview):
         self.printer_context_menu.popup_for_device (None, None, None, None,
-                                            None, 0, 0L)
+                                            None, 0, 0)
 
     def dests_iconview_button_press_event (self, iconview, event):
         if event.button > 1:
@@ -736,7 +740,7 @@ class GUI(GtkGUI):
                                   self.cups_connection_error)
             self.monitor.connect ('cups-connection-recovered',
                                   self.cups_connection_recovered)
-            GObject.idle_add (self.monitor.refresh)
+            GLib.idle_add (self.monitor.refresh)
             self.propertiesDlg.set_monitor (self.monitor)
 
         if connected:
@@ -788,7 +792,7 @@ class GUI(GtkGUI):
         model = self.dests_iconview.get_model ()
         for path in paths:
             iter = model.get_iter (path)
-            name = model.get_value (iter, 2).decode ('utf-8')
+            name = model.get_value (iter, 2)
             selected_printers.add (name)
 
         if self.cups:
@@ -801,8 +805,6 @@ class GUI(GtkGUI):
 
                 # Get default printer.
                 self.default_printer = self.cups.getDefault ()
-                if self.default_printer and isinstance (self.default_printer, bytes):
-                    self.default_printer = self.default_printer.decode ('utf-8')
             except cups.IPPError as e:
                 (e, m) = e.args
                 show_IPP_Error(e, m, self.PrintersWindow)
@@ -819,7 +821,7 @@ class GUI(GtkGUI):
             self.printers = {}
             self.default_printer = None
 
-        for name, printer in self.printers.iteritems():
+        for name, printer in self.printers.items():
             self.servers.add(printer.getServer())
 
         userdef = userdefault.UserDefaultPrinter ().get ()
@@ -843,15 +845,15 @@ class GUI(GtkGUI):
                     if pattern.search (name) != None:
                         printers_subset[name] = printers_set[name]
             elif self.current_filter_mode == "filter-description":
-                for name, printer in printers_set.iteritems ():
+                for name, printer in printers_set.items ():
                     if pattern.search (printer.info) != None:
                         printers_subset[name] = printers_set[name]
             elif self.current_filter_mode == "filter-location":
-                for name, printer in printers_set.iteritems ():
+                for name, printer in printers_set.items ():
                     if pattern.search (printer.location) != None:
                         printers_subset[name] = printers_set[name]
             elif self.current_filter_mode == "filter-manufacturer":
-                for name, printer in printers_set.iteritems ():
+                for name, printer in printers_set.items ():
                     if pattern.search (printer.make_and_model) != None:
                         printers_subset[name] = printers_set[name]
             else:
@@ -861,13 +863,13 @@ class GUI(GtkGUI):
 
         if not self.view_discovered_printers.get_active ():
             printers_subset = {}
-            for name, printer in printers_set.iteritems ():
+            for name, printer in printers_set.items ():
                 if not printer.discovered:
                     printers_subset[name] = printer
 
             printers_set = printers_subset
 
-        for name, printer in printers_set.iteritems():
+        for name, printer in list(printers_set.items()):
             if printer.remote:
                 if printer.is_class: remote_classes.append(name)
                 else: remote_printers.append(name)
@@ -926,7 +928,7 @@ class GUI(GtkGUI):
                 elif object.is_class:
                     type = 'local-class'
                 else:
-                    (scheme, rest) = urllib.splittype (object.device_uri)
+                    (scheme, rest) = urllib.parse.splittype (object.device_uri)
                     if scheme == 'ipp':
                         type = 'ipp-printer'
                     elif scheme == 'smb':
@@ -976,7 +978,7 @@ class GUI(GtkGUI):
                             break
 
                         if reason == "paused":
-                            emblem = Gtk.STOCK_MEDIA_PAUSE
+                            emblem = "media-playback-pause"
                             continue
 
                         r = statereason.StateReason (object.name, reason)
@@ -990,14 +992,14 @@ class GUI(GtkGUI):
                         emblem = worst_reason.LEVEL_ICON[level]
 
                 if not emblem and not object.enabled:
-                    emblem = Gtk.STOCK_MEDIA_PAUSE
+                    emblem = "media-playback-pause"
 
                 if object.rejecting:
                     # Show the icon as insensitive
                     copy = pixbuf.copy ()
                     copy.fill (0)
                     pixbuf.composite (copy, 0, 0,
-                                      copy.get_width(), copy.get_height(),
+                                      pixbuf.get_width(), pixbuf.get_height(),
                                       0, 0, 1.0, 1.0,
                                       GdkPixbuf.InterpType.BILINEAR, 127)
                     pixbuf = copy
@@ -1008,11 +1010,12 @@ class GUI(GtkGUI):
                         default_emblem = theme.load_icon (def_emblem, w/2, 0)
                         copy = pixbuf.copy ()
                         default_emblem.composite (copy, 0, 0,
-                                                  copy.get_width (),
-                                                  copy.get_height (),
+                                                  default_emblem.get_width (),
+                                                  default_emblem.get_height (),
                                                   0, 0,
                                                   1.0, 1.0,
-                                                  GdkPixbuf.InterpType.NEAREST, 255)
+                                                  GdkPixbuf.InterpType.BILINEAR,
+                                                  255)
                         pixbuf = copy
                     except GLib.GError:
                         debugprint ("No %s icon available" % def_emblem)
@@ -1023,12 +1026,13 @@ class GUI(GtkGUI):
                         other_emblem = theme.load_icon (emblem, w/2, 0)
                         copy = pixbuf.copy ()
                         other_emblem.composite (copy, 0, 0,
-                                                copy.get_width (),
-                                                copy.get_height (),
+                                                other_emblem.get_width (),
+                                                other_emblem.get_height (),
                                                 copy.get_width () / 2,
                                                 copy.get_height () / 2,
                                                 1.0, 1.0,
-                                                GdkPixbuf.InterpType.NEAREST, 255)
+                                                GdkPixbuf.InterpType.BILINEAR,
+                                                255)
                         pixbuf = copy
                     except GLib.GError:
                         debugprint ("No %s icon available" % emblem)
@@ -1038,7 +1042,7 @@ class GUI(GtkGUI):
         # Restore selection of printers.
         model = self.dests_iconview.get_model ()
         def maybe_select (model, path, iter, UNUSED):
-            name = model.get_value (iter, 2).decode ('utf-8')
+            name = model.get_value (iter, 2)
             if name in selected_printers:
                 self.dests_iconview.select_path (path)
         model.foreach (maybe_select, None)
@@ -1105,7 +1109,7 @@ class GUI(GtkGUI):
             cups.setEncryption(cups.HTTP_ENCRYPT_IF_REQUESTED)
         self.connect_encrypt = cups.getEncryption ()
 
-        servername = self.cmbServername.get_child().get_text().decode ('utf-8')
+        servername = self.cmbServername.get_child().get_text()
 
         self.lblConnecting.set_markup(_("<i>Opening connection to %s</i>")
                                        % servername)
@@ -1118,7 +1122,7 @@ class GUI(GtkGUI):
         cups.setUser('')
         self.connect_user = cups.getUser()
         # Now start a new thread for connection.
-        self.connect_thread = thread.start_new_thread(self.connect,
+        self.connect_thread = _thread.start_new_thread(self.connect,
                                                       (self.PrintersWindow,))
 
     def update_connecting_pbar (self):
@@ -1176,7 +1180,7 @@ class GUI(GtkGUI):
                                              host=self.connect_server,
                                              encryption=self.connect_encrypt)
         except RuntimeError as s:
-            if self.connect_thread != thread.get_ident(): return
+            if self.connect_thread != _thread.get_ident(): return
             Gdk.threads_enter()
             try:
                 self.ConnectingDialog.hide()
@@ -1189,7 +1193,7 @@ class GUI(GtkGUI):
             return
         except cups.IPPError as e:
             (e, s) = e.args
-            if self.connect_thread != thread.get_ident(): return
+            if self.connect_thread != _thread.get_ident(): return
             Gdk.threads_enter()
             try:
                 self.ConnectingDialog.hide()
@@ -1203,7 +1207,7 @@ class GUI(GtkGUI):
         except:
             nonfatalException ()
 
-        if self.connect_thread != thread.get_ident(): return
+        if self.connect_thread != _thread.get_ident(): return
         Gdk.threads_enter()
 
         try:
@@ -1315,6 +1319,10 @@ class GUI(GtkGUI):
     # Quit
 
     def on_quit_activate(self, widget, event=None):
+        if self.populateList_timer:
+            GLib.source_remove (self.populateList_timer)
+
+        self.populateList_timer = None
         if self.monitor:
             self.monitor.cleanup ()
 
@@ -1346,11 +1354,10 @@ class GUI(GtkGUI):
         preserved_jobs = self.printers[name].jobsPreserved(limit=1)
         if len (preserved_jobs) > 0:
             dialog = Gtk.MessageDialog (parent=self.PrintersWindow,
-                                        flags=Gtk.DialogFlags.MODAL |
-                                              Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                        modal=True, destroy_with_parent=True,
                                         message_type=Gtk.MessageType.WARNING,
                                         buttons=Gtk.ButtonsType.OK_CANCEL,
-                                        message_format=_("Renaming will lose history"))
+                                        text=_("Renaming will lose history"))
 
             dialog.format_secondary_text (_("Completed jobs will no longer "
                                             "be available for re-printing."))
@@ -1381,7 +1388,7 @@ class GUI(GtkGUI):
 
         model = self.dests_iconview.get_model ()
         iter = model.get_iter (path)
-        name = model.get_value (iter, 2).decode ('utf-8')
+        name = model.get_value (iter, 2)
         if not self.is_rename_possible (name):
             return
         if not self.rename_confirmed_by_user (name):
@@ -1406,14 +1413,14 @@ class GUI(GtkGUI):
 
             model = self.dests_iconview.get_model ()
             iter = model.get_iter (path)
-            name = model.get_value (iter, 2).decode ('utf-8')
+            name = model.get_value (iter, 2)
             id = editable.connect('editing-done',
                                   self.printer_name_editing_done,
                                   cell, name)
             self.rename_entry_sigids.append ((editable, id))
 
     def printer_name_editing (self, entry):
-        newname = origname = entry.get_text().decode ('utf-8')
+        newname = origname = entry.get_text()
         newname = newname.replace("/", "")
         newname = newname.replace("#", "")
         newname = newname.replace(" ", "")
@@ -1423,7 +1430,7 @@ class GUI(GtkGUI):
 
     def printer_name_editing_done (self, entry, cell, name):
         debugprint (repr (cell))
-        newname = entry.get_text ().decode ('utf-8')
+        newname = entry.get_text ()
         debugprint ("edited: %s -> %s" % (name, newname))
         try:
             self.rename_printer (name, newname)
@@ -1551,7 +1558,7 @@ class GUI(GtkGUI):
 
         # ..and select the new printer.
         def select_new_printer (model, path, iter, UNUSED):
-            name = model.get_value (iter, 2).decode ('utf-8')
+            name = model.get_value (iter, 2)
             if name == new_name:
                 self.dests_iconview.select_path (path)
         self.populateList ()
@@ -1575,7 +1582,7 @@ class GUI(GtkGUI):
         paths = iconview.get_selected_items ()
         model = self.dests_iconview.get_model ()
         iter = model.get_iter (paths[0])
-        name = model.get_value (iter, 2).decode ('utf-8')
+        name = model.get_value (iter, 2)
         self.entDuplicateName.set_text(name)
         self.NewPrinterName.set_transient_for (self.PrintersWindow)
         result = self.NewPrinterName.run()
@@ -1598,12 +1605,12 @@ class GUI(GtkGUI):
             self.populateList ()
             return
 
-        self.duplicate_printer (self.entDuplicateName.get_text ().decode ('utf-8'))
+        self.duplicate_printer (self.entDuplicateName.get_text ())
         self.monitor.update ()
 
     def on_entDuplicateName_changed(self, widget):
         # restrict
-        text = widget.get_text().decode ('utf-8')
+        text = widget.get_text()
         new_text = text
         new_text = new_text.replace("/", "")
         new_text = new_text.replace("#", "")
@@ -1626,7 +1633,7 @@ class GUI(GtkGUI):
         if n == 1:
             itr = model.get_iter (paths[0])
             obj = model.get_value (itr, 0)
-            name = model.get_value (itr, 2).decode ('utf-8')
+            name = model.get_value (itr, 2)
             if obj.is_class:
                 message_format = (_("Really delete class '%s'?") % name)
             else:
@@ -1637,16 +1644,15 @@ class GUI(GtkGUI):
             message_format = _("Really delete selected destinations?")
             for path in paths:
                 itr = model.get_iter (path)
-                name = model.get_value (itr, 2).decode ('utf-8')
+                name = model.get_value (itr, 2)
                 to_delete.append (name)
         dialog = Gtk.MessageDialog(parent=self.PrintersWindow,
-                                   flags=Gtk.DialogFlags.DESTROY_WITH_PARENT |
-                                         Gtk.DialogFlags.MODAL,
+                                   modal=True, destroy_with_parent=True,
                                    message_type=Gtk.MessageType.WARNING,
                                    buttons=Gtk.ButtonsType.NONE,
-                                   message_format=message_format)
-        dialog.add_buttons (Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT,
-                            Gtk.STOCK_DELETE, Gtk.ResponseType.ACCEPT)
+                                   text=message_format)
+        dialog.add_buttons (_("_Cancel"), Gtk.ResponseType.REJECT,
+                            _("_Delete"), Gtk.ResponseType.ACCEPT)
         dialog.set_default_response (Gtk.ResponseType.REJECT)
         result = dialog.run()
         dialog.destroy()
@@ -1681,9 +1687,6 @@ class GUI(GtkGUI):
             printers.append (printer)
 
         for printer in printers:
-            printer_name = printer.name
-            if isinstance(printer_name, bytes):
-                printer_name = printer_name.decode ('utf-8')
             self.cups._begin_operation (_("modifying printer %s") % printer.name)
             try:
                 printer.setEnabled (enable)
@@ -1714,11 +1717,8 @@ class GUI(GtkGUI):
 
         success = False
         for printer in printers:
-            printer_name = printer.name
-            if isinstance(printer_name, bytes):
-                printer_name = printer_name.decode ('utf-8')
             self.cups._begin_operation (_("modifying printer %s")
-                                        % printer_name)
+                                        % printer.name)
             try:
                 printer.setShared (share)
                 success = True
@@ -1749,14 +1749,7 @@ class GUI(GtkGUI):
         # For some reason CUPS doesn't give us a notification about
         # printers changing 'shared' state, so refresh instead of
         # update.  We have to defer this to prevent signal problems.
-        def deferred_refresh ():
-            Gdk.threads_enter ()
-            try:
-                self.populateList ()
-            finally:
-                Gdk.threads_leave ()
-            return False
-        GLib.idle_add (deferred_refresh)
+        self.defer_refresh ()
 
     def advise_publish(self):
         if not self.server_is_publishing:
@@ -1772,8 +1765,12 @@ class GUI(GtkGUI):
         iconview = self.dests_iconview
         paths = iconview.get_selected_items ()
         model = iconview.get_model ()
-        iter = model.get_iter (paths[0])
-        name = model.get_value (iter, 2).decode ('utf-8')
+        try:
+            iter = model.get_iter (paths[0])
+        except IndexError:
+            return
+
+        name = model.get_value (iter, 2)
         self.set_system_or_user_default_printer (name)
 
     def on_edit_activate (self, *UNUSED):
@@ -1786,7 +1783,7 @@ class GUI(GtkGUI):
         model = self.dests_iconview.get_model ()
         for path in paths:
             iter = model.get_iter (path)
-            name = model.get_value (iter, 2).decode ('utf-8')
+            name = model.get_value (iter, 2)
             class_members.append (name)
         if not self.newPrinterGUI.init ("class",
                                         host=self.connect_server,
@@ -1813,7 +1810,7 @@ class GUI(GtkGUI):
             model = self.dests_iconview.get_model ()
             for path in paths:
                 iter = model.get_iter (path)
-                name = model.get_value (iter, 2).decode ('utf-8')
+                name = model.get_value (iter, 2)
                 specific_dests.append (name)
             viewer = jobviewer.JobViewer (None, None, my_jobs=False,
                                           specific_dests=specific_dests,
@@ -1839,7 +1836,7 @@ class GUI(GtkGUI):
         self.populateList ()
 
     def on_troubleshoot_activate(self, widget):
-        if not self.__dict__.has_key ('troubleshooter'):
+        if 'troubleshooter' not in self.__dict__:
             self.troubleshooter = troubleshoot.run (self.on_troubleshoot_quit)
 
     def on_troubleshoot_quit(self, troubleshooter):
@@ -1887,7 +1884,7 @@ class GUI(GtkGUI):
 
     ### The "Problems?" clickable label
     def on_problems_button_clicked (self, serversettings):
-        if not self.__dict__.has_key ('troubleshooter'):
+        if 'troubleshooter' not in self.__dict__:
             self.troubleshooter = troubleshoot.run (self.on_troubleshoot_quit,
                                                     parent=serversettings.get_dialog ())
 
@@ -1936,7 +1933,7 @@ class GUI(GtkGUI):
         self.sensitise_new_printer_widgets ()
         self.populateList ()
 
-        if not self.printers.has_key (name):
+        if name not in self.printers:
             # At this stage the printer has disappeared even though we
             # only added it moments ago.
             debugprint ("New printer disappeared")
@@ -1946,7 +1943,7 @@ class GUI(GtkGUI):
         model = self.dests_iconview.get_model ()
         iter = model.get_iter_first ()
         while iter != None:
-            queue = model.get_value (iter, 2).decode ('utf-8')
+            queue = model.get_value (iter, 2)
             if queue == name:
                 path = model.get_path (iter)
                 self.dests_iconview.scroll_to_path (path, True, 0.5, 0.5)
@@ -1972,11 +1969,10 @@ class GUI(GtkGUI):
         # Finally, suggest printing a test page.
         if self.propertiesDlg.ppd:
             q = Gtk.MessageDialog (parent=self.PrintersWindow,
-                                   flags=Gtk.DialogFlags.DESTROY_WITH_PARENT |
-                                         Gtk.DialogFlags.MODAL,
+                                   modal=True, destroy_with_parent=True,
                                    message_type=Gtk.MessageType.QUESTION,
                                    buttons=Gtk.ButtonsType.NONE,
-                                   message_format=_("Would you like to print a test page?"))
+                                   text=_("Would you like to print a test page?"))
             q.add_buttons (Gtk.STOCK_CANCEL, Gtk.ResponseType.NO,
                            _("Print Test Page"), Gtk.ResponseType.YES)
             response = q.run ()
@@ -2125,16 +2121,14 @@ class GUI(GtkGUI):
             except:
                 nonfatalException()
 
-    ## Monitor signal helpers
-    def printer_added_or_removed (self):
-        # Just fetch the list of printers again.  This is too simplistic.
+    def defer_refresh (self):
         def deferred_refresh ():
+            self.populateList_timer = None
             Gdk.threads_enter ()
             try:
                 self.populateList (prompt_allowed=False)
             finally:
                 Gdk.threads_leave ()
-            self.populateList_timer = None
             return False
 
         if self.populateList_timer:
@@ -2143,12 +2137,17 @@ class GUI(GtkGUI):
         self.populateList_timer = GLib.timeout_add (200, deferred_refresh)
         debugprint ("Deferred populateList by 200ms")
 
+        ## Monitor signal helpers
+    def printer_added_or_removed (self):
+        # Just fetch the list of printers again.  This is too simplistic.
+        self.defer_refresh ()
+
     ## Monitor signal handlers
     def printer_added (self, mon, printer):
         self.printer_added_or_removed ()
 
     def printer_event (self, mon, printer, eventname, event):
-        if self.printers.has_key (printer):
+        if printer in self.printers:
             self.printers[printer].update (**event)
             self.dests_iconview_selection_changed (self.dests_iconview)
             self.printer_added_or_removed ()

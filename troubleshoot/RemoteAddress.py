@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ## Printing troubleshooter
 
@@ -21,7 +21,7 @@
 
 from gi.repository import Gtk
 
-from base import *
+from .base import *
 class RemoteAddress(Question):
     def __init__ (self, troubleshooter):
         Question.__init__ (self, troubleshooter, "Remote address")
