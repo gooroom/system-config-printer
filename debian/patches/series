@@ -4,3 +4,4 @@
 0008-fix-device-sorting.patch
 0009-fix-udev-add-printer-shbang.patch
 0010-no-start-printer-applet-gnome.patch
+gooroom-scp-dbus-service-revert-1.4.3.patch
