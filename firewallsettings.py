@@ -118,7 +118,15 @@ class FirewallD:
         if not self._get_fw_data ():
             return
 
-        self._fw_data.addService (service)
+        from firewall.errors import FirewallError
+        import firewall.errors
+        try:
+            self._fw_data.addService (service)
+        except FirewallError as e:
+            if e.code is firewall.errors.ALREADY_ENABLED:
+                pass
+            else:
+                raise FirewallError (e.code, e.msg)
 
     def check_ipp_client_allowed (self):
         if not self._get_fw_data ():
@@ -171,7 +179,7 @@ class SystemConfigFirewall:
                         (self, repr(self._fw_data)))
             if self._fw_data:
                 debugprint ("Using cached firewall data")
-                if reply_handler == None:
+                if reply_handler is None:
                     return self._fw_data
 
                 self._client_reply_handler (self._fw_data)
@@ -226,7 +234,7 @@ class SystemConfigFirewall:
 
     def _check_any_allowed (self, search):
         (args, filename) = self._get_fw_data ()
-        if filename == None: return True
+        if filename is None: return True
         isect = set (search).intersection (set (args))
         return len (isect) != 0
 
@@ -236,7 +244,7 @@ class SystemConfigFirewall:
             (args, filename) = self._fw_data
         except AttributeError:
             (args, filename) = self._get_fw_data ()
-        if filename == None: return
+        if filename is None: return
 
         args.append ("--service=" + service)
         self._fw_data = (args, filename)

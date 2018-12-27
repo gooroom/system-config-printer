@@ -73,10 +73,11 @@ class _QueryThread (threading.Thread):
             status = 0
         except:
             self.result = sys.exc_info ()
-            if status == None: status = 0
+            if status is None:
+                status = 0
 
         _debugprint ("%s: query complete" % self)
-        if self.callback != None:
+        if self.callback is not None:
             self.callback (status, self.user_data, self.result)
 
 class OpenPrinting:
@@ -86,7 +87,7 @@ class OpenPrinting:
         locale.setlocale().
         @type language: string
         """
-        if language == None:
+        if language is None:
             import locale
             try:
                 language = locale.getlocale(locale.LC_MESSAGES)
@@ -165,7 +166,7 @@ class OpenPrinting:
                     id = printer.find ("id")
                     make = printer.find ("make")
                     model = printer.find ("model")
-                    if id != None and make != None and model != None:
+                    if id is not None and make is not None and model is not None:
                         idtxt = id.text
                         maketxt = make.text
                         modeltxt = model.text
@@ -266,36 +267,37 @@ class OpenPrinting:
 
                 for driver in root.findall ('driver'):
                     id = driver.attrib.get ('id')
-                    if id == None:
+                    if id is None:
                         continue
 
                     dict = {}
                     for attribute in ['name', 'url', 'supplier', 'license',
                                       'shortdescription' ]:
                         element = driver.find (attribute)
-                        if element != None and element.text != None:
+                        if element is not None and element.text is not None:
                             dict[attribute] = _normalize_space (element.text)
 
                     element = driver.find ('licensetext')
-                    if element != None and element.text != None:
+                    if element is not None and element.text is not None:
                         dict['licensetext'] = element.text
                     if not 'licensetext' in dict or \
-                       dict['licensetext'] == None:
+                       dict['licensetext'] is None:
                         element = driver.find ('licenselink')
-                        if element != None:
+                        if element is not None:
                             license_url = element.text
-                            if license_url != None:
+                            if license_url is not None:
                                 try:
                                     req = requests.get(license_url, verify=True)
                                     dict['licensetext'] = \
                                         req.content.decode("utf-8")
                                 except:
-                                    _debugprint('Cannot retrieve %s' % url)
+                                    _debugprint('Cannot retrieve %s' %
+                                                license_url)
 
                     for boolean in ['nonfreesoftware', 'recommended',
                                     'patents', 'thirdpartysupplied',
                                     'manufacturersupplied']:
-                        dict[boolean] = driver.find (boolean) != None
+                        dict[boolean] = driver.find (boolean) is not None
 
                     # Make a 'freesoftware' tag for compatibility with
                     # how the OpenPrinting API used to work (see trac
@@ -304,10 +306,10 @@ class OpenPrinting:
 
                     supportcontacts = []
                     container = driver.find ('supportcontacts')
-                    if container != None:
+                    if container is not None:
                         for sc in container.findall ('supportcontact'):
                             supportcontact = {}
-                            if sc.text != None:
+                            if sc.text is not None:
                                 supportcontact['name'] = \
                                     _normalize_space (sc.text)
                             else:
@@ -323,19 +325,19 @@ class OpenPrinting:
                         continue
 
                     container = driver.find ('functionality')
-                    if container != None:
+                    if container is not None:
                         functionality = {}
                         for attribute in ['text', 'lineart', 'graphics',
                                           'photo', 'speed']:
                             element = container.find (attribute)
-                            if element != None:
+                            if element is not None:
                                 functionality[attribute] = element.text
                         if functionality:
                             dict[container.tag] = functionality
 
                     packages = {}
                     container = driver.find ('packages')
-                    if container != None:
+                    if container is not None:
                         for arch in container.getchildren ():
                             rpms = {}
                             for package in arch.findall ('package'):
@@ -344,11 +346,11 @@ class OpenPrinting:
                                                   'release', 'url', 'pkgsys',
                                                   'fingerprint']:
                                     element = package.find (attribute)
-                                    if element != None:
+                                    if element is not None:
                                         rpm[attribute] = element.text
 
                                 repositories = package.find ('repositories')
-                                if repositories != None:
+                                if repositories is not None:
                                     for pkgsys in repositories.getchildren ():
                                         rpm.setdefault('repositories', {})[pkgsys.tag] = pkgsys.text
 
@@ -360,7 +362,7 @@ class OpenPrinting:
 
                     ppds = []
                     container = driver.find ('ppds')
-                    if container != None:
+                    if container is not None:
                         for each in container.getchildren ():
                             ppds.append (each.text)
 
@@ -376,11 +378,19 @@ class OpenPrinting:
         if isinstance(model, Device):
             model = model.id
 
+        architecture = platform.machine()
+
+        # On Intel, we could be running a 32bit user space with a 64bit kernel, in
+        # which case platform.machine() will return x86_64, leading to downloading
+        # the wrong printer driver, so we make sure we ask for i386 in that case.
+        if architecture == 'x86_64' and platform.architecture()[0] == '32bit':
+            architecture = 'i386'
+
         params = { 'type': 'drivers',
                    'moreinfo': '1',
                    'showprinterid': '1',
                    'onlynewestdriverpackages': '1',
-                   'architectures': platform.machine(),
+                   'architectures': architecture,
                    'noobsoletes': '1',
                    'onlyfree': str (self.onlyfree),
                    'onlymanufacturer': str (self.onlymanufacturer),

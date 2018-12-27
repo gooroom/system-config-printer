@@ -27,7 +27,6 @@ from gi.repository import Gtk
 from timedops import TimedOperation
 import subprocess
 import threading
-import errno
 import cups
 from gi.repository import GObject
 from gi.repository import GLib
@@ -189,7 +188,7 @@ class LpdServer:
                 break
 
             found = self.probe_queue(name, result)
-            if found == None:
+            if found is None:
                 # Couldn't even connect.
                 break
 
@@ -242,11 +241,11 @@ class PrinterFinder:
 
     def _do_find (self):
         self._cached_attributes = dict()
-        for fn in [self._probe_jetdirect,
+        for fn in [self._probe_hplip,
+                   self._probe_jetdirect,
                    self._probe_ipp,
                    self._probe_snmp,
                    self._probe_lpd,
-                   self._probe_hplip,
                    self._probe_smb]:
             if self.quit:
                 return
@@ -339,7 +338,7 @@ class PrinterFinder:
                 return
 
             found = lpd.probe_queue (name, [])
-            if found == None:
+            if found is None:
                 # Couldn't even connect.
                 debugprint ("lpd: couldn't connect")
                 break
@@ -506,7 +505,7 @@ if __name__ == '__main__':
     loop = GObject.MainLoop ()
 
     def display (device):
-        if device == None:
+        if device is None:
             loop.quit ()
 
     addr = sys.argv[1]

@@ -1,33 +1,26 @@
 #!/usr/bin/make -f
 
-GNOME_DOWNLOAD_URL = http://cyberelk.net/tim/data/system-config-printer/$(DEB_UPSTREAM_VERSION_MAJOR_MINOR)/$(GNOME_TARBALL)
-TARBALL_EXT := tar.xz
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-O1 -Wl,-z,defs -Wl,--as-needed
 
-DEB_PYTHON3_MODULE_PACKAGES := python3-cupshelpers \
-                               system-config-printer \
-                               system-config-printer-udev \
-                               system-config-printer-common
+%:
+# We need to force the build system to autoconf otherwise for some reasons it
+# tries to run the python_distutils one
+	dh $@ --buildsystem=autoconf --with gnome,python3
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/autotools.mk
-include /usr/share/cdbs/1/class/python-module.mk
-include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
--include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
+override_dh_auto_configure:
+	dh_auto_configure -- --with-udev-rules \
+		             --with-udevdir=/lib/udev \
+		             --with-systemdsystemunitdir=/lib/systemd/system
 
-# List any files which are not installed
-include /usr/share/cdbs/1/rules/utils.mk
-DEB_DH_INSTALL_ARGS := --list-missing
+override_dh_python3:
+	dh_python3 -ppython3-cupshelpers
+	dh_python3 -psystem-config-printer /usr/share/system-config-printer/
+	dh_python3 -psystem-config-printer-common /usr/share/system-config-printer/
 
-DEB_PYTHON_PRIVATE_MODULES_DIRS_ALL := /usr/share/system-config-printer
+override_dh_autoreconf:
+	dh_autoreconf ./bootstrap
 
-DEB_CONFIGURE_EXTRA_FLAGS := \
-		--sbindir=/usr/bin \
-		--with-udev-rules \
-		--with-udevdir=/lib/udev \
-		--with-systemdsystemunitdir=/lib/systemd/system
-
-configure/python3-cupshelpers::
-	cp debug.py smburi.py cupshelpers/
-
-cleanbuilddir/python3-cupshelpers::
-	rm -rf cupshelpers/debug.py cupshelpers/smburi.py
+override_dh_clean:
+	dh_clean -O--buildsystem=autoconf
+	rm -f dbus/org.fedoraproject.Config.Printing.service

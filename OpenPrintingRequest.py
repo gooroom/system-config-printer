@@ -51,7 +51,7 @@ class OpenPrintingRequest(GObject.GObject):
     }
 
     def __init__ (self, **args):
-        super (GObject.GObject, self).__init__ ()
+        GObject.GObject.__init__ (self)
         debugprint ("Starting")
         self.openprinting = cupshelpers.openprinting.OpenPrinting (**args)
         self._handle = None
@@ -62,7 +62,7 @@ class OpenPrintingRequest(GObject.GObject):
 
     def cancel (self):
         debugprint ("%s: cancel()" % self)
-        if self._handle != None:
+        if self._handle is not None:
             self.openprinting.cancelOperation (self._handle)
             self._handle = None
 

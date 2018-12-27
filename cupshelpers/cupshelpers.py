@@ -55,7 +55,7 @@ class Printer:
         self._ppd = None # load on demand
 
     def __del__ (self):
-        if self._ppd != None:
+        if self._ppd is not None:
             os.unlink(self._ppd)
 
     def __repr__ (self):
@@ -210,7 +210,7 @@ class Printer:
                 else:
                     raise
 
-        if result == None and self._ppd != None:
+        if result is None and self._ppd is not None:
             result = cups.PPD (self._ppd)
 
         return result
@@ -368,7 +368,7 @@ class Printer:
                  attrs['job-name'] == 'Test Page')):
                 ret.append (id)
 
-                if limit != None and len (ret) == limit:
+                if limit is not None and len (ret) == limit:
                     break
         return ret
 
@@ -402,7 +402,7 @@ class Printer:
                            cups.IPP_JOB_PENDING) < cups.IPP_JOB_COMPLETED):
                 continue
             ret.append (id)
-            if limit != None and len (ret) == limit:
+            if limit is not None and len (ret) == limit:
                 break
 
         return ret
@@ -546,69 +546,92 @@ class Device:
         """
         Compare devices by order of preference.
         """
-        if other == None:
-            return 1
+        if other is None:
+            return True
 
         if self.is_class != other.is_class:
             if other.is_class:
-                return 1
-            return -1
-        if not self.is_class and (self.type != other.type):
+                return True
+            return False
+
+        stype = self.type
+        if stype == "dnssd":
+            if self.uri.find("._ipp") != -1:
+                stype = "dnssdi"
+            elif self.uri.find("._pdl-datastream") != -1:
+                stype = "dnssds"
+            elif self.uri.find("._printer") != -1:
+                stype = "dnssdl"
+        if stype == "usb":
+            if self.uri.lower().find("fax") != -1:
+                stype = "usbfax"
+        otype = other.type
+        if otype == "dnssd":
+            if other.uri.find("._ipp") != -1:
+                otype = "dnssdi"
+            elif other.uri.find("._pdl-datastream") != -1:
+                otype = "dnssds"
+            elif other.uri.find("._printer") != -1:
+                otype = "dnssdl"
+        if otype == "usb":
+            if other.uri.lower().find("fax") != -1:
+                otype = "usbfax"
+
+        if not self.is_class and (stype != otype):
             # "hp"/"hpfax" before "usb" before * before "parallel" before
             # "serial"
-            if other.type == "serial":
-                return 1
-            if self.type == "serial":
-                return -1
-            if other.type == "parallel":
-                return 1
-            if self.type == "parallel":
-                return -1
-            if other.type == "hp":
-                return -1
-            if self.type == "hp":
-                return 1
-            if other.type == "hpfax":
-                return -1
-            if self.type == "hpfax":
-                return 1
-            if other.type == "dnssd":
-                return -1
-            if self.type == "dnssd":
-                return 1
-            if other.type == "socket":
-                return -1
-            if self.type == "socket":
-                return 1
-            if other.type == "lpd":
-                return -1
-            if self.type == "lpd":
-                return 1
-            if other.type == "ipps":
-                return -1
-            if self.type == "ipps":
-                return 1
-            if other.type == "ipp":
-                return -1
-            if self.type == "ipp":
-                return 1
-            if other.type == "usb":
-                return -1
-            if self.type == "usb":
-                return 1
-        if self.type == "dnssd" and other.type == "dnssd":
-            if other.uri.find("._pdl-datastream") != -1: # Socket
-                return -1
-            if self.uri.find("._pdl-datastream") != -1:
-                return 1
-            if other.uri.find("._printer") != -1: # LPD
-                return -1
-            if self.uri.find("._printer") != -1:
-                return 1
-            if other.uri.find("._ipp") != -1: # IPP
-                return -1
-            if self.uri.find("._ipp") != -1:
-                return 1
+            if otype == "serial":
+                return True
+            if stype == "serial":
+                return False
+            if otype == "parallel":
+                return True
+            if stype == "parallel":
+                return False
+            if otype == "hp":
+                return False
+            if stype == "hp":
+                return True
+            if otype == "hpfax":
+                return False
+            if stype == "hpfax":
+                return True
+            if otype == "dnssdi":
+                return False
+            if stype == "dnssdi":
+                return True
+            if otype == "ipps":
+                return False
+            if stype == "ipps":
+                return True
+            if otype == "ipp":
+                return False
+            if stype == "ipp":
+                return True
+            if otype == "dnssds":
+                return False
+            if stype == "dnssds":
+                return True
+            if otype == "socket":
+                return False
+            if stype == "socket":
+                return True
+            if otype == "dnssdl":
+                return False
+            if stype == "dnssdl":
+                return True
+            if otype == "lpd":
+                return False
+            if stype == "lpd":
+                return True
+            if otype == "usb":
+                return False
+            if stype == "usb":
+                return True
+            if otype == "usbfax":
+                return False
+            if stype == "usbfax":
+                return True
         result = bool(self.id) < bool(other.id)
         if not result:
             result = self.info < other.info
@@ -665,7 +688,7 @@ def activateNewPrinter(connection, name):
     connection.acceptJobs (name)
 
     # Set as the default if there is not already a default printer.
-    if connection.getDefault () == None:
+    if connection.getDefault () is None:
         connection.setDefault (name)
 
 def copyPPDOptions(ppd1, ppd2):

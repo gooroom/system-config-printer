@@ -76,7 +76,7 @@ TEXT_adjust_firewall = _("The firewall may need adjusting in order to "
 def validDeviceURI (uri):
     """Returns True is the provided URI is valid."""
     (scheme, rest) = urllib.parse.splittype (uri)
-    if scheme == None or scheme == '':
+    if scheme is None or scheme == '':
         return False
     return True
 
@@ -156,7 +156,11 @@ def download_gpg_fingerprint(url):
     # openprinting.org driver packages.
     ssl_cert_file_paths = [
         # Debian/Ubuntu use the ca-certificates package:
-        '/etc/ssl/certs/ca-certificates.crt'
+        '/etc/ssl/certs/ca-certificates.crt',
+
+        # Fedora place the certificates in different locations:
+        '/etc/ssl/certs/ca-bundle.crt',
+        '/etc/pki/tls/certs/ca-bundle.crt'
         ]
 
     # default GPG key server
@@ -169,6 +173,7 @@ def download_gpg_fingerprint(url):
     for f in ssl_cert_file_paths:
         if os.path.exists(f):
             cert = f
+            break;
 
     if not cert:
         debugprint('No system SSL certificates available for trust checking')
@@ -181,7 +186,7 @@ def download_gpg_fingerprint(url):
         debugprint('Cannot retrieve %s' % url)
         return None
 
-    keyid_re = re.compile(' ((?:(?:[0-9A-F]{4})(?:\s+|$)){10})$', re.M)
+    keyid_re = re.compile(r' ((?:(?:[0-9A-F]{4})(?:\s+|$)){10})$', re.M)
 
     m = keyid_re.search(content)
     if m:
@@ -200,6 +205,22 @@ class NewPrinterGUI(GtkGUI):
         'driver-download-checked': (GObject.SignalFlags.RUN_LAST, None, (str,)),
         'dialog-canceled':  (GObject.SignalFlags.RUN_LAST, None, ()),
         }
+
+    # Page numbers used to name the different stages
+    PAGE_DESCRIBE_PRINTER = 0
+    PAGE_SELECT_DEVICE = 1
+    PAGE_SELECT_INSTALL_METHOD = 2
+    PAGE_CHOOSE_DRIVER_FROM_DB = 3
+    PAGE_CHOOSE_CLASS_MEMBERS = 4
+    PAGE_APPLY = 5
+    PAGE_INSTALLABLE_OPTIONS = 6
+    PAGE_DOWNLOAD_DRIVER = 7
+
+    # Values returned by _handlePrinterInstallationMode() and
+    # related sub-functions, to know whether to continue the
+    # execution of the remaining logic from calling functions
+    INSTALL_RESULT_DONE = True
+    INSTALL_RESULT_OPS_PENDING = False
 
     new_printer_device_tabs = {
         "parallel" : 0, # empty tab
@@ -434,7 +455,7 @@ class NewPrinterGUI(GtkGUI):
 
         def protect_toggle (toggle_widget):
             active = getattr (toggle_widget, 'protect_active', None)
-            if active != None:
+            if active is not None:
                 toggle_widget.set_active (active)
 
         for widget in [self.cbNPDownloadableDriverSupplierVendor,
@@ -463,11 +484,7 @@ class NewPrinterGUI(GtkGUI):
 
         # SMB browser
         self.smb_store = Gtk.TreeStore (GObject.TYPE_PYOBJECT)
-        self.btnSMBBrowse.set_sensitive (PYSMB_AVAILABLE)
-        if not PYSMB_AVAILABLE:
-            self.btnSMBBrowse.set_tooltip_text (_("Browsing not available "
-                                                  "(pysmbc not installed)"))
-
+        self.btnSMBBrowse.set_sensitive (True)
         self.tvSMBBrowser.set_model (self.smb_store)
 
         # SMB list columns
@@ -584,8 +601,9 @@ class NewPrinterGUI(GtkGUI):
         self.parent = parent
         if not self.parent:
             self.NewPrinterWindow.set_focus_on_map (False)
-            
+
         self.dialog_mode = dialog_mode
+        self._device_uri = device_uri
         self.orig_ppd = ppd
         self.devid = devid
         self._host = host
@@ -603,6 +621,9 @@ class NewPrinterGUI(GtkGUI):
         self.ppds = None
         self.ppdsmatch_result = None
         self.printer_finder = None
+
+        if not self._validInitParameters ():
+            raise RuntimeError
 
         # Get a current list of printers so that we can know whether
         # the chosen name is unique.
@@ -639,35 +660,11 @@ class NewPrinterGUI(GtkGUI):
         model = self.tvNPMakes.get_model()
         model.clear()
 
-        if device_uri == None and dialog_mode in ['printer_with_uri',
-                                                  'device',
-                                                  'ppd']:
-            raise RuntimeError
-        if devid == "" and dialog_mode == 'download_driver':
-            raise RuntimeError
-
         combobox = self.cmbNPDownloadableDriverFoundPrinters
         combobox.set_model (Gtk.ListStore (str, str))
         self.entNPDownloadableDriverSearch.set_text ('')
         label = self.btnNPDownloadableDriverSearch_label
         label.set_text (_("Search"))
-
-        if self.dialog_mode in ("printer", "printer_with_uri", "class"):
-            if self.dialog_mode == "class":
-                name_proto = "class"
-            else:
-                name_proto = "printer"
-            self.entNPName.set_text (self.makeNameUnique(name_proto))
-            self.entNPName.grab_focus()
-            for widget in [self.entNPLocation,
-                           self.entNPDescription,
-                           self.entSMBURI, self.entSMBUsername,
-                           self.entSMBPassword]:
-                widget.set_text('')
-
-        if self.dialog_mode in ['printer_with_uri', 'ppd']:
-            device_dict = { }
-            self.device = cupshelpers.Device (device_uri, **device_dict)
 
         self.entNPTJetDirectPort.set_text('9100')
         self.rbtnSMBAuthPrompt.set_active(True)
@@ -677,65 +674,18 @@ class NewPrinterGUI(GtkGUI):
             self.NewPrinterWindow.set_transient_for (self.parent)
 
         if self.dialog_mode == "printer":
-            self.NewPrinterWindow.set_title(_("New Printer"))
-            # Start on devices page (1, not 0)
-            self.ntbkNewPrinter.set_current_page(1)
-            self.fillDeviceTab()
-            self.rbtnNPFoomatic.set_active (True)
-            self.on_rbtnNPFoomatic_toggled(self.rbtnNPFoomatic)
-
+            self._initialisePrinterMode ()
         elif self.dialog_mode == "class":
-            self.NewPrinterWindow.set_title(_("New Class"))
-            self.fillNewClassMembers()
-            # Start on name page
-            self.ntbkNewPrinter.set_current_page(0)
+            self._initialiseClassMode ()
         elif self.dialog_mode == "device":
-            self.NewPrinterWindow.set_title(_("Change Device URI"))
-            self.ntbkNewPrinter.set_current_page(1)
-            self.fillDeviceTab(device_uri)
-        elif self.dialog_mode == "ppd" or \
-            self.dialog_mode == "printer_with_uri" or \
-            self.dialog_mode == "download_driver":
-            if self.dialog_mode == "ppd":
-                self.NewPrinterWindow.set_title(_("Change Driver"))
-            elif self.dialog_mode == "printer_with_uri":
-                self.NewPrinterWindow.set_title(_("New Printer"))
-            else:
-                self.NewPrinterWindow.set_title(_("Download Printer Driver"))
-
-            # We'll need to know the Device ID for this device.
-            if self.dialog_mode == "ppd" and not self.devid:
-                scheme = str(device_uri.split (":", 1)[0])
-                schemes = [scheme]
-                if scheme in ["socket", "lpd", "ipp"]:
-                    schemes.extend (["snmp", "dnssd"])
-                self.fetchDevices_conn = asyncconn.Connection ()
-                self.fetchDevices_conn._begin_operation (_("fetching device list"))
-                self.inc_spinner_task ()
-                cupshelpers.getDevices (self.fetchDevices_conn,
-                                        include_schemes=schemes,
-                                        reply_handler=self.change_ppd_got_devs,
-                                        error_handler=self.change_ppd_got_devs)
-
-            if self.dialog_mode == "download_driver":
-                self.ntbkNewPrinter.set_current_page(7)
-                self.nextnptab_rerun = True
-            else:
-                self.ntbkNewPrinter.set_current_page(2)
-                self.rbtnNPFoomatic.set_active (True)
-                self.on_rbtnNPFoomatic_toggled(self.rbtnNPFoomatic)
-                self.rbtnChangePPDKeepSettings.set_active(True)
-
-                self.auto_make = ""
-                self.auto_model = ""
-                self.auto_driver = None
-
-            if self.dialog_mode == "printer_with_uri" or\
-               self.dialog_mode == "download_driver":
-                self.nextNPTab(step = 0)
-
-            if self.dialog_mode == "download_driver":
-                return True
+            self._initialiseDeviceMode ()
+        elif self.dialog_mode == "printer_with_uri":
+            self._initialisePrinterWithURIMode ()
+        elif self.dialog_mode == "ppd":
+            self._initialisePPDMode ()
+        elif self.dialog_mode == "download_driver":
+            self._initialiseDownloadDriverMode ()
+            return True
 
         if xid == 0 and self.parent:
             self.NewPrinterWindow.set_transient_for (parent)
@@ -743,6 +693,102 @@ class NewPrinterGUI(GtkGUI):
         self.NewPrinterWindow.show()
         self.setNPButtons()
         return True
+
+    def _validInitParameters (self):
+        if self.dialog_mode in ['printer_with_uri', 'device', 'ppd']:
+            return self._device_uri is not None
+        elif self.dialog_mode == 'download_driver':
+            return self.devid != ""
+        return True
+
+    def _initialiseClassMode (self):
+        self._initialiseWidgetsForMode ("class")
+        self.NewPrinterWindow.set_title (_("New Class"))
+
+        self.fillNewClassMembers ()
+
+        # Start on name page
+        self.ntbkNewPrinter.set_current_page (self.PAGE_DESCRIBE_PRINTER)
+
+    def _initialisePrinterMode (self):
+        self._initialiseWidgetsForMode ("printer")
+        self.NewPrinterWindow.set_title (_("New Printer"))
+
+        # Start on devices page (SELECT_DEVICE, not DESCRIBE_PRINTER)
+        self.ntbkNewPrinter.set_current_page (self.PAGE_SELECT_DEVICE)
+        self.fillDeviceTab ()
+        self.rbtnNPFoomatic.set_active (True)
+        self.on_rbtnNPFoomatic_toggled (self.rbtnNPFoomatic)
+
+    def _initialiseDeviceMode (self):
+        self.NewPrinterWindow.set_title (_("Change Device URI"))
+        self.ntbkNewPrinter.set_current_page (self.PAGE_SELECT_DEVICE)
+        self.fillDeviceTab (self._device_uri)
+
+    def _initialisePrinterWithURIMode (self):
+        self._initialiseWidgetsForMode ("printer")
+        self._initialiseDeviceFromURI ()
+
+        self.NewPrinterWindow.set_title (_("New Printer"))
+
+        self.ntbkNewPrinter.set_current_page (self.PAGE_SELECT_INSTALL_METHOD)
+        self.rbtnNPFoomatic.set_active (True)
+        self.on_rbtnNPFoomatic_toggled (self.rbtnNPFoomatic)
+        self.rbtnChangePPDKeepSettings.set_active (True)
+
+        self._initialiseAutoVariables ()
+        self.nextNPTab (step = 0)
+
+    def _initialiseDownloadDriverMode (self):
+        self.NewPrinterWindow.set_title (_("Download Printer Driver"))
+
+        self.ntbkNewPrinter.set_current_page (self.PAGE_DOWNLOAD_DRIVER)
+        self.nextnptab_rerun = True
+        self.nextNPTab (step = 0)
+
+    def _initialisePPDMode (self):
+        self._initialiseDeviceFromURI ()
+
+        self.NewPrinterWindow.set_title (_("Change Driver"))
+
+        # We'll need to know the Device ID for this device.
+        if not self.devid:
+            scheme = str (self._device_uri.split (":", 1)[0])
+            schemes = [scheme]
+            if scheme in ["socket", "lpd", "ipp"]:
+                schemes.extend (["snmp", "dnssd"])
+            self.fetchDevices_conn = asyncconn.Connection ()
+            self.fetchDevices_conn._begin_operation (_("fetching device list"))
+            self.inc_spinner_task ()
+            cupshelpers.getDevices (self.fetchDevices_conn,
+                                    include_schemes=schemes,
+                                    reply_handler=self.change_ppd_got_devs,
+                                    error_handler=self.change_ppd_got_devs)
+
+        self.ntbkNewPrinter.set_current_page (self.PAGE_SELECT_INSTALL_METHOD)
+        self.rbtnNPFoomatic.set_active (True)
+        self.on_rbtnNPFoomatic_toggled (self.rbtnNPFoomatic)
+        self.rbtnChangePPDKeepSettings.set_active (True)
+
+        self._initialiseAutoVariables ()
+
+    def _initialiseWidgetsForMode (self, mode_name):
+        self.entNPName.set_text (self.makeNameUnique (mode_name))
+        self.entNPName.grab_focus ()
+        for widget in [self.entNPLocation,
+                       self.entNPDescription,
+                       self.entSMBURI, self.entSMBUsername,
+                       self.entSMBPassword]:
+            widget.set_text ('')
+
+    def _initialiseDeviceFromURI (self):
+        device_dict = { }
+        self.device = cupshelpers.Device (self._device_uri, **device_dict)
+
+    def _initialiseAutoVariables (self):
+        self.auto_make = ""
+        self.auto_model = ""
+        self.auto_driver = None
 
     def change_ppd_got_devs (self, conn, result):
         self.fetchDevices_conn._end_operation ()
@@ -766,7 +812,7 @@ class NewPrinterGUI(GtkGUI):
                 self.device = device
 
         # We'll also need the list of PPDs
-        self.ntbkNewPrinter.set_current_page(2)
+        self.ntbkNewPrinter.set_current_page (self.PAGE_SELECT_INSTALL_METHOD)
         self.nextNPTab(step = 0)
 
     def on_ppdsloader_finished_next (self, ppdsloader):
@@ -786,7 +832,7 @@ class NewPrinterGUI(GtkGUI):
 
         debugprint ("Loaded PPDs this time; try nextNPTab again...")
         self.nextnptab_rerun = True
-        if self.ntbkNewPrinter.get_current_page() == 2:
+        if self.ntbkNewPrinter.get_current_page () == self.PAGE_SELECT_INSTALL_METHOD:
             self.nextNPTab (step = 0)
         else:
             self.nextNPTab ()
@@ -847,7 +893,7 @@ class NewPrinterGUI(GtkGUI):
 
     def on_tvNCMembers_cursor_changed(self, widget):
         selection = widget.get_selection()
-        if selection == None:
+        if selection is None:
             return
 
         model_from, rows = selection.get_selected_rows()
@@ -855,7 +901,7 @@ class NewPrinterGUI(GtkGUI):
 
     def on_tvNCNotMembers_cursor_changed(self, widget):
         selection = widget.get_selection()
-        if selection == None:
+        if selection is None:
             return
 
         model_from, rows = selection.get_selected_rows()
@@ -879,7 +925,7 @@ class NewPrinterGUI(GtkGUI):
             self.dec_spinner_task ()
 
         self.NewPrinterWindow.hide()
-        if self.opreq != None:
+        if self.opreq is not None:
             for handler in self.opreq_handlers:
                 self.opreq.disconnect (handler)
 
@@ -898,53 +944,14 @@ class NewPrinterGUI(GtkGUI):
     def on_btnNPForward_clicked(self, widget):
         self.nextNPTab()
 
-    def installdriverpackage (self, driver, onlycheckpresence = False):
-        pkgs = driver.get('packages', {})
-        arches = list(pkgs.keys())
-        if len(arches) == 0:
-            debugprint('No packages for driver')
-            return False
-        if len(arches) > 1:
-            debugprint('Returned more than one matching architecture, please report this as a bug: %s', repr (arches))
+    def installdriverpackage (self, driver):
+        install_info = self._getDriverInstallationInfo (driver)
+        if not install_info:
             return False
 
-        pkgs = pkgs[arches[0]]
-
-        if len(pkgs) != 1:
-            debugprint('Returned more than one package, this is currently not handled')
-            return False
-        pkg = list(pkgs.keys())[0]
-
-        name = ''
-        if pkg.endswith('.deb'):
-            name = pkg.split('_')[0]
-        elif pkg.endswith('.rpm'):
-            name = '-'.join(pkg.split('-')[0:-2])
-        else:
-            raise ValueError('Unknown package type: ' + pkg)
-
-        # require signature for binary packages; architecture
-        # independent packages are usually PPDs, which we trust enough
-        keyid = None
-        if 'fingerprint' not in pkgs[pkg]:
-            if config.DOWNLOADABLE_PKG_ONLYSIGNED and arches[0] not in ['all', 'noarch']:
-                debugprint('Not installing driver as it does not have a GPG fingerprint URL')
-                return False
-        else:
-            keyid = download_gpg_fingerprint(pkgs[pkg]['fingerprint'])
-            if config.DOWNLOADABLE_PKG_ONLYSIGNED and arches[0] not in ['all', 'noarch'] and not keyid:
-                debugprint('Not installing driver as it does not have a valid GPG fingerprint')
-                return False
-
-        repo = pkgs[pkg].get('repositories', {}).get(self.packageinstaller)
-        if not repo:
-            debugprint('Local package system %s not found in %s' %
-                       (self.packageinstaller,
-                        repr (pkgs[pkg].get('repositories', {}))))
-            return False
-
-        if onlycheckpresence:
-            return True
+        name = install_info['name']
+        repo = install_info['repo']
+        keyid = install_info['keyid']
 
         fmt = _("Installing driver %s") % name
         self._installdialog = Gtk.MessageDialog (parent=self.NewPrinterWindow,
@@ -1002,7 +1009,7 @@ class NewPrinterGUI(GtkGUI):
 
             done = False
             pbar = self._installdialog._progress_bar
-            while self.p.poll() == None:
+            while self.p.poll() is None:
                 line = stdout.readline ().strip()
                 if (len(line) > 0):
                     if line == "done":
@@ -1035,6 +1042,55 @@ class NewPrinterGUI(GtkGUI):
 
         return ret
 
+    def _getDriverInstallationInfo (self, driver):
+        pkgs = driver.get('packages', {})
+        arches = list(pkgs.keys())
+        if len(arches) == 0:
+            debugprint('No packages for driver')
+            return None
+        if len(arches) > 1:
+            debugprint('Returned more than one matching architecture, please report this as a bug: %s', repr (arches))
+            return None
+
+        pkgs = pkgs[arches[0]]
+
+        if len(pkgs) != 1:
+            debugprint('Returned more than one package, this is currently not handled')
+            return None
+        pkg = list(pkgs.keys())[0]
+
+        name = ''
+        if pkg.endswith('.deb'):
+            name = pkg.split('_')[0]
+        elif pkg.endswith('.rpm'):
+            name = '-'.join(pkg.split('-')[0:-2])
+        else:
+            raise ValueError('Unknown package type: ' + pkg)
+
+        # require signature for binary packages; architecture
+        # independent packages are usually PPDs, which we trust enough
+        keyid = None
+        if 'fingerprint' not in pkgs[pkg]:
+            if config.DOWNLOADABLE_PKG_ONLYSIGNED and arches[0] not in ['all', 'noarch']:
+                debugprint('Not installing driver as it does not have a GPG fingerprint URL')
+                return None
+        else:
+            keyid = download_gpg_fingerprint(pkgs[pkg]['fingerprint'])
+            if config.DOWNLOADABLE_PKG_ONLYSIGNED and arches[0] not in ['all', 'noarch'] and not keyid:
+                debugprint('Not installing driver as it does not have a valid GPG fingerprint')
+                return None
+
+
+        repo = pkgs[pkg].get('repositories', {}).get(self.packageinstaller)
+        if not repo:
+            debugprint('Local package system %s not found in %s' %
+                       (self.packageinstaller,
+                        repr (pkgs[pkg].get('repositories', {}))))
+            return None
+
+        # All good: return necessary information to install the driver
+        return { 'name': name, 'repo': repo, 'keyid': keyid }
+
     def _installdialog_response (self, dialog, response):
         self.p.terminate ()
 
@@ -1042,397 +1098,36 @@ class NewPrinterGUI(GtkGUI):
         page_nr = self.ntbkNewPrinter.get_current_page()
         debugprint ("Next clicked on page %d" % page_nr)
 
-        if self.dialog_mode == "class":
-            order = [0, 4, 5]
-        elif self.dialog_mode == "printer" or \
-                self.dialog_mode == "printer_with_uri" or \
-                self.dialog_mode == "ppd" or \
-                self.dialog_mode == "download_driver":
-            busy (self.NewPrinterWindow)
-            if (((page_nr == 1 or page_nr == 7) and step > 0) or
-                ((page_nr == 2 or page_nr == 7) and step == 0)):
+        keep_going = True
+        if self.dialog_mode == "printer" or self.dialog_mode == "printer_with_uri" or \
+              self.dialog_mode == "ppd" or self.dialog_mode == "download_driver":
+            install_result = self._handlePrinterInstallationMode (step)
+            if install_result == self.INSTALL_RESULT_OPS_PENDING:
+                # Do not continue if the installation process says so
+                # (e.g. waiting for a CUPS to return a list of PPDs)
+                keep_going = False
 
-                if self.dialog_mode != "download_driver":
-                    uri = self.device.uri
-                    if uri and uri.startswith ("smb://"):
-                        # User has selected an smb device
-                        uri = SMBURI (uri=uri[6:]).sanitize_uri ()
+        if not keep_going:
+            debugprint ('Interrupting execution of nextNPTab(): Operations pending')
+            return
 
-                        # Does the backend need to be installed?
-                        if (self.nextnptab_rerun == False and
-                            not self.searchedfordriverpackages and
-
-                            (self._host == 'localhost' or
-                             self._host[0] == '/') and
-                            not os.access ("/usr/lib/cups/backend/smb", os.F_OK)):
-                            debugprint ("No smb backend so attempting install")
-                            try:
-                                pk = installpackage.PackageKit ()
-                                pk.InstallPackageName (0, 0, "samba-client")
-                            except:
-                                nonfatalException ()
-
-                if page_nr == 1 or page_nr == 2:
-                    self.auto_make, self.auto_model = "", ""
-                    self.auto_driver = None
-                    self.device.uri = self.getDeviceURI()
-
-                    # Cancel the printer finder now as the user has
-                    # already selected their device.
-                    if self.fetchDevices_conn:
-                        self.fetchDevices_conn.destroy ()
-                        self.fetchDevices_conn = None
-                        self.dec_spinner_task ()
-                    if self.printer_finder:
-                        self.printer_finder.cancel ()
-                        self.printer_finder = None
-                        self.dec_spinner_task ()
-
-                    if (not self.device.id and
-                        self.device.type in ["socket", "lpd", "ipp"]):
-                        # This is a network printer whose model we don't yet know.
-                        # Try to discover it.
-                        self.getNetworkPrinterMakeModel ()
-
-                    # Try to access the PPD, in this case our detected IPP
-                    # printer is a queue on a remote CUPS server which is
-                    # not automatically set up on our local CUPS server
-                    # (for example DNS-SD broadcasted queue from Mac OS X)
-                    self.remotecupsqueue = None
-                    res = re.search ("ipp://(\S+?)(:\d+|)/printers/(\S+)", uri)
-                    if res:
-                        resg = res.groups()
-                        if len (resg[1]) > 0:
-                            port = int (resg[1][1:])
-                        else:
-                            port = 631
-                        try:
-                            conn = http.client.HTTPConnection(resg[0], port)
-                            conn.request("GET", "/printers/%s.ppd" % resg[2])
-                            resp = conn.getresponse()
-                            if resp.status == 200:
-                                self.remotecupsqueue = resg[2]
-                        except:
-                            pass
-
-                        # We also want to fetch the printer-info and
-                        # printer-location attributes, to pre-fill those
-                        # fields for this new queue.
-                        try:
-                            encryption = cups.HTTP_ENCRYPT_IF_REQUESTED
-                            c = cups.Connection (host=resg[0],
-                                                 port=port,
-                                                 encryption=encryption)
-
-                            r = ['printer-info', 'printer-location']
-                            attrs = c.getPrinterAttributes (uri=uri,
-                                                            requested_attributes=r)
-                            info = attrs.get ('printer-info', '')
-                            location = attrs.get ('printer-location', '')
-                            if len (info) > 0:
-                                self.entNPDescription.set_text (info)
-                            if len (location) > 0:
-                                self.device.location = location
-                        except RuntimeError:
-                            pass
-                        except:
-                            nonfatalException ()
-                    elif ((uri.startswith ("dnssd:") or
-                           uri.startswith("mdns:")) and
-                          uri.find ("/cups") != -1 and
-                          self.device.info):
-                        # Remote CUPS queue discovered by "dnssd" CUPS backend
-                        self.remotecupsqueue = self.device.info
-
-                elif page_nr == 7 and self.nextnptab_rerun == False:
-                    # Simple check to avoid installing the driver if the
-                    # License Agreement was not accepted yet
-                    if self.rbtnNPDownloadLicenseYes.get_active ():
-                        self._installSelectedDriverFromOpenPrinting()
-
-                devid = None
-                if not self.remotecupsqueue or self.dialog_mode == "ppd":
-                    if self.dialog_mode != "download_driver":
-                        devid = self.device.id # ID of selected device
-                    if not devid:
-                        devid = self.devid # ID supplied at init()
-                    if not devid:
-                        devid = None
-                    if self.ppds == None and \
-                       self.dialog_mode != "download_driver":
-                        debugprint ("nextNPTab: need PPDs loaded")
-                        p = ppdsloader.PPDsLoader (device_id=devid,
-                                                   device_uri=uri,
-                                                   parent=self.NewPrinterWindow,
-                                                   host=self._host,
-                                                   encryption=self._encryption)
-                        self.ppdsloader = p
-                        p.connect ('finished',self.on_ppdsloader_finished_next)
-                        p.run ()
-                        ready (self.NewPrinterWindow)
-                        return
-
-                self.nextnptab_rerun = False
-
-                if page_nr == 1 or page_nr == 2:
-                    if (self.nextnptab_rerun == False and
-                        hasattr (self.device, 'hp_scannable') and
-                        self.device.hp_scannable and
-                        not os.access ("/etc/sane.d/dll.d/hpaio", os.R_OK) and
-                        not os.access ("/etc/sane.d/dll.d/hplip", os.R_OK)):
-                        debugprint ("No HPLIP sane backend so "
-                                    "attempting install")
-                        try:
-                            pk = installpackage.PackageKit ()
-                            pk.InstallPackageName (0, 0, "libsane-hpaio")
-                        except:
-                            pass
-
-                ppdname = None
-                self.id_matched_ppdnames = []
-                try:
-                    if self.dialog_mode == "download_driver":
-                        ppdname = "download"
-                        status = "generic"
-                    elif self.remotecupsqueue:
-                        # We have a remote CUPS queue, let the client queue
-                        # stay raw so that the driver on the server gets used
-                        ppdname = 'raw'
-                        self.ppd = ppdname
-                        name = self.remotecupsqueue
-                        name = self.makeNameUnique (name)
-                        self.entNPName.set_text (name)
-                        status = "exact"
-                    elif (self.device.id or
-                          (self.device.make_and_model and
-                           self.device.make_and_model != "Unknown") or
-                          devid):
-                        if self.device.id:
-                            id_dict = self.device.id_dict
-                        elif devid:
-                            id_dict = cupshelpers.parseDeviceID (devid)
-                        else:
-                            id_dict = {}
-                            (id_dict["MFG"],
-                             id_dict["MDL"]) = cupshelpers.ppds.\
-                                 ppdMakeModelSplit (self.device.make_and_model)
-                            id_dict["DES"] = ""
-                            id_dict["CMD"] = []
-                            devid = "MFG:%s;MDL:%s;" % (id_dict["MFG"],
-                                                        id_dict["MDL"])
-
-                        fit = self.ppds.\
-                            getPPDNamesFromDeviceID (id_dict["MFG"],
-                                                     id_dict["MDL"],
-                                                     id_dict["DES"],
-                                                     id_dict["CMD"],
-                                                     self.device.uri,
-                                                     self.device.make_and_model)
-                        debugprint ("Suitable PPDs found: %s" % repr(fit))
-                        ppdnamelist = self.ppds.\
-                            orderPPDNamesByPreference (list(fit.keys ()),
-                                                       self.installed_driver_files,
-                                                       devid=id_dict, fit=fit)
-                        debugprint ("PPDs in priority order: %s" % repr(ppdnamelist))
-                        self.id_matched_ppdnames = ppdnamelist
-                        ppdname = ppdnamelist[0]
-                        status = fit[ppdname]
-                    elif (self.dialog_mode == "ppd" and self.orig_ppd):
-                        attr = self.orig_ppd.findAttr("NickName")
-                        if not attr:
-                            attr = self.orig_ppd.findAttr("ModelName")
-
-                        if attr and attr.value:
-                            value = attr.value
-                            if value.endswith (" (recommended)"):
-                                value = value[:-14]
-
-                            mfgmdl = cupshelpers.ppds.ppdMakeModelSplit (value)
-                            (make, model) = mfgmdl
-
-                            # Search for ppdname with that make-and-model
-                            ppds = self.ppds.getInfoFromModel (make, model)
-                            for ppd, info in ppds.items ():
-                                if (_singleton (info.
-                                                get ("ppd-make-and-model")) ==
-                                    value):
-                                    ppdname = ppd
-                                    break
-                        if ppdname:
-                            status = "exact"
-                        else:
-                            ppdname = 'raw'
-                            self.ppd = ppdname
-                            status = "generic"
-                    elif self.dialog_mode == "ppd":
-                        # Special CUPS names for a raw queue.
-                        ppdname = 'raw'
-                        self.ppd = ppdname
-                        status = "exact"
-                    else:
-                        (status, ppdname) = self.ppds.\
-                            getPPDNameFromDeviceID ("Generic",
-                                                    "Printer",
-                                                    "Generic Printer",
-                                                    [],
-                                                    self.device.uri)
-                        status = "generic"
-
-                    if (ppdname and
-                        (not self.remotecupsqueue or
-                         self.dialog_mode == "ppd")):
-                        if ppdname != "download":
-                            ppddict = self.ppds.getInfoFromPPDName (ppdname)
-                            make_model = _singleton (ppddict['ppd-make-and-model'])
-                            (make, model) = \
-                                cupshelpers.ppds.ppdMakeModelSplit (make_model)
-                            self.auto_make = make
-                            self.auto_model = model
-                            self.auto_driver = ppdname
-                            self.fillDriverList(make, model)
-                        if ((status == "exact" or status == "exact-cmd") and \
-                            self.dialog_mode != "ppd"):
-                            self.exactdrivermatch = True
-                            if step == 0:
-                                page_nr = 6;
-                        else:
-                            self.exactdrivermatch = False
-                            if (self.dialog_mode != "ppd" and
-                                self.searchedfordriverpackages == False and
-                                devid and len(devid) > 0 and
-                                not (devid.find("MFG:generic;") >= 0 or
-                                     devid.find("MFG:Generic;") >= 0 or
-                                     devid.find("MFG:unknown") >= 0 or
-                                     devid.find("MFG:Unknown") >= 0 or
-                                     devid.find("MDL:unknown") >= 0 or
-                                     devid.find("MDL:Unknown") >= 0 or
-                                     devid.find("MFG:;") >= 0 or
-                                     devid.find("MDL:;") >= 0)):
-                                # Query driver packages and PPD files on
-                                # OpenPrinting
-                                debugprint ("nextNPTab: No exact driver match, querying OpenPrinting")
-                                debugprint ('nextNPTab: Searching for "%s"' % devid)
-                                self.searchedfordriverpackages = True
-
-                                self._searchdialog_canceled = False
-                                fmt = _("Searching")
-                                self._searchdialog = Gtk.MessageDialog (
-                                    parent=self.NewPrinterWindow,
-                                    flags=Gtk.DialogFlags.MODAL |
-                                    Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                    type=Gtk.MessageType.INFO,
-                                    buttons=Gtk.ButtonsType.CANCEL,
-                                    message_format=fmt)
-
-                                self._searchdialog.format_secondary_text (
-                                    _("Searching for drivers"))
-
-                                self.opreq = OpenPrintingRequest ()
-                                self._searchdialog.connect (
-                                    "response", self._searchdialog_response)
-                                self._searchdialog.show_all ()
-
-                                self.opreq_handlers = []
-                                self.opreq_handlers.append (
-                                    self.opreq.connect (
-                                        'finished',
-                                        self.opreq_id_search_done))
-                                self.opreq_handlers.append (
-                                    self.opreq.connect (
-                                        'error',
-                                        self.opreq_id_search_error))
-                                self.opreq.searchPrinters (devid)
-                                return
-                except:
-                    nonfatalException ()
-
-                if (self.dialog_mode == "ppd" or
-                    (self.dialog_mode != "download_driver" and
-                     not self.remotecupsqueue and
-                     page_nr != 7)):
-                    self.fillMakeList()
-            elif page_nr == 3: # Model has been selected
-                if not self.device.id:
-                    # Choose an appropriate name when no Device ID
-                    # is available, based on the model the user has
-                    # selected.
-                    try:
-                        model, iter = self.tvNPModels.get_selection ().\
-                                      get_selected ()
-                        name = model.get(iter, 0)[0]
-                        name = self.makeNameUnique (name)
-                        self.entNPName.set_text (name)
-                    except:
-                        nonfatalException ()
-
-            ready (self.NewPrinterWindow)
-            if self.dialog_mode == "download_driver":
-                order = [7]
-            elif self.dialog_mode == "printer":
-                if self.remotecupsqueue:
-                    order = [1, 0]
-                elif (self.founddownloadabledrivers and
-                      not self.rbtnNPDownloadableDriverSearch.get_active()):
-                    if self.exactdrivermatch:
-                        order = [1, 7, 6, 0]
-                    else:
-                        order = [1, 7, 2, 3, 6, 0]
-                elif (self.exactdrivermatch and
-                      not self.rbtnNPDownloadableDriverSearch.get_active()):
-                    order = [1, 6, 0]
-                elif self.rbtnNPFoomatic.get_active():
-                    order = [1, 2, 3, 6, 0]
-                elif self.rbtnNPPPD.get_active():
-                    order = [1, 2, 6, 0]
-                else:
-                    # Downloadable driver
-                    order = [1, 2, 7, 6, 0]
-            elif self.dialog_mode == "ppd":
-                if self.rbtnNPFoomatic.get_active():
-                    order = [2, 3, 5, 6]
-                elif self.rbtnNPPPD.get_active():
-                    order = [2, 5, 6]
-                else:
-                    # Downloadable driver
-                    order = [2, 7, 5, 6]
-            else:
-                if self.remotecupsqueue:
-                    order = [0]
-                elif (self.founddownloadabledrivers and
-                      not self.rbtnNPDownloadableDriverSearch.get_active()):
-                    if self.exactdrivermatch:
-                        order = [7, 6, 0]
-                    else:
-                        order = [7, 2, 3, 6, 0]
-                elif (self.exactdrivermatch and
-                      not self.rbtnNPDownloadableDriverSearch.get_active()):
-                    order = [6, 0]
-                elif self.rbtnNPFoomatic.get_active():
-                    order = [2, 3, 6, 0]
-                elif self.rbtnNPPPD.get_active():
-                    order = [2, 6, 0]
-                else:
-                    # Downloadable driver
-                    order = [2, 7, 6, 0]
-        elif self.dialog_mode == "device":
-            order = [1]
-
+        order = self._getPagesOrderForDialogMode ()
         next_page_nr = order[order.index(page_nr)+step]
 
         # fill Installable Options tab
         fetch_ppd = False
         try:
-            if order.index (5) > -1:
+            if order.index (self.PAGE_APPLY) > -1:
                 # There is a copy settings page in this set
-                fetch_ppd = next_page_nr == 5 and step >= 0
+                fetch_ppd = next_page_nr == self.PAGE_APPLY and step >= 0
         except ValueError:
-            fetch_ppd = next_page_nr == 6 and step >= 0
+            fetch_ppd = next_page_nr == self.PAGE_INSTALLABLE_OPTIONS and step >= 0
 
         debugprint ("Will fetch ppd? %d" % fetch_ppd)
         if fetch_ppd:
             self.ppd = self.getNPPPD()
             self.installable_options = False
-            if self.ppd == None:
+            if self.ppd is None:
                 return
 
             # Prepare Installable Options screen.
@@ -1446,19 +1141,20 @@ class NewPrinterGUI(GtkGUI):
                 self.ppd = ppd
 
             if not self.installable_options:
-                if next_page_nr == 6:
+                if next_page_nr == self.PAGE_INSTALLABLE_OPTIONS:
                     # step over if empty
                     next_page_nr = order[order.index(next_page_nr)+1]
 
         # Step over empty Installable Options tab when moving backwards.
-        if next_page_nr == 6 and not self.installable_options and step<0:
+        if next_page_nr == self.PAGE_INSTALLABLE_OPTIONS and \
+                not self.installable_options and step < 0:
             next_page_nr = order[order.index(next_page_nr)-1]
 
         debugprint ("Will advance to page %d" % next_page_nr)
-        if step >= 0 and next_page_nr == 7: # About to show downloadable drivers
+        if step >= 0 and next_page_nr == self.PAGE_DOWNLOAD_DRIVER: # About to show downloadable drivers
             self.fillDownloadableDrivers ()
 
-        if step >= 0 and next_page_nr == 0: # About to choose a name.
+        if step >= 0 and next_page_nr == self.PAGE_DESCRIBE_PRINTER: # About to choose a name.
             # Suggest an appropriate name.
             name = None
             descr = None
@@ -1473,7 +1169,7 @@ class NewPrinterGUI(GtkGUI):
                 nonfatalException ()
 
             try:
-                if name == None and isinstance (self.ppd, cups.PPD):
+                if name is None and isinstance (self.ppd, cups.PPD):
                     mname = self.ppd.findAttr ("modelName").value
                     make, model = cupshelpers.ppds.ppdMakeModelSplit (mname)
                     if make and model:
@@ -1497,6 +1193,530 @@ class NewPrinterGUI(GtkGUI):
         self.ntbkNewPrinter.set_current_page(next_page_nr)
 
         self.setNPButtons()
+
+
+    def _getPagesOrderForDialogMode (self):
+        order = []
+        if self.dialog_mode == "class":
+            order = [
+                self.PAGE_DESCRIBE_PRINTER,
+                self.PAGE_CHOOSE_CLASS_MEMBERS,
+                self.PAGE_APPLY,
+            ]
+        elif self.dialog_mode == "download_driver":
+            order = [
+                self.PAGE_DOWNLOAD_DRIVER
+            ]
+        elif self.dialog_mode == "printer":
+            if self.remotecupsqueue:
+                order = [
+                    self.PAGE_SELECT_DEVICE,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+            elif (self.founddownloadabledrivers and
+                  not self.rbtnNPDownloadableDriverSearch.get_active()):
+                if self.exactdrivermatch:
+                    order = [
+                        self.PAGE_SELECT_DEVICE,
+                        self.PAGE_DOWNLOAD_DRIVER,
+                        self.PAGE_INSTALLABLE_OPTIONS,
+                        self.PAGE_DESCRIBE_PRINTER
+                    ]
+                else:
+                    order = [
+                        self.PAGE_SELECT_DEVICE,
+                        self.PAGE_DOWNLOAD_DRIVER,
+                        self.PAGE_SELECT_INSTALL_METHOD,
+                        self.PAGE_CHOOSE_DRIVER_FROM_DB,
+                        self.PAGE_INSTALLABLE_OPTIONS,
+                        self.PAGE_DESCRIBE_PRINTER
+                    ]
+            elif (self.exactdrivermatch and
+                  not self.rbtnNPDownloadableDriverSearch.get_active()):
+                order = [
+                    self.PAGE_SELECT_DEVICE,
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+            elif self.rbtnNPFoomatic.get_active():
+                order = [
+                    self.PAGE_SELECT_DEVICE,
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_CHOOSE_DRIVER_FROM_DB,
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+            elif self.rbtnNPPPD.get_active():
+                order = [
+                    self.PAGE_SELECT_DEVICE,
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+            else:
+                # Downloadable driver
+                order = [
+                    self.PAGE_SELECT_DEVICE,
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_DOWNLOAD_DRIVER,
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+        elif self.dialog_mode == "ppd":
+            if self.rbtnNPFoomatic.get_active():
+                order = [
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_CHOOSE_DRIVER_FROM_DB,
+                    self.PAGE_APPLY,
+                    self.PAGE_INSTALLABLE_OPTIONS
+                ]
+            elif self.rbtnNPPPD.get_active():
+                order = [
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_APPLY,
+                    self.PAGE_INSTALLABLE_OPTIONS
+                ]
+            else:
+                # Downloadable driver
+                order = [
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_DOWNLOAD_DRIVER,
+                    self.PAGE_APPLY,
+                    self.PAGE_INSTALLABLE_OPTIONS
+                ]
+        elif self.dialog_mode == "device":
+            order = [
+                self.PAGE_SELECT_DEVICE,
+            ]
+        else: # dialog_mode == "printer-from-uri"
+            if self.remotecupsqueue:
+                order = [
+                    self.PAGE_DESCRIBE_PRINTER,
+                ]
+            elif (self.founddownloadabledrivers and
+                  not self.rbtnNPDownloadableDriverSearch.get_active()):
+                if self.exactdrivermatch:
+                    order = [
+                        self.PAGE_DOWNLOAD_DRIVER,
+                        self.PAGE_INSTALLABLE_OPTIONS,
+                        self.PAGE_DESCRIBE_PRINTER
+                    ]
+                else:
+                    order = [
+                        self.PAGE_DOWNLOAD_DRIVER,
+                        self.PAGE_SELECT_INSTALL_METHOD,
+                        self.PAGE_CHOOSE_DRIVER_FROM_DB,
+                        self.PAGE_INSTALLABLE_OPTIONS,
+                        self.PAGE_DESCRIBE_PRINTER
+                    ]
+            elif (self.exactdrivermatch and
+                  not self.rbtnNPDownloadableDriverSearch.get_active()):
+                order = [
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+            elif self.rbtnNPFoomatic.get_active():
+                order = [
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_CHOOSE_DRIVER_FROM_DB,
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+            elif self.rbtnNPPPD.get_active():
+                order = [
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+            else:
+                # Downloadable driver
+                order = [
+                    self.PAGE_SELECT_INSTALL_METHOD,
+                    self.PAGE_DOWNLOAD_DRIVER,
+                    self.PAGE_INSTALLABLE_OPTIONS,
+                    self.PAGE_DESCRIBE_PRINTER
+                ]
+        return order
+
+    def _handlePrinterInstallationMode (self, step):
+        busy (self.NewPrinterWindow)
+
+        page_nr = self.ntbkNewPrinter.get_current_page ()
+        page_nr = self.ntbkNewPrinter.get_current_page ()
+
+        # Let's assume everything will be completed by default
+        result = self.INSTALL_RESULT_DONE
+
+        if (((page_nr == self.PAGE_SELECT_DEVICE or
+              page_nr == self.PAGE_DOWNLOAD_DRIVER) and step > 0) or
+            ((page_nr == self.PAGE_SELECT_INSTALL_METHOD or
+              page_nr == self.PAGE_DOWNLOAD_DRIVER) and step == 0)):
+            # The function below will return INSTALL_RESULT_OPS_PENDING
+            # if, for some reason, it spawns an asynchronous operation
+            # and needs to wait for its results before continuing.
+            result = self._handlePrinterInstallationStage (page_nr, step)
+
+        if page_nr == self.PAGE_CHOOSE_DRIVER_FROM_DB:
+            if not self.device.id:
+                # Choose an appropriate name when no Device ID
+                # is available, based on the model the user has
+                # selected.
+                try:
+                    model, iter = self.tvNPModels.get_selection ().\
+                                  get_selected ()
+                    name = model.get(iter, 0)[0]
+                    name = self.makeNameUnique (name)
+                    self.entNPName.set_text (name)
+                except:
+                    nonfatalException ()
+
+        ready (self.NewPrinterWindow)
+        return result
+
+    def _handlePrinterInstallationStage (self, page_nr, step):
+        if self.dialog_mode != "download_driver":
+            uri = self.device.uri
+            if uri and uri.startswith ("smb"):
+                # User has selected an smb device
+                uri = SMBURI (uri=uri[6:]).sanitize_uri ()
+                self._installSMBBackendIfNeeded ()
+
+        if page_nr == self.PAGE_SELECT_DEVICE or page_nr == self.PAGE_SELECT_INSTALL_METHOD:
+            self._selectDeviceForInstallation (uri)
+        elif page_nr == self.PAGE_DOWNLOAD_DRIVER and self.nextnptab_rerun == False:
+            self._handleDriverInstallation ()
+
+        devid = None
+        if not self.remotecupsqueue or self.dialog_mode == "ppd":
+            if self.dialog_mode != "download_driver":
+                devid = self.device.id # ID of selected device
+            if not devid:
+                devid = self.devid # ID supplied at init()
+            if not devid:
+                devid = None
+
+            if self.ppds is None and self.dialog_mode != "download_driver":
+                self._loadPPDsForDevice (devid, uri)
+                # _loadPPDsForDevice () is an asynchronous operation, so
+                # let the caller know that it can't continue for now.
+                return self.INSTALL_RESULT_OPS_PENDING
+
+        self.nextnptab_rerun = False
+        if page_nr == self.PAGE_SELECT_DEVICE or page_nr == self.PAGE_SELECT_INSTALL_METHOD:
+            self._installHPScannerFilesIfNeeded ()
+
+        return self._installPrinterFromDeviceID (devid, page_nr, step)
+
+    def _installSMBBackendIfNeeded (self):
+        # Does the backend need to be installed?
+        if (self.nextnptab_rerun == False and not self.searchedfordriverpackages and
+               (self._host == 'localhost' or self._host[0] == '/') and
+               not os.access ("/usr/lib/cups/backend/smb", os.F_OK)):
+            debugprint ("No smb backend so attempting install")
+            try:
+                pk = installpackage.PackageKit ()
+                # The following call means a blocking, synchronous, D-Bus call
+                pk.InstallPackageName (0, 0, "samba-client")
+            except:
+                nonfatalException ()
+
+    def _selectDeviceForInstallation (self, uri):
+        self._initialiseAutoVariables ()
+        self.device.uri = self.getDeviceURI ()
+
+        # Cancel the printer finder now as the user has
+        # already selected their device.
+        if self.fetchDevices_conn:
+            self.fetchDevices_conn.destroy ()
+            self.fetchDevices_conn = None
+            self.dec_spinner_task ()
+        if self.printer_finder:
+            self.printer_finder.cancel ()
+            self.printer_finder = None
+            self.dec_spinner_task ()
+
+        if (not self.device.id and
+            self.device.type in ["socket", "lpd", "ipp"]):
+            # This is a network printer whose model we don't yet know.
+            # Try to discover it.
+            self.getNetworkPrinterMakeModel ()
+
+        # Try to access the PPD, in this case our detected IPP
+        # printer is a queue on a remote CUPS server which is
+        # not automatically set up on our local CUPS server
+        # (for example DNS-SD broadcasted queue from Mac OS X)
+        self.remotecupsqueue = None
+        res = re.search (r"ipp://(\S+?)(:\d+|)/printers/(\S+)", uri)
+        if res:
+            resg = res.groups()
+            if len (resg[1]) > 0:
+                port = int (resg[1][1:])
+            else:
+                port = 631
+            try:
+                conn = http.client.HTTPConnection(resg[0], port)
+                conn.request("GET", "/printers/%s.ppd" % resg[2])
+                resp = conn.getresponse()
+                if resp.status == 200:
+                    self.remotecupsqueue = resg[2]
+            except:
+                pass
+
+            # We also want to fetch the printer-info and
+            # printer-location attributes, to pre-fill those
+            # fields for this new queue.
+            try:
+                encryption = cups.HTTP_ENCRYPT_IF_REQUESTED
+                c = cups.Connection (host=resg[0],
+                                     port=port,
+                                     encryption=encryption)
+
+                r = ['printer-info', 'printer-location']
+                attrs = c.getPrinterAttributes (uri=uri,
+                                                requested_attributes=r)
+                info = attrs.get ('printer-info', '')
+                location = attrs.get ('printer-location', '')
+                if len (info) > 0:
+                    self.entNPDescription.set_text (info)
+                if len (location) > 0:
+                    self.device.location = location
+            except RuntimeError:
+                pass
+            except:
+                nonfatalException ()
+        elif ((uri.startswith ("dnssd:") or uri.startswith("mdns:")) and
+                uri.find ("/cups") != -1 and self.device.info):
+            # Remote CUPS queue discovered by "dnssd" CUPS backend
+            self.remotecupsqueue = self.device.info
+
+    def _handleDriverInstallation (self):
+        # Install package of the driver found on OpenPrinting
+        treeview = self.tvNPDownloadableDrivers
+        model, iter = treeview.get_selection ().get_selected ()
+        driver = None
+        if iter is not None:
+            driver = model.get_value (iter, 1)
+        if driver is None or driver == 0 or 'packages' not in driver:
+            return
+
+        # Find the package name, repository, and fingerprint
+        # and install the package
+        result = self.installdriverpackage (driver)
+        if not result or len(self.installed_driver_files) == 0:
+          return
+
+        # We actually installed a package, delete the
+        # PPD list to get it regenerated
+        self.ppds = None
+
+        if (self.dialog_mode != "download_driver" and
+              (not self.device.id and
+              (not self.device.make_and_model or self.device.make_and_model == "Unknown") and
+              self.downloadable_driver_for_printer)):
+            self.device.make_and_model = self.downloadable_driver_for_printer
+
+    def _installHPScannerFilesIfNeeded (self):
+        if (hasattr (self.device, 'hp_scannable') and self.device.hp_scannable and
+                not os.access ("/etc/sane.d/dll.d/hpaio", os.R_OK) and
+                not os.access ("/etc/sane.d/dll.d/hplip", os.R_OK)):
+            debugprint ("No HPLIP sane backend so "
+                        "attempting install")
+            try:
+                pk = installpackage.PackageKit ()
+                # The following call means a blocking, synchronous, D-Bus call
+                pk.InstallPackageName (0, 0, "libsane-hpaio")
+            except:
+                pass
+
+    def _loadPPDsForDevice (self, devid, uri):
+        debugprint ("nextNPTab: need PPDs loaded")
+        p = ppdsloader.PPDsLoader (device_id=devid,
+                                   device_uri=uri,
+                                   parent=self.NewPrinterWindow,
+                                   host=self._host,
+                                   encryption=self._encryption)
+        self.ppdsloader = p
+        p.connect ('finished',self.on_ppdsloader_finished_next)
+        p.run ()
+
+    def _installPrinterFromDeviceID (self, devid, page_nr, step):
+        ppdname = None
+        self.id_matched_ppdnames = []
+        try:
+            if self.dialog_mode == "download_driver":
+                ppdname = "download"
+                status = "generic"
+            elif self.remotecupsqueue:
+                # We have a remote CUPS queue, let the client queue
+                # stay raw so that the driver on the server gets used
+                ppdname = 'raw'
+                self.ppd = ppdname
+                name = self.remotecupsqueue
+                name = self.makeNameUnique (name)
+                self.entNPName.set_text (name)
+                status = "exact"
+            elif (self.device.id or
+                  (self.device.make_and_model and
+                   self.device.make_and_model != "Unknown") or
+                  devid):
+                if self.device.id:
+                    id_dict = self.device.id_dict
+                elif devid:
+                    id_dict = cupshelpers.parseDeviceID (devid)
+                else:
+                    id_dict = {}
+                    (id_dict["MFG"],
+                     id_dict["MDL"]) = cupshelpers.ppds.\
+                         ppdMakeModelSplit (self.device.make_and_model)
+                    id_dict["DES"] = ""
+                    id_dict["CMD"] = []
+                    devid = "MFG:%s;MDL:%s;" % (id_dict["MFG"],
+                                                id_dict["MDL"])
+
+                fit = self.ppds.\
+                    getPPDNamesFromDeviceID (id_dict["MFG"],
+                                             id_dict["MDL"],
+                                             id_dict["DES"],
+                                             id_dict["CMD"],
+                                             self.device.uri,
+                                             self.device.make_and_model)
+                debugprint ("Suitable PPDs found: %s" % repr(fit))
+                ppdnamelist = self.ppds.\
+                    orderPPDNamesByPreference (list(fit.keys ()),
+                                               self.installed_driver_files,
+                                               devid=id_dict, fit=fit)
+                debugprint ("PPDs in priority order: %s" % repr(ppdnamelist))
+                self.id_matched_ppdnames = ppdnamelist
+                ppdname = ppdnamelist[0]
+                status = fit[ppdname]
+            elif (self.dialog_mode == "ppd" and self.orig_ppd):
+                attr = self.orig_ppd.findAttr("NickName")
+                if not attr:
+                    attr = self.orig_ppd.findAttr("ModelName")
+
+                if attr and attr.value:
+                    value = attr.value
+                    if value.endswith (" (recommended)"):
+                        value = value[:-14]
+
+                    mfgmdl = cupshelpers.ppds.ppdMakeModelSplit (value)
+                    (make, model) = mfgmdl
+
+                    # Search for ppdname with that make-and-model
+                    ppds = self.ppds.getInfoFromModel (make, model)
+                    for ppd, info in ppds.items ():
+                        if (_singleton (info.
+                                        get ("ppd-make-and-model")) ==
+                            value):
+                            ppdname = ppd
+                            break
+                if ppdname:
+                    status = "exact"
+                else:
+                    ppdname = 'raw'
+                    self.ppd = ppdname
+                    status = "generic"
+            elif self.dialog_mode == "ppd":
+                # Special CUPS names for a raw queue.
+                ppdname = 'raw'
+                self.ppd = ppdname
+                status = "exact"
+            else:
+                (status, ppdname) = self.ppds.\
+                    getPPDNameFromDeviceID ("Generic",
+                                            "Printer",
+                                            "Generic Printer",
+                                            [],
+                                            self.device.uri)
+                status = "generic"
+        except:
+            nonfatalException ()
+
+        if (ppdname and
+            (not self.remotecupsqueue or self.dialog_mode == "ppd")):
+            return self._installPrinterOrSearchForDriver (devid, ppdname, status, page_nr, step)
+
+        # No operations are pending if reached.
+        return self.INSTALL_RESULT_DONE
+
+    def _installPrinterOrSearchForDriver (self, devid, ppdname, status, page_nr, step):
+        try:
+            if ppdname != "download":
+                ppddict = self.ppds.getInfoFromPPDName (ppdname)
+                make_model = _singleton (ppddict['ppd-make-and-model'])
+                (make, model) = \
+                    cupshelpers.ppds.ppdMakeModelSplit (make_model)
+                self.auto_make = make
+                self.auto_model = model
+                self.auto_driver = ppdname
+                self.fillDriverList(make, model)
+            if ((status == "exact" or status == "exact-cmd") and \
+                self.dialog_mode != "ppd"):
+                self.exactdrivermatch = True
+                if step == 0:
+                    page_nr = self.PAGE_INSTALLABLE_OPTIONS;
+            else:
+                self.exactdrivermatch = False
+                if (self.dialog_mode != "ppd" and
+                    self.searchedfordriverpackages == False and
+                    devid and len(devid) > 0 and
+                    not (devid.find("MFG:generic;") >= 0 or
+                         devid.find("MFG:Generic;") >= 0 or
+                         devid.find("MFG:unknown") >= 0 or
+                         devid.find("MFG:Unknown") >= 0 or
+                         devid.find("MDL:unknown") >= 0 or
+                         devid.find("MDL:Unknown") >= 0 or
+                         devid.find("MFG:;") >= 0 or
+                         devid.find("MDL:;") >= 0)):
+                    # Query driver packages and PPD files on
+                    # OpenPrinting
+                    debugprint ("nextNPTab: No exact driver match, querying OpenPrinting")
+                    debugprint ('nextNPTab: Searching for "%s"' % devid)
+                    self.searchedfordriverpackages = True
+
+                    self._searchdialog_canceled = False
+                    fmt = _("Searching")
+                    self._searchdialog = Gtk.MessageDialog (
+                        parent=self.NewPrinterWindow,
+                        modal=True,
+                        destroy_with_parent=True,
+                        message_type=Gtk.MessageType.INFO,
+                        buttons=Gtk.ButtonsType.CANCEL,
+                        text=fmt)
+
+                    self._searchdialog.format_secondary_text (
+                        _("Searching for drivers"))
+
+                    self.opreq = OpenPrintingRequest ()
+                    self._searchdialog.connect (
+                        "response", self._searchdialog_response)
+                    self._searchdialog.show_all ()
+
+                    self.opreq_handlers = []
+                    self.opreq_handlers.append (
+                        self.opreq.connect (
+                            'finished',
+                            self.opreq_id_search_done))
+                    self.opreq_handlers.append (
+                        self.opreq.connect (
+                            'error',
+                            self.opreq_id_search_error))
+                    self.opreq_user_search = False
+                    self.opreq.searchPrinters (devid)
+
+                    # Searching for drivers in OpenPrinting takes times, so
+                    # let the caller know that it can't continue for now.
+                    return self.INSTALL_RESULT_OPS_PENDING
+        except:
+            nonfatalException ()
+
+        if (self.dialog_mode == "ppd" or
+                (self.dialog_mode != "download_driver" and
+                 not self.remotecupsqueue and page_nr != self.PAGE_DOWNLOAD_DRIVER)):
+            self.fillMakeList()
+
+        # No operations are pending if reached.
+        return self.INSTALL_RESULT_DONE
 
     def _searchdialog_response (self, dialog, response):
         # Cancel clicked while performing openprinting search
@@ -1577,9 +1797,9 @@ class NewPrinterGUI(GtkGUI):
         treeview = self.tvNPDownloadableDrivers
         model, iter = treeview.get_selection ().get_selected ()
         driver = None
-        if iter != None:
+        if iter is not None:
             driver = model.get_value (iter, 1)
-        if (driver == None or driver == 0 or 'packages' not in driver):
+        if (driver is None or driver == 0 or 'packages' not in driver):
             return
 
         # Find the package name, repository, and fingerprint
@@ -1617,7 +1837,7 @@ class NewPrinterGUI(GtkGUI):
             return
 
         if self.dialog_mode == "ppd":
-            if nr == 5: # Apply
+            if nr == self.PAGE_APPLY:
                 if not self.installable_options:
                     # There are no installable options, so this is the
                     # last page.
@@ -1628,14 +1848,14 @@ class NewPrinterGUI(GtkGUI):
                     self.btnNPForward.show ()
                     self.btnNPApply.hide ()
                 return
-            elif nr == 6:
+            elif nr == self.PAGE_INSTALLABLE_OPTIONS:
                 self.btnNPForward.hide()
                 self.btnNPApply.show()
                 return
             else:
                 self.btnNPForward.show()
                 self.btnNPApply.hide()
-            if nr == 2:
+            if nr == self.PAGE_SELECT_INSTALL_METHOD:
                 self.btnNPBack.hide()
                 self.btnNPForward.show()
                 downloadable_selected = False
@@ -1647,7 +1867,7 @@ class NewPrinterGUI(GtkGUI):
 
                 self.btnNPForward.set_sensitive(bool(
                         (self.rbtnNPFoomatic.get_active() and
-                         self.tvNPMakes.get_cursor()[0] != None) or
+                         self.tvNPMakes.get_cursor()[0] is not None) or
                         self.filechooserPPD.get_filename() or
                         downloadable_selected))
                 return
@@ -1665,7 +1885,7 @@ class NewPrinterGUI(GtkGUI):
 
         # class/printer
 
-        if nr == 1: # Device
+        if nr == self.PAGE_SELECT_DEVICE:
             valid = False
             try:
                 uri = self.getDeviceURI ()
@@ -1680,7 +1900,7 @@ class NewPrinterGUI(GtkGUI):
         self.btnNPForward.show()
         self.btnNPApply.hide()
 
-        if nr == 0: # Name
+        if nr == self.PAGE_DESCRIBE_PRINTER:
             self.btnNPBack.show()
             if self.dialog_mode == "printer" or \
                     self.dialog_mode == "printer_with_uri":
@@ -1697,7 +1917,7 @@ class NewPrinterGUI(GtkGUI):
                          (self.exactdrivermatch and \
                               not self.installable_options)):
                 self.btnNPBack.hide ()
-        if nr == 2: # Make/PPD file
+        if nr == self.PAGE_SELECT_INSTALL_METHOD:
             downloadable_selected = False
             if self.rbtnNPDownloadableDriverSearch.get_active ():
                 combobox = self.cmbNPDownloadableDriverFoundPrinters
@@ -1715,24 +1935,25 @@ class NewPrinterGUI(GtkGUI):
             # the first step
             if self.dialog_mode == "printer_with_uri":
                 self.btnNPBack.hide()
-        if nr == 3: # Model/Driver
+        if nr == self.PAGE_CHOOSE_DRIVER_FROM_DB:
             model, iter = self.tvNPDrivers.get_selection().get_selected()
             self.btnNPForward.set_sensitive(bool(iter))
-        if nr == 4: # Class Members
+        if nr == self.PAGE_CHOOSE_CLASS_MEMBERS:
             self.btnNPForward.hide()
             self.btnNPApply.show()
             self.btnNPApply.set_sensitive(
                 bool(getCurrentClassMembers(self.tvNCMembers)))
-        if nr == 6: # Installable options
+        if nr == self.PAGE_INSTALLABLE_OPTIONS:
             if self.dialog_mode == "printer_with_uri" and \
                     self.exactdrivermatch:
                 self.btnNPBack.hide ()
-        if nr == 7: # Downloadable drivers
+        if nr == self.PAGE_DOWNLOAD_DRIVER:
             accepted = self._is_driver_license_accepted()
             self.btnNPForward.set_sensitive(accepted)
 
     def _is_driver_license_accepted(self):
-        if self.ntbkNPDownloadableDriverProperties.get_current_page() == 1:
+        current_page = self.ntbkNPDownloadableDriverProperties.get_current_page()
+        if current_page == self.PAGE_SELECT_DEVICE:
             return self.rbtnNPDownloadLicenseYes.get_active ()
 
         treeview = self.tvNPDownloadableDrivers
@@ -1741,7 +1962,7 @@ class NewPrinterGUI(GtkGUI):
             path, column = treeview.get_cursor()
             if path:
                 iter = model.get_iter (path)
-        return (iter != None)
+        return iter is not None
 
     def on_entNPName_changed(self, widget):
         # restrict
@@ -1765,7 +1986,7 @@ class NewPrinterGUI(GtkGUI):
 
         # Search for Bluetooth printers together with the network printers
         # as the Bluetooth search takes rather long time
-        network_schemes = ["dnssd", "snmp", "bluetooth"]
+        network_schemes = ["dnssd", "snmp", "driverless", "bjnp", "bluetooth"]
         error_handler = self.error_getting_devices
         if network == False:
             reply_handler = (lambda x, y:
@@ -1855,7 +2076,7 @@ class NewPrinterGUI(GtkGUI):
         for line in stdout.decode ().split ("\n"):
             if line.find ("fax-type") == -1:
                 continue
-            res = re.search ("(\d+)", line)
+            res = re.search (r"(\d+)", line)
             if res:
                 resg = res.groups()
                 try:
@@ -1927,10 +2148,10 @@ class NewPrinterGUI(GtkGUI):
         Returns (hostname or None, uri or None).
         """
         uri = None
-        if device == None:
+        if device is None:
             device = self.device
         # Determine host name/IP
-        if host == None:
+        if host is None:
             s = device.uri.find ("://")
             if s != -1:
                 s += 3
@@ -1956,8 +2177,13 @@ class NewPrinterGUI(GtkGUI):
                 # Problem executing command.
                 pass
 
-            if stdout != None:
-                line = stdout.decode ().strip ()
+            if stdout is not None:
+                try:
+                    line = stdout.decode ('utf-8').strip ()
+                except UnicodeDecodeError:
+                    # Work-around snmp backend output encoded as iso-8859-1 (despire RFC 2571).
+                    # If it's neither iso-8859-1, make a best guess by ignoring problematic bytes.
+                    line = stdout.decode (encoding='iso-8859-1', errors='ignore').strip ()
                 words = probe_printer.wordsep (line)
                 n = len (words)
                 if n < 4:
@@ -2017,6 +2243,13 @@ class NewPrinterGUI(GtkGUI):
                                      row=[network_dict['device-info'],
                                           PhysicalDevice (network), False])
         model.insert_after (network_iter, find_nw_iter, row=['', None, True])
+        smbdev_dict = { 'device-class': 'network',
+                        'device-info': _("Windows Printer via SAMBA") }
+        smbdev = cupshelpers.Device ('smb', **smbdev_dict)
+        find_smb_iter = model.append (network_iter,
+                                     row=[smbdev_dict['device-info'],
+                                          PhysicalDevice (smbdev), False])
+        model.insert_after (find_nw_iter, find_smb_iter, row=['', None, True])
         self.devices_uri_iter = uri_iter
         self.devices_find_nw_iter = find_nw_iter
         self.devices_network_iter = network_iter
@@ -2073,7 +2306,9 @@ class NewPrinterGUI(GtkGUI):
     def adjust_firewall_response (self, dialog, response):
         dialog.destroy ()
         if response == Gtk.ResponseType.YES:
-            self.firewall.add_service (firewallsettings.IPP_SERVER_SERVICE)
+            ipp_server_allowed = self.firewall.check_ipp_server_allowed ()
+            if not ipp_server_allowed:
+                self.firewall.add_service (firewallsettings.IPP_SERVER_SERVICE)
             self.firewall.write ()
 
         debugprint ("Fetching network devices after firewall dialog response")
@@ -2135,17 +2370,29 @@ class NewPrinterGUI(GtkGUI):
                     else:
                         device2.uri = "delete"
         devices = [x for x in devices if x.uri not in ("hp", "hpfax",
-                                                 "hal", "beh",
-                                                 "scsi", "http", "delete")]
+                                                       "hal", "beh", "smb", 
+                                                       "scsi", "http", "bjnp",
+                                                       "delete")]
         newdevices = []
         for device in devices:
+            debugprint("Adding device with URI %s" % device.uri)
+            if (hasattr (device, 'address')):
+                debugprint("   Device address %s" % device.address)
+            if (hasattr (device, 'hostname')):
+                debugprint("   Device host name %s" % device.hostname)
             physicaldevice = PhysicalDevice (device)
+            debugprint ("   Created physical device %s" % repr(physicaldevice))
             try:
                 i = self.devices.index (physicaldevice)
+                debugprint ("   Physical device %d is the same printer" % i)
                 self.devices[i].add_device (device)
+                debugprint ("   New physical device %s is same as physical device %d: %s" %
+                            (repr(physicaldevice), i, repr(self.devices[i])))
+                debugprint ("   Joining devices")
             except ValueError:
                 self.devices.append (physicaldevice)
                 newdevices.append (physicaldevice)
+                debugprint ("   Physical device %s is a completely new device" % repr(physicaldevice))
 
         self.devices.sort()
         if current_uri:
@@ -2164,7 +2411,15 @@ class NewPrinterGUI(GtkGUI):
 
         network_iter = self.devices_network_iter
         find_nw_iter = self.devices_find_nw_iter
-        for device in newdevices:
+        for newdevice in newdevices:
+            device = None
+            try:
+                i = self.devices.index (newdevice)
+                device = self.devices[i]
+            except ValueError:
+                debugprint("ERROR: Cannot identify new physical device with its entry in the device list (%s)" %
+                           repr(newdevice))
+                continue
             devs = device.get_devices ()
             network = devs[0].device_class == 'network'
             info = device.get_info ()
@@ -2230,6 +2485,26 @@ class NewPrinterGUI(GtkGUI):
 
     ## SMB browsing
 
+    def install_python3_smbc_if_needed (self):
+        global PYSMB_AVAILABLE
+        global pysmb # Make the import of pysmb globally available
+        # Does the SMB client library  need to be installed?
+        if not PYSMB_AVAILABLE:
+            debugprint ("No SMB client library present so attempting install")
+            try:
+                pk = installpackage.PackageKit ()
+                # The following call means a blocking, synchronous, D-Bus call
+                pk.InstallPackageName (0, 0, "python3-smbc")
+                try:
+                    import pysmb
+                    PYSMB_AVAILABLE=True
+                    debugprint ("SMB client successfully installed and set up.")
+                except:
+                    debugprint ("SMB client setup failed.")
+            except:
+                debugprint ("Error during installation/setup of SMB client.")
+        return PYSMB_AVAILABLE
+
     def browse_smb_hosts(self):
         """Initialise the SMB tree store."""
         store = self.smb_store
@@ -2293,7 +2568,7 @@ class NewPrinterGUI(GtkGUI):
 
         ready(self.SMBBrowseDialog)
 
-        if store.get_iter_first () == None:
+        if store.get_iter_first () is None:
             self.SMBBrowseDialog.hide ()
             show_info_dialog (_("No Print Shares"),
                               _("There were no print shares found.  "
@@ -2310,14 +2585,14 @@ class NewPrinterGUI(GtkGUI):
     def smbbrowser_cell_share (self, column, cell, model, iter, data):
         entry = model.get_value (iter, 0)
         share = ''
-        if entry != None:
+        if entry is not None:
             share = entry.name
         cell.set_property ('text', share)
 
     def smbbrowser_cell_comment (self, column, cell, model, iter, data):
         entry = model.get_value (iter, 0)
         comment = ''
-        if entry != None:
+        if entry is not None:
             comment = entry.comment
         cell.set_property ('text', comment)
 
@@ -2340,7 +2615,7 @@ class NewPrinterGUI(GtkGUI):
         """Handler for expanding a row in the SMB tree view."""
         model = view.get_model ()
         entry = model.get_value (iter, 0)
-        if entry == None:
+        if entry is None:
             return
 
         if entry.smbc_type == pysmb.smbc.WORKGROUP:
@@ -2435,10 +2710,7 @@ class NewPrinterGUI(GtkGUI):
             ready (self.SMBBrowseDialog)
 
     def set_btnSMBVerify_sensitivity (self, on):
-        self.btnSMBVerify.set_sensitive (PYSMB_AVAILABLE and on)
-        if not PYSMB_AVAILABLE or not on:
-            self.btnSMBVerify.set_tooltip_text (_("Verification requires the "
-                                                  "%s module") % "pysmbc")
+        self.btnSMBVerify.set_sensitive (on)
 
     def on_entSMBURI_changed (self, ent):
         allowed_chars = string.ascii_letters+string.digits+'_-./:%[]@'
@@ -2461,7 +2733,7 @@ class NewPrinterGUI(GtkGUI):
 
     def on_tvSMBBrowser_cursor_changed(self, widget):
         selection = self.tvSMBBrowser.get_selection()
-        if selection == None:
+        if selection is None:
             return
 
         store, iter = selection.get_selected()
@@ -2471,9 +2743,13 @@ class NewPrinterGUI(GtkGUI):
             if entry:
                 is_share = entry.smbc_type == pysmb.smbc.PRINTER_SHARE
 
-        self.btnSMBBrowseOk.set_sensitive(iter != None and is_share)
+        self.btnSMBBrowseOk.set_sensitive(iter is not None and is_share)
 
     def on_btnSMBBrowse_clicked(self, button):
+        """Check whether the needed SMB client library is available and"""
+        """install it if needed"""
+        if not self.install_python3_smbc_if_needed(): return
+
         self.btnSMBBrowseOk.set_sensitive(False)
 
         try:
@@ -2548,6 +2824,10 @@ class NewPrinterGUI(GtkGUI):
         self.tblSMBAuth.set_sensitive(widget.get_active())
 
     def on_btnSMBVerify_clicked(self, button):
+        """Check whether the needed SMB client library is available and"""
+        """install it if needed"""
+        if not self.install_python3_smbc_if_needed(): return
+
         uri = self.entSMBURI.get_text ()
         (group, host, share, u, p) = SMBURI (uri=uri).separate ()
         user = ''
@@ -2680,7 +2960,7 @@ class NewPrinterGUI(GtkGUI):
             # 'Network' not expanded
             return
 
-        if self.firewall != None:
+        if self.firewall is not None:
             # Already checked
             return
 
@@ -2728,7 +3008,7 @@ class NewPrinterGUI(GtkGUI):
         """
         model = self.tvNPDevices.get_model ()
         iter = model.get_iter (path)
-        if model.get_value (iter, 1) != None:
+        if model.get_value (iter, 1) is not None:
             return True
 
         self.device_row_activated (self.tvNPDevices, path, None)
@@ -2744,13 +3024,13 @@ class NewPrinterGUI(GtkGUI):
 
         self.device_selected += 1
         path, column = widget.get_cursor ()
-        if path == None:
+        if path is None:
             return
 
         model = widget.get_model ()
         iter = model.get_iter (path)
         physicaldevice = model.get_value (iter, 1)
-        if physicaldevice == None:
+        if physicaldevice is None:
             return
         show_uris = True
         for device in physicaldevice.get_devices ():
@@ -2759,7 +3039,11 @@ class NewPrinterGUI(GtkGUI):
             elif device.type == "serial":
                 device.menuentry = _("Serial Port")
             elif device.type == "usb":
-                device.menuentry = _("USB")
+                if (hasattr(device, "uri") and
+                    device.uri.lower().find("fax") > -1):
+                    device.menuentry = _("Fax") + " - " + _("USB")
+                else:
+                    device.menuentry = _("USB")
             elif device.type == "bluetooth":
                 device.menuentry = _("Bluetooth")
             elif device.type == "hp":
@@ -2795,10 +3079,16 @@ class NewPrinterGUI(GtkGUI):
                         queue = queue[1:]
                     if queue.startswith("printers/"):
                         queue = queue[9:]
-                if queue != '':
-                    device.menuentry = (_("IPP") + " (%s)" % queue)
+                if 'driverless' in device.info:
+                    drvless = "Driverless "
+                    device.driverless = True
                 else:
-                    device.menuentry = _("IPP")
+                    drvless = ""
+                if queue != '':
+                    device.menuentry = (("%s" + _("IPP") + " (%s)") %
+                                        (drvless, queue))
+                else:
+                    device.menuentry = (("%s" + _("IPP")) % drvless)
             elif device.type == "http" or device.type == "https":
                 device.menuentry = _("HTTP")
             elif device.type == "dnssd" or device.type == "mdns":
@@ -2819,7 +3109,7 @@ class NewPrinterGUI(GtkGUI):
                         protocol = "LPD"
                     elif name.find("._pdl-datastream") != -1:
                         protocol = "AppSocket/JetDirect"
-                    if protocol != None:
+                    if protocol is not None:
                         device.menuentry = (_("%s network printer via DNS-SD")
                                             % protocol)
                     else:
@@ -2855,10 +3145,10 @@ class NewPrinterGUI(GtkGUI):
                     break
                 elif device.type in ["socket", "lpd", "ipp", "dnssd", "mdns"]:
                     # This is a network printer.
-                    if host == None and device.type in ["socket", "lpd", "ipp"]:
+                    if host is None and device.type in ["socket", "lpd", "ipp"]:
                         (scheme, rest) = urllib.parse.splittype (device.uri)
                         (hostport, rest) = urllib.parse.splithost (rest)
-                        if hostport != None:
+                        if hostport is not None:
                             (host, port) = urllib.parse.splitport (hostport)
                     if host:
                         is_network = True
@@ -2930,7 +3220,7 @@ class NewPrinterGUI(GtkGUI):
 
     def on_tvNPDeviceURIs_cursor_changed(self, widget):
         path, column = widget.get_cursor ()
-        if path == None:
+        if path is None:
             return
 
         model = widget.get_model ()
@@ -2938,19 +3228,27 @@ class NewPrinterGUI(GtkGUI):
         device = model.get_value(iter, 1)
         self.device = device
         self.lblNPDeviceDescription.set_text ('')
-        page = self.new_printer_device_tabs.get(device.type, 1)
+        page = self.new_printer_device_tabs.get (device.type, self.PAGE_SELECT_DEVICE)
         self.ntbkNPType.set_current_page(page)
 
+        debugprint("Selected connection type. URI: %s" % device.uri)
         location = ''
         type = device.type
         url = device.uri.split(":", 1)[-1]
-        if page == 0:
+        if page == self.PAGE_DESCRIBE_PRINTER:
             # This is the "no options" page, with just a label to describe
             # the selected device.
             if device.type == "parallel":
                 text = _("A printer connected to the parallel port.")
             elif device.type == "usb":
-                text = _("A printer connected to a USB port.")
+                if (hasattr(device, "uri") and
+                    device.uri.lower().find("fax") > -1):
+                    device.menuentry = _("Fax") + " - " + _("USB")
+                    text = _("A fax machine or the fax function "
+                             "of a multi-function device connected "
+                             "to a USB port.")
+                else:
+                    text = _("A printer connected to a USB port.")
             elif device.type == "bluetooth":
                 text = _("A printer connected via Bluetooth.")
             elif device.type == "hp":
@@ -2978,7 +3276,7 @@ class NewPrinterGUI(GtkGUI):
                         protocol = "LPD"
                     elif name.find("._pdl-datastream") != -1:
                         protocol = "AppSocket/JetDirect"
-                    if protocol != None:
+                    if protocol is not None:
                         text = _("%s network printer via DNS-SD") % protocol
                     else:
                         text = _("Network printer via DNS-SD")
@@ -3153,7 +3451,7 @@ class NewPrinterGUI(GtkGUI):
         host = self.entNPTNetworkHostname.get_text ()
 
         def found_callback (new_device):
-            if self.printer_finder == None:
+            if self.printer_finder is None:
                 return
 
             GLib.idle_add (self.found_network_printer_callback, new_device)
@@ -3219,9 +3517,9 @@ class NewPrinterGUI(GtkGUI):
             return self.device.uri
 
         type = self.device.type
-        page = self.new_printer_device_tabs.get (type, 1)
+        page = self.new_printer_device_tabs.get (type, self.PAGE_SELECT_DEVICE)
         device = type
-        if page == 0:
+        if page == self.PAGE_DESCRIBE_PRINTER:
             # The "no options page".  We already have the URI.
             device = self.device.uri
         elif type == "socket": # JetDirect
@@ -3280,11 +3578,11 @@ class NewPrinterGUI(GtkGUI):
         self.filechooserPPD.set_sensitive(rbtn2)
 
         if rbtn1:
-            page = 0
+            page = self.PAGE_DESCRIBE_PRINTER
         if rbtn2:
-            page = 1
+            page = self.PAGE_SELECT_DEVICE
         if rbtn3:
-            page = 2
+            page = self.PAGE_SELECT_INSTALL_METHOD
         self.ntbkPPDSource.set_current_page (page)
 
         if not rbtn3 and self.opreq:
@@ -3308,7 +3606,7 @@ class NewPrinterGUI(GtkGUI):
                        self.cmbNPDownloadableDriverFoundPrinters]:
             widget.set_sensitive(rbtn3)
         self.btnNPDownloadableDriverSearch.\
-            set_sensitive (rbtn3 and (self.opreq == None))
+            set_sensitive (rbtn3 and (self.opreq is None))
 
         self.setNPButtons()
 
@@ -3317,7 +3615,7 @@ class NewPrinterGUI(GtkGUI):
 
     def on_btnNPDownloadableDriverSearch_clicked(self, widget):
         self.searchedfordriverpackages = True
-        if self.opreq != None:
+        if self.opreq is not None:
             for handler in self.opreq_handlers:
                 self.opreq.disconnect (handler)
 
@@ -3401,7 +3699,7 @@ class NewPrinterGUI(GtkGUI):
     def on_cmbNPDownloadableDriverFoundPrinters_changed(self, widget):
         self.setNPButtons ()
 
-        if self.opreq != None:
+        if self.opreq is not None:
             for handler in self.opreq_handlers:
                 self.opreq.disconnect (handler)
 
@@ -3436,7 +3734,7 @@ class NewPrinterGUI(GtkGUI):
         else:
             printer_id, printer_str = self.downloadable_printers[0]
 
-        if printer_id == None:
+        if printer_id is None:
             # If none selected, show all.
             # This also happens for ID-matching.
             printer_ids = [x[0] for x in self.downloadable_printers]
@@ -3456,14 +3754,12 @@ class NewPrinterGUI(GtkGUI):
                 if ((not 'ppds' in driver or
                      len(driver['ppds']) <= 0) and
                     (config.DOWNLOADABLE_ONLYPPD or
-                     (not self.installdriverpackage (driver,
-                                                     onlycheckpresence =
-                                                     True)))):
+                     (not self._getDriverInstallationInfo (driver)))):
                     debugprint ("Removed invalid driver entry %s" % \
                                 driver['name'])
                     continue
                 iter = model.append (None)
-                if first_iter == None:
+                if first_iter is None:
                     first_iter = iter
 
                 model.set_value (iter, 0, driver['name'])
@@ -3472,7 +3768,7 @@ class NewPrinterGUI(GtkGUI):
                 if driver['recommended']:
                     recommended_iter = iter
 
-        if first_iter == None:
+        if first_iter is None:
             return False
 
         if not self.rbtnNPDownloadableDriverSearch.get_active() and \
@@ -3481,12 +3777,12 @@ class NewPrinterGUI(GtkGUI):
             model.set_value (iter, 0, _("Local Driver"))
             model.set_value (iter, 1, 0)
 
-        if recommended_iter == None:
+        if recommended_iter is None:
             recommended_iter = first_iter
 
         treeview = self.tvNPDownloadableDrivers
         treeview.set_model (model)
-        if recommended_iter != None:
+        if recommended_iter is not None:
             treeview.get_selection ().select_iter (recommended_iter)
         self.on_tvNPDownloadableDrivers_cursor_changed(treeview)
         return True
@@ -3537,9 +3833,9 @@ class NewPrinterGUI(GtkGUI):
                 search = devid_dict["DES"]
             elif devid_dict["MFG"]:
                 search = devid_dict["MFG"]
-        if search == '' and self.auto_make != None:
+        if search == '' and self.auto_make is not None:
             search += self.auto_make
-            if self.auto_model != None:
+            if self.auto_model is not None:
                 search += " " + self.auto_model
         if (search.startswith("Generic") or
             search.startswith("Unknown")):
@@ -3548,7 +3844,7 @@ class NewPrinterGUI(GtkGUI):
 
     def on_tvNPMakes_cursor_changed(self, tvNPMakes):
         path, column = tvNPMakes.get_cursor()
-        if path != None and self.ppds != None:
+        if path is not None and self.ppds is not None:
             model = tvNPMakes.get_model ()
             iter = model.get_iter (path)
             self.NPMake = model.get(iter, 1)[0]
@@ -3710,7 +4006,7 @@ class NewPrinterGUI(GtkGUI):
 
     def on_tvNPModels_cursor_changed(self, widget):
         path, column = widget.get_cursor()
-        if path != None:
+        if path is not None:
             model = widget.get_model ()
             iter = model.get_iter (path)
             pmodel = model.get(iter, 1)[0]
@@ -3736,7 +4032,7 @@ class NewPrinterGUI(GtkGUI):
         self.frmNPDownloadableDriverLicenseTerms.hide ()
 
         selection = widget.get_selection ()
-        if selection == None:
+        if selection is None:
             return
 
         model, iter = selection.get_selected ()
@@ -3748,10 +4044,10 @@ class NewPrinterGUI(GtkGUI):
                 return
         driver = model.get_value (iter, 1)
         if driver == 0:
-            self.ntbkNPDownloadableDriverProperties.set_current_page(0)
+            self.ntbkNPDownloadableDriverProperties.set_current_page (self.PAGE_DESCRIBE_PRINTER)
             self.setNPButtons()
             return
-        self.ntbkNPDownloadableDriverProperties.set_current_page(1)
+        self.ntbkNPDownloadableDriverProperties.set_current_page (self.PAGE_SELECT_DEVICE)
         supplier = driver.get('supplier', _("OpenPrinting"))
         vendor = self.cbNPDownloadableDriverSupplierVendor
         active = driver['manufacturersupplied']
@@ -3792,7 +4088,7 @@ class NewPrinterGUI(GtkGUI):
                         except:
                             pass
 
-                if value == None:
+                if value is None:
                     hs.hide ()
                     unknown.show_all ()
 
@@ -3966,29 +4262,28 @@ class NewPrinterGUI(GtkGUI):
             if group.name != "InstallableOptions":
                 continue
             self.installable_options = True
-            table = Gtk.Table(n_rows=1, n_columns=3, homogeneous=False)
-            table.set_col_spacings(6)
-            table.set_row_spacings(6)
-            container.add(table)
+            grid = Gtk.Grid()
+            grid.set_column_spacing(6)
+            grid.set_row_spacing(6)
+            container.add(grid)
             rows = 0
 
             for nr, option in enumerate(group.options):
                 if option.keyword == "PageRegion":
                     continue
                 rows += 1
-                table.resize (rows, 3)
                 o = OptionWidget(option, self.ppd, self)
-                table.attach(o.conflictIcon, 0, 1, nr, nr+1, 0, 0, 0, 0)
+                grid.attach(o.conflictIcon, 0, nr, 1, 1)
 
-                hbox = Gtk.HBox()
+                hbox = Gtk.Box()
                 if o.label:
                     a = Gtk.Alignment.new (0.5, 0.5, 1.0, 1.0)
                     a.set_padding (0, 0, 0, 6)
                     a.add (o.label)
-                    table.attach(a, 1, 2, nr, nr+1, Gtk.AttachOptions.FILL, 0, 0, 0)
-                    table.attach(hbox, 2, 3, nr, nr+1, Gtk.AttachOptions.FILL, 0, 0, 0)
+                    grid.attach(a, 1, nr, 1, 1)
+                    grid.attach(hbox, 2, nr, 1, 1)
                 else:
-                    table.attach(hbox, 1, 3, nr, nr+1, Gtk.AttachOptions.FILL, 0, 0, 0)
+                    grid.attach(hbox, 1, nr, 2, 1)
                 hbox.pack_start(o.selector, False, False, 0)
                 self.options[option.keyword] = o
         if not self.installable_options:
@@ -4218,7 +4513,6 @@ if __name__ == '__main__':
 
     os.environ["SYSTEM_CONFIG_PRINTER_UI"] = "ui"
     import ppdippstr
-    import locale
     locale.setlocale (locale.LC_ALL, "")
     ppdippstr.init ()
     set_debugging (True)
@@ -4231,7 +4525,7 @@ if __name__ == '__main__':
     n.connect ("printer-added", on_signal)
     n.connect ("printer-modified", on_signal)
     n.connect ("dialog-canceled", on_signal)
-    if setup_printer != None:
+    if setup_printer is not None:
         n.init ("printer_with_uri", device_uri=setup_printer, devid=devid)
     else:
         n.init ("printer")
