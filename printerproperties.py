@@ -35,6 +35,7 @@ import cupshelpers, options
 from gi.repository import GObject
 from gi.repository import GLib
 from gui import GtkGUI
+import html  # requires python3.2
 from optionwidgets import OptionWidget
 from debug import *
 import authconn
@@ -561,7 +562,7 @@ class PrinterPropertiesDialog(GtkGUI):
         if not encryption:
             self._encryption = cups.getEncryption ()
 
-        if self._monitor == None:
+        if self._monitor is None:
             self.set_monitor (monitor.Monitor (monitor_jobs=False))
 
         self._ppdcache = self._monitor.get_ppdcache ()
@@ -722,7 +723,7 @@ class PrinterPropertiesDialog(GtkGUI):
         return result
 
     def setPUsers(self, users):
-        """write list of usernames inot the GUI"""
+        """write list of usernames into the GUI"""
         model = self.tvPUsers.get_model()
         model.clear()
         for user in users:
@@ -766,7 +767,7 @@ class PrinterPropertiesDialog(GtkGUI):
 
     def on_tvPUsers_cursor_changed(self, widget):
         selection = widget.get_selection ()
-        if selection == None:
+        if selection is None:
             return
 
         model, rows = selection.get_selected_rows()
@@ -808,19 +809,14 @@ class PrinterPropertiesDialog(GtkGUI):
             self.tblJOOther.hide()
             return
 
-        self.tblJOOther.resize (n, 3)
         children = self.tblJOOther.get_children ()
         for child in children:
             self.tblJOOther.remove (child)
         i = 0
         for opt in self.other_job_options:
-            self.tblJOOther.attach (opt.label, 0, 1, i, i + 1,
-                                    xoptions=Gtk.AttachOptions.FILL,
-                                    yoptions=Gtk.AttachOptions.FILL)
+            self.tblJOOther.attach (opt.label, 0, i, 1, 1)
             opt.label.set_alignment (0.0, 0.5)
-            self.tblJOOther.attach (opt.selector, 1, 2, i, i + 1,
-                                    xoptions=Gtk.AttachOptions.FILL,
-                                    yoptions=0)
+            self.tblJOOther.attach (opt.selector, 1, i, 1, 1)
             opt.selector.set_sensitive (editable)
 
             btn = Gtk.Button.new_from_icon_name (Gtk.STOCK_REMOVE,
@@ -828,9 +824,7 @@ class PrinterPropertiesDialog(GtkGUI):
             btn.connect("clicked", self.on_btnJOOtherRemove_clicked)
             btn.pyobject = opt
             btn.set_sensitive (editable)
-            self.tblJOOther.attach(btn, 2, 3, i, i + 1,
-                                   xoptions=0,
-                                   yoptions=0)
+            self.tblJOOther.attach(btn, 2, i, 1, 1)
             i += 1
 
         self.tblJOOther.show_all ()
@@ -991,7 +985,7 @@ class PrinterPropertiesDialog(GtkGUI):
         self.btnPrinterPropertiesOK.set_sensitive (not self.conflicts)
 
     def save_printer(self, printer, saveall=False, parent=None):
-        if parent == None:
+        if parent is None:
             parent = self.dialog
         class_deleted = False
         name = printer.name
@@ -1152,7 +1146,7 @@ class PrinterPropertiesDialog(GtkGUI):
     def on_tvPrinterProperties_cursor_changed (self, treeview):
         # Adjust notebook to reflect selected item.
         (path, column) = treeview.get_cursor ()
-        if path != None:
+        if path is not None:
             model = treeview.get_model ()
             iter = model.get_iter (path)
             n = model.get_value (iter, 1)
@@ -1218,7 +1212,7 @@ class PrinterPropertiesDialog(GtkGUI):
         c._end_operation ()
         cups.setUser (user)
 
-        if job_id != None:
+        if job_id is not None:
             show_info_dialog (_("Submitted"),
                               _("Test page submitted as job %d") % job_id,
                               parent=self.parent)
@@ -1231,6 +1225,7 @@ class PrinterPropertiesDialog(GtkGUI):
 
         with tempfile.NamedTemporaryFile(mode='wt') as tmpfile:
             tmpfile.write ("#CUPS-COMMAND\n%s\n" % command)
+            tmpfile.flush()
             self.cups._begin_operation (_("sending maintenance command"))
             try:
                 format = "application/vnd.cups-command"
@@ -1263,7 +1258,7 @@ class PrinterPropertiesDialog(GtkGUI):
         self.maintenance_command ("Clean all")
 
     def fillComboBox(self, combobox, values, value, translationdict=None):
-        if translationdict == None:
+        if translationdict is None:
             translationdict = ppdippstr.TranslationDict ()
 
         model = Gtk.ListStore (str,
@@ -1449,7 +1444,7 @@ class PrinterPropertiesDialog(GtkGUI):
         for option in self.printer.attributes.keys ():
             if option in self.server_side_options:
                 continue
-            if option == "output-mode":
+            if option == "output-mode" or option == "media-col":
                 # Not settable
                 continue
             value = self.printer.attributes[option]
@@ -1565,25 +1560,25 @@ class PrinterPropertiesDialog(GtkGUI):
             rows = 1 + (cols - 1) / 4
             if cols > 4:
                 cols = 4
-            table = Gtk.Table (n_rows=round(rows),
-                               n_columns=cols,
-                               homogeneous=True)
-            table.set_col_spacings (6)
-            table.set_row_spacings (12)
-            self.vboxMarkerLevels.pack_start (table, False, False, 0)
+            grid = Gtk.Grid()
+            grid.set_column_homogeneous(True)
+            grid.set_row_homogeneous(True)
+            grid.set_column_spacing (6)
+            grid.set_row_spacing (12)
+            self.vboxMarkerLevels.pack_start (grid, False, False, 0)
             for color, name, marker_type, level in markers:
-                if name == None:
+                if name is None:
                     name = ''
                 elif self.ppd != False:
                     localized_name = self.ppd.localizeMarkerName(name)
-                    if localized_name != None:
+                    if localized_name is not None:
                         name = localized_name
 
                 row = num_markers / 4
                 col = num_markers % 4
 
-                vbox = Gtk.VBox (spacing=6)
-                subhbox = Gtk.HBox ()
+                vbox = Gtk.Box (spacing=6)
+                subhbox = Gtk.Box ()
                 inklevel = gtkinklevel.GtkInkLevel (color, level)
                 inklevel.set_tooltip_text ("%d%%" % level)
                 subhbox.pack_start (inklevel, True, False, 0)
@@ -1592,7 +1587,7 @@ class PrinterPropertiesDialog(GtkGUI):
                 label.set_width_chars (10)
                 label.set_line_wrap (True)
                 vbox.pack_start (label, False, False, 0)
-                table.attach (vbox, col, col + 1, row, row + 1)
+                grid.attach (vbox, col, row, 1, 1)
                 num_markers += 1
 
         self.vboxMarkerLevels.show_all ()
@@ -1732,7 +1727,8 @@ class PrinterPropertiesDialog(GtkGUI):
                                                  self.static_tabs)
                 tab_label = self.lblPInstallOptions
             else:
-                frame = Gtk.Frame(label="<b>%s</b>" % ppdippstr.ppd.get (group.text))
+                group_name = ppdippstr.ppd.get (group.text)
+                frame = Gtk.Frame(label="<b>%s</b>" % html.escape (group_name))
                 frame.get_label_widget().set_use_markup(True)
                 frame.set_shadow_type (Gtk.ShadowType.NONE)
                 self.vbPOptions.pack_start (frame, False, False, 0)
@@ -1744,10 +1740,10 @@ class PrinterPropertiesDialog(GtkGUI):
                 frame.add (container)
                 tab_label = self.lblPOptions
 
-            table = Gtk.Table(n_rows=1, n_columns=3, homogeneous=False)
-            table.set_col_spacings(6)
-            table.set_row_spacings(6)
-            container.add(table)
+            grid = Gtk.Grid()
+            grid.set_column_spacing(6)
+            grid.set_row_spacing(6)
+            container.add(grid)
 
             rows = 0
 
@@ -1762,19 +1758,18 @@ class PrinterPropertiesDialog(GtkGUI):
                 if option.keyword == "PageRegion":
                     continue
                 rows += 1
-                table.resize (rows, 3)
                 o = OptionWidget(option, ppd, self, tab_label=tab_label)
-                table.attach(o.conflictIcon, 0, 1, nr, nr+1, 0, 0, 0, 0)
+                grid.attach(o.conflictIcon, 0, nr, 1, 1)
 
-                hbox = Gtk.HBox()
+                hbox = Gtk.Box()
                 if o.label:
                     a = Gtk.Alignment.new(0.5, 0.5, 1.0, 1.0)
                     a.set_padding (0, 0, 0, 6)
                     a.add (o.label)
-                    table.attach(a, 1, 2, nr, nr+1, Gtk.AttachOptions.FILL, 0, 0, 0)
-                    table.attach(hbox, 2, 3, nr, nr+1, Gtk.AttachOptions.FILL, 0, 0, 0)
+                    grid.attach(a, 1, nr, 1, 1)
+                    grid.attach(hbox, 2, nr, 1, 1)
                 else:
-                    table.attach(hbox, 1, 3, nr, nr+1, Gtk.AttachOptions.FILL, 0, 0, 0)
+                    grid.attach(hbox, 1, nr, 2, 1)
                 hbox.pack_start(o.selector, False, False, 0)
                 self.options[option.keyword] = o
                 o.selector.set_sensitive(editable)
@@ -1849,7 +1844,7 @@ class PrinterPropertiesDialog(GtkGUI):
 
     def sensitise_new_printer_widgets (self, sensitive=True):
         sensitive = (sensitive and
-                     self.printer != None and
+                     self.printer is not None and
                      not (self.printer.discovered or
                           bool (self.changed)))
         for button in [self.btnChangePPD,
@@ -1939,7 +1934,6 @@ class PrinterPropertiesDialog(GtkGUI):
         pass
 
 if __name__ == '__main__':
-    import locale
     import sys
 
     if len (sys.argv) < 2:

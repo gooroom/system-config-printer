@@ -19,6 +19,7 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from debug import *
 from gi.repository import Gtk
 import cups
 import ppdippstr
@@ -38,7 +39,7 @@ class IPPResolution(tuple):
             cls.UNITS_BY_STR[s] = v
 
         if isinstance (values, str):
-            matches = re.match ("(\d+)\D+(\d+)(.*)", values).groups ()
+            matches = re.match (r"(\d+)\D+(\d+)(.*)", values).groups ()
             xres = int (matches[0])
             yres = int (matches[1])
             units = cls.UNITS_BY_STR.get (matches[2], cls.UNITS_DEFAULT)
@@ -139,12 +140,12 @@ class OptionAlwaysShown(OptionInterface):
         self.combobox_map = combobox_map
 
         if (type(self.widget) == Gtk.ComboBox and
-            self.widget.get_model () == None):
-            print("No ComboBox model for %s" % self.name)
+            self.widget.get_model () is None):
+            debugprint("No ComboBox model for %s" % self.name)
             model = Gtk.ListStore (str)
             self.widget.set_model (model)
 
-        if combobox_map != None and ipp_type == int:
+        if combobox_map is not None and ipp_type == int:
             model = self.widget.get_model ()
             i = 0
             dict = {}
@@ -170,7 +171,7 @@ class OptionAlwaysShown(OptionInterface):
         """Set the original value of the option and the supported choices.
         The special value None for original_value resets the option to the
         system default."""
-        if (supported != None and
+        if (supported is not None and
             self.use_supported):
             if (type(self.widget) == Gtk.ComboBox and
                 self.ipp_type == str):
@@ -216,14 +217,14 @@ class OptionAlwaysShown(OptionInterface):
                     self.widget.append_text (text)
             elif (type(self.widget) == Gtk.ComboBox and
                   self.ipp_type == int and
-                  self.combobox_map != None):
+                  self.combobox_map is not None):
                 model = self.widget.get_model ()
                 model.clear ()
                 for each in supported:
                     iter = model.append ()
                     model.set_value (iter, 0, self.combobox_dict[each])
 
-        if original_value != None:
+        if original_value is not None:
             self.original_value = self.ipp_type (original_value)
             self.set_widget_value (self.original_value)
             self.button.set_sensitive (True)
@@ -239,10 +240,10 @@ class OptionAlwaysShown(OptionInterface):
             return self.widget.set_value (ipp_value)
         elif t == Gtk.ComboBox or t == Gtk.ComboBoxText:
             if ((self.ipp_type == str or self.ipp_type == IPPResolution)
-                and self.combobox_map == None):
+                and self.combobox_map is None):
                 model = self.widget.get_model ()
                 iter = model.get_iter_first ()
-                while (iter != None and
+                while (iter is not None and
                        self.ipp_type (model.get_value (iter, 0)) != ipp_value):
                     iter = model.iter_next (iter)
                 if iter:
@@ -279,7 +280,7 @@ class OptionAlwaysShown(OptionInterface):
             return self.ipp_type (self.widget.get_active ())
         elif t == Gtk.ComboBoxText:
             s = self.widget.get_active_text ()
-            if s == None:
+            if s is None:
                 # If the widget is being re-initialised, there will be
                 # a changed signal emitted at the point where there
                 # are no entries to select from.
@@ -297,7 +298,7 @@ class OptionAlwaysShown(OptionInterface):
         return self.get_widget_value ()
 
     def is_changed(self):
-        if self.original_value != None:
+        if self.original_value is not None:
             # There was a value set previously.
             if self.state == self.STATE_RESET:
                 # It's been removed.
@@ -359,7 +360,7 @@ class OptionAlwaysShownSpecial(OptionAlwaysShown):
         model.remove (model.get_iter_first ())
 
     def reinit(self, original_value, supported=None):
-        if original_value != None:
+        if original_value is not None:
             self.hide_special_choice ()
         else:
             self.show_special_choice ()
@@ -419,10 +420,10 @@ class OptionSelectOne(Option):
         if selected is not None:
             self.selector.set_active(selected)
         else:
-            print("Unknown value for %s: %s" % (name, value))
-            print("Choices:", supported)
+            debugprint("Unknown value for %s: %s" % (name, value))
+            debugprint("Choices:", supported)
             if len(supported) > 0:
-                print("Selecting from choices:", supported[0])
+                debugprint("Selecting from choices:", supported[0])
                 self.selector.set_active(0)
         self.selector.connect("changed", self.changed)
 
@@ -449,7 +450,7 @@ class OptionSelectOneResolution(OptionSelectOne):
                             self.UNITS_BY_VAL.get (value[2], ""))
 
     def value(self, string):
-        matches = re.match ("(\d+)\D+(\d+)(.*)", string).groups ()
+        matches = re.match (r"(\d+)\D+(\d+)(.*)", string).groups ()
         return (int (matches[0]), int (matches[1]),
                 self.UNITS_BY_STR.get (matches[2], self.UNITS_DEFAULT))
 

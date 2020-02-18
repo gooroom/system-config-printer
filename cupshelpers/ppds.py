@@ -94,13 +94,13 @@ _HP_MODEL_BY_NAME = {
 }
 
 _RE_turboprint = re.compile ("turboprint")
-_RE_version_numbers = re.compile (" v(?:er\.)?\d(?:\d*\.\d+)?(?: |$)")
+_RE_version_numbers = re.compile (r" v(?:er\.)?\d(?:\d*\.\d+)?(?: |$)")
 _RE_ignore_suffix = re.compile (","
                                 "| hpijs"
                                 "| foomatic/"
                                 "| - "
                                 "| w/"
-                                "| \("
+                                "| \\("
                                 "| postscript"
                                 "| ps"
                                 "| pdf"
@@ -139,7 +139,7 @@ def ppdMakeModelSplit (ppd_make_and_model):
             break
 
     # Handle PPDs provided by Turboprint
-    if make == None and _RE_turboprint.search (l):
+    if make is None and _RE_turboprint.search (l):
         t = ppd_make_and_model.find (" TurboPrint")
         if t != -1:
             t2 = ppd_make_and_model.rfind (" TurboPrint")
@@ -344,9 +344,9 @@ class PPDs:
 
         self.drivertypes = xmldriverprefs.DriverTypes ()
         self.preforder = xmldriverprefs.PreferenceOrder ()
-        if xml_dir == None:
+        if xml_dir is None:
             xml_dir = os.environ.get ("CUPSHELPERS_XMLDIR")
-            if xml_dir == None:
+            if xml_dir is None:
                 from . import config
                 xml_dir = os.path.join (config.sysconfdir, "cupshelpers")
 
@@ -361,7 +361,7 @@ class PPDs:
             self.drivertypes = None
             self.preforder = None
 
-        if (language == None or
+        if (language is None or
             language == "C" or
             language == "POSIX"):
             language = "en_US"
@@ -461,8 +461,8 @@ class PPDs:
     def getStatusFromFit (self, fit):
         return self._fit_to_status.get (fit, xmldriverprefs.DriverType.FIT_NONE)
 
-    def orderPPDNamesByPreference (self, ppdnamelist=[],
-                                   downloadedfiles=[],
+    def orderPPDNamesByPreference (self, ppdnamelist=None,
+                                   downloadedfiles=None,
                                    make_and_model=None,
                                    devid=None, fit=None):
         """
@@ -482,7 +482,13 @@ class PPDs:
         @type fit: dict of PPD name:fit
 	@returns: string list
 	"""
-        if fit == None:
+        if ppdnamelist is None:
+            ppdnamelist = []
+
+        if downloadedfiles is None:
+            downloadedfiles = []
+
+        if fit is None:
             fit = {}
 
         if self.drivertypes and self.preforder:
@@ -526,7 +532,7 @@ class PPDs:
         return ppdnamelist
 
     def getPPDNamesFromDeviceID (self, mfg, mdl, description="",
-                                 commandsets=[], uri=None,
+                                 commandsets=None, uri=None,
                                  make_and_model=None):
         """
 	Obtain a best-effort PPD match for an IEEE 1284 Device ID.
@@ -549,6 +555,9 @@ class PPDs:
         orig_mfg = mfg
         orig_mdl = mdl
         self._init_ids ()
+
+        if commandsets is None:
+            commandsets = []
 
         # Start with an empty result list and build it up using
         # several search methods, in increasing order of fuzziness.
@@ -573,10 +582,10 @@ class PPDs:
             try:
                 for each in self.ids["hp"][mdll]:
                     fit[each] = self.FIT_EXACT
-                print ("**** Incorrect IEEE 1284 Device ID: %s" %
-                       self.ids["hp"][mdll])
-                print ("**** Actual ID is MFG:%s;MDL:%s;" % (mfg, mdl))
-                print ("**** Please report a bug against the HPLIP component")
+                _debugprint ("**** Incorrect IEEE 1284 Device ID: %s" %
+                             self.ids["hp"][mdll])
+                _debugprint ("**** Actual ID is MFG:%s;MDL:%s;" % (mfg, mdl))
+                _debugprint ("**** Please report a bug against the HPLIP component")
                 id_matched = True
             except KeyError:
                 pass
@@ -609,7 +618,7 @@ class PPDs:
                 make = self.lmakes[mfgl]
 
         _debugprint ("make: %s" % make)
-        if make != None:
+        if make is not None:
             mdls = self.makes[make]
             mdlsl = self.lmodels[normalize(make)]
 
@@ -654,6 +663,24 @@ class PPDs:
                 for driver in generic:
                     fit[driver] = self.FIT_GENERIC
                     _debugprint ("%s: %s" % (fit[driver], driver))
+
+        # Check by the URI whether our printer is connected via IPP
+        # and if not, remove the PPD entries for driverless printing
+        # (ppdname = "driverless:..." from the list)
+        if (not uri or
+            (not uri.startswith("ipp:") and
+             not uri.startswith("ipps:") and
+             (not uri.startswith("dnssd") or
+              not "._ipp" in uri))):
+            failed = set()
+            for ppdname in fit.keys ():
+                if (ppdname.startswith("driverless:")):
+                    failed.add (ppdname)
+            if (len(failed) > 0):
+                _debugprint ("Removed %s due to non-IPP connection" % failed)
+                for each in failed:
+                    del fit[each]
+            failed = set()
 
         # What about the CMD field of the Device ID?  Some devices
         # have optional units for page description languages, such as
@@ -768,14 +795,14 @@ class PPDs:
             if description:
                 id += "DES:%s;" % description
 
-            print ("No ID match for device %s:" % sanitised_uri)
-            print (id)
+            _debugprint ("No ID match for device %s:" % sanitised_uri)
+            _debugprint (id)
 
         return fit
 
     def getPPDNameFromDeviceID (self, mfg, mdl, description="",
-                                commandsets=[], uri=None,
-                                downloadedfiles=[],
+                                commandsets=None, uri=None,
+                                downloadedfiles=None,
                                 make_and_model=None):
         """
 	Obtain a best-effort PPD match for an IEEE 1284 Device ID.
@@ -811,6 +838,12 @@ class PPDs:
 	@returns: an integer,string pair of (status,ppd-name)
 	"""
 
+        if commandsets is None:
+            commandsets = []
+
+        if downloadedfiles is None:
+            downloadedfiles = []
+
         fit = self.getPPDNamesFromDeviceID (mfg, mdl, description,
                                             commandsets, uri,
                                             make_and_model)
@@ -829,7 +862,7 @@ class PPDs:
         _debugprint ("Found PPDs: %s" % str (ppdnamelist))
 
         status = self.getStatusFromFit (fit[ppdnamelist[0]])
-        print ("Using %s (status: %d)" % (ppdnamelist[0], status))
+        _debugprint ("Using %s (status: %d)" % (ppdnamelist[0], status))
         return (status, ppdnamelist[0])
 
     def _findBestMatchPPDs (self, mdls, mdl):
@@ -889,7 +922,7 @@ class PPDs:
             mdlitems = [(x.lower (), mdls[x]) for x in mdlnames]
             modelid = None
             for word in mdll.split (' '):
-                if modelid == None:
+                if modelid is None:
                     modelid = word
 
                 have_digits = False
@@ -953,9 +986,13 @@ class PPDs:
 
         return (fit, ppdnamelist)
 
-    def _getPPDNameFromCommandSet (self, commandsets=[]):
+    def _getPPDNameFromCommandSet (self, commandsets=None):
         """Return ppd-name list or None, given a list of strings representing
         the command sets supported."""
+
+        if commandsets is None:
+            commandsets = []
+
         try:
             self._init_makes ()
             models = self.makes["Generic"]
@@ -1132,190 +1169,3 @@ class PPDs:
 
 def _show_help():
     print ("usage: ppds.py [--deviceid] [--list-models] [--list-ids] [--debug]")
-
-def _self_test(argv):
-    import sys, getopt
-    try:
-        opts, args = getopt.gnu_getopt (argv[1:], '',
-                                        ['help',
-                                         'deviceid',
-                                         'list-models',
-                                         'list-ids',
-                                         'debug'])
-    except getopt.GetoptError:
-        _show_help()
-        sys.exit (1)
-
-    stdin_deviceid = False
-    list_models = False
-    list_ids = False
-
-    for opt, optarg in opts:
-        if opt == "--help":
-            _show_help ()
-            sys.exit (0)
-        if opt == "--deviceid":
-            stdin_deviceid = True
-        elif opt == "--list-models":
-            list_models = True
-        elif opt == "--list-ids":
-            list_ids = True
-        elif opt == "--debug":
-            def _dprint(x):
-                try:
-                    print (x)
-                except:
-                    pass
-
-            set_debugprint_fn (_dprint)
-
-    picklefile="pickled-ppds"
-    import pickle
-    try:
-        with open (picklefile, "rb") as f:
-            cupsppds = pickle.load (f)
-    except IOError:
-        with open (picklefile, "wb") as f:
-            c = cups.Connection ()
-            try:
-                cupsppds = c.getPPDs2 ()
-                print ("Using getPPDs2()")
-            except AttributeError:
-                # Need pycups >= 1.9.52 for getPPDs2
-                cupsppds = c.getPPDs ()
-                print ("Using getPPDs()")
-
-            pickle.dump (cupsppds, f)
-
-    xml_dir = os.environ.get ("top_srcdir")
-    if xml_dir:
-        xml_dir = os.path.join (xml_dir, "xml")
-
-    ppds = PPDs (cupsppds, xml_dir=xml_dir)
-    makes = ppds.getMakes ()
-    models_count = 0
-    for make in makes:
-        models = ppds.getModels (make)
-        models_count += len (models)
-        if list_models:
-            print (make)
-            for model in models:
-                print ("  " + model)
-    print ("%d makes, %d models" % (len (makes), models_count))
-    ppds.getPPDNameFromDeviceID ("HP", "PSC 2200 Series")
-    makes = list(ppds.ids.keys ())
-    models_count = 0
-    for make in makes:
-        models = ppds.ids[make]
-        models_count += len (models)
-        if list_ids:
-            print (make)
-            for model in models:
-                print ("  %s (%d)" % (model, len (ppds.ids[make][model])))
-                for driver in ppds.ids[make][model]:
-                    print ("    " + driver)
-    print ("%d ID makes, %d ID models" % (len (makes), models_count))
-
-    print ("\nID matching tests\n")
-
-    MASK_STATUS = (1 << 2) - 1
-    FLAG_INVERT = (1 << 2)
-    FLAG_IGNORE_STATUS = (1 << 3)
-    idlist = [
-        # Format is:
-        # (ID string, max status code (plus flags),
-        #  expected ppd-make-and-model RE match)
-
-        # Specific models
-        ("MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Stylus D78;CLS:PRINTER;"
-         "DES:EPSON Stylus D78;", 1, 'Epson Stylus D68'),
-        ("MFG:Hewlett-Packard;MDL:LaserJet 1200 Series;"
-         "CMD:MLC,PCL,POSTSCRIPT;CLS:PRINTER;", 0, 'HP LaserJet 1200'),
-        ("MFG:Hewlett-Packard;MDL:LaserJet 3390 Series;"
-         "CMD:MLC,PCL,POSTSCRIPT;CLS:PRINTER;", 0, 'HP LaserJet 3390'),
-        ("MFG:Hewlett-Packard;MDL:PSC 2200 Series;CMD:MLC,PCL,PML,DW-PCL,DYN;"
-         "CLS:PRINTER;1284.4DL:4d,4e,1;", 0, "HP PSC 22[01]0"),
-        ("MFG:HEWLETT-PACKARD;MDL:DESKJET 990C;CMD:MLC,PCL,PML;CLS:PRINTER;"
-         "DES:Hewlett-Packard DeskJet 990C;", 0, "HP DeskJet 990C"),
-        ("CLASS:PRINTER;MODEL:HP LaserJet 6MP;MANUFACTURER:Hewlett-Packard;"
-         "DESCRIPTION:Hewlett-Packard LaserJet 6MP Printer;"
-         "COMMAND SET:PJL,MLC,PCLXL,PCL,POSTSCRIPT;", 0, "HP LaserJet (6P/)?6MP"),
-        # Canon PIXMA iP3000 (from gutenprint)
-        ("MFG:Canon;CMD:BJL,BJRaster3,BSCCe;SOJ:TXT01;MDL:iP3000;CLS:PRINTER;"
-         "DES:Canon iP3000;VER:1.09;STA:10;FSI:03;", 1, "Canon PIXMA iP3000"),
-        ("MFG:HP;MDL:Deskjet 5400 series;CMD:MLC,PCL,PML,DW-PCL,DESKJET,DYN;"
-         "1284.4DL:4d,4e,1;CLS:PRINTER;DES:5440;",
-         1, "HP DeskJet (5440|5550)"), # foomatic-db-hpijs used to say 5440
-        ("MFG:Hewlett-Packard;MDL:HP LaserJet 3390;"
-         "CMD:PJL,MLC,PCL,POSTSCRIPT,PCLXL;",
-         0, "HP LaserJet 3390"),
-        # Ricoh printers should use PostScript versions of
-        # manufacturer's PPDs (bug #550315 comment #8).
-        ("MFG:RICOH;MDL:Aficio 3045;",
-         0, "Ricoh Aficio 3045 PS"),
-        # Don't mind which driver gets used here so long as it isn't
-        # gutenprint (bug #645993).
-        ("MFG:Brother;MDL:HL-2030;",
-         0 | FLAG_INVERT | FLAG_IGNORE_STATUS, ".*Gutenprint"),
-        # Make sure we get a colour driver for this one, see launchpad
-        # #669152.
-        ("MFG:Xerox;MDL:6250DP;",
-         1, ".*(Postscript|pcl5e)"),
-
-        # Generic models
-        ("MFG:New;MDL:Unknown PS Printer;CMD:POSTSCRIPT;",
-         2, "Generic postscript printer"),
-        # Make sure pxlcolor is used for PCLXL.  The gutenprint driver
-        # is black and white, and pxlcolor is the foomatic-recommended
-        # generic driver for "Generic PCL 6/PCL XL Printer".
-        ("MFG:New;MDL:Unknown PCL6 Printer;CMD:PCLXL;", 2,
-         "Generic PCL 6.*pxlcolor"),
-        ("MFG:New;MDL:Unknown PCL5e Printer;CMD:PCL5e;", 2, "Generic PCL 5e"),
-        ("MFG:New;MDL:Unknown PCL5c Printer;CMD:PCL5c;", 2, "Generic PCL 5c"),
-        ("MFG:New;MDL:Unknown PCL5 Printer;CMD:PCL5;", 2, "Generic PCL 5"),
-        ("MFG:New;MDL:Unknown PCL3 Printer;CMD:PCL;", 2, "Generic PCL"),
-        ("MFG:New;MDL:Unknown Printer;", 100, None),
-        ]
-
-    if stdin_deviceid:
-        idlist = [(input ('Device ID: '), 2, '')]
-
-    all_passed = True
-    for id, max_status_code, modelre in idlist:
-        flags = max_status_code & ~MASK_STATUS
-        max_status_code &= MASK_STATUS
-        id_dict = parseDeviceID (id)
-        (status, ppdname) = ppds.getPPDNameFromDeviceID (id_dict["MFG"],
-                                                         id_dict["MDL"],
-                                                         id_dict["DES"],
-                                                         id_dict["CMD"])
-        ppddict = ppds.getInfoFromPPDName (ppdname)
-        if flags & FLAG_IGNORE_STATUS:
-            status = max_status_code
-
-        if status < max_status_code:
-            success = True
-        else:
-            if status == max_status_code:
-                match = re.match (modelre,
-                                  _singleton (ppddict['ppd-make-and-model']),
-                                  re.I)
-                success = match != None
-            else:
-                success = False
-
-
-        if flags & FLAG_INVERT:
-            success = not success
-
-        if success:
-            result = "PASS"
-        else:
-            result = "*** FAIL ***"
-
-        print ("%s: %s %s (%s)" % (result, id_dict["MFG"], id_dict["MDL"],
-                                  _singleton (ppddict['ppd-make-and-model'])))
-        all_passed = all_passed and success
-
-    if not all_passed:
-        raise RuntimeError

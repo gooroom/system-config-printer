@@ -3,174 +3,170 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dimitris Glezos <glezos@indifex.com>, 2011
-# Dominik Labuda <dominikla@gmail.com>, 2012
-# feonsu <feonsu@gmail.com>, 2011
-# Lubomir Kundrak <lkundrak@redhat.com>, 2007
-# Michal Hriň <michalhrin@aol.com>, 2011
-# Mike Karas <zoliqe@gmail.com>, 2005
-# Dusan Kazik <prescott66@gmail.com>, 2015. #zanata
-# feonsu <feonsu@gmail.com>, 2016. #zanata
-# Dusan Kazik <prescott66@gmail.com>, 2017. #zanata
-# Zdenek Dohnal <zdohnal@redhat.com>, 2018. #zanata
+# Moo <hazap@hotmail.com>, 2015. #zanata
+# Moo <hazap@hotmail.com>, 2016. #zanata
+# Moo <hazap@hotmail.com>, 2017. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/bugzilla\n"
 "POT-Creation-Date: 2018-01-23 10:27+0100\n"
-"PO-Revision-Date: 2018-01-04 09:13-0500\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/system-config-"
-"printer/language/sk/)\n"
-"Language: sk\n"
+"PO-Revision-Date: 2017-07-27 04:45-0400\n"
+"Last-Translator: Moo <hazap@hotmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/system-config-"
+"printer/language/lt/)\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Zanata 3.9.6\n"
 
 #: ../asyncipp.py:473 ../authconn.py:456 ../authconn.py:458
 #: ../errordialogs.py:63 ../pysmb.py:90 ../pysmb.py:92
 msgid "Not authorized"
-msgstr "Neautorizovaný"
+msgstr "Neleidžiama"
 
 #: ../asyncipp.py:474 ../authconn.py:459 ../pysmb.py:93
 msgid "The password may be incorrect."
-msgstr "Heslo môže byť nesprávne."
+msgstr "Gali būti, kad slaptažodis neteisingas."
 
 #: ../asyncipp.py:485 ../authconn.py:480
 #, python-format
 msgid "Authentication (%s)"
-msgstr "Overenie totožnosti (%s)"
+msgstr "Tapatybės nustatymas (%s)"
 
 #: ../asyncipp.py:560 ../authconn.py:309 ../errordialogs.py:54
 #: ../errordialogs.py:68
 msgid "CUPS server error"
-msgstr "Chyba servera CUPS"
+msgstr "CUPS serverio klaida"
 
 #: ../asyncipp.py:562 ../authconn.py:307
 #, python-format
 msgid "CUPS server error (%s)"
-msgstr "Chyba servera CUPS (%s)"
+msgstr "CUPS serverio klaida (%s)"
 
 #: ../asyncipp.py:578 ../authconn.py:317 ../errordialogs.py:55
 #: ../troubleshoot/PrintTestPage.py:431
 #, python-format
 msgid "There was an error during the CUPS operation: '%s'."
-msgstr "Došlo k chybe počas vykonávania akcie CUPS: „%s“."
+msgstr "CUPS operacijos metu įvyko klaida: '%s'."
 
 #: ../asyncipp.py:581 ../authconn.py:320
 msgid "Retry"
-msgstr "Opakovať"
+msgstr "Bandyti iš naujo"
 
 #: ../asyncipp.py:598 ../authconn.py:263 ../authconn.py:289
 msgid "Operation canceled"
-msgstr "Operácia zrušená"
+msgstr "Operacija atšaukta"
 
 #: ../authconn.py:39 ../pysmb.py:125 ../ui/NewPrinterWindow.ui.h:40
 msgid "Username:"
-msgstr "Používateľské meno:"
+msgstr "Naudotojo vardas:"
 
 #: ../authconn.py:40 ../pysmb.py:131 ../ui/NewPrinterWindow.ui.h:39
 msgid "Password:"
-msgstr "Heslo:"
+msgstr "Slaptažodis:"
 
 #: ../authconn.py:41 ../pysmb.py:128
 msgid "Domain:"
-msgstr "Doména:"
+msgstr "Sritis:"
 
 #. After that, prompt
 #: ../authconn.py:50 ../authconn.py:482 ../pysmb.py:98
 msgid "Authentication"
-msgstr "Overenie totožnosti"
+msgstr "Tapatybės nustatymas"
 
 #: ../authconn.py:95
 msgid "Remember password"
-msgstr "Zapamätať heslo"
+msgstr "Prisiminti slaptažodį"
 
 #: ../errordialogs.py:64
 msgid ""
 "The password may be incorrect, or the server may be configured to deny "
 "remote administration."
-msgstr "Heslo môže byť nesprávne, alebo server nepovoľuje vzdialenú správu."
+msgstr ""
+"Gali būti neteisingas slaptažodis arba serveris yra sukonfigūruotas atmesti "
+"nuotolinį administravimą."
 
 #: ../errordialogs.py:70
 msgid "Bad request"
-msgstr "Nesprávna požiadavka"
+msgstr "Bloga užklausa"
 
 #: ../errordialogs.py:72
 msgid "Not found"
-msgstr "Nenájdená"
+msgstr "Nerasta"
 
 #: ../errordialogs.py:74
 msgid "Request timeout"
-msgstr "Časový limit požiadavky vypršal"
+msgstr "Baigėsi užklausos laikas"
 
 #: ../errordialogs.py:76
 msgid "Upgrade required"
-msgstr "Je potrebná aktualizácia"
+msgstr "Reikalingas naujinimas"
 
 #: ../errordialogs.py:78
 msgid "Server error"
-msgstr "Chyba servera"
+msgstr "Serverio klaida"
 
 #: ../errordialogs.py:80 ../system-config-printer.py:761
 msgid "Not connected"
-msgstr "Nepripojená"
+msgstr "Neprijungtas"
 
 #: ../errordialogs.py:82
 #, python-format
 msgid "status %s"
-msgstr "stav %s"
+msgstr "būsena %s"
 
 #: ../errordialogs.py:84
 #, python-format
 msgid "There was an HTTP error: %s."
-msgstr "Vyskytla sa HTTP chyba: %s."
+msgstr "Įvyko HTTP klaida: %s."
 
 #: ../jobviewer.py:255
 msgid "Delete Jobs"
-msgstr "Odstránenie úloh"
+msgstr "Ištrinti darbus"
 
 #: ../jobviewer.py:256
 msgid "Do you really want to delete these jobs?"
-msgstr "Naozaj chcete odstrániť tieto úlohy?"
+msgstr "Ar tikrai norite ištrinti šiuos darbus?"
 
 #: ../jobviewer.py:258
 msgid "Delete Job"
-msgstr "Odstránenie úlohy"
+msgstr "Ištrinti darbą"
 
 #: ../jobviewer.py:259
 msgid "Do you really want to delete this job?"
-msgstr "Naozaj chcete odstrániť túto úlohu?"
+msgstr "Ar tikrai norite ištrinti šį darbą?"
 
 #: ../jobviewer.py:262
 msgid "Cancel Jobs"
-msgstr "Zrušenie úloh"
+msgstr "Atšaukti darbus"
 
 #: ../jobviewer.py:263
 msgid "Do you really want to cancel these jobs?"
-msgstr "Naozaj chcete zrušiť tieto úlohy?"
+msgstr "Ar tikrai norite atšaukti šiuos darbus?"
 
 #: ../jobviewer.py:265
 msgid "Cancel Job"
-msgstr "Zrušenie úlohy"
+msgstr "Atšaukti darbą"
 
 #: ../jobviewer.py:266
 msgid "Do you really want to cancel this job?"
-msgstr "Naozaj chcete zrušiť túto úlohu?"
+msgstr "Ar tikrai norite atšaukti šį darbą?"
 
 #: ../jobviewer.py:270
 msgid "Keep Printing"
-msgstr "Pokračovať v tlači"
+msgstr "Tęsti spausdinimą"
 
 #: ../jobviewer.py:337
 msgid "deleting job"
-msgstr "odstraňovanie úlohy"
+msgstr "darbas ištrinamas"
 
 #: ../jobviewer.py:339
 msgid "canceling job"
-msgstr "rušenie úlohy"
+msgstr "darbas atšaukiamas"
 
 #: ../jobviewer.py:437 ../system-config-printer.py:1710
 #: ../ui/ConnectDialog.ui.h:2 ../ui/ConnectingDialog.ui.h:2
@@ -178,119 +174,119 @@ msgstr "rušenie úlohy"
 #: ../ui/PrinterPropertiesDialog.ui.h:4 ../ui/ServerSettingsDialog.ui.h:2
 #: ../ui/SMBBrowseDialog.ui.h:3
 msgid "_Cancel"
-msgstr "_Zrušiť"
+msgstr "_Atsisakyti"
 
 #: ../jobviewer.py:438
 msgid "Cancel selected jobs"
-msgstr "Zruší vybrané úlohy"
+msgstr "Atšaukti pasirinktus darbus"
 
 #: ../jobviewer.py:439 ../system-config-printer.py:1711
 #: ../ui/PrinterPropertiesDialog.ui.h:40
 msgid "_Delete"
-msgstr "O_dstrániť"
+msgstr "_Ištrinti"
 
 #: ../jobviewer.py:440
 msgid "Delete selected jobs"
-msgstr "Odstráni vybrané úlohy"
+msgstr "Ištrinti pasirinktus darbus"
 
 #: ../jobviewer.py:441
 msgid "_Hold"
-msgstr "_Pozdržať"
+msgstr "_Sulaikyti"
 
 #: ../jobviewer.py:442
 msgid "Hold selected jobs"
-msgstr "Pozdrží vybrané úlohy"
+msgstr "Sulaikyti pasirinktus darbus"
 
 #: ../jobviewer.py:443
 msgid "_Release"
-msgstr "_Uvoľniť"
+msgstr "_Paleisti"
 
 #: ../jobviewer.py:444
 msgid "Release selected jobs"
-msgstr "Uvoľní vybrané úlohy"
+msgstr "Paleisti pasirinktus darbus"
 
 #: ../jobviewer.py:445
 msgid "Re_print"
-msgstr "Znovu _vytlačiť"
+msgstr "Pers_pausdinti"
 
 #: ../jobviewer.py:446
 msgid "Reprint selected jobs"
-msgstr "Znovu vytlačí vybrané úlohy"
+msgstr "Perspausdinti pasirinktus darbus"
 
 #: ../jobviewer.py:447
 msgid "Re_trieve"
-msgstr "Zís_kať"
+msgstr "_Gauti"
 
 #: ../jobviewer.py:448
 msgid "Retrieve selected jobs"
-msgstr "Získa vybrané úlohy"
+msgstr "Gauti pasirinktus darbus"
 
 #: ../jobviewer.py:449
 msgid "_Move To"
-msgstr "Pr_esunúť do"
+msgstr "P_erkelti į"
 
 #: ../jobviewer.py:450
 msgid "_Authenticate"
-msgstr "_Overiť totožnosť"
+msgstr "_Nustatyti tapatybę"
 
 #: ../jobviewer.py:452
 msgid "_View Attributes"
-msgstr "Zobraziť _atribúty"
+msgstr "Žiūrė_ti požymius"
 
 #: ../jobviewer.py:455 ../jobviewer.py:665
 msgid "Close this window"
-msgstr "Zavrie toto okno"
+msgstr "Užverti šį langą"
 
 #: ../jobviewer.py:518 ../troubleshoot/PrintTestPage.py:84
 msgid "Job"
-msgstr "Úloha"
+msgstr "Darbas"
 
 #: ../jobviewer.py:519
 msgid "User"
-msgstr "Používateľ"
+msgstr "Naudotojas"
 
 #: ../jobviewer.py:520 ../troubleshoot/PrintTestPage.py:88
 msgid "Document"
-msgstr "Dokument"
+msgstr "Dokumentas"
 
 #: ../jobviewer.py:521 ../system-config-printer.py:941
 #: ../troubleshoot/PrintTestPage.py:86
 msgid "Printer"
-msgstr "Tlačiareň"
+msgstr "Spausdintuvas"
 
 #: ../jobviewer.py:522
 msgid "Size"
-msgstr "Veľkosť"
+msgstr "Dydis"
 
 #: ../jobviewer.py:538
 msgid "Time submitted"
-msgstr "Čas odoslania"
+msgstr "Pateikimo laikas"
 
 #: ../jobviewer.py:542 ../troubleshoot/PrintTestPage.py:89
 msgid "Status"
-msgstr "Stav"
+msgstr "Būsena"
 
 #: ../jobviewer.py:572
 #, python-format
 msgid "my jobs on %s"
-msgstr "moje úlohy na %s"
+msgstr "mano darbai ties %s"
 
 #: ../jobviewer.py:574
 msgid "my jobs"
-msgstr "moje úlohy"
+msgstr "mano darbai"
 
 #: ../jobviewer.py:579
 msgid "all jobs"
-msgstr "všetky úlohy"
+msgstr "visi darbai"
 
 #: ../jobviewer.py:580
 #, python-format
 msgid "Document Print Status (%s)"
-msgstr "Stav tlače dokumentu (%s)"
+msgstr "Dokumentų spausdinimo būsena (%s)"
 
 #: ../jobviewer.py:655
 msgid "Job attributes"
-msgstr "Atribúty úlohy"
+msgstr "Darbo požymiai"
 
 #: ../jobviewer.py:790 ../jobviewer.py:1142 ../jobviewer.py:1921
 #: ../jobviewer.py:1951 ../jobviewer.py:2344 ../jobviewer.py:2353
@@ -303,432 +299,431 @@ msgstr "Atribúty úlohy"
 #: ../troubleshoot/ChoosePrinter.py:98 ../troubleshoot/ChoosePrinter.py:99
 #: ../troubleshoot/DeviceListed.py:99 ../troubleshoot/DeviceListed.py:100
 msgid "Unknown"
-msgstr "Neznámy"
+msgstr "Nežinoma"
 
 #: ../jobviewer.py:796
 msgid "a minute ago"
-msgstr "pred minútou"
+msgstr "prieš minutę"
 
 #: ../jobviewer.py:799
 #, python-format
 msgid "%d minutes ago"
-msgstr "Pred %d minútami"
+msgstr "prieš %d minučių"
 
 #: ../jobviewer.py:803
 msgid "an hour ago"
-msgstr "pred hodinou"
+msgstr "prieš valandą"
 
 #: ../jobviewer.py:805
 #, python-format
 msgid "%d hours ago"
-msgstr "Pred %d hodinami"
+msgstr "prieš %d valandų"
 
 #: ../jobviewer.py:809
 msgid "yesterday"
-msgstr "včera"
+msgstr "vakar"
 
 #: ../jobviewer.py:811
 #, python-format
 msgid "%d days ago"
-msgstr "Pred %d dňami"
+msgstr "prieš %d dienų"
 
 #: ../jobviewer.py:815
 msgid "last week"
-msgstr "minulý týždeň"
+msgstr "praėjusią savaitę"
 
 #: ../jobviewer.py:817
 #, python-format
 msgid "%d weeks ago"
-msgstr "Pred %d týždňami"
+msgstr "prieš %d savaičių"
 
 #: ../jobviewer.py:1090 ../jobviewer.py:1174
 msgid "authenticating job"
-msgstr "overovanie úlohy"
+msgstr "nustatoma darbo tapatybė"
 
 #: ../jobviewer.py:1140
 #, python-format
 msgid "Authentication required for printing document `%s' (job %d)"
-msgstr "Pre tlač dokumentu „%s“ (úloha %d) je vyžadované overenie totožnosti"
+msgstr ""
+"Dokumento \"%s\" (darbas %d) spausdinimui reikalingas tapatybės nustatymas"
 
 #: ../jobviewer.py:1434
 msgid "holding job"
-msgstr "pozdržanie úlohy"
+msgstr "darbas sulaikomas"
 
 #: ../jobviewer.py:1460
 msgid "releasing job"
-msgstr "uvoľňovanie úlohy"
+msgstr "darbas paleidžiamas"
 
 #. give the default filename some meaningful name
 #: ../jobviewer.py:1522
 msgid "retrieved"
-msgstr "získaná"
+msgstr "gautas"
 
 #: ../jobviewer.py:1532
 msgid "Save File"
-msgstr "Uložiť súbor"
+msgstr "Įrašyti failą"
 
 #: ../jobviewer.py:1647 ../system-config-printer.py:310
 #: ../ui/NewPrinterWindow.ui.h:9 ../troubleshoot/ChooseNetworkPrinter.py:37
 #: ../troubleshoot/ChoosePrinter.py:43 ../troubleshoot/DeviceListed.py:43
 msgid "Name"
-msgstr "Názov"
+msgstr "Pavadinimas"
 
 #: ../jobviewer.py:1650
 msgid "Value"
-msgstr "Hodnota"
+msgstr "Reikšmė"
 
 #: ../jobviewer.py:1774
 msgid "No documents queued"
-msgstr "Žiadne dokumenty vo fronte"
+msgstr "Eilėje dokumentų nėra"
 
 #: ../jobviewer.py:1776
 msgid "1 document queued"
-msgstr "1 dokument vo fronte"
+msgstr "Eilėje 1 dokumentas"
 
 #: ../jobviewer.py:1778
 #, python-format
 msgid "%d documents queued"
-msgstr "%d dokumentov vo fronte"
+msgstr "Eilėje %d dokumentai"
 
 #: ../jobviewer.py:1834
 #, python-format
 msgid "processing / pending:   %d / %d"
-msgstr "spracováva sa / čaká:   %d / %d"
+msgstr "vykdoma / laukiama:   %d / %d"
 
 #: ../jobviewer.py:1952
 msgid "Document printed"
-msgstr "Dokument vytlačený"
+msgstr "Dokumentas atspausdintas"
 
 #: ../jobviewer.py:1953
 #, python-format
 msgid "Document `%s' has been sent to `%s' for printing."
-msgstr "Dokument „%s“ bol odoslaný na tlač na „%s“."
+msgstr "Dokumentas \"%s\" buvo išsiųstas spausdinimui į \"%s\"."
 
 #: ../jobviewer.py:2115
 #, python-format
 msgid "There was a problem sending document `%s' (job %d) to the printer."
 msgstr ""
-"Pri odosielaní dokumentu „%s“ (úloha %d) na tlačiareň sa vyskytol problém."
+"Atsirado problemų, siunčiant į spausdintuvą dokumentą \"%s\" (darbas %d)."
 
 #: ../jobviewer.py:2119
 #, python-format
 msgid "There was a problem processing document `%s' (job %d)."
-msgstr "Pri spracovávaní dokumentu „%s“ (úloha %d) sa vyskytol problém."
+msgstr "Atsirado problemų, apdorojant dokumentą \"%s\" (darbas %d)."
 
 #. Give up and use the provided message untranslated.
 #: ../jobviewer.py:2126
 #, python-format
 msgid "There was a problem printing document `%s' (job %d): `%s'."
-msgstr "Pri tlači dokumentu „%s“ (úloha %d) sa vyskytol problém: „%s“."
+msgstr "Atsirado problemų, spausdinant dokumentą \"%s\" (darbas %d): \"%s\"."
 
 #: ../jobviewer.py:2133 ../jobviewer.py:2150
 msgid "Print Error"
-msgstr "Chyba tlače"
+msgstr "Spausdinimo klaida"
 
 #: ../jobviewer.py:2135
 msgid "_Diagnose"
-msgstr "_Diagnostikovať"
+msgstr "_Diagnozuoti"
 
 #: ../jobviewer.py:2156
 #, python-format
 msgid "The printer called `%s' has been disabled."
-msgstr "Tlačiareň „%s“ bola zakázaná."
+msgstr "Spausdintuvas pavadinimu \"%s\" buvo išjungtas."
 
 #: ../jobviewer.py:2363
 msgid "disabled"
-msgstr "zakázaná"
+msgstr "išjungta"
 
 #: ../jobviewer.py:2393
 msgid "Held for authentication"
-msgstr "Pozdržaná kvôli overeniu totožnosti"
+msgstr "Sulaikytas tapatybės nustatymui"
 
 #: ../jobviewer.py:2395 ../troubleshoot/PrintTestPage.py:44
 msgid "Held"
-msgstr "Pozdržaná"
+msgstr "Sulaikytas"
 
 #: ../jobviewer.py:2431
 #, python-format
 msgid "Held until %s"
-msgstr "Pozdržať do %s"
+msgstr "Sulaikytas iki %s"
 
 #: ../jobviewer.py:2436
 msgid "Held until day-time"
-msgstr "Pozdržať do rána"
+msgstr "Sulaikytas iki dienos meto"
 
 #: ../jobviewer.py:2438
 msgid "Held until evening"
-msgstr "Pozdržať do večera"
+msgstr "Sulaikytas iki vakaro"
 
 #: ../jobviewer.py:2440
 msgid "Held until night-time"
-msgstr "Pozdržať do noci"
+msgstr "Sulaikytas iki nakties meto"
 
 #: ../jobviewer.py:2442
 msgid "Held until second shift"
-msgstr "Pozdržať do druhej zmeny"
+msgstr "Sulaikytas iki antros pamainos"
 
 #: ../jobviewer.py:2444
 msgid "Held until third shift"
-msgstr "Pozdržať do tretej zmeny"
+msgstr "Sulaikytas iki trečios pamainos"
 
 #: ../jobviewer.py:2446
 msgid "Held until weekend"
-msgstr "Pozdržať do víkendu"
+msgstr "Sulaikytas iki savaitgalio"
 
 #: ../jobviewer.py:2449 ../troubleshoot/PrintTestPage.py:43
 msgid "Pending"
-msgstr "Čakajúci"
+msgstr "Laukiama"
 
 #: ../jobviewer.py:2450 ../printerproperties.py:73
 #: ../system-config-printer.py:163 ../troubleshoot/PrintTestPage.py:45
 msgid "Processing"
-msgstr "Spracúva sa"
+msgstr "Vykdoma"
 
 #: ../jobviewer.py:2451 ../printerproperties.py:77
 #: ../system-config-printer.py:165 ../troubleshoot/PrintTestPage.py:46
 msgid "Stopped"
-msgstr "Zastavené"
+msgstr "Sustabdytas"
 
 #: ../jobviewer.py:2452 ../troubleshoot/PrintTestPage.py:47
 msgid "Canceled"
-msgstr "Zrušené"
+msgstr "Atšauktas"
 
 #: ../jobviewer.py:2453 ../troubleshoot/PrintTestPage.py:48
 msgid "Aborted"
-msgstr "Prerušené"
+msgstr "Nutraukta"
 
 #: ../jobviewer.py:2454 ../troubleshoot/PrintTestPage.py:49
 msgid "Completed"
-msgstr "Dokončené"
+msgstr "Užbaigta"
 
 #: ../newprinter.py:72
 msgid ""
 "The firewall may need adjusting in order to detect network printers.  Adjust "
 "the firewall now?"
 msgstr ""
-"Na zistenie sieťových tlačiarní bude možno potrebné upraviť nastavenie brány "
-"firewallu. Má sa teraz upraviť brána firewall?"
+"Tam, kad būtų aptikti tinklo spausdintuvai, gali tekti suderinti užkardą. "
+"Suderinti užkardą dabar?"
 
 #: ../newprinter.py:358 ../newprinter.py:369 ../newprinter.py:375
 #: ../newprinter.py:380 ../ppdippstr.py:162
 msgid "Default"
-msgstr "Predvolené"
+msgstr "Numatytasis"
 
 #. See section 4.2.6 of this document for explanation of finishing types:
 #. ftp://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf
 #: ../newprinter.py:370 ../newprinter.py:381 ../newprinter.py:4069
 #: ../ppdippstr.py:65 ../ppdippstr.py:223 ../printerproperties.py:281
 msgid "None"
-msgstr "Žiadny"
+msgstr "Nėra"
 
 #: ../newprinter.py:371
 msgid "Odd"
-msgstr "Nepárne"
+msgstr "Nelyginis"
 
 #: ../newprinter.py:372
 msgid "Even"
-msgstr "Párne"
+msgstr "Lyginis"
 
 #: ../newprinter.py:382
 msgid "XON/XOFF (Software)"
-msgstr "XON/XOFF (softvérovo)"
+msgstr "XON/XOFF (Programinė įranga)"
 
 #: ../newprinter.py:383
 msgid "RTS/CTS (Hardware)"
-msgstr "RTS/CTS (hardvérovo)"
+msgstr "RTS/CTS (Aparatinė įranga)"
 
 #: ../newprinter.py:384
 msgid "DTR/DSR (Hardware)"
-msgstr "DTR/DSR (hardvérovo)"
+msgstr "DTR/DSR (Aparatinė įranga)"
 
 #: ../newprinter.py:402 ../printerproperties.py:235
 msgid "Members of this class"
-msgstr "Členovia tejto triedy"
+msgstr "Šios klasės nariai"
 
 #: ../newprinter.py:404 ../printerproperties.py:236
 msgid "Others"
-msgstr "Ostatné"
+msgstr "Kiti"
 
 #: ../newprinter.py:405
 msgid "Devices"
-msgstr "Zariadenia"
+msgstr "Įrenginiai"
 
 #: ../newprinter.py:406
 msgid "Connections"
-msgstr "Spojenia"
+msgstr "Sujungimai"
 
 #: ../newprinter.py:407
 msgid "Makes"
-msgstr "Výrobcovia"
+msgstr "Gamintojai"
 
 #: ../newprinter.py:408
 msgid "Models"
-msgstr "Modely"
+msgstr "Modeliai"
 
 #: ../newprinter.py:409
 msgid "Drivers"
-msgstr "Ovládače"
+msgstr "Tvarkyklės"
 
 #: ../newprinter.py:410 ../ui/NewPrinterWindow.ui.h:102
 msgid "Downloadable Drivers"
-msgstr "Ovládače k stiahnutiu"
+msgstr "Atsiunčiamos tvarkyklės"
 
 #. SMB list columns
 #: ../newprinter.py:491
 msgid "Share"
-msgstr "Zdieľanie"
+msgstr "Viešinys"
 
 #: ../newprinter.py:497
 msgid "Comment"
-msgstr "Komentár"
+msgstr "Komentaras"
 
 #: ../newprinter.py:512
 msgid ""
 "PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
 "PPD.GZ)"
 msgstr ""
-"Súbory tlačových popisov vo formáte PostScript (*.ppd, *.PPD, *.ppd.gz, *."
-"PPD.gz, *.PPD.GZ)"
+"PostScript spausdintuvo aprašo failai (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
+"PPD.GZ)"
 
 #: ../newprinter.py:521
 msgid "All files (*)"
-msgstr "Všetky súbory (*)"
+msgstr "Visi failai (*)"
 
 #: ../newprinter.py:667 ../newprinter.py:1725 ../newprinter.py:3598
 #: ../newprinter.py:3658 ../newprinter.py:3710 ../applet.py:128
 msgid "Search"
-msgstr "Hľadať"
+msgstr "Ieškoti"
 
 #: ../newprinter.py:706
 msgid "New Class"
-msgstr "Nová trieda"
+msgstr "Nauja klasė"
 
 #: ../newprinter.py:715 ../newprinter.py:732 ../ui/NewPrinterWindow.ui.h:1
 msgid "New Printer"
-msgstr "Nová tlačiareň"
+msgstr "Naujas spausdintuvas"
 
 #: ../newprinter.py:724
 msgid "Change Device URI"
-msgstr "Zmeniť URI zariadenia"
+msgstr "Keisti įrenginio URI"
 
 #: ../newprinter.py:743
 msgid "Download Printer Driver"
-msgstr "Prevziať ovládač tlačiarne"
+msgstr "Atsisiųsti spausdintuvo tvarkyklę"
 
 #: ../newprinter.py:752
 msgid "Change Driver"
-msgstr "Zmeniť ovládač"
+msgstr "Keisti tvarkyklę"
 
 #: ../newprinter.py:761 ../newprinter.py:2316 ../newprinter.py:2321
 msgid "fetching device list"
-msgstr "získava sa zoznam zariadení"
+msgstr "gaunamas įrenginių sąrašas"
 
 #: ../newprinter.py:956
 #, python-format
 msgid "Installing driver %s"
-msgstr "Inštaluje sa ovládač %s"
+msgstr "Įdiegiama %s tvarkyklė"
 
 #: ../newprinter.py:963
 msgid "Installing ..."
-msgstr "Inštaluje sa..."
+msgstr "Įdiegiama..."
 
 #: ../newprinter.py:1678 ../newprinter.py:3400 ../newprinter.py:3628
 #: ../ppdsloader.py:86
 msgid "Searching"
-msgstr "Vyhľadávanie"
+msgstr "Ieškoma"
 
 #: ../newprinter.py:1688 ../ppdsloader.py:93
 msgid "Searching for drivers"
-msgstr "Hľadajú sa ovládače"
+msgstr "Ieškoma tvarkyklių"
 
 #. device-info
 #. PhysicalDevice obj
 #. Separator?
 #: ../newprinter.py:2231
 msgid "Enter URI"
-msgstr "Zadať URI"
+msgstr "Įrašyti URI"
 
 #: ../newprinter.py:2236
 msgid "Network Printer"
-msgstr "Sieťová tlačiareň"
+msgstr "Tinklo spausdintuvas"
 
 #: ../newprinter.py:2240
 msgid "Find Network Printer"
-msgstr "Nájsť sieťovú tlačiareň"
+msgstr "Rasti tinklo spausdintuvą"
 
 #: ../newprinter.py:2247 ../newprinter.py:3072 ../ppdippstr.py:363
 msgid "Windows Printer via SAMBA"
-msgstr "Tlačiareň Windows pomocou SAMBA"
+msgstr "Windows spausdintuvas per SAMBA"
 
 #: ../newprinter.py:2279
 msgid "Allow all incoming IPP Browse packets"
-msgstr "Povoliť všetky prichádzajúce IPP packety"
+msgstr "Leisti visus gaunamus IPP naršymo duomenų paketus"
 
 #: ../newprinter.py:2284
 msgid "Allow all incoming mDNS traffic"
-msgstr "Povoliť prevádzku všetkých prichádzajúcich mDNS"
+msgstr "Leisti visą gaunamą mDNS duomenų srautą"
 
 #: ../newprinter.py:2294 ../newprinter.py:2297 ../newprinter.py:2768
 #: ../newprinter.py:2774 ../serversettings.py:563 ../serversettings.py:568
 msgid "Adjust Firewall"
-msgstr "Upraviť bránu firewall"
+msgstr "Derinti užkardą"
 
 #: ../newprinter.py:2296 ../newprinter.py:2773
 msgid "Do It Later"
-msgstr "Vykonať neskôr"
+msgstr "Atlikti tai vėliau"
 
 #: ../newprinter.py:2427 ../newprinter.py:3962
 msgid " (Current)"
-msgstr " (Aktuálny)"
+msgstr " (Esamas)"
 
 #: ../newprinter.py:2517
 msgid "Scanning..."
-msgstr "Prehľadáva sa..."
+msgstr "Skenuojama..."
 
 #: ../newprinter.py:2573
 msgid "No Print Shares"
-msgstr "Žiadne zdieľané tlačiarne"
+msgstr ""
 
 #: ../newprinter.py:2574
 msgid ""
 "There were no print shares found.  Please check that the Samba service is "
 "marked as trusted in your firewall configuration."
 msgstr ""
-"Neboli nájdené žiadne zdieľané tlačiarne. Skontrolujte prosím, či služba "
-"Samba je označená ako dôveryhodná v nastaveniach vašej brány firewall."
 
 #: ../newprinter.py:2770
 msgid "Allow all incoming SMB/CIFS browse packets"
-msgstr "Umožniť všetkým prichádzajúcim SMB/CIFS prehliadať pakety"
+msgstr "Leisti visus gaunamus SMB/CIFS naršymo duomenų paketus"
 
 #: ../newprinter.py:2890
 msgid "Print Share Verified"
-msgstr "Zdieľaná tlačiareň overená"
+msgstr ""
 
 #: ../newprinter.py:2891
 msgid "This print share is accessible."
-msgstr "Zdieľaná tlačiareň je dostupná."
+msgstr ""
 
 #: ../newprinter.py:2896
 msgid "This print share is not accessible."
-msgstr "Zdieľaná tlačiareň nie je dostupná."
+msgstr ""
 
 #: ../newprinter.py:2899
 msgid "Print Share Inaccessible"
-msgstr "Zdieľaná tlač nie je prístupná"
+msgstr ""
 
 #: ../newprinter.py:3038
 msgid "Parallel Port"
-msgstr "Paralelný port"
+msgstr "Lygiagretusis prievadas"
 
 #: ../newprinter.py:3040
 msgid "Serial Port"
-msgstr "Sériový port"
+msgstr "Nuoseklusis prievadas"
 
 #: ../newprinter.py:3044 ../newprinter.py:3052 ../newprinter.py:3197
 #: ../newprinter.py:3199 ../newprinter.py:3246 ../system-config-printer.py:944
 msgid "Fax"
-msgstr "Fax"
+msgstr "Faksas"
 
 #: ../newprinter.py:3044 ../newprinter.py:3046 ../newprinter.py:3246
 msgid "USB"
@@ -740,11 +735,11 @@ msgstr "Bluetooth"
 
 #: ../newprinter.py:3050 ../newprinter.py:3053
 msgid "HP Linux Imaging and Printing (HPLIP)"
-msgstr "HP Linux Imaging and Printing (HPLIP)"
+msgstr "HP Linux atvaizdavimas ir spausdinimas (HPLIP)"
 
 #: ../newprinter.py:3055
 msgid "Hardware Abstraction Layer (HAL)"
-msgstr "Hardware Abstraction Layer (HAL)"
+msgstr ""
 
 #: ../newprinter.py:3057 ../ppdippstr.py:357
 msgid "AppSocket/HP JetDirect"
@@ -753,11 +748,11 @@ msgstr "AppSocket/HP JetDirect"
 #: ../newprinter.py:3066
 #, python-format
 msgid "LPD/LPR queue '%s'"
-msgstr "LPD/LPR fronta „%s“"
+msgstr "LPD/LPR eilė \"%s\""
 
 #: ../newprinter.py:3069
 msgid "LPD/LPR queue"
-msgstr "LPD/LPR fronta"
+msgstr "LPD/LPR eilė"
 
 #: ../newprinter.py:3088 ../newprinter.py:3091
 msgid "IPP"
@@ -769,93 +764,86 @@ msgstr "HTTP"
 
 #: ../newprinter.py:3101 ../newprinter.py:3270
 msgid "Remote CUPS printer via DNS-SD"
-msgstr "Vzdialená CUPS tlačiareň cez DNS-SD"
+msgstr "Nuotolinis CUPS spausdintuvas per DNS-SD"
 
 #: ../newprinter.py:3113 ../newprinter.py:3280
 #, python-format
 msgid "%s network printer via DNS-SD"
-msgstr "%s sieťová tlačiareň cez DNS-SD"
+msgstr "%s tinklo spausdintuvas per DNS-SD"
 
 #: ../newprinter.py:3117 ../newprinter.py:3282
 msgid "Network printer via DNS-SD"
-msgstr "Sieťová tlačiareň cez DNS-SD"
+msgstr "Tinklo spausdintuvas per DNS-SD"
 
 #: ../newprinter.py:3242
 msgid "A printer connected to the parallel port."
-msgstr "Tlačiareň pripojená cez paralelný port."
+msgstr "Spausdintuvas, prijungtas prie lygiagrečiojo prievado."
 
 #: ../newprinter.py:3247
-#, fuzzy
 msgid ""
 "A fax machine or the fax function of a multi-function device connected to a "
 "USB port."
 msgstr ""
-"Softvér HPLIP ovládajúci faxovacie stroje, alebo faxovacie funkcie multi-"
-"funkčného zariadenia."
 
 #: ../newprinter.py:3251
 msgid "A printer connected to a USB port."
-msgstr "Tlačiareň pripojená cez USB port."
+msgstr "Spausdintuvas, prijungtas prie USB jungties."
 
 #: ../newprinter.py:3253
 msgid "A printer connected via Bluetooth."
-msgstr "Tlačiareň pripojená cez Bluetooth."
+msgstr "Spausdintuvas, prijungtas per Bluetooth."
 
 #: ../newprinter.py:3255
 msgid ""
 "HPLIP software driving a printer, or the printer function of a multi-"
 "function device."
 msgstr ""
-"Softvér HPLIP ovládajúci tlačiarne, alebo funkcie tlače multi-funkčného "
-"zariadenia."
 
 #: ../newprinter.py:3258
 msgid ""
 "HPLIP software driving a fax machine, or the fax function of a multi-"
 "function device."
 msgstr ""
-"Softvér HPLIP ovládajúci faxovacie stroje, alebo faxovacie funkcie multi-"
-"funkčného zariadenia."
 
 #: ../newprinter.py:3261
 msgid "Local printer detected by the Hardware Abstraction Layer (HAL)."
-msgstr "Lokálna tlačiareň zistená cez Hardware Abstraction Layer (HAL)."
+msgstr ""
 
 #: ../newprinter.py:3401
 msgid "Searching for printers"
-msgstr "Hľadajú sa tlačiarne"
+msgstr "Ieškoma spausdintuvų"
 
 #: ../newprinter.py:3507 ../ui/NewPrinterWindow.ui.h:46
 msgid "No printer was found at that address."
-msgstr "Na zadanej adrese nebola nájdená žiadna tlačiareň."
+msgstr "Šiuo adresu nebuvo rasta jokių spausdintuvų."
 
 #: ../newprinter.py:3663
 msgid "-- Select from search results --"
-msgstr "-- Vyberte z výsledkov hľadania --"
+msgstr "-- Pasirinkite iš paieškos rezultatų --"
 
 #: ../newprinter.py:3665
 msgid "-- No matches found --"
-msgstr "-- Nebol nájdený žiadny záznam --"
+msgstr "-- Atitikimų nerasta --"
 
 #: ../newprinter.py:3777 ../ui/NewPrinterWindow.ui.h:80
 msgid "Local Driver"
-msgstr "Lokálny ovládač"
+msgstr "Vietinė tvarkyklė"
 
 #: ../newprinter.py:3810 ../newprinter.py:3873 ../newprinter.py:3971
 msgid " (recommended)"
-msgstr " (odporúčané)"
+msgstr " (rekomenduojama)"
 
 #: ../newprinter.py:4003
 msgid "This PPD is generated by foomatic."
-msgstr "Tento PPD bol vygenerovaný foomaticom."
+msgstr "Šį PPD sukūrė \"foomatic\"."
 
 #: ../newprinter.py:4051
 msgid "OpenPrinting"
-msgstr "OpenPrinting"
+msgstr ""
 
 #: ../newprinter.py:4062
 msgid "Distributable"
-msgstr "Distribuovateľný"
+msgstr ""
 
 #: ../newprinter.py:4106
 msgid ", "
@@ -872,21 +860,21 @@ msgstr ""
 
 #: ../newprinter.py:4116
 msgid "No support contacts known"
-msgstr "Neznáme kontakty na podporu"
+msgstr "Palaikymo kontaktiniai duomenys nėra žinomi"
 
 #: ../newprinter.py:4120 ../newprinter.py:4133
 msgid "Not specified."
-msgstr "Nezadané."
+msgstr "Nenurodyta."
 
 #. Foomatic database problem of some sort.
 #: ../newprinter.py:4178
 msgid "Database error"
-msgstr "Chyba databázy"
+msgstr "Duomenų bazės klaida"
 
 #: ../newprinter.py:4179
 #, python-format
 msgid "The '%s' driver cannot be used with printer '%s %s'."
-msgstr "Ovládač „%s“ nemôže byť použitý k tlačiarni „%s %s“."
+msgstr "\"%s\" tvarkyklė negali būti naudojama su \"%s %s\" spausdintuvu."
 
 #. This printer references some XML that is not
 #. installed by default.  Point the user at the
@@ -895,159 +883,158 @@ msgstr "Ovládač „%s“ nemôže byť použitý k tlačiarni „%s %s“."
 #, python-format
 msgid "You will need to install the '%s' package in order to use this driver."
 msgstr ""
-"Budete musieť nainštalovať balíček „%s“, aby bolo možné použiť tento ovládač."
+"Tam, kad galėtumėte naudoti šią tvarkyklę, turėsite įdiegti \"%s\" paketą."
 
 #. This error came from trying to open the PPD file.
 #: ../newprinter.py:4196
 msgid "PPD error"
-msgstr "Chyba PPD"
+msgstr "PPD klaida"
 
 #: ../newprinter.py:4198
 msgid "Failed to read PPD file.  Possible reason follows:"
-msgstr "Chyba pri čítaní PPD súboru. Možné dôvody sú:"
+msgstr "Nepavyko perskaityti PPD failo. Galimos priežastys yra:"
 
 #. Failed to get PPD downloaded from OpenPrinting XXX
 #: ../newprinter.py:4216
 msgid "Downloadable drivers"
-msgstr "Ovládače k stiahnutiu"
+msgstr ""
 
 #: ../newprinter.py:4217
 msgid "Failed to download PPD."
-msgstr "Nepodarilo sa stiahnuť PPD."
+msgstr "Nepavyko atsisiųsti PPD."
 
 #: ../newprinter.py:4225
 msgid "fetching PPD"
-msgstr "získava sa PPD"
+msgstr "gaunamas PPD"
 
 #: ../newprinter.py:4254 ../newprinter.py:4290
 msgid "No Installable Options"
-msgstr "Žiadne inštalovateľné voľby"
+msgstr "Nėra įdiegiamų parinkčių"
 
 #: ../newprinter.py:4354
 #, python-format
 msgid "adding printer %s"
-msgstr "pridáva sa tlačiareň %s"
+msgstr "pridedamas spausdintuvas %s"
 
 #: ../newprinter.py:4383 ../newprinter.py:4395 ../newprinter.py:4413
 #: ../printerproperties.py:996 ../system-config-printer.py:1746
 #: ../system-config-printer.py:1776
 #, python-format
 msgid "modifying printer %s"
-msgstr "upravovanie tlačiarne %s"
+msgstr "modifikuojamas spausdintuvas %s"
 
 #: ../optionwidgets.py:131
 msgid "Conflicts with:"
-msgstr "Konflikt s:"
+msgstr "Konfliktuoja su:"
 
 #: ../ppdippstr.py:49
 msgid "Abort job"
-msgstr "Prerušiť úlohu"
+msgstr "Nutraukti darbą"
 
 #: ../ppdippstr.py:50
 msgid "Retry current job"
-msgstr "Opakovať aktuálnu úlohu"
+msgstr "Iš naujo bandyti esamą darbą"
 
 #: ../ppdippstr.py:51
 msgid "Retry job"
-msgstr "Opakovať úlohu"
+msgstr "Iš naujo bandyti darbą"
 
 #: ../ppdippstr.py:52
 msgid "Stop printer"
-msgstr "Zastaviť tlačiareň"
+msgstr "Stabdyti spausdintuvą"
 
 #: ../ppdippstr.py:58
 msgid "Default behavior"
-msgstr "Predvolené správanie"
+msgstr "Numatytoji elgsena"
 
 #: ../ppdippstr.py:59
 msgid "Authenticated"
-msgstr "Totožnosť overená"
+msgstr "Tapatybė nustatyta"
 
 #: ../ppdippstr.py:66
 msgid "Classified"
-msgstr "Klasifikované"
+msgstr ""
 
 #: ../ppdippstr.py:67
 msgid "Confidential"
-msgstr "Dôverné"
+msgstr ""
 
 #: ../ppdippstr.py:68
 msgid "Secret"
-msgstr "Tajné"
+msgstr ""
 
 #: ../ppdippstr.py:69
 msgid "Standard"
-msgstr "Štandardné"
+msgstr ""
 
 #: ../ppdippstr.py:70
 msgid "Top secret"
-msgstr "Prísne tajné"
+msgstr ""
 
 #: ../ppdippstr.py:71
 msgid "Unclassified"
-msgstr "Neklasifikovaný"
+msgstr ""
 
 #: ../ppdippstr.py:77
 msgid "No hold"
-msgstr "Nezadržiavať"
+msgstr "Nesulaikyti"
 
 #: ../ppdippstr.py:78
 msgid "Indefinite"
-msgstr "Neurčito"
+msgstr "Neribotai"
 
 #: ../ppdippstr.py:79
 msgid "Daytime"
-msgstr "Deň"
+msgstr "Dienos meto"
 
 #: ../ppdippstr.py:80
 msgid "Evening"
-msgstr "Večer"
+msgstr "Vakaro"
 
 #: ../ppdippstr.py:81
 msgid "Night"
-msgstr "Noc"
+msgstr "Nakties"
 
 #: ../ppdippstr.py:82
 msgid "Second shift"
-msgstr "Druhá zmena"
+msgstr ""
 
 #: ../ppdippstr.py:83
 msgid "Third shift"
-msgstr "Tretia zmena"
+msgstr ""
 
 #: ../ppdippstr.py:84
 msgid "Weekend"
-msgstr "Víkend"
+msgstr "Savaitgalio"
 
 #: ../ppdippstr.py:94
 msgid "General"
-msgstr "Všeobecné"
+msgstr "Bendra"
 
 #. HP
 #: ../ppdippstr.py:97
 msgid "Print Quality"
-msgstr "Kvalita tlače"
+msgstr ""
 
 #: ../ppdippstr.py:98
 msgid "Automatic"
-msgstr "Automaticky"
+msgstr ""
 
 #: ../ppdippstr.py:100
 msgid "Printing Quality"
-msgstr "Kvalita tlače"
+msgstr ""
 
 #: ../ppdippstr.py:101 ../printerproperties.py:324
 msgid "Draft"
-msgstr "Koncept"
+msgstr "Juodraštis"
 
 #: ../ppdippstr.py:102 ../printerproperties.py:320 ../printerproperties.py:325
 msgid "Normal"
-msgstr "Normálne"
+msgstr "Normali"
 
 #: ../ppdippstr.py:103
-#, fuzzy
 msgid "Normal Color"
-msgstr "Normálne"
+msgstr ""
 
 #: ../ppdippstr.py:104
 msgid "Normal Grayscale"
@@ -1055,7 +1042,7 @@ msgstr ""
 
 #: ../ppdippstr.py:105
 msgid "Draft Color"
-msgstr "Farebný koncept"
+msgstr ""
 
 #: ../ppdippstr.py:106
 msgid "Draft Grayscale"
@@ -1063,27 +1050,27 @@ msgstr ""
 
 #: ../ppdippstr.py:107
 msgid "Best"
-msgstr "Najlepšia"
+msgstr ""
 
 #: ../ppdippstr.py:108
 msgid "High-Resolution Photo"
-msgstr "Fotografia vo vysokom rozlíšení"
+msgstr ""
 
 #: ../ppdippstr.py:109
 msgid "Fast Draft"
-msgstr "Rýchly koncept"
+msgstr ""
 
 #: ../ppdippstr.py:111
 msgid "Installed Cartridges"
-msgstr "Nainštalované náplne"
+msgstr ""
 
 #: ../ppdippstr.py:112 ../ppdippstr.py:113
 msgid "Fast Only"
-msgstr "Iba rýchla"
+msgstr ""
 
 #: ../ppdippstr.py:114
 msgid "Photo Only"
-msgstr "Iba fotografia"
+msgstr ""
 
 #: ../ppdippstr.py:115
 msgid "Black and TriColor"
@@ -1095,15 +1082,15 @@ msgstr ""
 
 #: ../ppdippstr.py:118
 msgid "Resolution"
-msgstr "Rozlíšenie"
+msgstr ""
 
 #: ../ppdippstr.py:120
 msgid "Color Mode"
-msgstr "Farebný režim"
+msgstr ""
 
 #: ../ppdippstr.py:121
 msgid "Hight Quality Grayscale"
-msgstr "Vysoká kvalita v odtieňoch šedej"
+msgstr ""
 
 #: ../ppdippstr.py:122
 msgid "Black Only Grayscale"
@@ -1111,28 +1098,28 @@ msgstr ""
 
 #: ../ppdippstr.py:124
 msgid "Quality"
-msgstr "Kvalita"
+msgstr ""
 
 #: ../ppdippstr.py:125
 #, fuzzy
 msgid "High Resolution "
-msgstr "Vysoké rozlíšenie"
+msgstr "Spausdintuvo raiška:"
 
 #: ../ppdippstr.py:126
 msgid "Paper source"
-msgstr "Zdroj papiera"
+msgstr ""
 
 #: ../ppdippstr.py:127
 msgid "Auto Source"
-msgstr "Automatický zdroj"
+msgstr ""
 
 #: ../ppdippstr.py:128
 msgid "Manual Feed"
-msgstr "Ručné podávanie"
+msgstr ""
 
 #: ../ppdippstr.py:129
 msgid "Middle Tray"
-msgstr "Stredný zásobník"
+msgstr ""
 
 #: ../ppdippstr.py:130
 msgid "Upper or Only One InputSlot"
@@ -1140,7 +1127,7 @@ msgstr ""
 
 #: ../ppdippstr.py:131
 msgid "Multi-purpose Tray"
-msgstr "Multifunkčný zásobník"
+msgstr ""
 
 #: ../ppdippstr.py:132
 msgid "Drawer 1 "
@@ -1152,77 +1139,75 @@ msgstr ""
 
 #: ../ppdippstr.py:134
 msgid "Tray 1"
-msgstr "Zásobník č. 1"
+msgstr ""
 
 #: ../ppdippstr.py:135
 msgid "Auto Select"
-msgstr "Automatický výber"
+msgstr ""
 
 #: ../ppdippstr.py:137
 msgid "Media Type"
-msgstr "Typ média"
+msgstr ""
 
 #: ../ppdippstr.py:138
 msgid "Bond"
-msgstr "Previazať"
+msgstr ""
 
 #: ../ppdippstr.py:139
 msgid "Color"
-msgstr "Farba"
+msgstr ""
 
 #: ../ppdippstr.py:140
 msgid "Envelope"
-msgstr "Obálka"
+msgstr ""
 
 #: ../ppdippstr.py:141
 msgid "Labels"
-msgstr "Štítky"
+msgstr ""
 
 #: ../ppdippstr.py:142
 msgid "Standard Paper"
-msgstr "Štandardný papier"
+msgstr ""
 
 #: ../ppdippstr.py:143
 msgid "Heavy"
-msgstr "Ťažký"
+msgstr ""
 
 #: ../ppdippstr.py:144
-#, fuzzy
 msgid "Light"
-msgstr "Noc"
+msgstr ""
 
 #: ../ppdippstr.py:145
 msgid "Recycled"
-msgstr "Recyklovaný"
+msgstr ""
 
 #: ../ppdippstr.py:146
 msgid "Transparency"
-msgstr "Priehľadnosť"
+msgstr ""
 
 #: ../ppdippstr.py:147
 msgid "Plain Paper"
-msgstr "Obyčajný papier"
+msgstr ""
 
 #: ../ppdippstr.py:148
 msgid "Plain"
-msgstr "Obyčajný"
+msgstr ""
 
 #: ../ppdippstr.py:149
 msgid "Photo Paper)"
-msgstr "Fotopapier"
+msgstr ""
 
 #: ../ppdippstr.py:150
 msgid "Transparency Film"
-msgstr "Priehľadný film"
+msgstr ""
 
 #: ../ppdippstr.py:151
-#, fuzzy
 msgid "CD or DVD Media"
-msgstr "CD alebo DVD zásobník"
+msgstr ""
 
 #: ../ppdippstr.py:152
 msgid "Print Density"
-msgstr "Hustota tlače"
+msgstr ""
 
 #: ../ppdippstr.py:153
 msgid "Extra Light (1)"
@@ -1246,29 +1231,27 @@ msgstr ""
 
 #: ../ppdippstr.py:158
 msgid "Copies"
-msgstr "Kópie"
+msgstr ""
 
 #: ../ppdippstr.py:160
 msgid "Adjustment"
-msgstr "Prispôsobenie"
+msgstr ""
 
 #: ../ppdippstr.py:161
 msgid "Halftone Algorithm"
-msgstr "Algoritmus polovičných tónov"
+msgstr ""
 
 #: ../ppdippstr.py:164
 msgid "Miscellaneous"
-msgstr "Rôzne"
+msgstr ""
 
 #: ../ppdippstr.py:165
-#, fuzzy
 msgid "N-up Orientation"
-msgstr "Orientácia:"
+msgstr ""
 
 #: ../ppdippstr.py:166
-#, fuzzy
 msgid "N-up Printing"
-msgstr "Pokračovať v tlači"
+msgstr ""
 
 #: ../ppdippstr.py:167
 msgid "Landscape"
@@ -1280,78 +1263,78 @@ msgstr ""
 
 #: ../ppdippstr.py:169
 msgid "Media Size"
-msgstr "Veľkosť média"
+msgstr ""
 
 #: ../ppdippstr.py:170
 msgid "Output Mode"
-msgstr "Výstupný režim"
+msgstr ""
 
 #: ../ppdippstr.py:171
 msgid "Grayscale"
-msgstr "Odtiene šedej"
+msgstr ""
 
 #. Brother
 #: ../ppdippstr.py:174
 msgid "Two-Sided"
-msgstr "Obojstranne"
+msgstr ""
 
 #: ../ppdippstr.py:175 ../system-config-printer.desktop.in.h:1
 #: ../system-config-printer.appdata.xml.in.h:1
 msgid "Print Settings"
-msgstr "Nastavenia tlače"
+msgstr "Spausdinimo nustatymai"
 
 #: ../ppdippstr.py:176
 msgid "Print Settings  (Advanced)"
-msgstr "Nastavenia tlače (pokročilé)"
+msgstr ""
 
 #: ../ppdippstr.py:177
 msgid "Color Settings"
-msgstr "Nastavenia farieb"
+msgstr ""
 
 #: ../ppdippstr.py:178
 msgid "Color Settings (Advanced)"
-msgstr "Nastavenia farieb (pokročilé)"
+msgstr ""
 
 #: ../ppdippstr.py:179
 msgid "Brightness"
-msgstr "Jas"
+msgstr ""
 
 #: ../ppdippstr.py:180
 msgid "Contrast"
-msgstr "Kontrast"
+msgstr ""
 
 #: ../ppdippstr.py:181
 msgid "Red"
-msgstr "Červená"
+msgstr ""
 
 #: ../ppdippstr.py:182
 msgid "Green"
-msgstr "Zelená"
+msgstr ""
 
 #: ../ppdippstr.py:183
 msgid "Blue"
-msgstr "Modrá"
+msgstr ""
 
 #. Epson xp serie
 #: ../ppdippstr.py:186
 msgid "_Media Size"
-msgstr "Veľkosť _média"
+msgstr ""
 
 #: ../ppdippstr.py:187
 msgid "_Grayscale"
-msgstr "O_dtiene šedej"
+msgstr ""
 
 #: ../ppdippstr.py:188
 msgid "_Brightness"
-msgstr "_Jas"
+msgstr ""
 
 #: ../ppdippstr.py:189
 msgid "_Contrast"
-msgstr "_Kontrast"
+msgstr ""
 
 #: ../ppdippstr.py:190
 msgid "_Saturation"
-msgstr "_Sýtosť"
+msgstr ""
 
 #: ../ppdippstr.py:191
 msgid "On"
@@ -1360,7 +1343,7 @@ msgstr ""
 #. Options
 #: ../ppdippstr.py:193 ../printerproperties.py:957
 msgid "Installable Options"
-msgstr "Inštalovateľné voľby"
+msgstr "Įdiegiamos parinktys"
 
 #: ../ppdippstr.py:194
 msgid "Duplexer Installed"
@@ -1377,12 +1360,11 @@ msgstr ""
 
 #: ../ppdippstr.py:199
 msgid "Resolution "
-msgstr "Rozlíšenie "
+msgstr ""
 
 #: ../ppdippstr.py:200
-#, fuzzy
 msgid "Printer Features Common"
-msgstr "Rozlíšenie tlačiarne:"
+msgstr ""
 
 #: ../ppdippstr.py:201
 msgid "CD Hub Size"
@@ -1390,11 +1372,11 @@ msgstr ""
 
 #: ../ppdippstr.py:202
 msgid "Ink Type"
-msgstr "Typ atramentu"
+msgstr ""
 
 #: ../ppdippstr.py:203
 msgid "Toner Save "
-msgstr "Úspora tonera "
+msgstr ""
 
 #: ../ppdippstr.py:204
 msgid "ON"
@@ -1402,15 +1384,15 @@ msgstr ""
 
 #: ../ppdippstr.py:205
 msgid "Toner Density"
-msgstr "Hustota tonera"
+msgstr ""
 
 #: ../ppdippstr.py:206
 msgid "Media Type "
-msgstr "Typ média "
+msgstr ""
 
 #: ../ppdippstr.py:207
 msgid "Collate "
-msgstr "Zoradiť "
+msgstr ""
 
 #: ../ppdippstr.py:208
 msgid "Image Refinement "
@@ -1418,12 +1400,11 @@ msgstr ""
 
 #: ../ppdippstr.py:209
 msgid "Halftones "
-msgstr "Polovičné tóny "
+msgstr ""
 
 #: ../ppdippstr.py:210
-#, fuzzy
 msgid "Duplex"
-msgstr "_Duplikovať"
+msgstr ""
 
 #: ../ppdippstr.py:211
 msgid "OFF"
@@ -1440,23 +1421,23 @@ msgstr ""
 #. Samsung
 #: ../ppdippstr.py:215
 msgid "Paper Size"
-msgstr "Veľkosť papiera"
+msgstr ""
 
 #: ../ppdippstr.py:216
 msgid "Paper Type"
-msgstr "Typ papiera"
+msgstr ""
 
 #: ../ppdippstr.py:217
 msgid "Thin"
-msgstr "Tenký"
+msgstr ""
 
 #: ../ppdippstr.py:218
 msgid "Thick"
-msgstr "Hrubý"
+msgstr ""
 
 #: ../ppdippstr.py:219
 msgid "Thicker"
-msgstr "Hrubší"
+msgstr ""
 
 #: ../ppdippstr.py:220
 msgid "Edge Enhance"
@@ -1464,34 +1445,32 @@ msgstr ""
 
 #: ../ppdippstr.py:221
 msgid "Skip Blank Pages"
-msgstr "Vynechať prázdne stránky"
+msgstr ""
 
 #: ../ppdippstr.py:222
 msgid "Double-sided Printing"
-msgstr "Obojstranná tlač"
+msgstr ""
 
 #: ../ppdippstr.py:224
-#, fuzzy
 msgid "Reverse Duplex Printing"
-msgstr "Pokračovať v tlači"
+msgstr ""
 
 #: ../ppdippstr.py:225 ../ppdippstr.py:228
 msgid "Long Edge"
-msgstr "Dlhý okraj"
+msgstr ""
 
 #: ../ppdippstr.py:226 ../ppdippstr.py:229
 msgid "Short Edge"
-msgstr "Krátky okraj"
+msgstr ""
 
 #: ../ppdippstr.py:227
 msgid "Two-sided"
-msgstr "Obojstranne"
+msgstr ""
 
 #. Ricoh
 #: ../ppdippstr.py:232
-#, fuzzy
 msgid "Finisher"
-msgstr "Ukončenia:"
+msgstr ""
 
 #: ../ppdippstr.py:233
 msgid "Option Tray"
@@ -1499,15 +1478,15 @@ msgstr ""
 
 #: ../ppdippstr.py:234
 msgid "External Tray"
-msgstr "Externý zásobník"
+msgstr ""
 
 #: ../ppdippstr.py:235
 msgid "Internal Tray"
-msgstr "Vnútorný zásobník"
+msgstr ""
 
 #: ../ppdippstr.py:236
 msgid "Internal Tray 2"
-msgstr "Vnútorný zásobník č. 2"
+msgstr ""
 
 #: ../ppdippstr.py:237
 msgid "Internal Shift Tray"
@@ -1515,16 +1494,15 @@ msgstr ""
 
 #: ../ppdippstr.py:238
 msgid "Not Installed"
-msgstr "Nenainštalované"
+msgstr ""
 
 #: ../ppdippstr.py:239
 msgid "Installed"
-msgstr "Nainštalované"
+msgstr ""
 
 #: ../ppdippstr.py:240
-#, fuzzy
 msgid "PageSize"
-msgstr "Veľkosť stránky"
+msgstr ""
 
 #: ../ppdippstr.py:241
 msgid "InputSlot"
@@ -1532,15 +1510,15 @@ msgstr ""
 
 #: ../ppdippstr.py:242
 msgid "Tray 2"
-msgstr "Zásobník č. 2"
+msgstr ""
 
 #: ../ppdippstr.py:243
 msgid "Tray 3"
-msgstr "Zásobník č. 3"
+msgstr ""
 
 #: ../ppdippstr.py:244
 msgid "Tray 4"
-msgstr "Zásobník č. 4"
+msgstr ""
 
 #: ../ppdippstr.py:245
 msgid "Bypass Tray"
@@ -1548,147 +1526,144 @@ msgstr ""
 
 #: ../ppdippstr.py:246
 msgid "Destination"
-msgstr "Cieľ"
+msgstr ""
 
 #: ../ppdippstr.py:247 ../printerproperties.py:282
 msgid "Staple"
-msgstr "Zošitie"
+msgstr ""
 
 #: ../ppdippstr.py:248 ../printerproperties.py:283
 msgid "Punch"
-msgstr "Dierovač"
+msgstr ""
 
 #: ../ppdippstr.py:249
 msgid "Toner Saving"
-msgstr "Úspora tonera"
+msgstr ""
 
 #: ../ppdippstr.py:250
 msgid "Gradation"
-msgstr "Gradácia"
+msgstr ""
 
 #: ../ppdippstr.py:251
 msgid "Fast"
-msgstr "Rýchla"
+msgstr ""
 
 #. HPIJS options
 #: ../ppdippstr.py:254
 msgid "Printout mode"
-msgstr "Mód tlače"
+msgstr "Spaudinio veiksena"
 
 #: ../ppdippstr.py:256
 msgid "Draft (auto-detect-paper type)"
-msgstr "Návrh (automaticky určiť typ papiera)"
+msgstr ""
 
 #: ../ppdippstr.py:258
 msgid "Draft (Color cartridge)"
-msgstr "Koncept (farebná náplň)"
+msgstr ""
 
 #: ../ppdippstr.py:260
-#, fuzzy
 msgid "Draft grayscale (Black cartridge)"
-msgstr "300 dpi, Koncept, odtiene šedej, čierna + farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:262
 msgid "Draft grayscale (auto-detect-paper type)"
-msgstr "Koncept v odtieňoch šedej (automaticky určiť typ papiera)"
+msgstr ""
 
 #: ../ppdippstr.py:264
 msgid "Normal (Color cartridge)"
-msgstr "Normálna (farebná náplň)"
+msgstr ""
 
 #: ../ppdippstr.py:266
-#, fuzzy
 msgid "Normal grayscale (Black cartridge)"
-msgstr "Normálne odtiene šedej (automaticky určiť typ papiera)"
+msgstr ""
 
 #: ../ppdippstr.py:268
 msgid "Normal (auto-detect-paper type)"
-msgstr "Normálne (automaticky určiť typ papiera)"
+msgstr ""
 
 #: ../ppdippstr.py:270
 msgid "Normal grayscale (auto-detect-paper type)"
-msgstr "Normálne odtiene šedej (automaticky určiť typ papiera)"
+msgstr ""
 
 #: ../ppdippstr.py:272
 msgid "High quality (auto-detect-paper type)"
-msgstr "Vysoká kvalita (automaticky určiť typ papiera)"
+msgstr ""
 
 #: ../ppdippstr.py:274
 msgid "High quality grayscale (auto-detect-paper type)"
-msgstr "Vysoko kvalitné odtiene šedej (automaticky určiť typ papiera)"
+msgstr ""
 
 #: ../ppdippstr.py:276
 msgid "High quality (Color cartridge)"
-msgstr "Vysoká kvalita (farebná náplň)"
+msgstr ""
 
 #: ../ppdippstr.py:278
 msgid "High quality grayscale (Black cartridge)"
-msgstr "Vysoká kvalita v odtieňoch šedej (čierna náplň)"
+msgstr ""
 
 #: ../ppdippstr.py:279
 msgid "Photo (on photo paper)"
-msgstr "Fotografia (na fotopapier)"
+msgstr "Nuotrauka (ant fotopopieriaus)"
 
 #: ../ppdippstr.py:280
 msgid "Photo (Color cartridge, on photo paper)"
-msgstr "Fotografia (farebná náplň,na fotopapier)"
+msgstr ""
 
 #: ../ppdippstr.py:282
 msgid "Best quality (color on photo paper)"
-msgstr "Najlepšia kvalita (farebne na fotopapier)"
+msgstr "Aukščiausia kokybė (spalvotai ant fotopopieriaus)"
 
 #: ../ppdippstr.py:284
 msgid "Normal quality (color on photo paper)"
-msgstr "Normálna kvalita (farebne na fotopapier)"
+msgstr "Normali kokybė (spalvotai ant fotopopieriaus)"
 
 #: ../ppdippstr.py:286
 msgid "Media source"
-msgstr "Zdroj papiera"
+msgstr ""
 
 #: ../ppdippstr.py:287
 msgid "Printer default"
-msgstr "Preddefinované tlačiarňou"
+msgstr ""
 
 #: ../ppdippstr.py:288
 msgid "Photo tray"
-msgstr "Foto zásobník"
+msgstr ""
 
 #: ../ppdippstr.py:289
 msgid "Upper tray"
-msgstr "Horný zásobník"
+msgstr "Viršutinis dėklas"
 
 #: ../ppdippstr.py:290
 msgid "Lower tray"
-msgstr "Dolný zásobník"
+msgstr "Apatinis dėklas"
 
 #: ../ppdippstr.py:291
 msgid "CD or DVD tray"
-msgstr "CD alebo DVD zásobník"
+msgstr "CD ar DVD dėklas"
 
 #: ../ppdippstr.py:292
 msgid "Envelope feeder"
-msgstr "Podávač obálok"
+msgstr "Vokų padaviklis"
 
 #: ../ppdippstr.py:293
 msgid "Large capacity tray"
-msgstr "Veľkokapacitný zásobník"
+msgstr "Didelės talpos dėklas"
 
 #: ../ppdippstr.py:294
 msgid "Manual feeder"
-msgstr "Ručné podávanie"
+msgstr "Rankinis padaviklis"
 
 #: ../ppdippstr.py:295
-#, fuzzy
 msgid "Multi-purpose tray "
-msgstr "Multifunkčný zásobník"
+msgstr ""
 
 #: ../ppdippstr.py:297
 msgid "Page size"
-msgstr "Veľkosť stránky"
+msgstr "Puslapio dydis"
 
 #: ../ppdippstr.py:298
 msgid "Custom"
-msgstr "Vlastné"
+msgstr ""
 
 #: ../ppdippstr.py:299
 msgid "Letter"
@@ -1696,131 +1671,131 @@ msgstr ""
 
 #: ../ppdippstr.py:300
 msgid "Photo or 4x6 inch index card"
-msgstr "Fotografia alebo 4x6 palcový lístok kartotéky"
+msgstr ""
 
 #: ../ppdippstr.py:301
 msgid "Photo or 5x7 inch index card"
-msgstr "Fotografia alebo 5x7 palcový lístok kartotéky"
+msgstr ""
 
 #: ../ppdippstr.py:302
 msgid "Photo with tear-off tab"
-msgstr "Fotografia s odtrhávacou časťou"
+msgstr "Nuotrauka su nuplėšiama ąsele"
 
 #: ../ppdippstr.py:303
 msgid "3x5 inch index card"
-msgstr "3x5 palcový lístok kartotéky"
+msgstr ""
 
 #: ../ppdippstr.py:304
 msgid "5x8 inch index card"
-msgstr "5x8 palcový lístok kartotéky"
+msgstr ""
 
 #: ../ppdippstr.py:305
 msgid "A6 with tear-off tab"
-msgstr "A6 s odtrhávacou časťou"
+msgstr "A6 su nuplėšiama ąsele"
 
 #: ../ppdippstr.py:306
 msgid "CD or DVD 80mm"
-msgstr "CD alebo DVD 80mm"
+msgstr "CD ar DVD 80mm"
 
 #: ../ppdippstr.py:307
 msgid "CD or DVD 120mm"
-msgstr "CD alebo DVD 120mm"
+msgstr "CD ar DVD 120mm"
 
 #: ../ppdippstr.py:309
 msgid "Double-sided printing"
-msgstr "Obojstranná tlač"
+msgstr "Dvipusis spausdinimas"
 
 #: ../ppdippstr.py:310
 msgid "Long edge (standard)"
-msgstr "Dlhý okraj (štandard)"
+msgstr ""
 
 #: ../ppdippstr.py:311
 msgid "Short edge (flip)"
-msgstr "Krátky okraj (obrátiť)"
+msgstr ""
 
 #: ../ppdippstr.py:312
 msgid "Off"
-msgstr "Vypnuté"
+msgstr "Išjungta"
 
 #: ../ppdippstr.py:315
 msgid "Resolution, quality, ink type, media type"
-msgstr "Rozlíšenie, kvalita, typ atramentu, typ papiera"
+msgstr ""
 
 #: ../ppdippstr.py:316
 msgid "Controlled by 'Printout mode'"
-msgstr "Riadené pomocou 'Mód tlače'"
+msgstr ""
 
 #: ../ppdippstr.py:318
 msgid "300 dpi, Color, Color Cartr."
-msgstr "300 dpi, farebný, farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:320
 msgid "300 dpi, color, black + color cartridge"
-msgstr "300 dpi, farebný, čierna + farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:322
 msgid "300 dpi, Draft, Color, Color Cartr."
-msgstr "300 dpi, koncept, farebný, farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:324
 msgid "300 dpi, draft, color, black + color cartridge"
-msgstr "300 dpi, koncept, farebný, čierna + farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:326
 msgid "300 dpi, Draft, Grayscale, Black Cartr."
-msgstr "300 dpi, koncept, odtiene šedej, čierna náplň"
+msgstr ""
 
 #: ../ppdippstr.py:328
 msgid "300 dpi, Grayscale, Black Cartr."
-msgstr "300 dpi, odtiene šedej, čierna náplň"
+msgstr ""
 
 #: ../ppdippstr.py:330
 msgid "300 dpi, draft, grayscale, black + color cartridge"
-msgstr "300 dpi, koncept, odtiene šedej, čierna + farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:332
 msgid "300 dpi, grayscale, black + color cartridge"
-msgstr "300 dpi, odtiene šedej, čierna + farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:334
 msgid "600 dpi, color, black + color cartridge"
-msgstr "600 dpi, farebný, čierna + farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:336
 msgid "600 dpi, grayscale, black + color cartridge"
-msgstr "600 dpi, odtiene šedej, čierna + farebná náplň"
+msgstr ""
 
 #: ../ppdippstr.py:338
 msgid "600 dpi, photo, black + color cartridge, photo paper"
-msgstr "600 dpi, fotografický, čierna + farebná náplň, fotopapier"
+msgstr ""
 
 #: ../ppdippstr.py:340
 msgid "600 dpi, color, black + color cartridge, photo paper, normal"
-msgstr "600 dpi, farebný, čierna + farebná náplň, fotopapier, normálne"
+msgstr ""
 
 #: ../ppdippstr.py:342
 msgid "1200 dpi, photo, black + color cartridge, photo paper"
-msgstr "1200 dpi, fotografický, čierna + farebná náplň, fotopapier"
+msgstr ""
 
 #: ../ppdippstr.py:349
 msgid "Internet Printing Protocol (ipp)"
-msgstr "Internetový tlačový protokol (ipp)"
+msgstr "Internetinio spausdinimo protokolas (ipp)"
 
 #: ../ppdippstr.py:351
 msgid "Internet Printing Protocol (http)"
-msgstr "Internetový tlačový protokol (http)"
+msgstr "Internetinio spausdinimo protokolas (http)"
 
 #: ../ppdippstr.py:353
 msgid "Internet Printing Protocol (https)"
-msgstr "Internetový tlačový protokol (https)"
+msgstr "Internetinio spausdinimo protokolas (https)"
 
 #: ../ppdippstr.py:355
 msgid "LPD/LPR Host or Printer"
-msgstr "LPD/LPR hostiteľa alebo tlačiarne"
+msgstr "LPD/LPR serveris ar spausdintuvas"
 
 #: ../ppdippstr.py:359
 msgid "Serial Port #1"
-msgstr "Sériový port #1"
+msgstr "Nuoseklioji jungtis #1"
 
 #: ../ppdippstr.py:361
 msgid "LPT #1"
@@ -1828,213 +1803,213 @@ msgstr "LPT #1"
 
 #: ../ppdsloader.py:159
 msgid "fetching PPDs"
-msgstr "získavajú sa súbory PPD"
+msgstr "gaunami PPD failai"
 
 #: ../printerproperties.py:71 ../system-config-printer.py:162
 msgid "Idle"
-msgstr "Nečinná"
+msgstr "Be darbo"
 
 #: ../printerproperties.py:75 ../system-config-printer.py:164
 msgid "Busy"
-msgstr "Zaneprázdnená"
+msgstr "Užimtas"
 
 #. Printer state reasons list
 #: ../printerproperties.py:215
 msgid "Message"
-msgstr "Správa"
+msgstr "Pranešimas"
 
 #: ../printerproperties.py:237
 msgid "Users"
-msgstr "Užívatelia"
+msgstr "Naudotojai"
 
 #: ../printerproperties.py:260
 msgid "Portrait (no rotation)"
-msgstr "Na výšku (bez otáčania)"
+msgstr "Stačias (be pasukimo)"
 
 #: ../printerproperties.py:261
 msgid "Landscape (90 degrees)"
-msgstr "Na šírku (90 stupňov)"
+msgstr "Gulsčias (90 laipsnių)"
 
 #: ../printerproperties.py:262
 msgid "Reverse landscape (270 degrees)"
-msgstr "Opačne na šírku (270 stupňov)"
+msgstr "Atvirkščiai gulsčias (270 laipsnių)"
 
 #: ../printerproperties.py:263
 msgid "Reverse portrait (180 degrees)"
-msgstr "Opačne na výšku (180 stupňov)"
+msgstr "Atvirkščiai stačias (180 laipsnių)"
 
 #: ../printerproperties.py:269
 msgid "Left to right, top to bottom"
-msgstr "Zľava doprava, zhora nadol"
+msgstr "Iš kairės į dešinę, iš viršaus į apačią"
 
 #: ../printerproperties.py:270
 msgid "Left to right, bottom to top"
-msgstr "Zľava doprava, zdola nahor"
+msgstr "Iš kairės į dešinę, iš apačios į viršų"
 
 #: ../printerproperties.py:271
 msgid "Right to left, top to bottom"
-msgstr "Sprava doľava, zhora nadol"
+msgstr "Iš dešinės į kairę, iš viršaus į apačią"
 
 #: ../printerproperties.py:272
 msgid "Right to left, bottom to top"
-msgstr "Sprava doľava, zdola nahor"
+msgstr "Iš dešinės į kairę, iš apačios į viršų"
 
 #: ../printerproperties.py:273
 msgid "Top to bottom, left to right"
-msgstr "Zhora nadol, zľava doprava"
+msgstr "Iš viršaus į apačią, iš kairės į dešinę"
 
 #: ../printerproperties.py:274
 msgid "Top to bottom, right to left"
-msgstr "Zhora nadol, sprava doľava"
+msgstr "Iš viršaus į apačią, iš dešinės į kairę"
 
 #: ../printerproperties.py:275
 msgid "Bottom to top, left to right"
-msgstr "Zdola nahor, zľava doprava"
+msgstr "Iš apačios į viršų, iš kairės į dešinę"
 
 #: ../printerproperties.py:276
 msgid "Bottom to top, right to left"
-msgstr "Zdola nahor, sprava doľava"
+msgstr "Iš apačios į viršų, iš dešinės į kairę"
 
 #: ../printerproperties.py:284
 msgid "Cover"
-msgstr "Obal"
+msgstr ""
 
 #: ../printerproperties.py:285
 msgid "Bind"
-msgstr "Väzba"
+msgstr ""
 
 #: ../printerproperties.py:286
 msgid "Saddle stitch"
-msgstr "Oporné zošitie"
+msgstr ""
 
 #: ../printerproperties.py:287
 msgid "Edge stitch"
-msgstr "Zošiť na okraji"
+msgstr ""
 
 #: ../printerproperties.py:288
 msgid "Fold"
-msgstr "Skladanie"
+msgstr ""
 
 #: ../printerproperties.py:289
 msgid "Trim"
-msgstr "Orezanie"
+msgstr ""
 
 #: ../printerproperties.py:290
 msgid "Bale"
-msgstr "Balík"
+msgstr ""
 
 #: ../printerproperties.py:291
 msgid "Booklet maker"
-msgstr "Tvorca brožúr"
+msgstr ""
 
 #: ../printerproperties.py:292
 msgid "Job offset"
-msgstr "Odsadenie úlohy"
+msgstr ""
 
 #: ../printerproperties.py:293
 msgid "Staple (top left)"
-msgstr "Zošitie (hore vľavo)"
+msgstr ""
 
 #: ../printerproperties.py:294
 msgid "Staple (bottom left)"
-msgstr "Zošitie (hore vpravo)"
+msgstr ""
 
 #: ../printerproperties.py:295
 msgid "Staple (top right)"
-msgstr "Zošitie (hore vpravo)"
+msgstr ""
 
 #: ../printerproperties.py:296
 msgid "Staple (bottom right)"
-msgstr "Zošitie (dole vpravo)"
+msgstr ""
 
 #: ../printerproperties.py:297
 msgid "Edge stitch (left)"
-msgstr "Zopnúť v rohu (vľavo)"
+msgstr ""
 
 #: ../printerproperties.py:298
 msgid "Edge stitch (top)"
-msgstr "Zopnúť v rohu (hore)"
+msgstr ""
 
 #: ../printerproperties.py:299
 msgid "Edge stitch (right)"
-msgstr "Zopnúť v rohu (vpravo)"
+msgstr ""
 
 #: ../printerproperties.py:300
 msgid "Edge stitch (bottom)"
-msgstr "Zopnúť v rohu (dole)"
+msgstr ""
 
 #: ../printerproperties.py:301
 msgid "Staple dual (left)"
-msgstr "Dvojité zošitie (vľavo)"
+msgstr ""
 
 #: ../printerproperties.py:302
 msgid "Staple dual (top)"
-msgstr "Dvojité zošitie (hore)"
+msgstr ""
 
 #: ../printerproperties.py:303
 msgid "Staple dual (right)"
-msgstr "Dvojité zošitie (vpravo)"
+msgstr ""
 
 #: ../printerproperties.py:304
 msgid "Staple dual (bottom)"
-msgstr "Dvojité zošitie (dole)"
+msgstr ""
 
 #: ../printerproperties.py:305
 msgid "Bind (left)"
-msgstr "Väzba (ľavá)"
+msgstr ""
 
 #: ../printerproperties.py:306
 msgid "Bind (top)"
-msgstr "Väzba (horná)"
+msgstr ""
 
 #: ../printerproperties.py:307
 msgid "Bind (right)"
-msgstr "Väzba (pravá)"
+msgstr ""
 
 #: ../printerproperties.py:308
 msgid "Bind (bottom)"
-msgstr "Väzba (dolná)"
+msgstr ""
 
 #: ../printerproperties.py:313
 msgid "One-sided"
-msgstr "Jednostranne"
+msgstr "Vienpusis"
 
 #: ../printerproperties.py:314
 msgid "Two-sided (long edge)"
-msgstr "Obojstranne (dlhý okraj)"
+msgstr ""
 
 #: ../printerproperties.py:315
 msgid "Two-sided (short edge)"
-msgstr "Obojstranne (krátky okraj)"
+msgstr ""
 
 #: ../printerproperties.py:321
 msgid "Reverse"
-msgstr "Obrátené"
+msgstr "Atvirkštinė"
 
 #: ../printerproperties.py:326
 msgid "High"
-msgstr "Vysoký"
+msgstr "Aukšta"
 
 #: ../printerproperties.py:348
 msgid "Automatic rotation"
-msgstr "Automatické otočenie"
+msgstr "Automatinis pasukimas"
 
 #: ../printerproperties.py:595
 msgid "CUPS test page"
-msgstr "Skúšobná stránka CUPS"
+msgstr "CUPS bandomasis puslapis"
 
 #: ../printerproperties.py:596
 msgid ""
 "Typically shows whether all jets on a print head are functioning and that "
 "the print feed mechanisms are working properly."
 msgstr ""
-"Typicky stránka ukáže, či sú v poriadku všetky trysky tlačovej hlavy a či "
-"dobre funguje podávací mechanizmus papiera."
+"Paprastai parodo, ar funkcionuoja visi spausdinimo galvutės purkštukai ir, "
+"ar spausdinimo padavimo mechanizmai veikia tvarkingai."
 
 #: ../printerproperties.py:603
 #, python-format
 msgid "Printer Properties - '%s' on %s"
-msgstr "Vlastnosti tlačiarne - „%s“ na %s"
+msgstr "Spausdintuvo savybės - \"%s\" ties %s"
 
 #. The Conflict button was pressed.
 #: ../printerproperties.py:613
@@ -2043,26 +2018,26 @@ msgid ""
 "Changes can only be applied after\n"
 "these conflicts are resolved."
 msgstr ""
-"Sú zvolené voľby, ktoré si odporujú.\n"
-"Zmeny môžu byť použité až po\n"
-"vyriešení týchto problémov."
+"Yra konfliktuojančių parinkčių.\n"
+"Pakeitimai gali būti pritaikyti tik po to,\n"
+"kai bus išspręsti šie konfliktai."
 
 #: ../printerproperties.py:958 ../ui/PrinterPropertiesDialog.ui.h:48
 msgid "Printer Options"
-msgstr "Voľby tlačiarne"
+msgstr "Spausdintuvo parinktys"
 
 #: ../printerproperties.py:994
 #, python-format
 msgid "modifying class %s"
-msgstr "upravovanie triedy %s"
+msgstr "modifikuojama klasė %s"
 
 #: ../printerproperties.py:1012
 msgid "This will delete this class!"
-msgstr "Spôsobí odstránenie triedy!"
+msgstr "Tai ištrins šią klasę!"
 
 #: ../printerproperties.py:1013
 msgid "Proceed anyway?"
-msgstr "Pokračovať aj napriek tomu?"
+msgstr "Vis tiek tęsti?"
 
 #. We can authenticate with the server correctly at this point,
 #. but we have never fetched the server settings to see whether
@@ -2070,320 +2045,317 @@ msgstr "Pokračovať aj napriek tomu?"
 #. now so that we can update the "not published" label if necessary.
 #: ../printerproperties.py:1106 ../serversettings.py:200
 msgid "fetching server settings"
-msgstr "získavanie nastavení servera"
+msgstr "gaunami serverio nustatymai"
 
 #: ../printerproperties.py:1189
 msgid "printing test page"
-msgstr "tlačí sa skúšobná stránka"
+msgstr "spausdinamas bandomasis puslapis"
 
 #: ../printerproperties.py:1203 ../printerproperties.py:1244
 msgid "Not possible"
-msgstr "Nie je možné"
+msgstr "Neįmanoma"
 
 #: ../printerproperties.py:1204 ../printerproperties.py:1245
 msgid ""
 "The remote server did not accept the print job, most likely because the "
 "printer is not shared."
 msgstr ""
-"Vzdialený server neprijal tlačovú úlohu, pravdepodobne preto, lebo tlačiareň "
-"nie je zdieľaná."
+"Nuotolinis serveris nepriėmė spausdinimo darbo, greičiausiai, dėl to, kad "
+"spausdintuvas nėra bendrinamas."
 
 #: ../printerproperties.py:1216 ../printerproperties.py:1236
 msgid "Submitted"
-msgstr "Odoslané"
+msgstr "Pateiktas"
 
 #: ../printerproperties.py:1217
 #, python-format
 msgid "Test page submitted as job %d"
-msgstr "Skúšobná stránka odoslaná ako úloha %d"
+msgstr "Bandomasis puslapis pateiktas kaip darbas %d"
 
 #: ../printerproperties.py:1229
 msgid "sending maintenance command"
-msgstr "odosielanie príkazu na údržbu"
+msgstr "siunčiama priežiūros komanda"
 
 #: ../printerproperties.py:1237
 #, python-format
 msgid "Maintenance command submitted as job %d"
-msgstr "Príkaz na údržbu bol odoslaný ako úloha %d"
+msgstr "Priežiūros komanda pateikta kaip darbas %d"
 
 #: ../printerproperties.py:1318
 msgid "Raw Queue"
-msgstr "Surová fronta"
+msgstr ""
 
 #: ../printerproperties.py:1319
 msgid "Unable to get queue details. Treating queue as raw."
 msgstr ""
-"Nie je možné získať podrobnosti o fronte. Fronta bude spracovaná ako surová."
 
 #: ../printerproperties.py:1331 ../printerproperties.py:1336
 #: ../printerproperties.py:1433
 msgid "Error"
-msgstr "Chyba"
+msgstr "Klaida"
 
 #: ../printerproperties.py:1332
 msgid "The PPD file for this queue is damaged."
-msgstr "Súbor PPD pre túto frontu je poškodený."
+msgstr "Šiai eilei skirtas PPD failas yra pažeistas."
 
 #: ../printerproperties.py:1337
 msgid "There was a problem connecting to the CUPS server."
-msgstr "Počas pripájania na CUPS server sa vyskytol problém."
+msgstr "Atsirado problemų, jungiantis prie CUPS serverio."
 
 #: ../printerproperties.py:1434
 #, python-format
 msgid "Option '%s' has value '%s' and cannot be edited."
-msgstr "Voľba „%s“ má pevne danú hodnotu „%s“, ktorá sa nedá zmeniť."
+msgstr ""
 
 #: ../printerproperties.py:1552
 msgid "Marker levels are not reported for this printer."
-msgstr "Táto tlačiareň nezobrazuje úroveň atramentu."
+msgstr ""
 
 #: ../pysmb.py:114
 #, python-format
 msgid "You must log in to access %s."
-msgstr "Pre prístup k %s musíte byt prihlásený."
+msgstr "Jūs privalote prisijungti, kad pasiektumėte %s."
 
 #: ../serversettings.py:93
 msgid "Problems?"
-msgstr "Problémy?"
+msgstr "Problemos?"
 
 #: ../serversettings.py:273
 msgid "Enter hostname"
-msgstr "Zadajte názov hostiteľa"
+msgstr ""
 
 #: ../serversettings.py:524
 msgid "modifying server settings"
-msgstr "upravovanie nastavení servera"
+msgstr "keičiami serverio nustatymai"
 
 #: ../serversettings.py:564
 msgid "Adjust the firewall now to allow all incoming IPP connections?"
-msgstr ""
-"Má sa teraz upraviť brána firewall na povolenie všetkých prichádzajúcich "
-"pripojení IPP?"
+msgstr "Derinti užkardą dabar, kad būtų leisti visi gaunami IPP ryšiai?"
 
 #: ../system-config-printer.py:275
 msgid "_Connect..."
-msgstr "_Pripojiť..."
+msgstr "_Prisijungti..."
 
 #: ../system-config-printer.py:276
 msgid "Choose a different CUPS server"
-msgstr "Vyberte iný tlačový server CUPS"
+msgstr ""
 
 #: ../system-config-printer.py:278
 msgid "_Settings..."
-msgstr "Na_stavenia..."
+msgstr "_Nustatymai..."
 
 #: ../system-config-printer.py:279
 msgid "Adjust server settings"
-msgstr "Upraviť nastavenia servera"
+msgstr "Derinti serverio nustatymus"
 
 #: ../system-config-printer.py:281 ../ui/PrintersWindow.ui.h:2
 msgid "_Printer"
-msgstr "_Tlačiareň"
+msgstr "S_pausdintuvas"
 
 #: ../system-config-printer.py:283
 msgid "_Class"
-msgstr "_Trieda"
+msgstr "_Klasė"
 
 #: ../system-config-printer.py:288
 msgid "_Rename"
-msgstr "P_remenovať"
+msgstr "Pe_rvadinti"
 
 #: ../system-config-printer.py:290
 msgid "_Duplicate"
-msgstr "_Duplikovať"
+msgstr "_Dubliuoti"
 
 #: ../system-config-printer.py:294
 msgid "Set As De_fault"
-msgstr "_Nastaviť ako predvolenú"
+msgstr "Nustatyti kaip n_umatytąjį"
 
 #: ../system-config-printer.py:298
 msgid "_Create class"
-msgstr "_Vytvoriť triedu"
+msgstr "_Sukurti klasę"
 
 #: ../system-config-printer.py:300
 msgid "View Print _Queue"
-msgstr "Zobraziť _frontu tlačiarne"
+msgstr "Rodyti spausdinimo ei_lę"
 
 #: ../system-config-printer.py:304
 msgid "E_nabled"
-msgstr "Povo_lená"
+msgstr "Į_jungtas"
 
 #: ../system-config-printer.py:306
 msgid "_Shared"
-msgstr "_Zdieľaná"
+msgstr "_Bendrinamas"
 
 #: ../system-config-printer.py:311
 msgid "Description"
-msgstr "Popis"
+msgstr "Aprašas"
 
 #: ../system-config-printer.py:312 ../troubleshoot/ChooseNetworkPrinter.py:39
 #: ../troubleshoot/ChoosePrinter.py:45
 msgid "Location"
-msgstr "Umiestnenie"
+msgstr "Vieta"
 
 #: ../system-config-printer.py:313
 msgid "Manufacturer / Model"
-msgstr "Výrobca / Model"
+msgstr "Gamintojas / Modelis"
 
 #: ../system-config-printer.py:360 ../ui/PrinterPropertiesDialog.ui.h:93
 #: ../ui/PrintersWindow.ui.h:9 ../ui/ServerSettingsDialog.ui.h:15
 msgid "Add"
-msgstr "Pridať"
+msgstr "Pridėti"
 
 #: ../system-config-printer.py:377 ../ui/PrinterPropertiesDialog.ui.h:96
 msgid "Refresh"
-msgstr "Obnoviť"
+msgstr "Įkelti iš naujo"
 
 #: ../system-config-printer.py:391
 msgid "_New"
-msgstr "_Nová"
+msgstr "_Naujas"
 
 #: ../system-config-printer.py:756
 #, python-format
 msgid "Print Settings - %s"
-msgstr "Nastavenia tlače - %s"
+msgstr "Spausdinimo nustatymai - %s"
 
 #: ../system-config-printer.py:759
 #, python-format
 msgid "Connected to %s"
-msgstr "Pripojené k %s"
+msgstr "Prisijungta prie %s"
 
 #: ../system-config-printer.py:846
 msgid "obtaining queue details"
-msgstr "získavanie podrobností o fronte"
+msgstr "gaunama išsamesnė eilės informacija"
 
 #: ../system-config-printer.py:935
 msgid "Network printer (discovered)"
-msgstr "Sieťová tlačiareň (nájdená)"
+msgstr "Tinklo spausdintuvas (aptiktas)"
 
 #: ../system-config-printer.py:938
 msgid "Network class (discovered)"
-msgstr "Sieťová trieda (nájdená)"
+msgstr "Tinklo klasė (aptikta)"
 
 #: ../system-config-printer.py:947
 msgid "Class"
-msgstr "Trieda"
+msgstr "Klasė"
 
 #: ../system-config-printer.py:950 ../system-config-printer.py:956
 #: ../troubleshoot/LocalOrRemote.py:30
 msgid "Network printer"
-msgstr "Sieťová tlačiareň"
+msgstr "Tinklo spausdintuvas"
 
 #: ../system-config-printer.py:953
 msgid "Network print share"
-msgstr "Zdieľaná sieťová tlačiareň"
+msgstr ""
 
 #: ../system-config-printer.py:1120
 msgid "Service framework not available"
-msgstr "Rozhranie služby nie je dostupné"
+msgstr "Tarnybos karkasas neprieinamas"
 
 #: ../system-config-printer.py:1122
 msgid "Cannot start service on remote server"
-msgstr "Nemožno spustiť službu na vzdialenom serveri"
+msgstr "Nepavyko paleisti tarnybos nuotoliniame serveryje"
 
 #: ../system-config-printer.py:1170 ../ui/ConnectingDialog.ui.h:5
 #, no-c-format, python-format
 msgid "<i>Opening connection to %s</i>"
-msgstr "<i>Otvára sa pripojenie k %s</i>"
+msgstr "<i>Atveriamas ryšys į %s</i>"
 
 #: ../system-config-printer.py:1333
 msgid "Set Default Printer"
-msgstr "Nastaviť predvolenú tlačiareň"
+msgstr "Nustatyti numatytąjį spausdintuvą"
 
 #: ../system-config-printer.py:1335
 msgid "Do you want to set this as the system-wide default printer?"
-msgstr "Chcete nastaviť túto tlačiareň ako predvolenú pre celý systém?"
+msgstr "Ar norite sistemos mastu nustatyti šį spausdintuvą kaip numatytąjį?"
 
 #: ../system-config-printer.py:1337
 msgid "Set as the _system-wide default printer"
-msgstr "Na_staviť ako predvolenú tlačiareň pre celý systém"
+msgstr "Nustatyti kaip numatytąjį _sistemos mastu"
 
 #: ../system-config-printer.py:1339
 msgid "_Clear my personal default setting"
-msgstr "_Vyčistiť moje osobné predvolené nastavenie"
+msgstr "_Išvalyti mano asmeninį numatytąjį nustatymą"
 
 #: ../system-config-printer.py:1340
 msgid "Set as my _personal default printer"
-msgstr "Nastaviť ako osobnú _predvolenú tlačiareň"
+msgstr "Nustatyti kai_p mano asmeninį numatytąjį spausdintuvą"
 
 #: ../system-config-printer.py:1345
 msgid "setting default printer"
-msgstr "nastavenie predvolenej tlačiarne"
+msgstr "nustatomas numatytasis spausdintuvas"
 
 #: ../system-config-printer.py:1398
 msgid "Cannot Rename"
-msgstr "Nedá sa premenovať"
+msgstr "Nepavyksta pervadinti"
 
 #: ../system-config-printer.py:1399
 msgid "There are queued jobs."
-msgstr "Vo fronte sú úlohy."
+msgstr ""
 
 #: ../system-config-printer.py:1416
 msgid "Renaming will lose history"
-msgstr "Premenovanie zmaže históriu fronty"
+msgstr ""
 
 #: ../system-config-printer.py:1418
 msgid "Completed jobs will no longer be available for re-printing."
-msgstr "Dokončené úlohy nebude možné znovu vytlačiť."
+msgstr "Užbaigti darbai daugiau nebebus prieinami perspausdinimui."
 
 #: ../system-config-printer.py:1531
 msgid "renaming printer"
-msgstr "premenováva sa tlačiareň"
+msgstr "spausdintuvas pervadinamas"
 
 #: ../system-config-printer.py:1694
 #, python-format
 msgid "Really delete class '%s'?"
-msgstr "Skutočne odstrániť triedu „%s“?"
+msgstr "Ar tikrai ištrinti klasę \"%s\"?"
 
 #: ../system-config-printer.py:1696
 #, python-format
 msgid "Really delete printer '%s'?"
-msgstr "Skutočne odstrániť tlačiareň „%s“?"
+msgstr "Ar tikrai ištrinti spausdintuvą \"%s\"?"
 
 #: ../system-config-printer.py:1700
 msgid "Really delete selected destinations?"
-msgstr "Skutočne odstrániť označené umiestnenia?"
+msgstr ""
 
 #: ../system-config-printer.py:1721
 #, python-format
 msgid "deleting printer %s"
-msgstr "odstraňuje sa tlačiareň %s"
+msgstr "ištrinamas spausdintuvas %s"
 
 #: ../system-config-printer.py:1812
 msgid "Publish Shared Printers"
-msgstr "Publikovať zdieľané tlačiarne"
+msgstr "_Publikuoti bendrinamus spausdintuvus"
 
 #: ../system-config-printer.py:1813
 msgid ""
 "Shared printers are not available to other people unless the 'Publish shared "
 "printers' option is enabled in the server settings."
 msgstr ""
-"Zdieľané tlačiarne nie sú dostupné ostatným ľuďom, pokiaľ nie je v nastavení "
-"servera aktivovaná voľba 'Publikovať zdieľané tlačiarne'."
+"Bendrinami spausdintuvai nėra prieinami kitiems žmonėms tol, kol serverio "
+"nustatymuose nėra įjungta parinktis \"Publikuoti bendrinamus spausdintuvus\"."
 
 #: ../system-config-printer.py:2031
 msgid "Would you like to print a test page?"
-msgstr "Chcete vytlačiť skúšobnú stránku?"
+msgstr "Ar norėtumėte spausdinti bandomąjį puslapį?"
 
 #. Not more than 25 characters
 #: ../system-config-printer.py:2033 ../ui/PrinterPropertiesDialog.ui.h:17
 #: ../troubleshoot/PrintTestPage.py:74
 msgid "Print Test Page"
-msgstr "Vytlačiť skúšobnú stránku"
+msgstr "Spausdinti bandomąjį puslapį"
 
 #: ../system-config-printer.py:2125
 msgid "Install driver"
-msgstr "Nainštalovať ovládač"
+msgstr "Įdiegti tvarkyklę"
 
 #: ../system-config-printer.py:2126 ../troubleshoot/CheckPPDSanity.py:136
 #, python-format
 msgid "Printer '%s' requires the %s package but it is not currently installed."
 msgstr ""
-"Tlačiareň „%s“ vyžaduje balíček %s, ktorý nie je momentálne nainštalovaný."
+"Spausdintuvas '%s' reikalauja paketo %s, tačiau jis šiuo metu nėra įdiegtas."
 
 #: ../system-config-printer.py:2141
 msgid "Missing driver"
-msgstr "Chýba ovládač"
+msgstr ""
 
 #: ../system-config-printer.py:2142
 #, python-format
@@ -2391,16 +2363,16 @@ msgid ""
 "Printer '%s' requires the '%s' program but it is not currently installed.  "
 "Please install it before using this printer."
 msgstr ""
-"Tlačiareň „%s“ vyžaduje program „%s“, ktorý nie je momentálne nainštalovaný. "
-"Prosím nainštalujte ho pred používaním tejto tlačiarne."
+"Spausdintuvas '%s' reikalauja programos '%s', tačiau ji šiuo metu nėra "
+"įdiegta.  Prašome, prieš naudojant šį spausdintuvą, įdiegti programą."
 
 #: ../ui/AboutDialog.ui.h:1
 msgid "Copyright © 2006-2012 Red Hat, Inc."
-msgstr "Copyright © 2006-2012 Red Hat, Inc."
+msgstr "Autorių Teisės © 2006-2012 Red Hat, Inc."
 
 #: ../ui/AboutDialog.ui.h:2
 msgid "A CUPS configuration tool."
-msgstr "Nástroj na nastavenie tlačového servera CUPS."
+msgstr "CUPS konfigūravimo įrankis"
 
 #: ../ui/AboutDialog.ui.h:3
 msgid ""
@@ -2418,136 +2390,136 @@ msgid ""
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA."
 msgstr ""
-"Toto je slobodný software; môžete ho šíriť a/alebo upravovať podľa "
-"ustanovení GNU General Public License vydaných Free Software Foundation; buď "
-"verzia 2 tejto licencie alebo (podľa vášho uváženia) ktorákoľvek neskoršia "
-"verzia.\n"
+"Ši programa yra laisva programinė įranga; jūs galite ją platinti ir/arba "
+"modifikuoti remdamiesi Free Software Foundation paskelbtomis GNU Bendrosios "
+"Viešosios Licencijos sąlygomis; licencijos 2 versija arba (savo nuožiūra) "
+"bet kuria vėlesne versija.\n"
 "\n"
-"Tento program je šírený v nádeji, že bude užitočný, avšak BEZ AKEJKOĽVEK "
-"ZÁRUKY; neposkytujú sa ani odvodené záruky PREDAJNOSTI alebo VHODNOSTI PRE "
-"URČITÝ ÚČEL. Ďalšie podrobnosti môžete nájsť v GNU General Public License.\n"
+"Ši programa yra platinama, tikintis, kad ji bus naudinga, tačiau BE JOKIŲ "
+"GARANTIJŲ; netgi be numanomos PARDAVIMO ar TINKAMUMO TAM TIKRAM TIKSLUI "
+"garantijos. Išsamiau apie tai, žiūrėkite GNU Bendrojoje Viešojoje "
+"Licencijoje.\n"
 "\n"
-"Kópiu GNU General Public License by ste mali obdržať spolu s týmto "
-"programom; ak sa tak nestalo napíšte si o ňu Free Software Foundation, Inc., "
-"51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA."
+"Kartu su programa jūs turėjote gauti GNU Bendrosios Viešosios Licencijos "
+"kopiją; jei negavote, rašykite adresu Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA."
 
 #. TRANSLATORS: Replace this string with your names, one name per line.  Thank you very much for your effort on translating system-config-printer and all our other tools!
 #: ../ui/AboutDialog.ui.h:9
 msgid "translator-credits"
-msgstr ""
-"Mike Karas\n"
-"Lubomir Kundrak\n"
-"Ondrej Šulek\n"
-"Dušan Kazik"
+msgstr "Moo"
 
 #: ../ui/ConnectDialog.ui.h:1
 msgid "Connect to CUPS server"
-msgstr "Pripojiť sa na server CUPS"
+msgstr "Prisijungti prie CUPS serverio"
 
 #: ../ui/ConnectDialog.ui.h:3 ../ui/PrintersWindow.ui.h:12
 msgid "Connect"
-msgstr "Pripojiť"
+msgstr "Prisijungti"
 
 #: ../ui/ConnectDialog.ui.h:4
 msgid "CUPS _server:"
-msgstr "CUPS _server:"
+msgstr "CUPS _serveris:"
 
 #: ../ui/ConnectDialog.ui.h:5
 msgid "Require _encryption"
-msgstr "_Požadovať šifrovanie"
+msgstr "Reikalauti š_ifravimo"
 
 #: ../ui/ConnectingDialog.ui.h:1
 msgid "Connecting to CUPS server"
-msgstr "Pripájanie na server CUPS"
+msgstr "Jungiamasi prie CUPS serverio"
 
 #: ../ui/ConnectingDialog.ui.h:3
 msgid "<span weight=\"bold\" size=\"larger\">Connecting to CUPS server</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Pripájanie na CUPS server</span>"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Jungiamasi prie CUPS serverio</span>"
 
 #: ../ui/InstallDialog.ui.h:1
 msgid "Close"
-msgstr "Zavrieť"
+msgstr "Užverti"
 
 #: ../ui/InstallDialog.ui.h:2
 msgid "_Install"
-msgstr "_Inštalovať"
+msgstr "Į_diegti"
 
 #: ../ui/JobsWindow.ui.h:1
 msgid "Refresh job list"
-msgstr "Obnoví zoznam úloh"
+msgstr "Iš naujo įkelti darbų sąrašą"
 
 #: ../ui/JobsWindow.ui.h:2 ../ui/SMBBrowseDialog.ui.h:2
 msgid "_Refresh"
-msgstr "_Obnoviť"
+msgstr "Į_kelti iš naujo"
 
 #: ../ui/JobsWindow.ui.h:3
 msgid "Show completed jobs"
-msgstr "Zobrazí dokončené úlohy"
+msgstr "Rodyti atliktus darbus"
 
 #: ../ui/JobsWindow.ui.h:4
 msgid "Show _completed jobs"
-msgstr "Zobraziť _dokončené úlohy"
+msgstr "Rodyti atli_ktus darbus"
 
 #: ../ui/NewPrinterName.ui.h:1
 msgid "Duplicate Printer"
-msgstr "Duplikovať tlačiareň"
+msgstr "Dubliuoti spausdintuvą"
 
 #: ../ui/NewPrinterName.ui.h:3 ../ui/PrinterPropertiesDialog.ui.h:5
 #: ../ui/ServerSettingsDialog.ui.h:3 ../ui/SMBBrowseDialog.ui.h:4
 msgid "_OK"
-msgstr "_OK"
+msgstr "_Gerai"
 
 #: ../ui/NewPrinterName.ui.h:4
 msgid "New name for the printer"
-msgstr "Nový názov pre tlačiareň"
+msgstr "Naujas spausdintuvo pavadinimas"
 
 #: ../ui/NewPrinterWindow.ui.h:2
 msgid "<span weight=\"bold\" size=\"larger\">Describe Printer</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Popíšte tlačiareň</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Aprašykite spausdintuvą</span>"
 
 #: ../ui/NewPrinterWindow.ui.h:3
 msgid "Short name for this printer such as \"laserjet\""
-msgstr "Krátky názov pre túto tlačiareň, napríklad \"laserjet\""
+msgstr "Trumpas šio spausdintuvo pavadinimas, kaip, pavyzdžiui, \"laserjet\""
 
 #: ../ui/NewPrinterWindow.ui.h:4
 msgid "<b>Printer Name</b>"
-msgstr "<b>Názov tlačiarne</b>"
+msgstr "<b>Spausdintuvo pavadinimas</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:5
 msgid "Human-readable description such as \"HP LaserJet with Duplexer\""
-msgstr "Zrozumiteľný popis, ako napr. \"HP LaserJet s duplexom\""
+msgstr ""
+"Lengvai įsimenamas aprašas, kaip, pavyzdžiui, \"HP LaserJet su dvipusiu "
+"spausdinimu\""
 
 #: ../ui/NewPrinterWindow.ui.h:6
 msgid "<b>Description</b> (optional)"
-msgstr "<b>Popis</b> (voliteľný)"
+msgstr "<b>Aprašas</b> (nebūtina)"
 
 #: ../ui/NewPrinterWindow.ui.h:7
 msgid "Human-readable location such as \"Lab 1\""
-msgstr "Zrozumiteľné umiestnenie, ako napr. \"Miestnosť 1\""
+msgstr "Lengvai įsimenama vieta, kaip, pavyzdžiui, \"7 kabinetas\""
 
 #: ../ui/NewPrinterWindow.ui.h:8
 msgid "<b>Location</b> (optional)"
-msgstr "<b>Umiestnenie</b> (voliteľné)"
+msgstr "<b>Vieta</b> (nebūtina)"
 
 #: ../ui/NewPrinterWindow.ui.h:10
 msgid "<span weight=\"bold\" size=\"larger\">Select Device</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Vyberte zariadenie</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Pasirinkite įrenginį</span>"
 
 #: ../ui/NewPrinterWindow.ui.h:11
 msgid "Device description."
-msgstr "Popis zariadenia."
+msgstr "Įrenginio aprašas."
 
 #: ../ui/NewPrinterWindow.ui.h:12
 msgid "<b>Description</b>"
-msgstr "<b>Popis</b>"
+msgstr "<b>Aprašas</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:13
 msgid "Empty"
-msgstr "Prázdne"
+msgstr "Tuščia"
 
 #: ../ui/NewPrinterWindow.ui.h:14
 msgid "<b>Enter device URI</b>"
-msgstr "<b>Zadajte URI zariadenia</b>"
+msgstr "<b>Įrašykite įrenginio URI</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:15
 msgid ""
@@ -2555,41 +2527,41 @@ msgid ""
 "ipp://cups-server/printers/printer-queue\n"
 "ipp://printer.mydomain/ipp"
 msgstr ""
-"Napríklad:\n"
+"Pavyzdžiui:\n"
 "ipp://cups-server/printers/printer-queue\n"
 "ipp://printer.mydomain/ipp"
 
 #: ../ui/NewPrinterWindow.ui.h:18 ../troubleshoot/DeviceListed.py:47
 msgid "Device URI"
-msgstr "URI zariadenia"
+msgstr "Įrenginio URI"
 
 #: ../ui/NewPrinterWindow.ui.h:19
 msgid "Host:"
-msgstr "Hostiteľ:"
+msgstr "Serveris:"
 
 #: ../ui/NewPrinterWindow.ui.h:20
 msgid "Port number:"
-msgstr "Číslo portu:"
+msgstr "Prievado numeris:"
 
 #: ../ui/NewPrinterWindow.ui.h:21
 msgid "<b>Location of the network printer</b>"
-msgstr "<b>Umiestnenie sieťovej tlačiarne</b>"
+msgstr "<b>Tinklo spausdintuvo vieta</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:22
 msgid "JetDirect"
-msgstr "JetDirect"
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:23
 msgid "Queue:"
-msgstr "Fronta:"
+msgstr "Eilė:"
 
 #: ../ui/NewPrinterWindow.ui.h:24
 msgid "Probe"
-msgstr "Preskúmať"
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:25
 msgid "<b>Location of the LPD network printer</b>"
-msgstr "<b>Umiestnenie sieťovej LPD tlačiarne</b>"
+msgstr "<b>LPD tinklo spausdintuvo vieta</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:26
 msgid "LPD"
@@ -2601,55 +2573,55 @@ msgstr "SCSI"
 
 #: ../ui/NewPrinterWindow.ui.h:28
 msgid "Baud Rate"
-msgstr "Prenosová rýchlosť"
+msgstr "Sparta bodais"
 
 #: ../ui/NewPrinterWindow.ui.h:29
 msgid "Parity"
-msgstr "Parita"
+msgstr "Lyginumas"
 
 #: ../ui/NewPrinterWindow.ui.h:30
 msgid "Data Bits"
-msgstr "Údajové bity"
+msgstr "Duomenų bitai"
 
 #: ../ui/NewPrinterWindow.ui.h:31
 msgid "Flow Control"
-msgstr "Riadenie toku"
+msgstr "Srauto valdymas"
 
 #: ../ui/NewPrinterWindow.ui.h:32
 msgid "<b>Settings of the serial port</b>"
-msgstr "<b>Nastavenia sériového portu</b>"
+msgstr "<b>Nuosekliojo prievado nustatymai</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:33
 msgid "Serial"
-msgstr "Sériové číslo"
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:34
 msgid "Browse..."
-msgstr "Prehľadávať..."
+msgstr "Naršyti..."
 
 #: ../ui/NewPrinterWindow.ui.h:35
 msgid "<i>smb://[workgroup/]server[:port]/printer</i>"
-msgstr "<i>smb://[pracovná_skupina/]server[:port]/tlačiareň</i>"
+msgstr "<i>smb://[darbo_grupė/]serveris[:prievadas]/spausdintuvas</i>"
 
 #: ../ui/NewPrinterWindow.ui.h:36
 msgid "<b>SMB Printer</b>"
-msgstr "<b>SMB tlačiareň</b>"
+msgstr "<b>SMB spausdintuvas</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:37
 msgid "Prompt user if authentication is required"
-msgstr "Vyzvať používateľa, ak je vyžadované overenie totožnosti"
+msgstr "Nurodyti naudotojui, jeigu reikalingas tapatybės nustatymas"
 
 #: ../ui/NewPrinterWindow.ui.h:38
 msgid "Set authentication details now"
-msgstr "Nastaviť podrobnosti overenia totožnosti teraz"
+msgstr "Dabar nustatyti tapatybės nustatymo informaciją"
 
 #: ../ui/NewPrinterWindow.ui.h:41
 msgid "<b>Authentication</b>"
-msgstr "<b>Overenie totožnosti</b>"
+msgstr "<b>Tapatybės nustatymas</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:42
 msgid "_Verify..."
-msgstr "O_veriť..."
+msgstr "_Patvirtinti..."
 
 #: ../ui/NewPrinterWindow.ui.h:43
 msgid "SMB"
@@ -2657,43 +2629,43 @@ msgstr "SMB"
 
 #: ../ui/NewPrinterWindow.ui.h:44
 msgid "Find"
-msgstr "Nájsť"
+msgstr "Rasti"
 
 #: ../ui/NewPrinterWindow.ui.h:45
 msgid "Searching..."
-msgstr "Vyhľadávanie..."
+msgstr "Ieškoma..."
 
 #: ../ui/NewPrinterWindow.ui.h:47
 msgid "<b>Network Printer</b>"
-msgstr "<b>Sieťová tlačiareň</b>"
+msgstr "<b>Tinklo spausdintuvas</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:48
 msgid "Network"
-msgstr "Sieť"
+msgstr "Tinklas"
 
 #: ../ui/NewPrinterWindow.ui.h:49
 msgid "Connection"
-msgstr "Pripojenie"
+msgstr "Ryšys"
 
 #: ../ui/NewPrinterWindow.ui.h:50
 msgid "Device"
-msgstr "Zariadenie"
+msgstr "Įrenginys"
 
 #: ../ui/NewPrinterWindow.ui.h:51
 msgid "<span weight=\"bold\" size=\"larger\">Choose Driver</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Vyberte ovládač</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Pasirinkite tvarkyklę</span>"
 
 #: ../ui/NewPrinterWindow.ui.h:52
 msgid "Select printer from database"
-msgstr "Vyberte tlačiareň z databázy"
+msgstr "Pasirinkti spausdintuvą iš duomenų bazės"
 
 #: ../ui/NewPrinterWindow.ui.h:53
 msgid "Provide PPD file"
-msgstr "Zadať PPD súbor"
+msgstr "Pateikti PPD failą"
 
 #: ../ui/NewPrinterWindow.ui.h:54
 msgid "Search for a printer driver to download"
-msgstr "Hľadať a stiahnuť ovládač tlačiarne"
+msgstr "Ieškoti spausdintuvo tvarkyklės atsiuntimui"
 
 #: ../ui/NewPrinterWindow.ui.h:55
 msgid ""
@@ -2703,11 +2675,11 @@ msgid ""
 "provided PPD files provide better access to the specific features of the "
 "printer."
 msgstr ""
-"Databáza tlačiarní foomatic obsahuje rôzne súbory tlačových popisov vo "
-"formáte PostScript (PPD) poskytovaných výrobcom a taktiež umožňuje "
-"vytvorenie PPD súborov pre veľké množstvo (ne-PostScript-ových) tlačiarní. "
-"Ale v zásade PPD súbory poskytované výrobcom zaručujú lepší prístup k "
-"špecifickým vlastnostiam tlačiarne."
+"\"Foomatic\" spausdintuvų duomenų bazėje yra įvarių gamintojų pateikti "
+"PostScript spausdintuvų aprašo (PPD) failai, be to, ši duomenų bazė gali "
+"kurti PPD failus daugeliui (ne PostScript) spausdintuvų. Tačiau apskritai, "
+"gamintojų pateikti PPD failai užtikrina geresnę prieigą prie tam tikrų "
+"spausdintuvo ypatybių."
 
 #: ../ui/NewPrinterWindow.ui.h:56
 msgid ""
@@ -2715,65 +2687,63 @@ msgid ""
 "disk that comes with the printer. For PostScript printers they are often "
 "part of the Windows<sup>®</sup> driver."
 msgstr ""
-"Súbory s popisom talčiarní typu PostScript (PPD) je často možné nájsť na "
-"disku s ovládačmi, ktorý je pribalený k tlačiarni. Pre tlačiarne typu "
-"PostScript sú často súčasťou ovládača pre systém Windows<sup>®</sup>."
+"PostScript spausdintuvo aprašo (PPD) failus dažnu atveju galima rasti kartu "
+"su spausdintuvu pateikiamame tvarkyklių diske. PostScript spausdintuvų "
+"atveju, šie failai yra dažnai Windows<sup>®</sup> tvarkyklės dalimi."
 
 #: ../ui/NewPrinterWindow.ui.h:57
 msgid "Make and model:"
-msgstr "Výrobca a model:"
+msgstr "Gamintojas ir modelis:"
 
 #: ../ui/NewPrinterWindow.ui.h:58
 msgid "_Search"
-msgstr "_Hľadať"
+msgstr "_Ieškoti"
 
 #: ../ui/NewPrinterWindow.ui.h:59
 msgid "Printer model:"
-msgstr "Model tlačiarne:"
+msgstr "Spausdintuvo modelis:"
 
 #: ../ui/NewPrinterWindow.ui.h:60
 msgid "Comments..."
-msgstr "Komentáre..."
+msgstr "Komentarai..."
 
 #: ../ui/NewPrinterWindow.ui.h:61
 msgid "<span weight=\"bold\" size=\"larger\">Choose Class Members</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Vyberte členov triedy</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Pasirinkite klasės narius</span>"
 
 #: ../ui/NewPrinterWindow.ui.h:62 ../ui/PrinterPropertiesDialog.ui.h:44
 msgid "move left"
-msgstr "posunúť doľava"
+msgstr "perkelti kairėn"
 
 #: ../ui/NewPrinterWindow.ui.h:63 ../ui/PrinterPropertiesDialog.ui.h:45
 msgid "move right"
-msgstr "posunúť doprava"
+msgstr "perkelti dešinėn"
 
 #: ../ui/NewPrinterWindow.ui.h:64
 msgid "Class Members"
-msgstr "Členovia triedy"
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:65
 msgid "<span weight=\"bold\" size=\"larger\">Existing Settings</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Existujúce nastavenia</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Esami nustatymai</span>"
 
 #: ../ui/NewPrinterWindow.ui.h:66
 msgid "Try to transfer the current settings"
-msgstr "Pokúsiť sa preniesť aktuálne nastavenie"
+msgstr "Pabandyti perkelti esamus nustatymus"
 
 #: ../ui/NewPrinterWindow.ui.h:67
 msgid "Use the new PPD (Postscript Printer Description) as is."
-msgstr "Použiť novú PPD (Definíciu Postscript Tlačiarne) ako je."
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:68
 msgid ""
 "This way all current option settings will be lost. The default settings of "
 "the new PPD will be used. "
 msgstr ""
-"Touto cestou sa stratia všetky aktuálne nastavenia volieb. Budú použité "
-"predvolené nastavenia z nového súboru PPD. "
 
 #: ../ui/NewPrinterWindow.ui.h:69
 msgid "Try to copy the option settings over from the old PPD. "
-msgstr "Pokúsiť sa skopírovať nastavenia volieb zo starého súboru PPD. "
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:70
 msgid ""
@@ -2781,35 +2751,31 @@ msgid ""
 "meaning. Settings of options that are not present in the new PPD will be "
 "lost and options only present in the new PPD will be set to default."
 msgstr ""
-"Toto je vykonané za predpokladu, že voľby s rovnakým menom majú rovnaký "
-"význam. Nastavenia volieb nenachádzajúcich sa v novom súbore PPD budú "
-"stratené a voľby nachádzajúce sa iba v novom súbore PPD budú nastavené na "
-"predvolené hodnoty."
 
 #: ../ui/NewPrinterWindow.ui.h:71
 msgid "Change PPD"
-msgstr "Zmeniť PPD"
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:72
 msgid "<span weight=\"bold\" size=\"larger\">Installable Options</span>"
-msgstr "<span weight=\"bold\" size=\"larger\">Inštalovateľné voľby</span>"
+msgstr "<span weight=\"bold\" size=\"larger\">Įdiegiamos parinktys</span>"
 
 #: ../ui/NewPrinterWindow.ui.h:73
 msgid ""
 "This driver supports additional hardware that may be installed in the "
 "printer."
 msgstr ""
-"Tento ovládač podporuje prídavný hardvér, ktorý môže byť vo vašej tlačiarni "
-"nainštalovaný."
+"Ši tvarkyklė palaiko papildomą aparatinę įrangą, kuri gali būti įdiegta "
+"spausdintuve."
 
 #: ../ui/NewPrinterWindow.ui.h:74 ../ui/PrinterPropertiesDialog.ui.h:47
 msgid "Installed Options"
-msgstr "Nainštalované voľby"
+msgstr "Įdiegtos parinktys"
 
 #: ../ui/NewPrinterWindow.ui.h:75
 msgid ""
 "For the printer you have selected there are drivers available for download."
-msgstr "Pre vami vybranú tlačiareň sú dostupné ovládače na stiahnutie."
+msgstr "Spausdintuvui, kurį pasirinkote yra prieinamos atsisiųsti tvarkyklės."
 
 #: ../ui/NewPrinterWindow.ui.h:76
 msgid ""
@@ -2817,77 +2783,77 @@ msgid ""
 "be covered by their commercial support.  See the support and license terms "
 "of the driver's supplier."
 msgstr ""
-"Tieto ovládače nepochádzajú od dodávateľa vašeho operačného systému a "
-"nevzťahuje sa na ne ich obchodná podpora. Pozrite sa na podmienky podpory a "
-"licenciu dodávateľa ovládača."
+"Šios tvarkyklės nėra pateikiamos jūsų operacinės sistemos tiekėjo ir joms "
+"nebus taikomas OS tiekėjo komercinis palaikymas. Žiūrėkite tvarkyklės "
+"tiekėjo palaikymo ir licencijos nuostatas."
 
 #: ../ui/NewPrinterWindow.ui.h:77
 msgid "<b>Note</b>"
-msgstr "<b>Poznámka</b>"
+msgstr "<b>Pastaba</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:78
 msgid "<b>Select Driver</b>"
-msgstr "<b>Vyberte ovládač</b>"
+msgstr "<b>Pasirinkite tvarkyklę</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:79
 msgid ""
 "With this choice no driver download will be performed. In the next steps a "
 "locally installed driver will be selected."
 msgstr ""
-"S touto voľbou nebude stiahnutý žiadny ovládač. V ďalších krokoch bude "
-"vybraný lokálne inštalovaný ovládač."
+"Šiuo pasirinkimu nebus atliktas joks tvarkyklės atsisiuntimas. Kituose "
+"žingsniuose bus pasirinkta vietoje įdiegta tvarkyklė."
 
 #: ../ui/NewPrinterWindow.ui.h:81 ../ui/PrinterPropertiesDialog.ui.h:7
 msgid "Description:"
-msgstr "Popis:"
+msgstr "Aprašas:"
 
 #: ../ui/NewPrinterWindow.ui.h:82
 msgid "License:"
-msgstr "Licencia:"
+msgstr "Licencija:"
 
 #: ../ui/NewPrinterWindow.ui.h:83
 msgid "Supplier:"
-msgstr "Dodávateľ:"
+msgstr "Tiekėjas:"
 
 #: ../ui/NewPrinterWindow.ui.h:84
 msgid "license"
-msgstr "licencia"
+msgstr "licencija"
 
 #: ../ui/NewPrinterWindow.ui.h:85
 msgid "short description"
-msgstr "krátky popis"
+msgstr "trumpas aprašas"
 
 #: ../ui/NewPrinterWindow.ui.h:86
 msgid "Manufacturer"
-msgstr "Výrobca"
+msgstr "Gamintojas"
 
 #: ../ui/NewPrinterWindow.ui.h:87
 msgid "supplier"
-msgstr "dodávateľ"
+msgstr "tiekėjas"
 
 #: ../ui/NewPrinterWindow.ui.h:88
 msgid "Free software"
-msgstr "Sloboný softvér"
+msgstr "Laisvoji programinė įranga"
 
 #: ../ui/NewPrinterWindow.ui.h:89
 msgid "Patented algorithms"
-msgstr "Patentované algoritmy"
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:90
 msgid "Support:"
-msgstr "Podpora:"
+msgstr "Palaikymas:"
 
 #: ../ui/NewPrinterWindow.ui.h:91
 msgid "support contacts"
-msgstr "kontakty na podporu"
+msgstr ""
 
 #: ../ui/NewPrinterWindow.ui.h:92
 msgid "Text:"
-msgstr "Text:"
+msgstr "Tekstas:"
 
 #: ../ui/NewPrinterWindow.ui.h:93
 msgid "Line art:"
-msgstr "Jemná grafika:"
+msgstr "Iliustracijos:"
 
 #: ../ui/NewPrinterWindow.ui.h:95
 msgid "Graphics:"
@@ -2895,181 +2861,181 @@ msgstr "Grafika:"
 
 #: ../ui/NewPrinterWindow.ui.h:96
 msgid "Photo:"
-msgstr "Fotografia:"
+msgstr "Nuotraukos:"
 
 #: ../ui/NewPrinterWindow.ui.h:97
 msgid "<b>Output Quality</b>"
-msgstr "<b>Výstupná kvalita</b>"
+msgstr "<b>Išvesties kokybė</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:98
 msgid "Yes, I accept this license"
-msgstr "Áno, prijímam túto licenciu"
+msgstr "Taip, aš sutinku su šia licencija"
 
 #: ../ui/NewPrinterWindow.ui.h:99
 msgid "No, I do not accept this license"
-msgstr "Nie, neprijímam túto licenciu"
+msgstr "Ne, aš nesutinku su šia licencija"
 
 #: ../ui/NewPrinterWindow.ui.h:100
 msgid "<b>License Terms</b>"
-msgstr "<b>Licenčné podmienky</b>"
+msgstr "<b>Licencijos nuostatos</b>"
 
 #: ../ui/NewPrinterWindow.ui.h:101
 msgid "Driver details"
-msgstr "Podrobnosti o ovládači"
+msgstr "Išsamesnė tvarkyklės informacija"
 
 #: ../ui/NewPrinterWindow.ui.h:103
 msgid "_Back"
-msgstr "_Späť"
+msgstr "Atga_l"
 
 #: ../ui/NewPrinterWindow.ui.h:105 ../ui/PrinterPropertiesDialog.ui.h:3
 msgid "_Apply"
-msgstr "_Použiť"
+msgstr "_Taikyti"
 
 #: ../ui/NewPrinterWindow.ui.h:106
 msgid "_Forward"
-msgstr "_Dopredu"
+msgstr "_Pirmyn"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:1
 msgid "Printer Properties"
-msgstr "Vlastnosti tlačiarne"
+msgstr "Spausdintuvo savybės"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:2
 msgid "Co_nflicts"
-msgstr "Ko_nflikty"
+msgstr "Ko_nfliktai"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:6
 msgid "_Close"
-msgstr "_Zavrieť"
+msgstr "_Užverti"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:8
 msgid "Location:"
-msgstr "Umiestnenie:"
+msgstr "Vieta:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:9
 msgid "Device URI:"
-msgstr "URI zariadenia:"
+msgstr "Įrenginio URI:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:10
 msgid "Printer State:"
-msgstr "Stav tlačiarne:"
+msgstr "Spausdintuvo būsena:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:11
 msgid "Make and Model:"
-msgstr "Výrobca a model:"
+msgstr "Gamintojas ir modelis:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:12
 msgid "Change..."
-msgstr "Zmeniť..."
+msgstr "Keisti..."
 
 #: ../ui/PrinterPropertiesDialog.ui.h:13
 msgid "make and model"
-msgstr "výrobca a model"
+msgstr "gamintojas ir modelis"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:14
 msgid "printer state"
-msgstr "stav tlačiarne"
+msgstr "spausdintuvo būsena"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:15
 msgid "<b>Settings</b>"
-msgstr "<b>Nastavenia</b>"
+msgstr "<b>Nustatymai</b>"
 
 #. Not more than 25 characters
 #: ../ui/PrinterPropertiesDialog.ui.h:19
 msgid "Print Self-Test Page"
-msgstr "Vytlačiť samo-testovaciu stránku"
+msgstr "Spausdinti savikontrolės puslapį"
 
 #. Not more than 25 characters
 #: ../ui/PrinterPropertiesDialog.ui.h:21
 msgid "Clean Print Heads"
-msgstr "Vyčistiť tlačové hlavy"
+msgstr "Išvalyti spausdinimo galvutes"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:22
 msgid "<b>Tests and Maintenance</b>"
-msgstr "<b>Testovanie a údržba</b>"
+msgstr "<b>Bandymai ir techninė priežiūra</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:23
 msgid "Settings"
-msgstr "Nastavenia"
+msgstr "Nustatymai"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:24
 msgid "Enabled"
-msgstr "Povolené"
+msgstr "Įjungtas"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:25
 msgid "Accepting jobs"
-msgstr "Prijíma úlohy"
+msgstr "Priima darbus"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:26
 msgid "Shared"
-msgstr "Zdieľaná"
+msgstr "Bendrinamas"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:27
 msgid ""
 "<i>Not published\n"
 "See server settings</i>"
 msgstr ""
-"<i>Nepublikované\n"
-"Pozrite nastavenia servera</i>"
+"<i>Nepublikuotas\n"
+"Žiūrėkite serverio nustatymus</i>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:29
 msgid "<b>State</b>"
-msgstr "<b>Stav</b>"
+msgstr "<b>Būsena</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:30
 msgid "Error Policy:"
-msgstr "Politika chýb:"
+msgstr "Klaidų politika:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:31
 msgid "Operation Policy:"
-msgstr "Operačné pravidlo:"
+msgstr "Veikimo politika:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:32
 msgid "<b>Policies</b>"
-msgstr "<b>Pravidlá</b>"
+msgstr "<b>Politikos</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:33
 msgid "Starting Banner:"
-msgstr "Oddeľovacia stránka na začiatku:"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:34
 msgid "Ending Banner:"
-msgstr "Koncová stránka:"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:35
 msgid "<b>Banner</b>"
-msgstr "<b>Deliaca stránka</b>"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:36
 msgid "Policies"
-msgstr "Pravidlá"
+msgstr "Politikos"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:37
 msgid "Allow printing for everyone except these users:"
-msgstr "Povoliť tlač všetkým okrem týchto používateľov:"
+msgstr "Leisti spausdinti visiems, išskyrus šiuos naudotojus:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:38
 msgid "Deny printing for everyone except these users:"
-msgstr "Zakázať tlač všetkým okrem týchto používateľov:"
+msgstr "Drausti spausdinti visiems, išskyrus šiuos naudotojus:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:39
 msgid "user"
-msgstr "používateľ"
+msgstr "naudotojas"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:41
 msgid "_Add"
-msgstr "_Pridať"
+msgstr "_Pridėti"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:42
 msgid "Access Control"
-msgstr "Riadenie prístupu"
+msgstr "Prieigos valdymas"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:43
 msgid "Add or Remove Members"
-msgstr "Pridať alebo odstrániť členov"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:46
 msgid "Members"
-msgstr "Členovia"
+msgstr "Nariai"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:49
 msgid ""
@@ -3077,68 +3043,66 @@ msgid ""
 "print server will have these options added if they are not already set by "
 "the application."
 msgstr ""
-"Špecifikujte predvolené voľby úloh pre túto tlačiareň. Úlohy prichádzajúce "
-"na tento tlačový server budú používať tieto voľby, ak ich aplikácia nezmení."
 
 #: ../ui/PrinterPropertiesDialog.ui.h:50
 msgid "Copies:"
-msgstr "Kópie:"
+msgstr "Kopijos:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:51
 msgid "Orientation:"
-msgstr "Orientácia:"
+msgstr "Orientacija:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:52
 msgid "Scale to fit"
-msgstr "Zväčšiť na celú plochu"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:53
 msgid "Pages per side:"
-msgstr "Stránok na list:"
+msgstr "Puslapių vienoje pusėje:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:54
 msgid "Pages per side layout:"
-msgstr "Rozloženie stránok:"
+msgstr "Puslapių vienoje pusėje išdėstymas:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:55
 msgid "Brightness:"
-msgstr "Jas:"
+msgstr "Ryškumas:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:56
 msgid "Finishings:"
-msgstr "Ukončenia:"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:57
 msgid "Job priority:"
-msgstr "Priorita úlohy:"
+msgstr "Darbo pirmenybė:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:58
 msgid "Media:"
-msgstr "Veľkosť stránky:"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:59
 msgid "Sides:"
-msgstr "Strany:"
+msgstr "Pusės:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:60
 msgid "Hold until:"
-msgstr "Pozdržať do:"
+msgstr "Sulaikyti iki:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:61
 msgid "Output order:"
-msgstr "Poradie výstupu:"
+msgstr "Išvesties tvarka:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:62
 msgid "Print quality:"
-msgstr "Kvalita tlače:"
+msgstr "Spausdinimo kokybė:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:63
 msgid "Printer resolution:"
-msgstr "Rozlíšenie tlačiarne:"
+msgstr "Spausdintuvo raiška:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:64
 msgid "Output bin:"
-msgstr "Výstupný kôš:"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:65
 msgid "100"
@@ -3150,11 +3114,11 @@ msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:67
 msgid "Reset"
-msgstr "Obnoviť"
+msgstr "Atstatyti"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:68
 msgid "More"
-msgstr "Viac"
+msgstr "Daugiau"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:69
 msgid "1"
@@ -3162,27 +3126,27 @@ msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:70
 msgid "<b>Common Options</b>"
-msgstr "<b>Spoločné voľby</b>"
+msgstr "<b>Bendros parinktys</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:71
 msgid "Mirror"
-msgstr "Zrkadlovo"
+msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:72
 msgid "Scaling:"
-msgstr "Zmena veľkosti:"
+msgstr "Mastelis:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:73
 msgid "Saturation:"
-msgstr "Saturácia:"
+msgstr "Grynis:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:74
 msgid "Hue adjustment:"
-msgstr "Vyváženie farieb:"
+msgstr "Atspalvio reguliavimas:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:75
 msgid "Gamma:"
-msgstr "Gamma:"
+msgstr "Gama:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:76
 msgid "0"
@@ -3194,43 +3158,43 @@ msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:78
 msgid "<b>Image Options</b>"
-msgstr "<b>Voľby obrazu</b>"
+msgstr "<b>Paveikslų parinktys</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:79
 msgid "Characters per inch:"
-msgstr "Znakov na palec:"
+msgstr "Rašmenų skaičius colyje:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:80
 msgid "Lines per inch:"
-msgstr "Riadkov na palec:"
+msgstr "Eilučių skaičius colyje:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:81
 msgid "Left margin:"
-msgstr "Ľavý okraj:"
+msgstr "Kairioji paraštė:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:82
 msgid "Right margin:"
-msgstr "Pravý okraj:"
+msgstr "Dešinioji paraštė:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:83
 msgid "Top margin:"
-msgstr "Horný okraj:"
+msgstr "Viršutinė paraštė:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:84
 msgid "Bottom margin:"
-msgstr "Dolný okraj:"
+msgstr "Apatinė paraštė:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:85
 msgid "Pretty print"
-msgstr "Pekná tlač"
+msgstr "Struktūrinė lygiuotė"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:86
 msgid "Word wrap"
-msgstr "Zalamovať slová"
+msgstr "Teksto skaidymas į eilutes"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:87
 msgid "Columns:"
-msgstr "Stĺpcov:"
+msgstr "Stulpeliai:"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:88
 msgid "10.00"
@@ -3242,630 +3206,633 @@ msgstr ""
 
 #: ../ui/PrinterPropertiesDialog.ui.h:90
 msgid "points"
-msgstr "bodov"
+msgstr "taškų"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:91
 msgid "<b>Text Options</b>"
-msgstr "<b>Voľby textu</b>"
+msgstr "<b>Teksto parinktys</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:92
 msgid "To add a new option, enter its name in the box below and click to add."
 msgstr ""
-"Pre pridanie novej voľby zadajte jej názov do políčka nižšie a kliknite na "
-"Pridať."
+"Kad pridėtumėte naują parinktį, žemiau, langelyje, įrašykite jos pavadinimą "
+"ir spauskite, kad pridėtumėte."
 
 #: ../ui/PrinterPropertiesDialog.ui.h:94
 msgid "<b>Other Options (Advanced)</b>"
-msgstr "<b>Ďalšie voľby (pokročilé)</b>"
+msgstr "<b>Kitos parinktys (Išplėstinės)</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:95
 msgid "Job Options"
-msgstr "Voľby úlohy"
+msgstr "Darbų parinktys"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:97
 msgid "<b>Ink/Toner Levels</b>"
-msgstr "<b>Úrovne atramentu/tonera</b>"
+msgstr "<b>Rašalo/Dažų lygiai</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:98
 msgid "There are no status messages for this printer."
-msgstr "Pre túto tlačiareň nie sú žiadne stavové správy."
+msgstr "Šiam spausdintuvui būsenos pranešimų nėra."
 
 #: ../ui/PrinterPropertiesDialog.ui.h:99
 msgid "<b>Status Messages</b>"
-msgstr "<b>Stavová správa</b>"
+msgstr "<b>Būsenos pranešimai</b>"
 
 #: ../ui/PrinterPropertiesDialog.ui.h:100
 msgid "Ink/Toner Levels"
-msgstr "Úroveň náplne/tonera"
+msgstr "Rašalo/Dažų lygiai"
 
 #: ../ui/PrintersWindow.ui.h:1
 msgid "_Server"
-msgstr "_Server"
+msgstr "_Serveris"
 
 #: ../ui/PrintersWindow.ui.h:3
 msgid "_View"
-msgstr "_Zobraziť"
+msgstr "_Rodinys"
 
 #: ../ui/PrintersWindow.ui.h:4
 msgid "_Discovered Printers"
-msgstr "Náj_dené tlačiarne"
+msgstr "_Aptikti spausdintuvai"
 
 #: ../ui/PrintersWindow.ui.h:5
 msgid "_Help"
-msgstr "_Pomocník"
+msgstr "P_agalba"
 
 #: ../ui/PrintersWindow.ui.h:6
 msgid "_Troubleshoot"
-msgstr "Riešenie _problémov"
+msgstr "_Nesklandumų šalinimas"
 
 #: ../ui/PrintersWindow.ui.h:7
 msgid "About"
-msgstr "O programe"
+msgstr "Apie"
 
 #: ../ui/PrintersWindow.ui.h:8
 msgid "There are no printers configured yet."
-msgstr "Zatiaľ nie sú nastavené žiadne tlačiarne."
+msgstr "Dar nėra sukonfigūruotų spausdintuvų."
 
 #: ../ui/PrintersWindow.ui.h:10
 msgid ""
 "Printing service not available.  Start the service on this computer or "
 "connect to another server."
 msgstr ""
-"Služba tlače nie je dostupná. Spustite službu na tomto počítači, alebo sa "
-"pripojte k inému serveru."
+"Spausdinimo tarnyba yra neprieinama. Paleiskite tarnybą šiame kompiuteryje "
+"arba prisijunkite prie kito serverio."
 
 #: ../ui/PrintersWindow.ui.h:11
 msgid "Start Service"
-msgstr "Spustiť službu"
+msgstr "Paleisti tarnybą"
 
 #: ../ui/ServerSettingsDialog.ui.h:1
 msgid "Server Settings"
-msgstr "Nastavenia servera"
+msgstr "Serverio nustatymai"
 
 #: ../ui/ServerSettingsDialog.ui.h:4
 msgid "_Show printers shared by other systems"
-msgstr "Zo_braziť tlačiarne zdieľané inými systémami"
+msgstr "Rodyti kitų _sistemų bendrinamus spausdintuvus"
 
 #: ../ui/ServerSettingsDialog.ui.h:5
 msgid "_Publish shared printers connected to this system"
-msgstr "Publikovať zdielané _tlačiarne pripojené k tomuto systému"
+msgstr "_Publikuoti prie šios sistemos prijungtus bendrinamus spausdintuvus"
 
 #: ../ui/ServerSettingsDialog.ui.h:6
 msgid "Allow printing from the _Internet"
-msgstr "Povoliť tlač z _Internetu"
+msgstr "Leisti spausdinimą iš _interneto"
 
 #: ../ui/ServerSettingsDialog.ui.h:7
 msgid "Allow _remote administration"
-msgstr "_Povoliť vzdialenú správu"
+msgstr "Leisti nuotolinį administ_ravimą"
 
 #: ../ui/ServerSettingsDialog.ui.h:8
 msgid "Allow _users to cancel any job (not just their own)"
-msgstr "Povoliť po_užívateľom zrušenie akejkoľvek úlohy (nie iba ich vlastnej)"
+msgstr "Leisti na_udotojams atšaukti bet kurį darbą (ne tik savo pačių)"
 
 #: ../ui/ServerSettingsDialog.ui.h:9
 msgid "Save _debugging information for troubleshooting"
-msgstr "Uložiť i_nformácie o ladení pre riešenie problémov"
+msgstr "Įrašyti _derinimo informaciją nesklandumų šalinimo tikslais"
 
 #: ../ui/ServerSettingsDialog.ui.h:10
 msgid "Do not preserve job history"
-msgstr "Neuchovávať históriu úloh"
+msgstr "Nesaugoti darbų istorijos"
 
 #: ../ui/ServerSettingsDialog.ui.h:11
 msgid "Preserve job history but not files"
-msgstr "Uchovávať históriu úloh, ale nie súbory"
+msgstr "Išsaugoti darbų istoriją, bet ne failus"
 
 #: ../ui/ServerSettingsDialog.ui.h:12
 msgid "Preserve job files (allow reprinting)"
-msgstr "Uchovávať súbory úloh (umožňuje opakovanú tlač)"
+msgstr "Išsaugoti darbų failus (leidžia perspausdinimą)"
 
 #: ../ui/ServerSettingsDialog.ui.h:13
 msgid "<b>Job history</b>"
-msgstr "<b>História úloh</b>"
+msgstr "<b>Darbų istorija</b>"
 
 #: ../ui/ServerSettingsDialog.ui.h:14
 msgid ""
 "Usually print servers broadcast their queues. Specify print servers below to "
 "periodically ask for queues instead."
 msgstr ""
-"Tlačové servery obvykle vysielajú svoje fronty pomocou broadscastu. Zadajte "
-"preto nižšie tlačové servery, z ktorých sa majú pravidelne prijímať fronty."
+"Dažniausiai, spausdinimo serveriai transliuoja savo eiles. Žemiau nurodykite "
+"spausdinimo serverį, kad vietoj to, periodiškai užklaustumėte apie eiles."
 
 #: ../ui/ServerSettingsDialog.ui.h:16
 msgid "Remove"
-msgstr "Odstrániť"
+msgstr "Šalinti"
 
 #: ../ui/ServerSettingsDialog.ui.h:17
 msgid "<b>Browse servers</b>"
-msgstr "<b>Prehliadať servery</b>"
+msgstr ""
 
 #: ../ui/ServerSettingsDialog.ui.h:18
 msgid "Advanced Server Settings"
-msgstr "Pokročilé nastavenia servera"
+msgstr "Išplėstiniai serverio nustatymai"
 
 #: ../ui/ServerSettingsDialog.ui.h:19
 msgid "<b>Basic Server Settings</b>"
-msgstr "<b>Základné nastavenia servera</b>"
+msgstr "<b>Pagrindiniai serverio nustatymai</b>"
 
 #: ../ui/SMBBrowseDialog.ui.h:1
 msgid "SMB Browser"
-msgstr "Prehliadač SMB"
+msgstr "SMB naršyklė"
 
 #: ../ui/statusicon_popupmenu.ui.h:1
 msgid "_Hide"
-msgstr "_Skryť"
+msgstr "_Slėpti"
 
 #: ../ui/statusicon_popupmenu.ui.h:2
 msgid "_Configure Printers"
-msgstr "_Nastaviť tlačiarne"
+msgstr "_Konfigūruoti spausdintuvus"
 
 #: ../ui/statusicon_popupmenu.ui.h:3
 msgid "_Quit"
-msgstr "_Ukončiť"
+msgstr "_Išeiti"
 
 #: ../ui/WaitWindow.ui.h:1
 msgid "Please Wait"
-msgstr "Prosím, čakajte"
+msgstr "Prašome palaukti"
 
 #: ../system-config-printer.desktop.in.h:2
 msgid "Configure printers"
-msgstr "Nastavuje tlačiarne"
+msgstr "Konfigūruoti spausdintuvus"
 
 #: ../statereason.py:109
 msgid "Toner low"
-msgstr "Málo tonera"
+msgstr "Baigiasi dažai"
 
 #: ../statereason.py:110
 #, python-format
 msgid "Printer '%s' is low on toner."
-msgstr "Tlačiareň „%s“ má málo tonera."
+msgstr "Spausdintuve \"%s\" baigiasi dažai."
 
 #: ../statereason.py:111
 msgid "Toner empty"
-msgstr "Prázdny toner"
+msgstr "Pasibaigė dažai"
 
 #: ../statereason.py:112
 #, python-format
 msgid "Printer '%s' has no toner left."
-msgstr "Tlačiareň „%s“ už nemá toner."
+msgstr "Spausdintuve \"%s\" pasibaigė dažai."
 
 #: ../statereason.py:113
 msgid "Cover open"
-msgstr "Kryt otvorený"
+msgstr "Atvertas dangtis"
 
 #: ../statereason.py:114
 #, python-format
 msgid "The cover is open on printer '%s'."
-msgstr "Kryt na tlačiarni „%s“ je otvorený."
+msgstr "Atvertas spausdintuvo \"%s\" dangtis."
 
 #: ../statereason.py:115
 msgid "Door open"
-msgstr "Dvierka otvorené"
+msgstr ""
 
 #: ../statereason.py:116
 #, python-format
 msgid "The door is open on printer '%s'."
-msgstr "Dvierka na tlačiarni „%s“ sú otvorené."
+msgstr ""
 
 #: ../statereason.py:117
 msgid "Paper low"
-msgstr "Málo papiera"
+msgstr "Baigiasi popierius"
 
 #: ../statereason.py:118
 #, python-format
 msgid "Printer '%s' is low on paper."
-msgstr "Tlačiareň „%s“ má málo papiera."
+msgstr "Spausdintuve \"%s\" baigiasi popierius."
 
 #: ../statereason.py:119
 msgid "Out of paper"
-msgstr "Minul sa papier"
+msgstr "Nėra popieriaus"
 
 #: ../statereason.py:120
 #, python-format
 msgid "Printer '%s' is out of paper."
-msgstr "Tlačiarni „%s“ došiel papier."
+msgstr "Spausdintuve \"%s\" nėra popieriaus."
 
 #: ../statereason.py:121
 msgid "Ink low"
-msgstr "Málo farby"
+msgstr "Baigiasi rašalas"
 
 #: ../statereason.py:122
 #, python-format
 msgid "Printer '%s' is low on ink."
-msgstr "Tlačiareň „%s“ má málo farby."
+msgstr "Spausdintuve \"%s\" baigiasi rašalas."
 
 #: ../statereason.py:123
 msgid "Ink empty"
-msgstr "Došla farba"
+msgstr "Pasibaigė rašalas"
 
 #: ../statereason.py:124
 #, python-format
 msgid "Printer '%s' has no ink left."
-msgstr "Tlačiareň „%s“ už nemá farbu."
+msgstr "Spausdintuve \"%s\" pasibaigė rašalas."
 
 #: ../statereason.py:125
 msgid "Printer off-line"
-msgstr "Tlačiareň odpojená"
+msgstr ""
 
 #: ../statereason.py:126
 #, python-format
 msgid "Printer '%s' is currently off-line."
-msgstr "Tlačiareň „%s“ je momentálne odpojená."
+msgstr ""
 
 #: ../statereason.py:127
 msgid "Not connected?"
-msgstr "Nepripojená?"
+msgstr ""
 
 #: ../statereason.py:128
 #, python-format
 msgid "Printer '%s' may not be connected."
-msgstr "Tlačiareň „%s“ môže byť odpojená."
+msgstr ""
 
 #: ../statereason.py:129 ../statereason.py:149
 msgid "Printer error"
-msgstr "Chyba tlačiarne"
+msgstr "Spausdintuvo klaida"
 
 #: ../statereason.py:130
 #, python-format
 msgid "There is a problem on printer '%s'."
-msgstr "Na tlačiarni sa vyskytol problém „%s“."
+msgstr "Yra problemų spausdintuve \"%s\"."
 
 #: ../statereason.py:132
 msgid "Printer configuration error"
-msgstr "Chyba nastavenia tlačiarne"
+msgstr "Spausdintuvo konfigūracijos klaida"
 
 #: ../statereason.py:133
 #, python-format
 msgid "There is a missing print filter for printer '%s'."
-msgstr "Na tlačiarni „%s“ chýba tlačový filter."
+msgstr ""
 
 #: ../statereason.py:145
 msgid "Printer report"
-msgstr "Správa tlačiarne"
+msgstr ""
 
 #: ../statereason.py:147
 msgid "Printer warning"
-msgstr "Varovanie tlačiarne"
+msgstr "Spausdintuvo įspėjimas"
 
 #: ../statereason.py:166
 #, python-format
 msgid "Printer '%s': '%s'."
-msgstr "Tlačiareň „%s“: „%s“."
+msgstr "Spausdintuvas \"%s\": \"%s\"."
 
 #: ../timedops.py:116 ../timedops.py:195
 msgid "Please wait"
-msgstr "Čakajte, prosím"
+msgstr "Prašome palaukti"
 
 #: ../timedops.py:122 ../timedops.py:202
 msgid "Gathering information"
-msgstr "Zhromažďovanie informácii"
+msgstr "Renkama informacija"
 
 #: ../ToolbarSearchEntry.py:74
 msgid "_Filter:"
-msgstr "_Filter:"
+msgstr "_Filtras:"
 
 #: ../troubleshoot/__init__.py:55
 msgid "Printing troubleshooter"
-msgstr "Riešenie problémov s tlačou"
+msgstr "Spausdinimo nesklandumų šalintojas"
 
 #: ../troubleshoot/base.py:34
 msgid ""
 "To start this tool, select System->Administration->Print Settings from the "
 "main menu."
 msgstr ""
-"Na spustenie tohoto nástroja vyberte položku Systém->Správa->Nastavenia "
-"tlače z hlavnej ponuky."
+"Norėdami paleisti šį įrankį, pagrindiniame meniu pasirinkite Sistema-"
+">Administravimas->Spausdinimo nustatymai"
 
 #: ../troubleshoot/CheckLocalServerPublishing.py:28
 msgid "Server Not Exporting Printers"
-msgstr "Server nezverejňuje tlačiarne"
+msgstr "Serveris neeksportuoja spausdintuvų"
 
 #: ../troubleshoot/CheckLocalServerPublishing.py:29
 msgid ""
 "Although one or more printers are marked as being shared, this print server "
 "is not exporting shared printers to the network."
 msgstr ""
-"Hoci jedna alebo viac tlačiarní sú označené ako zdieľané, tlačový server "
-"nezverejňuje zdieľané tlačiarne po sieti."
+"Nors vienas ar daugiau spausdintuvų yra pažymėti kaip bendrinami, tačiau šis "
+"spausdinimo serveris neeksportuoja bendrinamų spausdintuvų į tinklą."
 
 #: ../troubleshoot/CheckLocalServerPublishing.py:33
 msgid ""
 "Enable the 'Publish shared printers connected to this system' option in the "
 "server settings using the printing administration tool."
 msgstr ""
-"Aktivujte voľbu 'Publikovať zdieľané tlačiarne pripojené k tomuto systému' v "
-"nastavení servera pomocou nástroja správy tlače."
+"Naudodamiesi spausdinimo administravimo įrankiu, įjunkite parametrą "
+"\"Publikuoti prie šios sistemos prijungtus bendrinamus spausdintuvus\""
 
 #: ../troubleshoot/CheckPPDSanity.py:48 ../applet.py:180
 msgid "Install"
-msgstr "Inštalovať"
+msgstr ""
 
 #: ../troubleshoot/CheckPPDSanity.py:100
 msgid "Invalid PPD File"
-msgstr "Neplatný PPD súbor"
+msgstr "Neteisingas PPD failas"
 
 #: ../troubleshoot/CheckPPDSanity.py:111
 #, python-format
 msgid ""
 "The PPD file for printer '%s' does not conform to the specification.  "
 "Possible reason follows:"
-msgstr "PPD súbor pre tlačiareň „%s“ neodpovedá požiadavkám.  Možné dôvody sú:"
+msgstr ""
+"Spausdintuvui \"%s\" skirtas PPD failas neatitinka specifikacijų. Galimos "
+"šios priežastys:"
 
 #. Perhaps cupstestppd is not in the path.
 #: ../troubleshoot/CheckPPDSanity.py:117
 #, python-format
 msgid "There is a problem with the PPD file for printer '%s'."
-msgstr "Na tlačiarni „%s“ sa vyskytol problém so súborom PPD."
+msgstr "Yra problemų su PPD failu, skirtu spausdintuvui \"%s\"."
 
 #: ../troubleshoot/CheckPPDSanity.py:127
 msgid "Missing Printer Driver"
-msgstr "Chýbajúci ovládač tlačiarne"
+msgstr ""
 
 #: ../troubleshoot/CheckPPDSanity.py:141
 #, python-format
 msgid ""
 "Printer '%s' requires the '%s' program but it is not currently installed."
 msgstr ""
-"Tlačiareň „%s“ vyžaduje program „%s“, ktorý nie je momentálne nainštalovaný."
+"Spausdintuvas \"%s\" reikalauja programos \"%s\", tačiau ji šiuo metu nėra "
+"įdiegta."
 
 #: ../troubleshoot/ChooseNetworkPrinter.py:31
 msgid "Choose Network Printer"
-msgstr "Vyberte sieťovú tlačiareň"
+msgstr ""
 
 #: ../troubleshoot/ChooseNetworkPrinter.py:32
 msgid ""
 "Please select the network printer you are trying to use from the list below. "
 "If it does not appear in the list, select 'Not listed'."
 msgstr ""
-"Prosím vyberte sieťovú tlačiareň, zo zoznamu nižšie. Ak nie je v zozname, "
-"vyberte 'Nie je uvedená'."
+"Prašome, iš žemiau pateikto sąrašo, pasirinkti tinklo spausdintuvą, kurį "
+"bandote naudoti. Jeigu jo sąraše nėra, pasirinkite \"Neišvardytas\"."
 
 #: ../troubleshoot/ChooseNetworkPrinter.py:41
 #: ../troubleshoot/ChoosePrinter.py:47 ../troubleshoot/DeviceListed.py:45
 msgid "Information"
-msgstr "Informácie"
+msgstr "Informacija"
 
 #: ../troubleshoot/ChooseNetworkPrinter.py:75
 #: ../troubleshoot/ChoosePrinter.py:71 ../troubleshoot/DeviceListed.py:77
 msgid "Not listed"
-msgstr "Nie je uvedená"
+msgstr "Neišvardytas"
 
 #: ../troubleshoot/ChoosePrinter.py:37
 msgid "Choose Printer"
-msgstr "Vyberte tlačiareň"
+msgstr "Pasirinkite spausdintuvą"
 
 #: ../troubleshoot/ChoosePrinter.py:38
 msgid ""
 "Please select the printer you are trying to use from the list below. If it "
 "does not appear in the list, select 'Not listed'."
 msgstr ""
-"Prosím vyberte tlačiareň, ktorú chcete použiť, zo zoznamu nižšie. Ak nie je "
-"v zozname, vyberte 'Nie je uvedená'."
+"Prašome, iš žemiau pateikto sąrašo, pasirinkti spausdintuvą, kurį bandote "
+"naudoti. Jeigu jo sąraše nėra, pasirinkite \"Neišvardytas\"."
 
 #: ../troubleshoot/DeviceListed.py:37
 msgid "Choose Device"
-msgstr "Vyberte zariadenie"
+msgstr "Pasirinkite įrenginį"
 
 #: ../troubleshoot/DeviceListed.py:38
 msgid ""
 "Please select the device you want to use from the list below. If it does not "
 "appear in the list, select 'Not listed'."
 msgstr ""
-"Prosím vyberte zariadenie, ktoré chcete použiť, zo zoznamu nižšie. Ak nie je "
-"v zozname, vyberte 'Nie je uvedená'."
+"Prašome, iš žemiau pateikto sąrašo, pasirinkti įrenginį, kurį norite "
+"naudoti. Jeigu jo sąraše nėra, pasirinkite \"Neišvardytas\"."
 
 #: ../troubleshoot/ErrorLogCheckpoint.py:40
 msgid "Debugging"
-msgstr "Ladenie"
+msgstr "Derinimas"
 
 #: ../troubleshoot/ErrorLogCheckpoint.py:41
 msgid ""
 "This step will enable debugging output from the CUPS scheduler.  This may "
 "cause the scheduler to restart.  Click the button below to enable debugging."
 msgstr ""
-"Tento krok povolí ladiaci výstup z plánovača CUPS. To môže spôsobiť reštart "
-"plánovača. Kliknite na tlačidlo nižšie pre povolenie ladenia."
+"Šis žingsnis įjungs derinimo išvestį iš CUPS planuoklės. Tai gali priversti "
+"planuoklę pasileisti iš naujo. Spustelėkite žemiau esantį mygtuką, kad "
+"įjungtumėte derinimą."
 
 #: ../troubleshoot/ErrorLogCheckpoint.py:45
 msgid "Enable Debugging"
-msgstr "Povoliť ladenie"
+msgstr "Įjungti derinimą"
 
 #: ../troubleshoot/ErrorLogCheckpoint.py:236
 msgid "Debug logging enabled."
-msgstr "Ladiace zápisy povolené."
+msgstr "Derinimo registravimas įjungtas."
 
 #: ../troubleshoot/ErrorLogCheckpoint.py:238
 msgid "Debug logging was already enabled."
-msgstr "Ladiace zápisy už boli povolené."
+msgstr "Derinimo registravimas jau buvo įjungtas."
 
 #: ../troubleshoot/ErrorLogFetch.py:41
 msgid "Retrieve Journal Entries"
-msgstr "Získať položky žurnálu"
+msgstr ""
 
 #: ../troubleshoot/ErrorLogFetch.py:42
 msgid ""
 "No system journal entries were found. This may be because you are not an "
 "administrator. To fetch journal entries please run this command:"
 msgstr ""
-"Nenašli sa žiadne položky systémového žurnálu. Môže to byť kvôli tomu, že "
-"nie ste administrátor. Na získanie položiek žurnálu, prosím, spustite tento "
-"príkaz:"
 
 #: ../troubleshoot/ErrorLogParse.py:32
 msgid "Error log messages"
-msgstr "Výpis chybových správ"
+msgstr ""
 
 #: ../troubleshoot/ErrorLogParse.py:33
 msgid "There are messages in the error log."
-msgstr "Chybový výpis obsahuje správy."
+msgstr "Klaidų žurnale yra pranešimų."
 
 #: ../troubleshoot/Locale.py:31
 msgid "Incorrect Page Size"
-msgstr "Neplatná veľkosť stránky"
+msgstr "Neteisingas puslapio dydis"
 
 #: ../troubleshoot/Locale.py:32
 msgid ""
 "The page size for the print job was not the printer's default page size.  If "
 "this is not intentional it may cause alignment problems."
 msgstr ""
-"Veľkosť stránky pre tlačovú úlohu neodpovedala predvolenému nastaveniu "
-"tlačiarne. Môže to spôsobiť problémy so zarovnaním, ak to nebol zámer."
+"Šio spausdinimo darbo puslapio dydis nebuvo toks kaip spausdintuvo "
+"numatytasis puslapio dydis. Jei tai buvo padaryta netyčia, tai gali sukelti "
+"lygiavimo problemų."
 
 #: ../troubleshoot/Locale.py:44
 msgid "Print job page size:"
-msgstr "Veľkosť stránky pre tlačovú úlohu:"
+msgstr "Spausdinimo darbo puslapio dydis:"
 
 #: ../troubleshoot/Locale.py:48
 msgid "Printer page size:"
-msgstr "Veľkosť stránky pre tlačiareň:"
+msgstr "Spausdintuvo puslapio dydis:"
 
 #: ../troubleshoot/LocalOrRemote.py:26
 msgid "Printer Location"
-msgstr "Umiestnenie tlačiarne"
+msgstr "Spausdintuvo vieta"
 
 #: ../troubleshoot/LocalOrRemote.py:27
 msgid "Is the printer connected to this computer or available on the network?"
-msgstr "Je tlačiareň pripojená k tomuto počítaču alebo je dostupná cez sieť?"
+msgstr ""
+"Spausdintuvas yra prijungtas prie šio kompiuterio ar yra prieinamas tinkle?"
 
 #: ../troubleshoot/LocalOrRemote.py:29
 msgid "Locally connected printer"
-msgstr "Lokálna tlačiareň"
+msgstr "Vietoje prijungtas spausdintuvas"
 
 #: ../troubleshoot/NetworkCUPSPrinterShared.py:28
 msgid "Queue Not Shared"
-msgstr "Fronta nie je zdieľaná"
+msgstr "Eilė nebendrinama"
 
 #: ../troubleshoot/NetworkCUPSPrinterShared.py:29
 msgid "The CUPS printer on the server is not shared."
-msgstr "Tlačiareň CUPS na tomto serveri nie je zdieľaná."
+msgstr "CUPS spausdintuvas serveryje nėra bendrinamas."
 
 #: ../troubleshoot/PrinterStateReasons.py:34
 msgid "Status Messages"
-msgstr "Stavová správa"
+msgstr "Būsenos pranešimai"
 
 #: ../troubleshoot/PrinterStateReasons.py:35
 msgid "There are status messages associated with this queue."
-msgstr "S touto frontou sú spojené stavové správy."
+msgstr "Yra su šia eile susijusių būsenos pranešimų."
 
 #: ../troubleshoot/PrinterStateReasons.py:65
 #, python-format
 msgid "The printer's state message is: '%s'."
-msgstr "Správa o stave tlačiarne je: „%s“."
+msgstr "Spausdintuvo būsenos pranešimas yra: \"%s\"."
 
 #: ../troubleshoot/PrinterStateReasons.py:90
 msgid "Errors are listed below:"
-msgstr "Chyby sú vypísané nižšie:"
+msgstr "Apačioje yra išvardintos klaidos:"
 
 #: ../troubleshoot/PrinterStateReasons.py:95
 msgid "Warnings are listed below:"
-msgstr "Varovania sú vypísané nižšie:"
+msgstr "Apačioje yra išvardinti įspėjimai:"
 
 #: ../troubleshoot/PrintTestPage.py:64
 msgid "Test Page"
-msgstr "Skúšobná stránka"
+msgstr "Bandomasis puslapis"
 
 #: ../troubleshoot/PrintTestPage.py:65
 msgid ""
 "Now print a test page.  If you are having problems printing a specific "
 "document, print that document now and mark the print job below."
 msgstr ""
-"Teraz vytlačte skúšobnú stránku. Ak máte problémy s tlačou určitého "
-"dokumentu, vytlačte tento dokument teraz a označte tlačovú úlohu nižšie."
+"Dabar atspausdinkite bandomąjį puslapį. Jeigu jums kyla problemų, "
+"spausdinant tam tikrą dokumentą, tuomet dabar, spausdinkite šį dokumentą ir "
+"žemiau pažymėkite spausdinimo darbą."
 
 #: ../troubleshoot/PrintTestPage.py:77
 msgid "Cancel All Jobs"
-msgstr "Zrušiť všetky úlohy"
+msgstr "Atšaukti visus darbus"
 
 #: ../troubleshoot/PrintTestPage.py:83
 msgid "Test"
-msgstr "Test"
+msgstr ""
 
 #: ../troubleshoot/PrintTestPage.py:113
 msgid "Did the marked print jobs print correctly?"
-msgstr "Vytlačili sa tlačové úlohy v poriadku?"
+msgstr "Ar pažymėti spausdinimo darbai buvo atspausdinti teisingai?"
 
 #: ../troubleshoot/PrintTestPage.py:120
 msgid "Yes"
-msgstr "Áno"
+msgstr "Taip"
 
 #: ../troubleshoot/PrintTestPage.py:121
 msgid "No"
-msgstr "Nie"
+msgstr "Ne"
 
 #: ../troubleshoot/PrintTestPage.py:144
 #, python-format
 msgid "Remember to load paper of type '%s' into the printer first."
-msgstr "Nezabudnite najskôr vložiť typ papiera „%s“ do tlačiarne."
+msgstr ""
 
 #: ../troubleshoot/PrintTestPage.py:430
 msgid "Error submitting test page"
-msgstr "Chyba pri odosielaní skúšobnej stránky"
+msgstr "Klaida, pateikiant bandomąjį puslapį"
 
 #: ../troubleshoot/QueueNotEnabled.py:58
 #: ../troubleshoot/QueueRejectingJobs.py:68
 #, python-format
 msgid "The reason given is: '%s'."
-msgstr "Daný dôvod je: „%s“."
+msgstr "Nurodyta priežastis yra: \"%s\"."
 
 #: ../troubleshoot/QueueNotEnabled.py:60
 msgid "This may be due to the printer being disconnected or switched off."
-msgstr "To môže byť z dôvodu vypnutej alebo odpojenej tlačiarne."
+msgstr "Tai gali būti dėl to, kad spausdintuvas yra atjungtas arba išjungtas."
 
 #: ../troubleshoot/QueueNotEnabled.py:64
 msgid "Queue Not Enabled"
-msgstr "Fronta nie je povolená"
+msgstr "Eilė neįjungta"
 
 #: ../troubleshoot/QueueNotEnabled.py:65
 #, python-format
 msgid "The queue '%s' is not enabled."
-msgstr "Fronta „%s“ nie je povolená."
+msgstr "Eilė \"%s\" nėra įjungta."
 
 #: ../troubleshoot/QueueNotEnabled.py:73
 msgid ""
 "To enable it, select the 'Enabled' checkbox in the 'Policies' tab for the "
 "printer in the printer administration tool."
 msgstr ""
-"Na jej povolenie, zaškrtnite políčko 'Povolené' na panely 'Pravidlá' pre "
-"tlačiareň v nastavení servera."
 
 #: ../troubleshoot/QueueRejectingJobs.py:33
 msgid "Queue Rejecting Jobs"
-msgstr "Fronta odmietnutých úloh"
+msgstr "Eilė atmeta darbus"
 
 #: ../troubleshoot/QueueRejectingJobs.py:65
 #, python-format
 msgid "The queue '%s' is rejecting jobs."
-msgstr "Fronta „%s“ odmieta úlohy."
+msgstr "Eilė \"%s\" atmeta darbus."
 
 #: ../troubleshoot/QueueRejectingJobs.py:72
 msgid ""
 "To make the queue accept jobs, select the 'Accepting Jobs' checkbox in the "
 "'Policies' tab for the printer in the printer administration tool."
 msgstr ""
-"Aby fronta prijímala úlohy, vyberte 'Prijíma úlohy' v panely 'Pravidlá' pre "
-"tlačiareň v nastavení servera."
+"Tam, kad eilė priimtų darbus, spausdintuvo administravimo įrankyje, "
+"spausdintuvo kortelėje \"Politikos\" pažymėkite varnele \"Priima darbus\"."
 
 #: ../troubleshoot/RemoteAddress.py:28
 msgid "Remote Address"
-msgstr "Vzdialená adresa"
+msgstr "Nuotolinis adresas"
 
 #: ../troubleshoot/RemoteAddress.py:29
 msgid ""
 "Please enter as many details as you can about the network address of this "
 "printer."
 msgstr ""
-"Prosím zadajte čo najviac podrobností o sieťovej adrese tejto tlačiarne."
+"Prašome apie šio spausdintuvo tinklo adresą įrašyti kaip įmanoma daugiau "
+"informacijos."
 
 #: ../troubleshoot/RemoteAddress.py:37
 msgid "Server name:"
-msgstr "Názov servera:"
+msgstr "Serverio pavadinimas:"
 
 #: ../troubleshoot/RemoteAddress.py:44
 msgid "Server IP address:"
-msgstr "IP adresa servera:"
+msgstr "Serverio IP adresas:"
 
 #: ../troubleshoot/SchedulerNotRunning.py:28
 msgid "CUPS Service Stopped"
-msgstr "Služba CUPS zastavená"
+msgstr "CUPS tarnyba sustabdyta"
 
 #: ../troubleshoot/SchedulerNotRunning.py:29
 msgid ""
@@ -3873,16 +3840,14 @@ msgid ""
 "choose System->Administration->Services from the main menu and look for the "
 "'cups' service."
 msgstr ""
-"Zdá sa, že tlačový spooler CUPS nebeží. Pre opravu zvoľte Systém -> "
-"Administrácia -> Služby v hlavnom menu a spustite službu 'cups'."
 
 #: ../troubleshoot/ServerFirewalled.py:28
 msgid "Check Server Firewall"
-msgstr "Skontrolovať bránu firewall na serveri"
+msgstr ""
 
 #: ../troubleshoot/ServerFirewalled.py:29
 msgid "It is not possible to connect to the server."
-msgstr "Nedá sa pripojiť na server."
+msgstr "Neįmanoma prisijungti prie serverio."
 
 #: ../troubleshoot/ServerFirewalled.py:44
 #, python-format
@@ -3890,12 +3855,12 @@ msgid ""
 "Please check to see if a firewall or router configuration is blocking TCP "
 "port %d on server '%s'."
 msgstr ""
-"Skontrolujte, prosím, či konfigurácia brány firewallu alebo smerovača "
-"neblokuje TCP port %d na serveri „%s“."
+"Prašome patikrinti ar užkarda arba maršruto parinktuvo konfigūracija "
+"neblokuoja TCP prievado %d, serveryje \"%s\"."
 
 #: ../troubleshoot/Shrug.py:28
 msgid "Sorry!"
-msgstr "Prepáčte!"
+msgstr "Atleiskite!"
 
 #: ../troubleshoot/Shrug.py:29
 msgid ""
@@ -3903,119 +3868,117 @@ msgid ""
 "collected together with other useful information.  If you would like to "
 "report a bug, please include this information."
 msgstr ""
-"Neexistuje žiadne jednoduché riešenie tohto problému. Vaše odpovede spolu s "
-"ďalšími užitočnými informáciami môžu byť použité pre nahlásenie chyby."
+"Šiai problemai nėra jokio akivaizdaus sprendimo. Jūsų atsakymai buvo "
+"surinkti kartu su kita naudinga informacija. Jeigu norėsite pranešti apie "
+"klaidą, prašome pridėti ir šią informaciją."
 
 #: ../troubleshoot/Shrug.py:36
 msgid "Diagnostic Output (Advanced)"
-msgstr "Diagnostický výstup (Pokročilý)"
+msgstr "Diagnostikos išvestis (Išplėstinė)"
 
 #: ../troubleshoot/Shrug.py:93
 msgid "Error saving file"
-msgstr "Chyba ukladania súboru"
+msgstr "Klaida, įrašant failą"
 
 #: ../troubleshoot/Shrug.py:94
 msgid "There was an error saving the file:"
-msgstr "Vyskytla sa chyba pri ukladaní súboru:"
+msgstr "Įrašant failą, įvyko klaida:"
 
 #: ../troubleshoot/Welcome.py:45
 msgid "Trouble-shooting Printing"
-msgstr "Riešenie problému s tlačou"
+msgstr "Spausdinimo nesklandumų šalinimas"
 
 #: ../troubleshoot/Welcome.py:47
 msgid ""
 "The next few screens will contain some questions about your problem with "
 "printing. Based on your answers a solution may be suggested."
 msgstr ""
-"Naledujúce stránky obsahujú niekoľko otázok o vašom probléme s tlačou. Na "
-"základe vašich odpovedí bude navrhnuté riešenie."
+"Tolimesniuose keliuose ekranuose bus kai kurių klausimų apie jūsų "
+"spausdinimo problemą. Pagal jūsų atsakymus jums gali būti pasiūlytas "
+"sprendimas."
 
 #: ../troubleshoot/Welcome.py:51
 msgid "Click 'Forward' to begin."
-msgstr "Začnite kliknutím na 'Ďalej'."
+msgstr "Norėdami pradėti, spauskite \"Pirmyn\"."
 
 #: ../applet.py:84
 msgid "Configuring new printer"
-msgstr "Nastavuje sa nová tlačiareň"
+msgstr "Konfigūruojamas naujas spausdintuvas"
 
 #: ../applet.py:85
 msgid "Please wait..."
-msgstr "Prosím, čakajte..."
+msgstr "Prašome palaukti..."
 
 #. name is a URI, no queue was generated, because no suitable
 #. driver was found
 #: ../applet.py:114 ../applet.py:167
 msgid "Missing printer driver"
-msgstr "Chýba ovládač tlačiarne"
+msgstr ""
 
 #: ../applet.py:121
 #, python-format
 msgid "No printer driver for %s."
-msgstr "Žiadny ovládač tlačiarne pre %s."
+msgstr "Nėra spausdintuvo tvarkyklės, skirtos %s."
 
 #: ../applet.py:123
 msgid "No driver for this printer."
-msgstr "Žiadny ovládač pre túto tlačiareň."
+msgstr "Šiam spausdintuvui nėra tvarkyklės."
 
 #: ../applet.py:165
 msgid "Printer added"
-msgstr "Tlačiareň bola pridaná"
+msgstr "Spausdintuvas pridėtas"
 
 #: ../applet.py:171
 msgid "Install printer driver"
-msgstr "Inštalovať ovládač tlačiarne"
+msgstr ""
 
 #: ../applet.py:172
 #, python-format
 msgid "`%s' requires driver installation: %s."
-msgstr "Tlačiareň „%s“ vyžaduje inštaláciu ovládača: %s."
+msgstr "\"%s\" reikalauja tvarkyklės įdiegimo: %s."
 
 #: ../applet.py:196
 #, python-format
 msgid "`%s' is ready for printing."
-msgstr "Tlačiareň „%s“ je pripravená na tlač."
+msgstr "\"%s\" yra paruoštas spausdinimui."
 
 #: ../applet.py:200 ../applet.py:212
 msgid "Print test page"
-msgstr "Vytlačiť skúšobnú stránku"
+msgstr "Spausdinti bandomąjį puslapį"
 
 #: ../applet.py:203
 msgid "Configure"
-msgstr "Nastaviť"
+msgstr "Konfigūruoti"
 
 #: ../applet.py:207
 #, python-format
 msgid "`%s' has been added, using the `%s' driver."
-msgstr "„%s“ bola pridaná, používa ovládač „%s“."
+msgstr "\"%s\" buvo pridėtas, naudojant \"%s\" tvarkyklę."
 
 #: ../applet.py:215
 msgid "Find driver"
-msgstr "Nájsť ovládač"
+msgstr "Rasti tvarkyklę"
 
 #: ../print-applet.desktop.in.h:1
 msgid "Print Queue Applet"
-msgstr "Applet tlačovej fronty"
+msgstr ""
 
 #: ../print-applet.desktop.in.h:2
 msgid "System tray icon for managing print jobs"
-msgstr "Ikona na paneli úloh pre správu tlačových úloh"
+msgstr ""
 
 #: ../system-config-printer.appdata.xml.in.h:2
 msgid "Configure printer queues"
-msgstr "Nastavuje fronty tlačiarní"
+msgstr ""
 
 #: ../system-config-printer.appdata.xml.in.h:3
 msgid ""
 "With system-config-printer you can add, edit and delete printer queues. It "
 "allows you to choose the connection method and the printer driver."
 msgstr ""
-"S programom system-config-printer môžete pridávať, upravovať a odstraňovať "
-"tlačové fronty. Umožňuje vám zvoliť spôsob pripojenia a ovládač tlačiarne."
 
 #: ../system-config-printer.appdata.xml.in.h:4
 msgid ""
 "For each queue, you can adjust the default page size and other driver "
 "options, as well as seeing ink/toner levels and status messages."
 msgstr ""
-"Pre každú frontu môžete upraviť predvolenú veľkosť stránky a iné voľby "
-"ovládača, ako zobrazenie úrovní a stavových správ atramentu alebo toneru."

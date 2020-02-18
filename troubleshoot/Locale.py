@@ -33,24 +33,22 @@ class Locale(Question):
                                     "not the printer's default page size.  "
                                     "If this is not intentional it may cause "
                                     "alignment problems."))
-        table = Gtk.Table (n_rows=2, n_columns=2)
-        table.set_row_spacings (6)
-        table.set_col_spacings (6)
-        page.pack_start (table, False, False, 0)
+        grid = Gtk.Grid()
+        grid.set_row_spacing (6)
+        grid.set_column_spacing (6)
+        page.pack_start (grid, False, False, 0)
         self.printer_page_size = Gtk.Label ()
         self.printer_page_size.set_alignment (0, 0)
         self.job_page_size = Gtk.Label ()
         self.job_page_size.set_alignment (0, 0)
         label = Gtk.Label(label=_("Print job page size:"))
         label.set_alignment (0, 0)
-        table.attach (label, 0, 1, 0, 1, xoptions=Gtk.AttachOptions.FILL, yoptions=0)
-        table.attach (self.job_page_size, 1, 2, 0, 1,
-                      xoptions=Gtk.AttachOptions.FILL, yoptions=0)
+        grid.attach (label, 0, 0, 1, 1)
+        grid.attach (self.job_page_size, 1, 0, 1, 1)
         label = Gtk.Label(label=_("Printer page size:"))
         label.set_alignment (0, 0)
-        table.attach (label, 0, 1, 1, 2, xoptions=Gtk.AttachOptions.FILL, yoptions=0)
-        table.attach (self.printer_page_size, 1, 2, 1, 2,
-                      xoptions=Gtk.AttachOptions.FILL, yoptions=0)
+        grid.attach (label, 0, 1, 1, 1)
+        grid.attach (self.printer_page_size, 1, 1, 1, 1)
         troubleshooter.new_page (page, self)
 
     def display (self):
@@ -69,14 +67,14 @@ class Locale(Question):
                 except IOError:
                     continue
 
-            if conf != None:
+            if conf is not None:
                 for line in conf:
                     if line.startswith("LC_PAPER="):
                         system_lang = line[9:].strip ('\n"')
-                    elif system_lang == None and line.startswith ("LANG="):
+                    elif system_lang is None and line.startswith ("LANG="):
                         system_lang = line[5:].strip ('\n"')
 
-                if system_lang != None:
+                if system_lang is not None:
                     dot = system_lang.find ('.')
                     if dot != -1:
                         system_lang = system_lang[:dot]
@@ -106,7 +104,7 @@ class Locale(Question):
             job_status = []
 
         self.answers['printer_page_size'] = printer_page_size
-        if printer_page_size != None:
+        if printer_page_size is not None:
             job_page_size = None
             for (test, jobid, printer, doc, status, attrs) in job_status:
                 if test:

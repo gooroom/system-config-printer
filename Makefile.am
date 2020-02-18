@@ -52,6 +52,11 @@ cupshelpers/config.py: cupshelpers/config.py.in Makefile
 	  -e "s|\@cupsserverbindir\@|$(cupsserverbindir)|" \
 	  $< > $@
 
+dbus/org.fedoraproject.Config.Printing.service: dbus/org.fedoraproject.Config.Printing.service.in $(top_builddir)/config.status Makefile
+	sed \
+	-e "s|\@bindir\@|$(bindir)|" \
+	$< >$@
+
 # Use distutils to build the module.
 all-local: .stamp-distutils-in-builddir config.py cupshelpers/config.py
 	$(PYTHON) setup.py build
@@ -174,7 +179,7 @@ cupshelpersdir=$(sysconfdir)/cupshelpers
 cupshelpers_DATA=\
 	xml/preferreddrivers.xml
 
-bin_SCRIPTS=					\
+nodist_bin_SCRIPTS=					\
 	system-config-printer			\
 	install-printerdriver			\
 	system-config-printer-applet		\
@@ -217,7 +222,7 @@ dbusinterfaces_DATA =				\
 	dbus/org.fedoraproject.Config.Printing.xml
 dbusinterfacesdir = $(datadir)/dbus-1/interfaces/
 
-dbusservices_DATA =				\
+nodist_dbusservices_DATA =				\
 	dbus/org.fedoraproject.Config.Printing.service
 dbusservicesdir = $(datadir)/dbus-1/services/
 
@@ -258,7 +263,7 @@ desktop_in_files = $(desktop_DATA:.desktop=.desktop.in)
 
 @INTLTOOL_XML_RULE@
 
-appdatadir = $(datadir)/appdata
+appdatadir = $(datadir)/metainfo
 appdata_in_files = system-config-printer.appdata.xml.in
 appdata_DATA = $(appdata_in_files:.xml.in=.xml)
 
@@ -286,6 +291,7 @@ EXTRA_DIST=\
 	udev/udev-add-printer \
 	udev/70-printers.rules \
 	udev/configure-printer@.service.in \
+	dbus/org.fedoraproject.Config.Printing.service.in \
 	xml/preferreddrivers.xml \
 	test_PhysicalDevice.py \
 	$(appdata_in_files)
@@ -376,14 +382,6 @@ help:
 	@echo " run-dbus-service   Run scp-dbus-service with local UI files"
 	@echo " test-xmldriverprefs  Show preferred driver order for all models"
 
-test-ppd-module.sh:	FORCE
-	echo "#!$(PYTHON)" > "$@"
-	echo "import os, sys; sys.path.append ('$(top_srcdir)')" >> "$@"
-	echo "os.environ['top_srcdir'] = '$(top_srcdir)'" >> "$@"
-	echo "from cupshelpers.ppds import _self_test" >> "$@"
-	echo "_self_test(sys.argv)" >> "$@"
-	chmod 755 "$@"
-
 test-xml-validity.sh:	FORCE
 	echo "#!/bin/bash" > "$@"
 	echo "set -e" >> "$@"
@@ -394,12 +392,12 @@ test-xml-validity.sh:	FORCE
 	echo "    $(top_srcdir)/xml/preferreddrivers.xml" >> "$@"
 	chmod 755 "$@"
 
-nosetests.sh:	FORCE
+py.test.sh:	FORCE
 	echo "#!/bin/bash" > "$@"
-	echo "nosetests-3.4" >> "$@"
+	echo "exec ${PYTEST-py.test}" >> "$@"
 	chmod 755 "$@"
 
-TESTS = test-xml-validity.sh test-ppd-module.sh nosetests.sh
+TESTS = test-xml-validity.sh py.test.sh
 
 CLEANFILES=			\
 	$(systemd_CLEANFILES)	\
@@ -409,8 +407,9 @@ DISTCLEANFILES=*.pyc *.pyo *~ *.bak \
 	troubleshoot/*.pyc troubleshoot/*.pyo troubleshoot/*~ \
 	intltool-extract intltool-merge intltool-update \
 	*.desktop man/*.1 \
-	test-ppd-module.sh test-xml-validity.sh nosetests.sh pickled-ppds \
-	config.py cupshelpers/config.py zanata.xml
+	test-ppd-module.sh test-xml-validity.sh py.test.sh pickled-ppds \
+	config.py cupshelpers/config.py zanata.xml \
+	dbus/org.fedoraproject.Config.Printing.service
 
 distclean-local:
 	rm -rf html
