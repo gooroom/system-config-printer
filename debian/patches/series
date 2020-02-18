@@ -5,3 +5,5 @@
 0005-Require-proper-version-of-GDK-and-GTK-in-scp-dbus-se.patch
 0006-Set-programe-name-for-scp-dbus-service-as-well.patch
 define-classes-for-Secret-only-when-libsecret-is-installe.patch
+# gooroom
+gooroom-fixed-CUPS-test-printing-button-text.patch
