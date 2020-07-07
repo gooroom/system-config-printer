@@ -1,3 +1,12 @@
+system-config-printer (1.5.11-4+grm2u2) unstable; urgency=medium
+
+  [ subin.kim ]
+  * [db3b97e2] [Bug:2447]Added strings for translations
+
+  [ Gooroom Autobuilder ]
+
+ -- Gooroom Autobuilder <jenkins@gooroom.kr>  Tue, 07 Jul 2020 17:19:52 +0900
+
 system-config-printer (1.5.11-4+grm2u1) unstable; urgency=medium
 
   [ JeongHaeRyong ]
