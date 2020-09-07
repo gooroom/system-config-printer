@@ -8,3 +8,4 @@ define-classes-for-Secret-only-when-libsecret-is-installe.patch
 # gooroom
 gooroom-fixed-CUPS-test-printing-button-text.patch
 gooroom-added-str-for-translations.patch
+gooroom-added-str-for-pdf-translations.patch

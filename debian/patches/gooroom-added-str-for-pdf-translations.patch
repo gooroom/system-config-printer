@@ -1,0 +1,38 @@
+diff --git a/ppdippstr.py b/ppdippstr.py
+index fdbf581..0e391f0 100644
+--- a/ppdippstr.py
++++ b/ppdippstr.py
+@@ -227,8 +227,32 @@ def init ():
+             "Two-sided": _("Two-sided"),
+             "Long Edge": _("Long Edge"),
+             "Short Edge": _("Short Edge"),
+-      
++
++            #PDF
++            "form": _("form"),
++            "Error Policy": _("Error Policy"),
++            "Envelope #10": _("Envelope #10"),
++            "Output Resolution": _("Output Resolution"),
++            "PDF version": _("PDF version"),
++            "Truncate output filename to": _("Truncate output filename to"),
++            "8 Characters": _("8 Characters"),
++            "16 Characters": _("16 Characters"),
++            "32 Characters": _("32 Characters"),
++            "64 Characters": _("64 Characters"),
++            "Label outputfiles": _("Label outputfiles"),
++            "Label only untitled documents with job-id": _("Label only untitled documents with job-id"),
++            "Prefix all documents with job-id": _("Prefix all documents with job-id"),
++            "Suffix all documents with job-id": _("Suffix all documents with job-id"),
++            "Prefer title from": _("Prefer title from"),
++            "Title in postscript document": _("Title in postscript document"),
++            "Title passed via command-line1": _("Title passed via command-line1"),
++            "Log level": _("Log level"),
++            "Only errors": _("Only errors"),
++            "Error and status messages": _("Error and status messages"),
++            "Debug, error and status messages": _("Debug, error and status messages"),
++
+             #Ricoh
++            "Options Installed": _("Options Installed"),
+             "Finisher": _("Finisher"),
+             "Option Tray": _("Option Tray"),
+             "External Tray": _("External Tray"),
