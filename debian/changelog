@@ -1,3 +1,12 @@
+system-config-printer (1.5.11-4+grm2u3) unstable; urgency=medium
+
+  [ subin.kim ]
+  * [d5af8ada] [Bug:2447]Added strings for PDF cups translations
+
+  [ Gooroom Autobuilder ]
+
+ -- Gooroom Autobuilder <jenkins@gooroom.kr>  Mon, 02 Nov 2020 16:24:28 +0900
+
 system-config-printer (1.5.11-4+grm2u2) unstable; urgency=medium
 
   [ subin.kim ]
