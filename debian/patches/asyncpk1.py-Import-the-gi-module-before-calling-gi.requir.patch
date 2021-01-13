@@ -1,0 +1,24 @@
+From: Laurent Bigonville <bigon@bigon.be>
+Date: Wed, 13 Jan 2021 10:46:36 +0100
+Subject: asyncpk1.py: Import the gi module before calling gi.require_version
+
+This reverts aa6500531326c4895f70f238a75f4537fe3532db
+
+Properly fix #179
+---
+ asyncpk1.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/asyncpk1.py b/asyncpk1.py
+index 156b5f4..6b75811 100644
+--- a/asyncpk1.py
++++ b/asyncpk1.py
+@@ -22,6 +22,8 @@ import cups
+ import dbus
+ from functools import reduce
+ try:
++    import gi
++    gi.require_version('Gdk', '3.0')
+     from gi.repository import Gdk
+     gi.require_version('Gtk', '3.0')
+     from gi.repository import Gtk
