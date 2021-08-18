@@ -1,3 +1,0 @@
-version=4
-https://github.com/zdohnal/system-config-printer/releases \
-        .*/@PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@

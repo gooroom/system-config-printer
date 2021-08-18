@@ -23,6 +23,7 @@ import dbus
 from functools import reduce
 try:
     from gi.repository import Gdk
+    gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk
 except:
     pass
