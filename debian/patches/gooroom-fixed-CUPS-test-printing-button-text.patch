@@ -1,0 +1,26 @@
+From 46df1fca2d416a8e675b72323e5adcf3b685be65 Mon Sep 17 00:00:00 2001
+From: JeongHaeRyong <jeong89@gooroom.kr>
+Date: Tue, 18 Feb 2020 18:07:19 +0900
+Subject: [PATCH] Fixed CUPS test printing button text
+
+Change-Id: I604ade99bf8fc4d1136bc88fb1a6b61e919cc3ed
+---
+ ui/PrinterPropertiesDialog.ui | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ui/PrinterPropertiesDialog.ui b/ui/PrinterPropertiesDialog.ui
+index c483f21..d7ac175 100644
+--- a/ui/PrinterPropertiesDialog.ui
++++ b/ui/PrinterPropertiesDialog.ui
+@@ -542,7 +542,7 @@
+                             <property name="homogeneous">True</property>
+                             <child>
+                               <object class="GtkButton" id="btnPrintTestPage">
+-                                <property name="label" translatable="yes" comments="Not more than 25 characters">Print Test Page</property>
++                                <property name="label" translatable="yes" comments="Not more than 25 characters">Print CUPS Test</property>
+                                 <property name="visible">True</property>
+                                 <property name="can_focus">True</property>
+                                 <property name="receives_default">False</property>
+-- 
+2.20.1
+
