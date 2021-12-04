@@ -1,3 +1,10 @@
+system-config-printer (1.5.14-1+grm3u1) unstable; urgency=medium
+
+  [ subin.kim ]
+  * [2f9f2487] rebased gooroom-3.0
+
+ -- Gooroom Autobuilder <jenkins@gooroom.kr>  Sat, 04 Dec 2021 17:36:17 +0900
+
 system-config-printer (1.5.14-1) unstable; urgency=medium
 
   * New upstream release
